@@ -16,16 +16,25 @@ import {
     ShieldAlert
 } from "lucide-react";
 import styles from "./Salud.module.css";
-import { getHealthServices } from "@/app/actions/data";
+import { getHealthServices, getOndutyPharmacies } from "@/app/actions/data";
 
 export default function SaludPage() {
     const [healthServices, setHealthServices] = useState<any[]>([]);
+    const [pharmacies, setPharmacies] = useState<any[]>([]);
+    const [pharmaciesDate, setPharmaciesDate] = useState("");
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchHealth = async () => {
-            const data = await getHealthServices();
+            const [data, pharms] = await Promise.all([
+                getHealthServices(),
+                getOndutyPharmacies()
+            ]);
             setHealthServices(data);
+            if (pharms) {
+                setPharmacies(pharms.pharmacies || []);
+                setPharmaciesDate(pharms.date || "");
+            }
             setLoading(false);
         };
         fetchHealth();
@@ -71,14 +80,46 @@ export default function SaludPage() {
                 </section>
 
                 <section className={styles.section}>
-                    <div className={styles.infoBox}>
+                    <h3 className={styles.sectionTitle}>Farmacias de Turno</h3>
+                    <div className={styles.infoBox} style={{ marginBottom: "1rem" }}>
                         <AlertCircle size={20} className={styles.infoIcon} />
-                        <p>Las <strong>Farmacias de Turno</strong> cambian diariamente. Se recomienda consultar el diario local o el Colegio de Farmacéuticos.</p>
+                        <p>Las <strong>Farmacias de Turno</strong> mostradas son tomadas automáticamente del Colegio de Farmacéuticos local.</p>
                     </div>
-                    <a href="https://www.osam.org.ar/farmacias-de-turno-en-pergamino/" target="_blank" rel="noopener noreferrer" className={styles.linkCard}>
-                        <span>Ver Farmacias de Turno Hoy</span>
-                        <ExternalLink size={18} />
-                    </a>
+
+                    {loading ? (
+                        <div className={styles.loading}>Cargando farmacias...</div>
+                    ) : pharmacies.length > 0 ? (
+                        <>
+                            {pharmaciesDate && <div className={styles.pharmDate}>{pharmaciesDate}</div>}
+                            <div className={styles.capsGrid}>
+                                {pharmacies.map((ph: any, i) => (
+                                    <motion.div
+                                        key={i}
+                                        className={styles.pharmacyCard}
+                                        initial={{ opacity: 0, y: 15 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: i * 0.05, duration: 0.3 }}
+                                        whileHover={{ scale: 1.02 }}
+                                    >
+                                        <div className={styles.pharmName}>{ph.name}</div>
+                                        <div className={styles.pharmItem}>
+                                            <MapPin size={14} />
+                                            <span>{ph.address}</span>
+                                        </div>
+                                        <a href={`tel:${ph.phone.replace(/\D/g, '')}`} className={styles.pharmItem} style={{ color: "var(--primary)", fontWeight: 600 }}>
+                                            <Phone size={14} />
+                                            <span>{ph.phone}</span>
+                                        </a>
+                                    </motion.div>
+                                ))}
+                            </div>
+                        </>
+                    ) : (
+                        <a href="https://www.osam.org.ar/farmacias-de-turno-en-pergamino/" target="_blank" rel="noopener noreferrer" className={styles.linkCard}>
+                            <span>No se pudieron cargar. Ver en OSAM Hoy</span>
+                            <ExternalLink size={18} />
+                        </a>
+                    )}
                 </section>
 
                 <section className={styles.section}>
