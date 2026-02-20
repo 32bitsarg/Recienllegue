@@ -9,6 +9,7 @@ import styles from "./Comida.module.css";
 import { motion } from "framer-motion";
 import { getRestaurants, getUserFavorites } from "@/app/actions/data";
 import FavoriteButton from "@/components/common/FavoriteButton";
+import LoadingScreen from "@/components/common/LoadingScreen";
 
 const categories = ["Todos", "Rotisería", "Bar", "Cafetería", "Restaurante"];
 
@@ -74,7 +75,7 @@ export default function ComidaPage() {
 
                 <div className={styles.list}>
                     {loading ? (
-                        <div className={styles.loading}>Cargando...</div>
+                        <LoadingScreen />
                     ) : filtered.length > 0 ? (
                         filtered.map((res, i) => (
                             <motion.div
@@ -86,7 +87,18 @@ export default function ComidaPage() {
                                 whileHover={{ scale: 1.01 }}
                             >
                                 <div className={styles.cardImage}>
-                                    <img src={res.image} alt={res.name} />
+                                    {res.image ? (
+                                        <img src={res.image} alt={res.name} />
+                                    ) : (
+                                        <div className={styles.imageFallback}>
+                                            <img
+                                                src={`https://api.dicebear.com/9.x/shapes/svg?seed=${res.id}&backgroundColor=f1f5f9,e2e8f0,cbd5e1`}
+                                                alt="Generated background"
+                                                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', opacity: 0.1 }}
+                                            />
+                                            <Utensils size={32} style={{ opacity: 0.2 }} />
+                                        </div>
+                                    )}
                                     <div className={styles.ratingBadge}>
                                         <Star size={10} fill="currentColor" />
                                         <span>{res.rating}</span>

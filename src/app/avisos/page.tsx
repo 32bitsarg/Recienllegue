@@ -9,6 +9,7 @@ import EmptyState from "@/components/common/EmptyState";
 import { Plus, MessageSquare, Clock, Tag as TagIcon, Filter, Flag, ShieldAlert } from "lucide-react";
 import styles from "./Avisos.module.css";
 import { getNotices } from "@/app/actions/data";
+import LoadingScreen from "@/components/common/LoadingScreen";
 
 const categories = ["Todos", "Vivienda", "Libros", "Eventos", "Otros"];
 
@@ -99,7 +100,7 @@ export default function AvisosPage() {
 
             <div className={styles.avisosList}>
                 {loading ? (
-                    <div className={styles.loading}>Cargando avisos...</div>
+                    <LoadingScreen />
                 ) : filteredAvisos.length > 0 ? (
                     filteredAvisos.map((aviso, i) => (
                         <motion.div

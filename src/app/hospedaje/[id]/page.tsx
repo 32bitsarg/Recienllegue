@@ -18,6 +18,8 @@ import {
 import styles from "./PropertyDetail.module.css";
 import { getPropertyById } from "@/app/actions/data";
 import EmptyState from "@/components/common/EmptyState";
+import LoadingScreen from "@/components/common/LoadingScreen";
+import { Building } from "lucide-react";
 
 export default function PropertyDetailPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = use(params);
@@ -34,14 +36,7 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
     }, [id]);
 
     if (loading) {
-        return (
-            <main className="safe-bottom">
-                <div className={styles.loadingFull}>
-                    <div className={styles.pulseLoader}></div>
-                    <p>Cargando detalles...</p>
-                </div>
-            </main>
-        );
+        return <LoadingScreen />;
     }
 
     if (!property) {
@@ -62,12 +57,23 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
 
     // Adapt Json fields (services and images)
     const services = Array.isArray(property.services) ? property.services : [];
-    const mainImage = property.mainImage || "https://images.unsplash.com/photo-1555854817-5b2260d50c47?q=80&w=800&fit=crop";
+    const mainImage = property.mainImage;
 
     return (
         <main className="safe-bottom">
             <div className={styles.hero}>
-                <img src={mainImage} alt={property.title} className={styles.heroImage} />
+                {mainImage ? (
+                    <img src={mainImage} alt={property.title} className={styles.heroImage} />
+                ) : (
+                    <div className={styles.imageFallback}>
+                        <img
+                            src={`https://api.dicebear.com/9.x/shapes/svg?seed=${id}&backgroundColor=f1f5f9,e2e8f0,cbd5e1`}
+                            alt="Generated background"
+                            style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', opacity: 0.1 }}
+                        />
+                        <Building size={64} className={styles.fallbackIcon} />
+                    </div>
+                )}
                 <div className={styles.topActions}>
                     <Link href="/hospedaje" className={styles.iconBtn}>
                         <ChevronLeft size={24} />
@@ -131,22 +137,29 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
                 <div className={styles.ownerCard}>
                     <div className={styles.ownerInfo}>
                         <div className={styles.ownerAvatar}>
-                            {(property.owner?.name || property.ownerName || "E").charAt(0)}
+                            {(property.ownerName || property.owner?.name || "E").charAt(0)}
                         </div>
                         <div>
                             <span className={styles.ownerLabel}>Publicado por</span>
-                            <span className={styles.ownerName}>{property.owner?.name || property.ownerName}</span>
+                            <span className={styles.ownerName}>{property.ownerName || property.owner?.name}</span>
                         </div>
                     </div>
                     <div className={styles.ownerActions}>
                         {property.ownerPhone && (
-                            <a href={`tel:${property.ownerPhone}`} className={styles.contactBtnAlt}>
-                                <Phone size={20} />
-                            </a>
+                            <>
+                                <a href={`tel:${property.ownerPhone}`} className={styles.contactBtnAlt} title="Llamar">
+                                    <Phone size={20} />
+                                </a>
+                                <a
+                                    href={`https://wa.me/${property.ownerPhone.replace(/\D/g, '')}?text=Hola!%20Te%20contacté%20desde%20Recién%20Llegué%20por%20el%20hospedaje:%20${encodeURIComponent(property.title)}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className={styles.contactBtn}
+                                >
+                                    <MessageCircle size={20} /> Contactar
+                                </a>
+                            </>
                         )}
-                        <button className={styles.contactBtn}>
-                            <MessageCircle size={20} /> Contactar
-                        </button>
                     </div>
                 </div>
             </div>

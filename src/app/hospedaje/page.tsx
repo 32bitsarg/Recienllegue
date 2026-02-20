@@ -5,11 +5,12 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import TopBar from "@/components/layout/TopBar";
 import EmptyState from "@/components/common/EmptyState";
-import { Search, Map as MapIcon, Wifi, User, CheckCircle, ChevronRight, Filter, Star } from "lucide-react";
+import { Search, Map as MapIcon, Wifi, User, CheckCircle, ChevronRight, Filter, Star, Building } from "lucide-react";
 import styles from "./Hospedaje.module.css";
 import { motion } from "framer-motion";
 import { getProperties, getUserFavorites } from "@/app/actions/data";
 import FavoriteButton from "@/components/common/FavoriteButton";
+import LoadingScreen from "@/components/common/LoadingScreen";
 
 export default function HospedajePage() {
     const { data: session } = useSession();
@@ -84,7 +85,7 @@ export default function HospedajePage() {
 
                 <div className={styles.list}>
                     {loading ? (
-                        <div className={styles.loading}>Cargando...</div>
+                        <LoadingScreen />
                     ) : filtered.length > 0 ? (
                         filtered.map((h, i) => (
                             <motion.div
@@ -95,17 +96,32 @@ export default function HospedajePage() {
                             >
                                 <div className={`${styles.card} ${h.sponsor ? styles.sponsorCard : ''}`}>
                                     <div className={styles.imageWrapper}>
-                                        <img src={h.mainImage} alt={h.title} />
-                                        {h.verified && (
-                                            <div className={styles.verifiedBadge}>
-                                                <CheckCircle size={12} /> Verificado
+                                        {h.mainImage ? (
+                                            <img src={h.mainImage} alt={h.title} />
+                                        ) : (
+                                            <div className={styles.imageFallback}>
+                                                <img
+                                                    src={`https://api.dicebear.com/9.x/shapes/svg?seed=${h.id}&backgroundColor=f1f5f9,e2e8f0,cbd5e1`}
+                                                    alt="Generated background"
+                                                    style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', opacity: 0.1 }}
+                                                />
+                                                <Building size={48} className={styles.fallbackIcon} />
+                                                <span style={{ fontSize: '0.75rem', fontWeight: 600 }}>Sin imagen disponible</span>
                                             </div>
                                         )}
-                                        {h.sponsor && (
-                                            <div className={styles.sponsorBadge}>
-                                                <Star size={12} fill="white" /> Sponsor
-                                            </div>
-                                        )}
+
+                                        <div className={styles.badgeList}>
+                                            {h.verified && (
+                                                <div className={styles.verifiedBadge}>
+                                                    <CheckCircle size={12} /> Verificado
+                                                </div>
+                                            )}
+                                            {h.sponsor && (
+                                                <div className={styles.sponsorBadge}>
+                                                    <Star size={12} fill="white" /> Sponsor
+                                                </div>
+                                            )}
+                                        </div>
                                         <div className={styles.priceBadge}>${Number(h.price).toLocaleString()} /mes</div>
 
                                         <FavoriteButton
