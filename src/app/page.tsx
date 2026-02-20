@@ -234,7 +234,7 @@ export default function Home() {
           </p>
         </div>
         <a
-          href="https://wa.me/54924771124025239?text=Hola!%20Vengo%20desde%20la%20app%20Recién%20Llegué"
+          href="https://wa.me/5491124025239?text=Hola!%20Vengo%20desde%20la%20app%20Recién%20Llegué"
           target="_blank"
           rel="noopener noreferrer"
           className={styles.contactButton}

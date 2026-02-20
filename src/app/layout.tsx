@@ -66,6 +66,29 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" style={{ colorScheme: 'light' }}>
+      <head>
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#6366f1" />
+        <link rel="apple-touch-icon" href="/assets/icons/Iconrmbg.png" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if ('serviceWorker' in navigator) {
+                window.addEventListener('load', function() {
+                  navigator.serviceWorker.register('/sw.js').then(
+                    function(registration) {
+                      console.log('SW registration successful with scope: ', registration.scope);
+                    },
+                    function(err) {
+                      console.log('SW registration failed: ', err);
+                    }
+                  );
+                });
+              }
+            `,
+          }}
+        />
+      </head>
       <body className={`${outfit.variable}`}>
         <AuthProvider>
           <LoadingScreen />

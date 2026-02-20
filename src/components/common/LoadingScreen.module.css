@@ -11,10 +11,9 @@
     justify-content: center;
 }
 
-@media (prefers-color-scheme: dark) {
-    .overlay {
-        background: #0f172a;
-    }
+.overlay {
+    background: #f8fafc;
+    /* Forcing standard light background */
 }
 
 .container {
