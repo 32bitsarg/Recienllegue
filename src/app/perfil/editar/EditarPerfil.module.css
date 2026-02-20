@@ -1,0 +1,184 @@
+.container {
+    padding: 1rem 1.5rem 2rem;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.header h1 {
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+.backBtn {
+    color: var(--foreground);
+    display: flex;
+    align-items: center;
+}
+
+.avatarSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+    text-align: center;
+}
+
+.avatarWrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.avatarMain {
+    border: 4px solid var(--surface);
+    border-radius: 50%;
+    box-shadow: var(--shadow-lg);
+    background: var(--surface);
+    display: block;
+}
+
+.refreshBtn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: var(--primary);
+    color: white;
+    border: 3px solid var(--surface);
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    transition: all 0.2s ease;
+}
+
+.refreshBtn:hover {
+    transform: rotate(30deg) scale(1.1);
+    background: var(--secondary);
+}
+
+.refreshBtn:active {
+    transform: scale(0.95);
+}
+
+.avatarNote {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+.avatarNote span {
+    font-weight: 700;
+    color: var(--primary);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.field label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.field input,
+.field textarea {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 0.85rem 1rem;
+    font-size: 1rem;
+    font-family: inherit;
+    color: var(--foreground);
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.field input:focus,
+.field textarea:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+}
+
+.gridFields {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+/* On tablets/desktops we can use two columns */
+@media (min-width: 480px) {
+    .gridFields {
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+}
+
+.saveBtn {
+    background: var(--primary);
+    color: white;
+    padding: 1.1rem;
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    border: none;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+    margin-top: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.saveBtn:active {
+    transform: scale(0.98);
+}
+
+.saveBtn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.errorMsg {
+    background: rgba(244, 63, 94, 0.1);
+    color: #f43f5e;
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.successMsg {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-align: center;
+}

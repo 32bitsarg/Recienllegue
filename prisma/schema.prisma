@@ -1,0 +1,296 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  ESTUDIANTE
+  DUENO
+  ADMIN
+}
+
+enum PropertyType {
+  RESIDENCIA
+  DEPARTAMENTO
+  CASA
+}
+
+enum Gender {
+  MIXTO
+  FEMENINO
+  MASCULINO
+  NA
+}
+
+enum FoodCategory {
+  ROTISERIA
+  BAR
+  CAFETERIA
+  RESTAURANTE
+}
+
+enum PriceRange {
+  BAJO
+  MEDIO
+  ALTO
+}
+
+enum NoticeCategory {
+  VIVIENDA
+  LIBROS
+  EVENTOS
+  OTROS
+}
+
+enum HealthType {
+  URGENCIA
+  HOSPITAL
+  CAPS
+}
+
+enum ReportStatus {
+  PENDIENTE
+  REVISADO
+  DESESTIMADO
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  username      String?   @unique
+  email         String?   @unique
+  passwordHash  String?
+  image         String?
+  avatarSeed    String?
+  role          Role      @default(ESTUDIANTE)
+  
+  // Perfil
+  bio           String?
+  campus        String?
+  gradYear      Int?
+  phone         String?
+  
+  // Relaciones
+  properties    Property[]
+  notices       Notice[]
+  comments      NoticeComment[]
+  savedItems    SavedItem[]
+  reportsMade   Report[]  @relation("Reporter")
+
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  active        Boolean   @default(true)
+
+  @@map("users")
+}
+
+model Property {
+  id           String       @id @default(cuid())
+  title        String
+  description  String       @db.Text
+  type         PropertyType
+  price        Decimal      @db.Decimal(10, 2)
+  address      String
+  distance     String
+  gender       Gender       @default(MIXTO)
+  verified     Boolean      @default(false)
+  sponsor      Boolean      @default(false)
+  ownerName    String
+  ownerPhone   String
+  mainImage    String
+  images       Json?        // Array de URLs
+  services     Json?        // Array de servicios
+  active       Boolean      @default(true)
+  
+  ownerId      String
+  owner        User         @relation(fields: [ownerId], references: [id])
+  
+  savedBy      SavedItem[]
+
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+
+  @@map("properties")
+}
+
+model Restaurant {
+  id             String       @id @default(cuid())
+  name           String
+  category       FoodCategory
+  rating         Float        @default(0)
+  prepTime       String?
+  priceRange     PriceRange   @default(MEDIO)
+  distance       String
+  image          String
+  featured       String?      // Especialidad
+  address        String
+  isFeaturedHome Boolean      @default(false)
+  
+  savedBy        SavedItem[]
+
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  @@map("restaurants")
+}
+
+model Notice {
+  id          String         @id @default(cuid())
+  title       String
+  description String         @db.Text
+  category    NoticeCategory @default(OTROS)
+  isReported  Boolean        @default(false)
+  
+  authorId    String
+  author      User           @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  
+  comments    NoticeComment[]
+  reports     Report[]
+
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  @@map("notices")
+}
+
+model NoticeComment {
+  id        String   @id @default(cuid())
+  content   String   @db.Text
+  
+  noticeId  String
+  notice    Notice   @relation(fields: [noticeId], references: [id], onDelete: Cascade)
+  
+  authorId  String
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  
+  reports   Report[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("notice_comments")
+}
+
+model HealthService {
+  id        String     @id @default(cuid())
+  name      String
+  number    String
+  address   String?
+  details   String?    @db.Text
+  type      HealthType
+  color     String?    // Hex code
+  lat       String?
+  lng       String?
+  
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  @@map("health_services")
+}
+
+model UniversitySede {
+  id        String   @id @default(cuid())
+  name      String
+  address   String
+  details   String?  @db.Text
+  phone     String?
+  lat       String?
+  lng       String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("university_sedes")
+}
+
+model UniversityService {
+  id        String   @id @default(cuid())
+  title     String
+  desc      String   @db.Text
+  contact   String?
+  link      String?
+  iconName  String?  // Name of the lucide icon
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("university_services")
+}
+
+model TransportLine {
+  id        String   @id @default(cuid())
+  name      String
+  color     String   // Hex code
+  route     String   @db.Text
+  frequency String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("transport_lines")
+}
+
+model TerminalRoute {
+  id          String   @id @default(cuid())
+  company     String
+  destination String
+  frequency   String
+  type        String   // Larga Distancia, Interurbano, Rural
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("terminal_routes")
+}
+
+model SavedItem {
+  id           String      @id @default(cuid())
+  
+  userId       String
+  user         User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  propertyId   String?
+  property     Property?   @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  
+  restaurantId String?
+  restaurant   Restaurant? @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+
+  createdAt    DateTime    @default(now())
+
+  @@unique([userId, propertyId, restaurantId])
+  @@map("saved_items")
+}
+
+model Report {
+  id              String       @id @default(cuid())
+  reason          String       @db.Text
+  status          ReportStatus @default(PENDIENTE)
+  
+  reporterId      String
+  reporter        User         @relation("Reporter", fields: [reporterId], references: [id])
+  
+  targetNoticeId  String?
+  targetNotice    Notice?      @relation(fields: [targetNoticeId], references: [id])
+  
+  targetCommentId String?
+  targetComment   NoticeComment? @relation(fields: [targetCommentId], references: [id])
+
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+
+  @@map("reports")
+}
+
+model Tip {
+  id        String   @id @default(cuid())
+  title     String
+  text      String   @db.Text
+  emoji     String   @default("💡")
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("tips")
+}

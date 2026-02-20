@@ -1,0 +1,55 @@
+.favoriteBtn {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid var(--border);
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+}
+
+.favoriteBtn:hover {
+    transform: scale(1.1);
+    background: white;
+}
+
+.favoriteBtn:active {
+    transform: scale(0.9);
+}
+
+.active {
+    border-color: #f43f5e;
+}
+
+.icon {
+    transition: all 0.2s ease;
+}
+
+.active .icon {
+    fill: #f43f5e;
+    color: #f43f5e;
+}
+
+.loading {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Position mapping for different card types */
+.pos_property {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+}
+
+.pos_restaurant {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+}

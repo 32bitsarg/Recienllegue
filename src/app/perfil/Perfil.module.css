@@ -1,0 +1,213 @@
+.loading {
+    padding: 3rem;
+    text-align: center;
+    color: var(--text-muted);
+}
+
+.guestContainer {
+    padding: 3rem 1.5rem;
+    text-align: center;
+}
+
+.avatarPlaceholder {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.guestIcon {
+    width: 200px;
+    height: auto;
+    filter: drop-shadow(0 4px 10px rgba(99, 102, 241, 0.2));
+}
+
+.authButtons {
+    margin-top: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.loginBtn {
+    background: var(--primary);
+    color: white;
+    padding: 1.1rem;
+    border-radius: var(--radius-md);
+    text-align: center;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.registerBtn {
+    background: var(--surface);
+    color: var(--foreground);
+    padding: 1.1rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    text-align: center;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.profileContainer {
+    padding: 1.5rem;
+}
+
+.profileHeader {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.avatar {
+    border: 3px solid var(--surface);
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface);
+    box-shadow: var(--shadow);
+}
+
+.editLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--primary);
+    text-decoration: none;
+    margin-top: 0.25rem;
+    background: rgba(99, 102, 241, 0.1);
+    padding: 0.2rem 0.6rem;
+    border-radius: var(--radius-full);
+}
+
+.bioSection {
+    margin-bottom: 1.5rem;
+    padding: 0 0.5rem;
+}
+
+.bioSection p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--foreground);
+    opacity: 0.9;
+}
+
+.detailsRow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+}
+
+.detailItem {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    background: var(--surface);
+    padding: 0.4rem 0.75rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+}
+
+.avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profileInfo h2 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 0.25rem;
+}
+
+.profileInfo p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.statsGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.statItem {
+    background: var(--surface);
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.statItem strong {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--primary);
+}
+
+.statItem span {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+.menuItem,
+.logoutBtn {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--foreground);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: background 0.2s ease;
+    background: transparent;
+    width: 100%;
+    text-align: left;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    cursor: pointer;
+}
+
+.menuItem:last-child,
+.logoutBtn {
+    border-bottom: none;
+}
+
+.menuItem:active,
+.logoutBtn:active {
+    background: var(--surface-hover);
+}
+
+.logoutBtn {
+    color: #f43f5e;
+}

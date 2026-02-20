@@ -1,0 +1,256 @@
+.hero {
+  padding: 1rem 1.5rem;
+}
+
+.heroContent {
+  background: linear-gradient(135deg, var(--primary), #8b5cf6);
+  padding: 2rem 1.5rem;
+  border-radius: var(--radius-lg);
+  color: white;
+  box-shadow: var(--shadow-lg);
+}
+
+.heroContent h2 {
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  line-height: 1.1;
+}
+
+.heroContent p {
+  font-size: 0.95rem;
+  opacity: 0.9;
+  max-width: 80%;
+}
+
+.section {
+  padding: 1.5rem 1.5rem 0.5rem;
+}
+
+.section:last-of-type {
+  padding-bottom: 2.5rem;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.sectionHeader h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.viewAll {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.85rem;
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.scrollHint {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  opacity: 0.6;
+  animation: scrollPulse 2s infinite;
+}
+
+@keyframes scrollPulse {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(4px);
+  }
+}
+
+.categoryGrid {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding: 0.5rem 1.5rem;
+  margin-left: -1.5rem;
+  margin-right: -1.5rem;
+  scrollbar-width: none;
+}
+
+.categoryGrid::-webkit-scrollbar {
+  display: none;
+}
+
+.categoryCard {
+  background: var(--surface);
+  padding: 1rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 100px;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+}
+
+.iconWrapper {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.categoryLabel {
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.categoryDesc {
+  display: none;
+  /* Hide description in small circular cards */
+}
+
+.tipCard {
+  background: rgba(245, 158, 11, 0.05);
+  border: 1px solid rgba(245, 158, 11, 0.1);
+  padding: 1.25rem;
+  border-radius: var(--radius-lg);
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.tipIcon {
+  font-size: 1.5rem;
+  background: white;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  box-shadow: var(--shadow);
+}
+
+.tipContent h4 {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #d97706;
+  margin-bottom: 0.2rem;
+}
+
+.tipContent p {
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: var(--foreground);
+}
+
+.tipNav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  flex-shrink: 0;
+}
+
+.tipNavBtn {
+  background: white;
+  border: 1px solid rgba(245, 158, 11, 0.15);
+  border-radius: 50%;
+  width: 1.75rem;
+  height: 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #d97706;
+  transition: all 0.15s ease;
+}
+
+.tipNavBtn:hover {
+  background: rgba(245, 158, 11, 0.1);
+  transform: scale(1.1);
+}
+
+.tipCounter {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #d97706;
+  opacity: 0.7;
+}
+
+.noticesList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.noticeItem {
+  background: var(--surface);
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.noticeIcon {
+  font-size: 1.25rem;
+}
+
+.noticeText h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 0.15rem;
+}
+
+.noticeText p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.noticeText span {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.loading {
+  padding: 2rem;
+  text-align: center;
+  color: var(--text-muted);
+  font-weight: 500;
+  animation: pulse 1.5s infinite;
+}
+
+.emptyContainer {
+  margin-top: 0.5rem;
+  transform: scale(0.9);
+  opacity: 0.9;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.6;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.6;
+  }
+}

@@ -1,0 +1,27 @@
+{
+    "name": "Recien Llegue",
+    "short_name": "RecienLlegue",
+    "description": "Tu guía de supervivencia para cuando recién llegás a la ciudad.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#6366f1",
+    "icons": [
+        {
+            "src": "/assets/icons/icon.jpg",
+            "sizes": "192x192",
+            "type": "image/jpeg"
+        },
+        {
+            "src": "/assets/icons/icon.jpg",
+            "sizes": "512x512",
+            "type": "image/jpeg"
+        },
+        {
+            "src": "/assets/icons/Iconrmbg.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ]
+}

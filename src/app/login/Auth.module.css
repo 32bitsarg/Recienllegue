@@ -1,0 +1,325 @@
+.container {
+    min-height: 100vh;
+    padding: 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    background: var(--background);
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-bottom: 3rem;
+}
+
+.backButton {
+    position: absolute;
+    left: 0;
+    font-size: 1.25rem;
+    color: var(--text-muted);
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.brandIcon {
+    width: 32px;
+    height: auto;
+}
+
+.logo span {
+    color: var(--primary);
+}
+
+.largeIconContainer {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.largeIcon {
+    width: 150px;
+    height: auto;
+    filter: drop-shadow(0 4px 15px rgba(99, 102, 241, 0.25));
+}
+
+.formSection {
+    flex: 1;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    line-height: 1.1;
+    text-align: center;
+}
+
+.subtitle {
+    color: var(--text-muted);
+    font-size: 1rem;
+    margin-bottom: 2.5rem;
+    line-height: 1.4;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.inputGroup {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.inputIcon {
+    position: absolute;
+    left: 1rem;
+    color: var(--text-muted);
+    pointer-events: none;
+}
+
+.input {
+    width: 100%;
+    padding: 1rem 1rem 1rem 3rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--foreground);
+    font-family: inherit;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+}
+
+.input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+}
+
+.primaryButton {
+    background: var(--primary);
+    color: white;
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
+    transition: transform 0.2s ease;
+}
+
+.primaryButton:active {
+    transform: scale(0.98);
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 2rem 0;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid var(--border);
+}
+
+.divider span {
+    padding: 0 0.75rem;
+}
+
+.socialGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.socialButton {
+    padding: 0.75rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    background: var(--surface);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.footer {
+    margin-top: 2rem;
+    text-align: center;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+
+.footer a {
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.terms {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-align: center;
+    line-height: 1.4;
+}
+
+.errorBanner {
+    background: rgba(244, 63, 94, 0.1);
+    color: #f43f5e;
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-align: center;
+    border: 1px solid rgba(244, 63, 94, 0.2);
+}
+
+/* Compact Styles for Register */
+.containerCompact {
+    min-height: 100vh;
+    padding: 1rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    background: var(--background);
+}
+
+.headerSmall {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.logoSmall {
+    font-size: 1.25rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.brandIconSmall {
+    width: 28px;
+    height: auto;
+}
+
+.logoSmall span {
+    color: var(--primary);
+}
+
+.largeIconContainerSmall {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0.75rem;
+}
+
+.largeIconSmall {
+    width: 120px;
+    height: auto;
+    filter: drop-shadow(0 4px 10px rgba(99, 102, 241, 0.2));
+}
+
+.formSectionCompact {
+    flex: 1;
+}
+
+.titleSmall {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.formCompact {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.inputGroupSmall {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.inputSmall {
+    width: 100%;
+    padding: 0.75rem 0.75rem 0.75rem 2.75rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--foreground);
+    font-size: 0.95rem;
+}
+
+.primaryButtonSmall {
+    background: var(--primary);
+    color: white;
+    padding: 0.85rem;
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    border: none;
+}
+
+.footerSmall {
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.termsCompact {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-align: center;
+    margin: 0.5rem 0;
+}
+
+.errorBannerSmall {
+    background: rgba(244, 63, 94, 0.1);
+    color: #f43f5e;
+    padding: 0.75rem;
+    border-radius: var(--radius-md);
+    margin-bottom: 1rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.closeButton {
+    position: absolute;
+    right: 0;
+    font-size: 1.25rem;
+    color: var(--text-muted);
+    text-decoration: none;
+}

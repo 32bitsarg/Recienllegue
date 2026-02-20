@@ -1,0 +1,208 @@
+.container {
+    padding: 1rem 1.5rem 2rem;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.backBtn {
+    color: var(--foreground);
+    display: flex;
+    align-items: center;
+}
+
+.header h1 {
+    font-size: 1.25rem;
+    font-weight: 800;
+}
+
+.noticeCard {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow);
+}
+
+.noticeMeta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.categoryTag {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--primary);
+    background: rgba(99, 102, 241, 0.1);
+    padding: 0.3rem 0.6rem;
+    border-radius: var(--radius-sm);
+}
+
+.date {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.noticeTitle {
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.authorCard {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    padding: 0.75rem;
+    background: rgba(0, 0, 0, 0.02);
+    border-radius: var(--radius-md);
+}
+
+.authorInfo h4 {
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.authorInfo p {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.noticeContent {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--foreground);
+    white-space: pre-wrap;
+}
+
+/* Comments Section */
+.commentsSection {
+    margin-top: 1rem;
+}
+
+.commentsSection h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.commentList {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+}
+
+.commentItem {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.commentBubble {
+    flex: 1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 1rem;
+    border-radius: 0 1rem 1rem 1rem;
+}
+
+.commentHeader {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.4rem;
+}
+
+.commentAuthor {
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.commentDate {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+}
+
+.commentText {
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+/* Comment Form */
+.commentForm {
+    position: sticky;
+    bottom: 1rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 0.75rem;
+    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.05);
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-end;
+}
+
+.commentInput {
+    flex: 1;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 0.6rem 0.8rem;
+    font-size: 0.9rem;
+    resize: none;
+    max-height: 100px;
+}
+
+.commentInput:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.sendBtn {
+    background: var(--primary);
+    color: white;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.sendBtn:disabled {
+    opacity: 0.5;
+}
+
+.loading {
+    padding: 4rem;
+    text-align: center;
+    color: var(--text-muted);
+}
+
+.error {
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.error h2 {
+    margin: 1rem 0;
+}
+
+.retryBtn {
+    color: var(--primary);
+    font-weight: 700;
+    text-decoration: underline;
+}

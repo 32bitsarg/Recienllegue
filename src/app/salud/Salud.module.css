@@ -1,0 +1,232 @@
+.container {
+    padding: 1rem 1.5rem 2rem;
+}
+
+.hero {
+    margin-bottom: 2rem;
+}
+
+.hero h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+}
+
+.hero p {
+    color: var(--text-muted);
+    font-size: 1rem;
+}
+
+.emergencyGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 2.5rem;
+}
+
+.emergencyCard {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-bottom: 4px solid var(--accent);
+    padding: 1rem 0.5rem;
+    border-radius: var(--radius-lg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+.emName {
+    font-size: 0.6rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.25rem;
+}
+
+.emNumber {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--foreground);
+}
+
+.emIcon {
+    margin-top: 0.5rem;
+    color: var(--accent);
+    opacity: 0.8;
+}
+
+.section {
+    margin-bottom: 2.5rem;
+}
+
+.sectionTitle {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.sectionDesc {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+}
+
+.infoBox {
+    background: rgba(245, 158, 11, 0.05);
+    border: 1px solid rgba(245, 158, 11, 0.2);
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.infoIcon {
+    color: #f59e0b;
+    flex-shrink: 0;
+}
+
+.infoBox p {
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+.linkCard {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 1.25rem;
+    border-radius: var(--radius-lg);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
+    color: var(--foreground);
+    font-weight: 700;
+    box-shadow: var(--shadow);
+}
+
+.locationCard {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 1.25rem;
+    border-radius: var(--radius-lg);
+    margin-bottom: 1rem;
+    box-shadow: var(--shadow);
+}
+
+.locHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.locType {
+    font-size: 0.65rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--primary);
+}
+
+.locHeader h4 {
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.locBadge {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.2rem 0.6rem;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.locBody {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.locItem {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.locDetails {
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    line-height: 1.4;
+    color: var(--foreground);
+    opacity: 0.8;
+}
+
+.capsGrid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.capsCard {
+    background: var(--background);
+    border: 1px solid var(--border);
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    display: flex;
+    flex-direction: column;
+}
+
+.capsCard strong {
+    font-size: 0.9rem;
+}
+
+.capsCard span {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.noData {
+    grid-column: 1 / -1;
+    padding: 2rem;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    background: var(--surface);
+    border-radius: var(--radius-md);
+    border: 1px dashed var(--border);
+}
+
+.loading {
+    padding: 3rem;
+    text-align: center;
+    color: var(--text-muted);
+    font-weight: 500;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 0.6;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.6;
+    }
+}

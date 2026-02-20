@@ -1,0 +1,150 @@
+.container {
+    padding: 1rem 1.5rem 2rem;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.backBtn {
+    color: var(--foreground);
+}
+
+.header h1 {
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+.reportList {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.reportCard {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem;
+    box-shadow: var(--shadow);
+}
+
+.status_PENDIENTE {
+    border-left: 4px solid #f43f5e;
+}
+
+.status_REVISADO {
+    border-left: 4px solid #10b981;
+}
+
+.status_DESESTIMADO {
+    border-left: 4px solid var(--text-muted);
+}
+
+.reportHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.badge {
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    text-transform: uppercase;
+}
+
+.badgeNotice {
+    background: rgba(99, 102, 241, 0.1);
+    color: var(--primary);
+}
+
+.badgeComment {
+    background: rgba(244, 63, 94, 0.1);
+    color: #f43f5e;
+}
+
+.date {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.reason {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+}
+
+.targetContent {
+    background: var(--background);
+    padding: 0.75rem;
+    border-radius: var(--radius-md);
+    margin-bottom: 1.25rem;
+    font-size: 0.85rem;
+    border-left: 2px solid var(--border);
+}
+
+.targetContent h4 {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+}
+
+.reporter {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 1.25rem;
+}
+
+.actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+}
+
+.actionBtn {
+    flex: 1;
+    min-width: 100px;
+    padding: 0.6rem;
+    border-radius: var(--radius-md);
+    font-size: 0.8rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    transition: all 0.2s ease;
+}
+
+.dismissBtn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+}
+
+.deleteBtn {
+    background: #f43f5e;
+    color: white;
+}
+
+.viewBtn {
+    background: var(--primary);
+    color: white;
+}
+
+.actionBtn:disabled {
+    opacity: 0.5;
+}
+
+.empty {
+    padding: 4rem 2rem;
+    text-align: center;
+    color: var(--text-muted);
+}
