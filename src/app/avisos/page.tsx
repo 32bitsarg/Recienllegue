@@ -48,23 +48,21 @@ export default function AvisosPage() {
                 <div className={styles.header}>
                     <div className={styles.titleSection}>
                         <h2>Comunidad</h2>
-                        <p>Iniciá sesión para ver y publicar avisos.</p>
+                        <p>Explorá los avisos de la comunidad.</p>
                     </div>
                 </div>
-                <div className={styles.avisosList} style={{ marginTop: '2rem' }}>
-                    <div className={styles.guestAvisos}>
-                        <ShieldAlert size={80} className={styles.guestIcon} />
+                <div className={styles.avisosList}>
+                    <motion.div
+                        className={styles.guestAvisos}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5 }}
+                    >
+                        <ShieldAlert size={60} className={styles.guestIcon} />
                         <h3>Contenido Protegido</h3>
-                        <p>Solo los estudiantes verificados pueden ver el tablón de la comunidad.</p>
-                        <div className={styles.authButtons}>
-                            <Link href="/login" className={styles.loginBtn}>Entrar</Link>
-                            <Link href="/registro" className={styles.registerBtn}>Registrarme</Link>
-                        </div>
-                    </div>
+                        <p>Solo los miembros verificados pueden interactuar en el tablón de la comunidad.</p>
+                    </motion.div>
                 </div>
-                <Link href="/login" className={styles.fab} title="Iniciá sesión">
-                    <Plus size={24} color="white" />
-                </Link>
             </main>
         );
     }

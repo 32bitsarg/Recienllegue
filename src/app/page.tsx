@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import TopBar from "@/components/layout/TopBar";
@@ -13,11 +14,14 @@ import {
   Bus,
   Stethoscope,
   ChevronRight,
-  ChevronLeft
+  ChevronLeft,
+  MessageCircle,
+  Phone
 } from "lucide-react";
 import { getNotices, getTips } from "@/app/actions/data";
 
 export default function Home() {
+  const { data: session } = useSession();
   const [latestNotices, setLatestNotices] = useState<any[]>([]);
   const [tips, setTips] = useState<any[]>([]);
   const [currentTip, setCurrentTip] = useState(0);
@@ -83,8 +87,8 @@ export default function Home() {
         animate={{ opacity: 1, y: 0 }}
       >
         <div className={styles.heroContent}>
-          <h2>Bienvenido a Pergamino</h2>
-          <p>Tu guía de supervivencia.</p>
+          <h2>¿Recién llegaste?</h2>
+          <p>No te preocupes, acá tenés todo para arrancar.</p>
         </div>
       </motion.section>
 
@@ -159,37 +163,52 @@ export default function Home() {
 
       <section className={styles.section}>
         <div className={styles.sectionHeader}>
-          <h3>Tablón de la Comunidad</h3>
-          <Link href="/avisos" className={styles.viewAll}>Ver todo <ChevronRight size={16} /></Link>
+          <h3>Agencias de Remises</h3>
+          <span className={styles.viewAll}>Disponibles 24hs</span>
         </div>
-        <div className={styles.noticesList}>
-          {loading ? (
-            <div className={styles.loading}>Cargando comunidad...</div>
-          ) : latestNotices.length > 0 ? (
-            latestNotices.map((notice, i) => (
-              <motion.div
-                key={notice.id}
-                className={styles.noticeItem}
-                whileHover={{ x: 5 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <div className={styles.noticeIcon}>💬</div>
-                <div className={styles.noticeText}>
-                  <h4>{notice.title}</h4>
-                  <p>Publicado por <span>@{notice.author?.name || "Estudiante"}</span> • {notice.category}</p>
-                </div>
-              </motion.div>
-            ))
-          ) : (
-            <div className={styles.emptyContainer}>
-              <EmptyState
-                title="Comunidad en silencio"
-                message="Sé el primero en dar el primer paso."
-              />
+        <div className={styles.remisesGrid}>
+          {[
+            { nombre: "Remis San José", numero: "02477434000", featured: true, info: "Cerca de UNNOBA y Hospital" },
+            { nombre: "Remis Yrigoyen", numero: "02477430072" },
+            { nombre: "Remis Stop", numero: "02477430585" }
+          ].map((remise, i) => (
+            <div key={i} className={`${styles.remiseCard} ${remise.featured ? styles.remiseCardFeatured : ""}`}>
+              {remise.featured && <span className={styles.badge}>Recomendado</span>}
+              <div className={styles.remiseInfo}>
+                <h4>{remise.nombre}</h4>
+                <p>{remise.info || remise.numero}</p>
+              </div>
+              <a href={`tel:${remise.numero}`} className={styles.callBtn}>
+                <Phone size={14} />
+                Llamar
+              </a>
             </div>
-          )}
+          ))}
         </div>
       </section>
-    </main>
+
+      <motion.section
+        className={styles.contactSection}
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+      >
+        <div className={styles.contactContent}>
+          <h4>¿Querés sumarte?</h4>
+          <p>
+            Si sos dueño de un alojamiento, comercio, o querés reportar un problema, ¡escribime!
+          </p>
+        </div>
+        <a
+          href="https://wa.me/54924771124025239?text=Hola!%20Vengo%20desde%20la%20app%20Recién%20Llegué"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={styles.contactButton}
+        >
+          <MessageCircle size={20} />
+          Contactar por WhatsApp
+        </a>
+      </motion.section>
+    </main >
   );
 }

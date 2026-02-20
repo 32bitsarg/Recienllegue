@@ -9,12 +9,12 @@ const outfit = Outfit({
 
 export const metadata: Metadata = {
   title: {
-    default: "El Estudiante - La Guía de Pergamino",
-    template: "%s | El Estudiante",
+    default: "Recién Llegué - La Guía de Pergamino",
+    template: "%s | Recién Llegué",
   },
-  description: "La plataforma definitiva para estudiantes en Pergamino. Encontrá hospedaje, comida, servicios de salud e info de la UNNOBA en un solo lugar.",
+  description: "La plataforma definitiva para quienes llegan a Pergamino. Encontrá hospedaje, comida, servicios de salud e info de la UNNOBA en un solo lugar.",
   keywords: ["Pergamino", "UNNOBA", "Estudiantes", "Hospedaje", "Residencias", "Guía Universitaria"],
-  authors: [{ name: "El Estudiante Team" }],
+  authors: [{ name: "Recién Llegué Team" }],
   manifest: "/manifest.json",
   robots: {
     index: true,
@@ -23,23 +23,27 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "es_AR",
-    siteName: "El Estudiante",
-    title: "El Estudiante - La Guía de Pergamino",
-    description: "Tu guía de supervivencia universitaria en Pergamino. Hospedaje, comida, transporte, salud y más.",
+    siteName: "Recién Llegué",
+    title: "Recién Llegué - La Guía de Pergamino",
+    description: "Tu guía de supervivencia en Pergamino. Hospedaje, comida, transporte, salud y más.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "El Estudiante - La Guía de Pergamino",
-    description: "Tu guía de supervivencia universitaria en Pergamino.",
+    title: "Recién Llegué - La Guía de Pergamino",
+    description: "Tu guía de supervivencia en Pergamino.",
   },
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "El Estudiante",
+    title: "Recién Llegué",
   },
   icons: {
-    icon: "/assets/icons/Iconrmbg.png",
-    apple: "/assets/icons/icon.jpg",
+    icon: [
+      { url: "/assets/icons/Iconrmbg.png" },
+      { url: "/favicon.ico" }
+    ],
+    shortcut: "/assets/icons/Iconrmbg.png",
+    apple: "/assets/icons/Iconrmbg.png",
   },
 };
 
