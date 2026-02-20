@@ -9,11 +9,11 @@ const outfit = Outfit({
 
 export const metadata: Metadata = {
   title: {
-    default: "Recién Llegué - La Guía de Pergamino",
+    default: "Recién Llegué",
     template: "%s | Recién Llegué",
   },
-  description: "La plataforma definitiva para quienes llegan a Pergamino. Encontrá hospedaje, comida, servicios de salud e info de la UNNOBA en un solo lugar.",
-  keywords: ["Pergamino", "UNNOBA", "Estudiantes", "Hospedaje", "Residencias", "Guía Universitaria"],
+  description: "Tu guía en Pergamino. Encontrá hospedaje, comida, remises y servicios en un solo lugar.",
+  keywords: ["Pergamino", "Recién Llegué", "Hospedaje", "Remises", "Guía"],
   authors: [{ name: "Recién Llegué Team" }],
   manifest: "/manifest.json",
   robots: {
@@ -24,12 +24,12 @@ export const metadata: Metadata = {
     type: "website",
     locale: "es_AR",
     siteName: "Recién Llegué",
-    title: "Recién Llegué - La Guía de Pergamino",
+    title: "Recién Llegué",
     description: "Tu guía de supervivencia en Pergamino. Hospedaje, comida, transporte, salud y más.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Recién Llegué - La Guía de Pergamino",
+    title: "Recién Llegué",
     description: "Tu guía de supervivencia en Pergamino.",
   },
   appleWebApp: {
@@ -40,7 +40,6 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: "/assets/icons/Iconrmbg.png" },
-      { url: "/favicon.ico" }
     ],
     shortcut: "/assets/icons/Iconrmbg.png",
     apple: "/assets/icons/Iconrmbg.png",
@@ -66,7 +65,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es">
+    <html lang="es" style={{ colorScheme: 'light' }}>
       <body className={`${outfit.variable}`}>
         <AuthProvider>
           <LoadingScreen />

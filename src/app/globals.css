@@ -30,18 +30,6 @@
   --glass-blur: 12px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #020617;
-    --foreground: #f8fafc;
-    --surface: #1e293b;
-    --surface-hover: #334155;
-    --border: #334155;
-    --text-muted: #94a3b8;
-    --glass: rgba(15, 23, 42, 0.7);
-    --glass-border: rgba(255, 255, 255, 0.1);
-  }
-}
 
 * {
   box-sizing: border-box;
@@ -85,12 +73,6 @@ ul {
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-@media (prefers-color-scheme: dark) {
-  .glass {
-    background: rgba(15, 23, 42, 0.7);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-  }
-}
 
 .mobile-container {
   max-width: 500px;
