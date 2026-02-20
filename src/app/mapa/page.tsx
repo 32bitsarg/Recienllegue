@@ -6,7 +6,7 @@ import dynamic from "next/dynamic";
 import TopBar from "@/components/layout/TopBar";
 import BottomNav from "@/components/layout/BottomNav";
 import { Search, Info } from "lucide-react";
-import { getUniversitySedes, getHealthServices } from "@/app/actions/data";
+import { getUniversitySedes, getHealthServices, getTransportLines } from "@/app/actions/data";
 import type { MapPOI } from "@/components/map/SurvivalMap";
 
 const SurvivalMap = dynamic(() => import("@/components/map/SurvivalMap"), {
@@ -31,12 +31,14 @@ function MapContent() {
     const activeLine = searchParams.get('line') || undefined;
     const [pois, setPois] = useState<MapPOI[]>([]);
     const [searchQuery, setSearchQuery] = useState("");
+    const [activePolyline, setActivePolyline] = useState<{ color: string, path: any[] } | undefined>(undefined);
 
     useEffect(() => {
         const fetchPOIs = async () => {
-            const [sedes, health] = await Promise.all([
+            const [sedes, health, lines] = await Promise.all([
                 getUniversitySedes(),
-                getHealthServices()
+                getHealthServices(),
+                getTransportLines()
             ]);
 
             const mapPois: MapPOI[] = [];
@@ -67,10 +69,46 @@ function MapContent() {
             });
 
             setPois(mapPois);
+
+            if (activeLine) {
+                const line: any = lines.find((l: any) => l.id === activeLine);
+                if (line && line.kmlFile) {
+                    try {
+                        const res = await fetch(line.kmlFile);
+                        if (res.ok) {
+                            const text = await res.text();
+                            const matches = [...text.matchAll(/<coordinates>([\s\S]*?)<\/coordinates>/g)];
+                            if (matches.length > 0) {
+                                const allPaths: [number, number][][] = [];
+                                matches.forEach(match => {
+                                    const coordsStr = match[1].trim();
+                                    const points = coordsStr.split(/\s+/).map((p: string) => {
+                                        const parts = p.split(",");
+                                        if (parts.length >= 2) {
+                                            return [parseFloat(parts[1]), parseFloat(parts[0])] as [number, number];
+                                        }
+                                        return null;
+                                    }).filter((p: any) => p !== null && !isNaN(p[0]) && !isNaN(p[1])) as [number, number][];
+
+                                    if (points.length > 0) {
+                                        allPaths.push(points);
+                                    }
+                                });
+
+                                if (allPaths.length > 0) {
+                                    setActivePolyline({ color: line.color, path: allPaths });
+                                }
+                            }
+                        }
+                    } catch (e) {
+                        console.error("Failed to fetch or parse KML:", e);
+                    }
+                }
+            }
         };
 
         fetchPOIs();
-    }, []);
+    }, [activeLine]);
 
     const filteredPois = searchQuery.trim()
         ? pois.filter(p =>

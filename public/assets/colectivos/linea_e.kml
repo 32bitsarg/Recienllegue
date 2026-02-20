@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:ns2="http://www.google.com/kml/ext/2.2" xmlns:ns3="http://www.w3.org/2005/Atom" xmlns:ns4="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0">
+    <Document>
+        <Schema name="linea_e_1" id="linea_e_1">
+            <SimpleField type="string" name="recorrido"/>
+            <SimpleField type="string" name="fuente"/>
+            <SimpleField type="string" name="actualizacion"/>
+            <SimpleField type="double" name="longitud_km"/>
+            <SimpleField type="string" name="nombre_linea"/>
+            <SimpleField type="string" name="ramal"/>
+        </Schema>
+        <Folder>
+            <name>linea_e</name>
+            <Placemark id="linea_e.9">
+                <ExtendedData>
+                    <SchemaData schemaUrl="#linea_e_1">
+                        <SimpleData name="recorrido">VUELTA</SimpleData>
+                        <SimpleData name="fuente">La Nueva Perla SA</SimpleData>
+                        <SimpleData name="actualizacion">2022</SimpleData>
+                        <SimpleData name="longitud_km">8.286</SimpleData>
+                        <SimpleData name="nombre_linea">Línea 1</SimpleData>
+                        <SimpleData name="ramal">E</SimpleData>
+                    </SchemaData>
+                </ExtendedData>
+                <LineString>
+                    <coordinates>-60.539571040803736,-33.890605039181935 -60.53948442224991,-33.89199532007294 -60.53941610261744,-33.89390946105534 -60.53999884886958,-33.89391962830941 -60.54261763847185,-33.89189017638723 -60.545821731301686,-33.894814745589144 -60.548442206041024,-33.89278986364517 -60.548713518070905,-33.89273107857002 -60.55194582290876,-33.89566495925496 -60.55210937261117,-33.895674309217064 -60.56389003019868,-33.8917515146055 -60.564140292094564,-33.89185049739004 -60.56570973661573,-33.89513901826246 -60.57353050339451,-33.89257628556227 -60.580066428812614,-33.89036897015527 -60.585859570286374,-33.88848673010208 -60.597099921120545,-33.884657633348745 -60.61267073564102,-33.87948706267586 -60.612715085869624,-33.87958886983645</coordinates>
+                </LineString>
+            </Placemark>
+            <Placemark id="linea_e.10">
+                <ExtendedData>
+                    <SchemaData schemaUrl="#linea_e_1">
+                        <SimpleData name="recorrido">IDA</SimpleData>
+                        <SimpleData name="fuente">La Nueva Perla SA</SimpleData>
+                        <SimpleData name="actualizacion">2022</SimpleData>
+                        <SimpleData name="longitud_km">8.19</SimpleData>
+                        <SimpleData name="nombre_linea">Línea 1</SimpleData>
+                        <SimpleData name="ramal">E</SimpleData>
+                    </SchemaData>
+                </ExtendedData>
+                <LineString>
+                    <coordinates>-60.612715085869624,-33.87958886983645 -60.59721086156544,-33.884743204802156 -60.58588324414873,-33.88853506212239 -60.58010649923953,-33.89045211599055 -60.573571056667966,-33.89267521399115 -60.56580645905974,-33.89522404995773 -60.56555580502483,-33.89514900179674 -60.56397317766442,-33.89184346982796 -60.55990021466584,-33.89319115933975 -60.55977168292862,-33.893235464201226 -60.55968494297994,-33.893199027134436 -60.55965398363678,-33.89310358732295 -60.55936038157681,-33.89252105893785 -60.559214145874634,-33.892282644999696 -60.558856101009255,-33.89154360970466 -60.556642773054584,-33.88687150604429 -60.5462956419977,-33.890418811300684 -60.546168416109154,-33.89051746662511 -60.544536109154535,-33.88907367419226 -60.54094111877973,-33.89183162691073 -60.539575844026494,-33.890618090969745</coordinates>
+                </LineString>
+            </Placemark>
+        </Folder>
+    </Document>
+</kml>

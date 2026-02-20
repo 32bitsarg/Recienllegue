@@ -18,23 +18,26 @@ import {
   MessageCircle,
   Phone
 } from "lucide-react";
-import { getNotices, getTips } from "@/app/actions/data";
+import { getNotices, getTips, getFeaturedRestaurants } from "@/app/actions/data";
 
 export default function Home() {
   const { data: session } = useSession();
   const [latestNotices, setLatestNotices] = useState<any[]>([]);
   const [tips, setTips] = useState<any[]>([]);
   const [currentTip, setCurrentTip] = useState(0);
+  const [featuredFood, setFeaturedFood] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
-      const [noticesData, tipsData] = await Promise.all([
+      const [noticesData, tipsData, foodData] = await Promise.all([
         getNotices(),
-        getTips()
+        getTips(),
+        getFeaturedRestaurants()
       ]);
       setLatestNotices(noticesData.slice(0, 2));
       setTips(tipsData);
+      setFeaturedFood(foodData);
       setLoading(false);
     };
     fetchData();
@@ -51,7 +54,7 @@ export default function Home() {
 
   const categories = [
     { icon: <HomeIcon size={24} />, label: "Hospedaje", color: "#6366f1", description: "Residencias y deptos", href: "/hospedaje" },
-    { icon: <Utensils size={24} />, label: "Comida", color: "#f43f5e", description: "Rotiserías y bares", href: "/comida" },
+    { icon: <Utensils size={24} />, label: "Comida & Comercios", color: "#f43f5e", description: "Lugares para comer y comprar", href: "/comida" },
     { icon: <GraduationCap size={24} />, label: "UNNOBA", color: "#10b981", description: "Trámites y sedes", href: "/unnoba" },
     { icon: <Bus size={24} />, label: "Transporte", color: "#06b6d4", description: "Colectivos y remises", href: "/transporte" },
     { icon: <Stethoscope size={24} />, label: "Salud", color: "#8b5cf6", description: "Guardias y farmacias", href: "/salud" },
@@ -159,6 +162,37 @@ export default function Home() {
             )}
           </div>
         </motion.section>
+      )}
+
+      {featuredFood.length > 0 && (
+        <section className={styles.section}>
+          <div className={styles.sectionHeader}>
+            <h3>Sugerencias</h3>
+            <Link href="/comida" className={styles.viewAll}>Ver todo <ChevronRight size={14} /></Link>
+          </div>
+          <div className={styles.featuredFoodGrid}>
+            {featuredFood.map((food, i) => (
+              <Link href="/comida" key={food.id || i} className={styles.featuredFoodCard}>
+                {food.image ? (
+                  <img src={food.image} alt={food.name} className={styles.featuredFoodImage} />
+                ) : (
+                  <div className={styles.featuredFoodFallback} style={{ position: 'relative' }}>
+                    <img
+                      src={`https://api.dicebear.com/9.x/shapes/svg?seed=${food.id || i}&backgroundColor=f1f5f9,e2e8f0,cbd5e1`}
+                      alt="Generated background"
+                      style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', opacity: 0.1, objectFit: 'cover' }}
+                    />
+                    <Utensils size={32} style={{ opacity: 0.2, zIndex: 1 }} />
+                  </div>
+                )}
+                <div className={styles.featuredFoodInfo}>
+                  <h4>{food.name}</h4>
+                  <p>{food.featured || food.category}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
       )}
 
       <section className={styles.section}>

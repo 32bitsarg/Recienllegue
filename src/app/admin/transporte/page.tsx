@@ -23,7 +23,7 @@ export default function AdminTransportePage() {
     const [showForm, setShowForm] = useState(false);
     const [editingId, setEditingId] = useState<string | null>(null);
 
-    const emptyLineForm = { name: "", color: "#10b981", schedule: "", route: "", frequency: "" };
+    const emptyLineForm = { name: "", color: "#10b981", schedule: "", route: "", frequency: "", kmlFile: "" };
     const emptyRouteForm = { destination: "", company: "", schedule: "", estimatedTime: "", price: "" };
 
     const [lineForm, setLineForm] = useState(emptyLineForm);
@@ -81,7 +81,7 @@ export default function AdminTransportePage() {
     };
 
     const handleEditLine = (l: any) => {
-        setLineForm({ name: l.name, color: l.color, schedule: l.schedule, route: l.route, frequency: l.frequency || "" });
+        setLineForm({ name: l.name, color: l.color, schedule: l.schedule, route: l.route, frequency: l.frequency || "", kmlFile: l.kmlFile || "" });
         setEditingId(l.id);
         setShowForm(true);
         setActiveSection('LINES');
@@ -271,6 +271,21 @@ export default function AdminTransportePage() {
                     <div className={styles.field}>
                         <label>Horarios</label>
                         <input value={lineForm.schedule} onChange={e => setLineForm({ ...lineForm, schedule: e.target.value })} placeholder="Ej: 6:30 a 22:00" required />
+                    </div>
+                    <div className={styles.field}>
+                        <label>Archivo KML de Recorrido</label>
+                        <select
+                            value={lineForm.kmlFile}
+                            onChange={e => setLineForm({ ...lineForm, kmlFile: e.target.value })}
+                        >
+                            <option value="">-- Sin archivo (ruta por defecto) --</option>
+                            <option value="/assets/colectivos/linea_a.kml">Línea A</option>
+                            <option value="/assets/colectivos/linea_b.kml">Línea B</option>
+                            <option value="/assets/colectivos/linea_c.kml">Línea C</option>
+                            <option value="/assets/colectivos/linea_d.kml">Línea D</option>
+                            <option value="/assets/colectivos/linea_e.kml">Línea E</option>
+                            <option value="/assets/colectivos/colectivos_urbanos.kml">Todos los colectivos</option>
+                        </select>
                     </div>
                     <button className={styles.submitBtn} disabled={loading}>
                         {loading ? "Guardando..." : editingId ? "Actualizar Línea" : "Guardar Línea"}

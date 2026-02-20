@@ -16,37 +16,7 @@ const fixLeafletIcon = () => {
     });
 };
 
-// Bus Route Definitions (Approximate paths for Pergamino)
-const busRoutes: Record<string, { color: string, path: [number, number][] }> = {
-    "A": {
-        color: "#10b981",
-        path: [
-            [-33.9103, -60.5693],
-            [-33.905, -60.57],
-            [-33.8908, -60.5689],
-            [-33.882, -60.575],
-            [-33.875, -60.58],
-        ]
-    },
-    "B": {
-        color: "#6366f1",
-        path: [
-            [-33.9137, -60.5868],
-            [-33.905, -60.58],
-            [-33.8908, -60.5689],
-            [-33.895, -60.575],
-            [-33.90076, -60.58988],
-        ]
-    },
-    "C": {
-        color: "#f43f5e",
-        path: [
-            [-33.885, -60.55],
-            [-33.8908, -60.5689],
-            [-33.9137, -60.5868],
-        ]
-    }
-};
+
 
 export interface MapPOI {
     id: string;
@@ -97,7 +67,7 @@ const categoryLabels: Record<string, string> = {
     other: '📍 Otro'
 };
 
-const SurvivalMap = ({ activeLine, pois = [] }: { activeLine?: string; pois?: MapPOI[] }) => {
+const SurvivalMap = ({ activeLine, pois = [], activePolyline }: { activeLine?: string; pois?: MapPOI[], activePolyline?: { color: string, path: any[] } }) => {
     useEffect(() => {
         fixLeafletIcon();
     }, []);
@@ -114,10 +84,10 @@ const SurvivalMap = ({ activeLine, pois = [] }: { activeLine?: string; pois?: Ma
                 url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
             />
 
-            {activeLine && busRoutes[activeLine] && (
+            {activePolyline && activePolyline.path.length > 0 && (
                 <Polyline
-                    positions={busRoutes[activeLine].path}
-                    pathOptions={{ color: busRoutes[activeLine].color, weight: 6, opacity: 0.7 }}
+                    positions={activePolyline.path}
+                    pathOptions={{ color: activePolyline.color, weight: 6, opacity: 0.7 }}
                 />
             )}
 
@@ -139,7 +109,7 @@ const SurvivalMap = ({ activeLine, pois = [] }: { activeLine?: string; pois?: Ma
                 </Marker>
             ))}
 
-            {pois.length === 0 && !activeLine && (
+            {pois.length === 0 && !activeLine && !activePolyline && (
                 <Marker position={[-33.8908, -60.5689]}>
                     <Popup>
                         <div style={{ padding: '4px' }}>

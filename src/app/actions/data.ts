@@ -25,6 +25,18 @@ export async function getRestaurants() {
     }
 }
 
+export async function getFeaturedRestaurants() {
+    try {
+        return await prisma.restaurant.findMany({
+            where: { isFeaturedHome: true },
+            orderBy: { rating: "desc" },
+        });
+    } catch (error) {
+        console.error("Error fetching featured restaurants:", error);
+        return [];
+    }
+}
+
 export async function getHealthServices() {
     try {
         return await prisma.healthService.findMany({

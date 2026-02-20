@@ -54,6 +54,40 @@
     color: var(--foreground);
 }
 
+.sectionHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.sectionHeader h3 {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.scrollHint {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    opacity: 0.6;
+    animation: scrollPulse 2s infinite;
+}
+
+@keyframes scrollPulse {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(4px);
+    }
+}
+
 .categories {
     display: flex;
     gap: 0.5rem;

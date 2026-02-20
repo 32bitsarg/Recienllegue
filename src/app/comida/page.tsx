@@ -11,7 +11,7 @@ import { getRestaurants, getUserFavorites } from "@/app/actions/data";
 import FavoriteButton from "@/components/common/FavoriteButton";
 import LoadingScreen from "@/components/common/LoadingScreen";
 
-const categories = ["Todos", "Rotisería", "Bar", "Cafetería", "Restaurante"];
+const categories = ["Todos", "Rotisería", "Bar", "Cafetería", "Restaurante", "Kiosco", "Carnicería", "Fiambrería", "Panadería", "Supermercado", "Dietética", "Verdulería", "Otro"];
 
 export default function ComidaPage() {
     const { data: session } = useSession();
@@ -33,9 +33,11 @@ export default function ComidaPage() {
         loadData();
     }, [session]);
 
+    const normalize = (str: string) => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+
     const filtered = activeCategory === "Todos"
         ? restaurants
-        : restaurants.filter(r => r.category.toLowerCase() === activeCategory.toLowerCase());
+        : restaurants.filter(r => normalize(r.category) === normalize(activeCategory));
 
     return (
         <main className="safe-bottom">
@@ -55,6 +57,14 @@ export default function ComidaPage() {
                     <button className={styles.filterBtn}>
                         <Filter size={18} />
                     </button>
+                </div>
+
+                <div className={styles.sectionHeader}>
+                    <h3>Filtros</h3>
+                    <div className={styles.scrollHint}>
+                        <span>Deslizar</span>
+                        <ChevronRight size={14} />
+                    </div>
                 </div>
 
                 <div className={styles.categories}>

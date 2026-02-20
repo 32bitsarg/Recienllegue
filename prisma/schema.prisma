@@ -33,6 +33,14 @@ enum FoodCategory {
   BAR
   CAFETERIA
   RESTAURANTE
+  KIOSCO
+  CARNICERIA
+  FIAMBRERIA
+  PANADERIA
+  SUPERMERCADO
+  DIETETICA
+  VERDULERIA
+  OTRO
 }
 
 enum PriceRange {
@@ -226,7 +234,9 @@ model TransportLine {
   name      String
   color     String   // Hex code
   route     String   @db.Text
+  kmlFile   String?
   frequency String
+  schedule  String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -237,8 +247,11 @@ model TerminalRoute {
   id          String   @id @default(cuid())
   company     String
   destination String
-  frequency   String
-  type        String   // Larga Distancia, Interurbano, Rural
+  frequency     String?
+  type          String?   // Larga Distancia, Interurbano, Rural
+  schedule      String?
+  estimatedTime String?
+  price         String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 

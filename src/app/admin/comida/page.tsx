@@ -15,7 +15,7 @@ import Link from "next/link";
 import ImageUpload from "@/components/admin/ImageUpload";
 import styles from "../AdminForm.module.css";
 
-const FOOD_CATEGORIES = ["ROTISERIA", "BAR", "CAFETERIA", "RESTAURANTE"];
+const FOOD_CATEGORIES = ["ROTISERIA", "BAR", "CAFETERIA", "RESTAURANTE", "KIOSCO", "CARNICERIA", "FIAMBRERIA", "PANADERIA", "SUPERMERCADO", "DIETETICA", "VERDULERIA", "OTRO"];
 const PRICE_RANGES = ["BAJO", "MEDIO", "ALTO"];
 
 export default function AdminComidaPage() {
@@ -112,7 +112,7 @@ export default function AdminComidaPage() {
         } catch { alert("Error"); }
     };
 
-    const categoryLabel: Record<string, string> = { ROTISERIA: "Rotisería", BAR: "Bar", CAFETERIA: "Cafetería", RESTAURANTE: "Restaurante" };
+    const categoryLabel: Record<string, string> = { ROTISERIA: "Rotisería", BAR: "Bar", CAFETERIA: "Cafetería", RESTAURANTE: "Restaurante", KIOSCO: "Kiosco", CARNICERIA: "Carnicería", FIAMBRERIA: "Fiambrería", PANADERIA: "Panadería", SUPERMERCADO: "Supermercado", DIETETICA: "Dietética", VERDULERIA: "Verdulería", OTRO: "Otro" };
 
     return (
         <div className={styles.container}>

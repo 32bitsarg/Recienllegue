@@ -2,18 +2,32 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import dynamic from "next/dynamic";
 import TopBar from "@/components/layout/TopBar";
 import BottomNav from "@/components/layout/BottomNav";
-import { Bus, Map as MapIcon, Clock, ArrowRightLeft, ExternalLink, Info } from "lucide-react";
+import { Bus, Map as MapIcon, Clock, ArrowRightLeft, ExternalLink, Info, ChevronDown, ChevronUp } from "lucide-react";
 import { getTransportLines, getTerminalRoutes } from "@/app/actions/data";
 import styles from "./Transporte.module.css";
+
+const SurvivalMap = dynamic(() => import("@/components/map/SurvivalMap"), {
+    ssr: false,
+    loading: () => (
+        <div style={{ height: '300px', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--surface-hover)', borderRadius: 'var(--radius-lg)' }}>
+            <p>Cargando mapa...</p>
+        </div>
+    )
+});
 
 export default function TransportePage() {
     const [activeTab, setActiveTab] = useState("urbano");
     const [urbanLines, setUrbanLines] = useState<any[]>([]);
     const [terminalRoutes, setTerminalRoutes] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
+
+    const [activeMapLineId, setActiveMapLineId] = useState<string | null>(null);
+    const [activePolyline, setActivePolyline] = useState<{ color: string, path: any[] } | undefined>(undefined);
+    const [mapLoading, setMapLoading] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -27,6 +41,53 @@ export default function TransportePage() {
         };
         fetchData();
     }, []);
+
+    const handleToggleMap = async (line: any) => {
+        if (activeMapLineId === line.id) {
+            setActiveMapLineId(null);
+            setActivePolyline(undefined);
+            return;
+        }
+
+        setActiveMapLineId(line.id);
+        setActivePolyline(undefined);
+
+        if (line.kmlFile) {
+            setMapLoading(true);
+            try {
+                const res = await fetch(line.kmlFile);
+                if (res.ok) {
+                    const text = await res.text();
+                    const matches = [...text.matchAll(/<coordinates>([\s\S]*?)<\/coordinates>/g)];
+                    if (matches.length > 0) {
+                        const allPaths: [number, number][][] = [];
+                        matches.forEach(match => {
+                            const coordsStr = match[1].trim();
+                            const points = coordsStr.split(/\s+/).map((p: string) => {
+                                const parts = p.split(",");
+                                if (parts.length >= 2) {
+                                    return [parseFloat(parts[1]), parseFloat(parts[0])] as [number, number];
+                                }
+                                return null;
+                            }).filter((p: any) => p !== null && !isNaN(p[0]) && !isNaN(p[1])) as [number, number][];
+
+                            if (points.length > 0) {
+                                allPaths.push(points);
+                            }
+                        });
+
+                        if (allPaths.length > 0) {
+                            setActivePolyline({ color: line.color, path: allPaths });
+                        }
+                    }
+                }
+            } catch (e) {
+                console.error("Failed to fetch KML:", e);
+            } finally {
+                setMapLoading(false);
+            }
+        }
+    };
 
     return (
         <main className="safe-bottom">
@@ -84,9 +145,38 @@ export default function TransportePage() {
                                             <MapIcon size={14} color="var(--text-muted)" />
                                             <span>{line.route}</span>
                                         </div>
-                                        <Link href={`/mapa?line=${line.id}`} className={styles.viewRouteBtn}>
-                                            Ver recorrido en el mapa <ExternalLink size={14} />
-                                        </Link>
+
+                                        <button
+                                            onClick={() => handleToggleMap(line)}
+                                            className={styles.viewRouteBtn}
+                                        >
+                                            {activeMapLineId === line.id ? "Ocultar recorrido" : "Ver recorrido en el mapa"}
+                                            {activeMapLineId === line.id ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+                                        </button>
+
+                                        <AnimatePresence>
+                                            {activeMapLineId === line.id && (
+                                                <motion.div
+                                                    initial={{ height: 0, opacity: 0 }}
+                                                    animate={{ height: "auto", opacity: 1 }}
+                                                    exit={{ height: 0, opacity: 0 }}
+                                                    style={{ overflow: 'hidden', marginTop: '1rem' }}
+                                                >
+                                                    <div style={{ height: '300px', width: '100%', borderRadius: 'var(--radius-lg)', overflow: 'hidden', border: '1px solid var(--border)', position: 'relative' }}>
+                                                        {mapLoading && !activePolyline && (
+                                                            <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--surface)', zIndex: 10 }}>
+                                                                <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Cargando ruta...</p>
+                                                            </div>
+                                                        )}
+                                                        <SurvivalMap
+                                                            activePolyline={activePolyline}
+                                                            pois={[]}
+                                                        />
+                                                    </div>
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
+
                                     </motion.div>
                                 ))}
                             </div>
