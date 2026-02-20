@@ -9,7 +9,7 @@ import {
     deleteRestaurant
 } from "@/app/actions/data";
 import {
-    ChevronLeft, Utensils, Star, CheckCircle, Save, Plus, X, Edit3, Trash2
+    ChevronLeft, Utensils, Star, CheckCircle, Save, Plus, X, Edit3, Trash2, Search
 } from "lucide-react";
 import Link from "next/link";
 import ImageUpload from "@/components/admin/ImageUpload";
@@ -26,6 +26,8 @@ export default function AdminComidaPage() {
     const [loadingList, setLoadingList] = useState(true);
     const [showForm, setShowForm] = useState(false);
     const [editingId, setEditingId] = useState<string | null>(null);
+    const [searchQuery, setSearchQuery] = useState("");
+    const [filterCategory, setFilterCategory] = useState("TODOS");
 
     const emptyForm = {
         name: "",
@@ -141,6 +143,31 @@ export default function AdminComidaPage() {
                 </button>
             </div>
 
+            {!showForm && (
+                <div style={{ display: 'flex', gap: '1rem', marginBottom: '1.5rem', flexWrap: 'wrap' }}>
+                    <div style={{ flex: 1, minWidth: '200px', display: 'flex', alignItems: 'center', background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 'var(--radius-md)', padding: '0 0.75rem' }}>
+                        <Search size={16} color="var(--text-muted)" />
+                        <input
+                            type="text"
+                            placeholder="Buscar por nombre..."
+                            value={searchQuery}
+                            onChange={e => setSearchQuery(e.target.value)}
+                            style={{ width: '100%', border: 'none', background: 'transparent', padding: '0.75rem 0.5rem', outline: 'none', color: 'var(--foreground)' }}
+                        />
+                    </div>
+                    <select
+                        value={filterCategory}
+                        onChange={e => setFilterCategory(e.target.value)}
+                        style={{ padding: '0.75rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--border)', background: 'var(--surface)', color: 'var(--foreground)', outline: 'none', minWidth: '150px' }}
+                    >
+                        <option value="TODOS">Todas las categorías</option>
+                        {Array.from(new Set(restaurants.map(r => r.category).filter(Boolean))).sort().map(cat => (
+                            <option key={cat} value={cat}>{categoryLabel[cat] || cat}</option>
+                        ))}
+                    </select>
+                </div>
+            )}
+
             {loadingList ? (
                 <p style={{ color: 'var(--text-muted)', textAlign: 'center', padding: '2rem' }}>Cargando...</p>
             ) : restaurants.length === 0 && !showForm ? (
@@ -150,62 +177,68 @@ export default function AdminComidaPage() {
                 </div>
             ) : (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '2rem' }}>
-                    {restaurants.map(r => (
-                        <div key={r.id} style={{
-                            background: 'var(--surface)', border: '1px solid var(--border)',
-                            borderRadius: 'var(--radius-lg)', padding: '1rem'
-                        }}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                                <div>
-                                    <div style={{ display: 'flex', gap: '0.4rem', marginBottom: '0.3rem', flexWrap: 'wrap' }}>
-                                        <span style={{
-                                            fontSize: '0.65rem', fontWeight: 700, padding: '2px 6px',
-                                            borderRadius: '4px', background: 'rgba(244,63,94,0.1)', color: '#f43f5e'
-                                        }}>{categoryLabel[r.category] || r.category}</span>
-                                        <span style={{
-                                            fontSize: '0.65rem', fontWeight: 700, padding: '2px 6px',
-                                            borderRadius: '4px', background: 'rgba(99,102,241,0.1)', color: '#6366f1'
-                                        }}>{r.priceRange}</span>
-                                        {r.isFeaturedHome && (
+                    {restaurants
+                        .filter(r => {
+                            const matchSearch = r.name.toLowerCase().includes(searchQuery.toLowerCase());
+                            const matchCategory = filterCategory === "TODOS" || r.category === filterCategory;
+                            return matchSearch && matchCategory;
+                        })
+                        .map(r => (
+                            <div key={r.id} style={{
+                                background: 'var(--surface)', border: '1px solid var(--border)',
+                                borderRadius: 'var(--radius-lg)', padding: '1rem'
+                            }}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                                    <div>
+                                        <div style={{ display: 'flex', gap: '0.4rem', marginBottom: '0.3rem', flexWrap: 'wrap' }}>
                                             <span style={{
                                                 fontSize: '0.65rem', fontWeight: 700, padding: '2px 6px',
-                                                borderRadius: '4px', background: 'rgba(245,158,11,0.1)', color: '#f59e0b'
-                                            }}>⭐ Destacado</span>
-                                        )}
+                                                borderRadius: '4px', background: 'rgba(244,63,94,0.1)', color: '#f43f5e'
+                                            }}>{categoryLabel[r.category] || r.category}</span>
+                                            <span style={{
+                                                fontSize: '0.65rem', fontWeight: 700, padding: '2px 6px',
+                                                borderRadius: '4px', background: 'rgba(99,102,241,0.1)', color: '#6366f1'
+                                            }}>{r.priceRange}</span>
+                                            {r.isFeaturedHome && (
+                                                <span style={{
+                                                    fontSize: '0.65rem', fontWeight: 700, padding: '2px 6px',
+                                                    borderRadius: '4px', background: 'rgba(245,158,11,0.1)', color: '#f59e0b'
+                                                }}>⭐ Destacado</span>
+                                            )}
+                                        </div>
+                                        <h4 style={{ fontWeight: 700, fontSize: '0.95rem' }}>{r.name}</h4>
+                                        <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{r.address} · ⭐{r.rating}</p>
                                     </div>
-                                    <h4 style={{ fontWeight: 700, fontSize: '0.95rem' }}>{r.name}</h4>
-                                    <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{r.address} · ⭐{r.rating}</p>
+                                </div>
+                                <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap', marginTop: '0.5rem' }}>
+                                    <button onClick={() => handleToggleFeatured(r.id, r.isFeaturedHome)}
+                                        style={{
+                                            padding: '0.35rem 0.6rem', borderRadius: '6px', fontSize: '0.75rem', fontWeight: 600,
+                                            background: r.isFeaturedHome ? 'rgba(245,158,11,0.15)' : 'var(--background)',
+                                            color: r.isFeaturedHome ? '#f59e0b' : 'var(--text-muted)', border: '1px solid var(--border)',
+                                            display: 'flex', alignItems: 'center', gap: '3px'
+                                        }}>
+                                        <Star size={12} /> {r.isFeaturedHome ? 'Quitar Destacado' : 'Destacar'}
+                                    </button>
+                                    <button onClick={() => handleEdit(r)}
+                                        style={{
+                                            padding: '0.35rem 0.6rem', borderRadius: '6px', fontSize: '0.75rem', fontWeight: 600,
+                                            background: 'var(--background)', color: 'var(--primary)', border: '1px solid var(--border)',
+                                            display: 'flex', alignItems: 'center', gap: '3px'
+                                        }}>
+                                        <Edit3 size={12} /> Editar
+                                    </button>
+                                    <button onClick={() => handleDelete(r.id)}
+                                        style={{
+                                            padding: '0.35rem 0.6rem', borderRadius: '6px', fontSize: '0.75rem', fontWeight: 600,
+                                            background: 'rgba(244,63,94,0.05)', color: '#f43f5e', border: '1px solid rgba(244,63,94,0.2)',
+                                            display: 'flex', alignItems: 'center', gap: '3px'
+                                        }}>
+                                        <Trash2 size={12} /> Eliminar
+                                    </button>
                                 </div>
                             </div>
-                            <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap', marginTop: '0.5rem' }}>
-                                <button onClick={() => handleToggleFeatured(r.id, r.isFeaturedHome)}
-                                    style={{
-                                        padding: '0.35rem 0.6rem', borderRadius: '6px', fontSize: '0.75rem', fontWeight: 600,
-                                        background: r.isFeaturedHome ? 'rgba(245,158,11,0.15)' : 'var(--background)',
-                                        color: r.isFeaturedHome ? '#f59e0b' : 'var(--text-muted)', border: '1px solid var(--border)',
-                                        display: 'flex', alignItems: 'center', gap: '3px'
-                                    }}>
-                                    <Star size={12} /> {r.isFeaturedHome ? 'Quitar Destacado' : 'Destacar'}
-                                </button>
-                                <button onClick={() => handleEdit(r)}
-                                    style={{
-                                        padding: '0.35rem 0.6rem', borderRadius: '6px', fontSize: '0.75rem', fontWeight: 600,
-                                        background: 'var(--background)', color: 'var(--primary)', border: '1px solid var(--border)',
-                                        display: 'flex', alignItems: 'center', gap: '3px'
-                                    }}>
-                                    <Edit3 size={12} /> Editar
-                                </button>
-                                <button onClick={() => handleDelete(r.id)}
-                                    style={{
-                                        padding: '0.35rem 0.6rem', borderRadius: '6px', fontSize: '0.75rem', fontWeight: 600,
-                                        background: 'rgba(244,63,94,0.05)', color: '#f43f5e', border: '1px solid rgba(244,63,94,0.2)',
-                                        display: 'flex', alignItems: 'center', gap: '3px'
-                                    }}>
-                                    <Trash2 size={12} /> Eliminar
-                                </button>
-                            </div>
-                        </div>
-                    ))}
+                        ))}
                 </div>
             )}
 
@@ -221,9 +254,7 @@ export default function AdminComidaPage() {
                     <div className={styles.row}>
                         <div className={styles.field}>
                             <label>Categoría</label>
-                            <select name="category" value={formData.category} onChange={handleChange}>
-                                {FOOD_CATEGORIES.map(c => <option key={c} value={c}>{categoryLabel[c] || c}</option>)}
-                            </select>
+                            <input name="category" value={formData.category} onChange={handleChange} placeholder="Ej: Pizzería, Bar..." required />
                         </div>
                         <div className={styles.field}>
                             <label>Rango de Precio</label>

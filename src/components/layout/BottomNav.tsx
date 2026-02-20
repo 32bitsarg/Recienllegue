@@ -10,10 +10,10 @@ const BottomNav = () => {
     const pathname = usePathname();
 
     const navItems = [
-        { icon: <Home size={22} />, label: "Inicio", href: "/" },
-        { icon: <MapPin size={22} />, label: "Mapa", href: "/mapa" },
-        { icon: <Bell size={22} />, label: "Avisos", href: "/avisos" },
-        { icon: <User size={22} />, label: "Perfil", href: "/perfil" },
+        { icon: <Home size={18} />, label: "Inicio", href: "/" },
+        { icon: <MapPin size={18} />, label: "Mapa", href: "/mapa" },
+        { icon: <Bell size={18} />, label: "Avisos", href: "/avisos" },
+        { icon: <User size={18} />, label: "Perfil", href: "/perfil" },
     ];
 
     return (

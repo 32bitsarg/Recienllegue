@@ -16,9 +16,14 @@ import {
   ChevronRight,
   ChevronLeft,
   MessageCircle,
-  Phone
+  Phone,
+  Calendar,
+  MapPin,
+  Clock,
+  X,
+  ExternalLink
 } from "lucide-react";
-import { getNotices, getTips, getFeaturedRestaurants } from "@/app/actions/data";
+import { getNotices, getTips, getFeaturedRestaurants, getCityEvents } from "@/app/actions/data";
 
 export default function Home() {
   const { data: session } = useSession();
@@ -26,18 +31,22 @@ export default function Home() {
   const [tips, setTips] = useState<any[]>([]);
   const [currentTip, setCurrentTip] = useState(0);
   const [featuredFood, setFeaturedFood] = useState<any[]>([]);
+  const [events, setEvents] = useState<any[]>([]);
+  const [selectedEvent, setSelectedEvent] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
-      const [noticesData, tipsData, foodData] = await Promise.all([
+      const [noticesData, tipsData, foodData, eventsData] = await Promise.all([
         getNotices(),
         getTips(),
-        getFeaturedRestaurants()
+        getFeaturedRestaurants(),
+        getCityEvents()
       ]);
       setLatestNotices(noticesData.slice(0, 2));
       setTips(tipsData);
       setFeaturedFood(foodData);
+      setEvents(eventsData.filter((e: any) => e.isFeatured));
       setLoading(false);
     };
     fetchData();
@@ -164,6 +173,58 @@ export default function Home() {
         </motion.section>
       )}
 
+      {/* Events Section */}
+      {events.length > 0 && (
+        <section className={styles.section}>
+          <div className={styles.sectionHeader}>
+            <h3>Eventos en la ciudad</h3>
+            <span className={styles.viewAll} style={{ color: '#d97706' }}>No te los pierdas</span>
+          </div>
+          <div className={styles.eventsGrid}>
+            {events.map((ev, i) => {
+              const content = (
+                <>
+                  {ev.imageUrl ? (
+                    <img src={ev.imageUrl} alt={ev.title} className={styles.eventImage} />
+                  ) : (
+                    <div className={styles.eventImage} style={{ background: 'linear-gradient(135deg, #f59e0b, #d97706)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white' }}>
+                      <Calendar size={48} style={{ opacity: 0.5 }} />
+                    </div>
+                  )}
+                  <div className={styles.eventHeader}>
+                    <div className={styles.eventDateBadge}>
+                      <Calendar size={12} /> {ev.date}
+                    </div>
+                  </div>
+                  <div className={styles.eventInfo}>
+                    <h4 className={styles.eventTitle}>{ev.title}</h4>
+                    {ev.description && <p className={styles.eventDesc}>{ev.description}</p>}
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', marginTop: '0.25rem' }}>
+                      {ev.location && (
+                        <div className={styles.eventMeta}>
+                          <MapPin size={12} /> {ev.location}
+                        </div>
+                      )}
+                      {ev.time && (
+                        <div className={styles.eventMeta}>
+                          <Clock size={12} /> {ev.time}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </>
+              );
+
+              return (
+                <div key={ev.id} className={styles.eventCard} onClick={() => setSelectedEvent(ev)}>
+                  {content}
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      )}
+
       {featuredFood.length > 0 && (
         <section className={styles.section}>
           <div className={styles.sectionHeader}>
@@ -243,6 +304,73 @@ export default function Home() {
           Contactar por WhatsApp
         </a>
       </motion.section>
+
+      <AnimatePresence>
+        {selectedEvent && (
+          <motion.div
+            className={styles.modalOverlay}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedEvent(null)}
+          >
+            <motion.div
+              className={styles.modalContent}
+              initial={{ scale: 0.9, y: 20, opacity: 0 }}
+              animate={{ scale: 1, y: 0, opacity: 1 }}
+              exit={{ scale: 0.9, y: 20, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className={styles.modalHeader}>
+                {selectedEvent.imageUrl ? (
+                  <img src={selectedEvent.imageUrl} alt={selectedEvent.title} />
+                ) : (
+                  <div className={styles.imageFallback} style={{ height: '100%', background: 'linear-gradient(135deg, #f59e0b, #d97706)' }}>
+                    <Calendar size={48} style={{ opacity: 0.2, color: 'white' }} />
+                  </div>
+                )}
+                <button className={styles.modalCloseBtn} onClick={() => setSelectedEvent(null)}>
+                  <X size={20} />
+                </button>
+              </div>
+              <div className={styles.modalBody}>
+                <div className={styles.modalCategory} style={{ color: '#d97706', background: 'rgba(217,119,6,0.1)' }}>
+                  Evento Destacado
+                </div>
+                <h2 className={styles.modalTitle}>{selectedEvent.title}</h2>
+                <div className={styles.modalDetails} style={{ marginBottom: '1rem', marginTop: '1rem' }}>
+                  <div className={styles.modalDetailRow} style={{ color: '#d97706' }}>
+                    <Calendar size={16} />
+                    <span>{selectedEvent.date}</span>
+                  </div>
+                  {selectedEvent.time && (
+                    <div className={styles.modalDetailRow}>
+                      <Clock size={16} />
+                      <span>{selectedEvent.time}</span>
+                    </div>
+                  )}
+                  {selectedEvent.location && (
+                    <div className={styles.modalDetailRow}>
+                      <MapPin size={16} />
+                      <span>{selectedEvent.location}</span>
+                    </div>
+                  )}
+                </div>
+                {selectedEvent.description && (
+                  <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: 1.5, marginBottom: '1.5rem', whiteSpace: 'pre-wrap' }}>
+                    {selectedEvent.description}
+                  </p>
+                )}
+                {selectedEvent.link && (
+                  <a href={selectedEvent.link} target="_blank" rel="noopener noreferrer" className={styles.eventLinkBtn}>
+                    Ver más información <ExternalLink size={16} />
+                  </a>
+                )}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </main >
   );
 }

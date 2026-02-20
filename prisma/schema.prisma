@@ -28,23 +28,9 @@ enum Gender {
   NA
 }
 
-enum FoodCategory {
-  ROTISERIA
-  BAR
-  CAFETERIA
-  RESTAURANTE
-  KIOSCO
-  CARNICERIA
-  FIAMBRERIA
-  PANADERIA
-  SUPERMERCADO
-  DIETETICA
-  VERDULERIA
-  OTRO
-}
+// FoodCategory enum removed for dynamic strings
 
 enum PriceRange {
-  BAJO
   MEDIO
   ALTO
 }
@@ -130,7 +116,7 @@ model Property {
 model Restaurant {
   id             String       @id @default(cuid())
   name           String
-  category       FoodCategory
+  category       String
   rating         Float        @default(0)
   prepTime       String?
   priceRange     PriceRange   @default(MEDIO)
@@ -256,6 +242,22 @@ model TerminalRoute {
   updatedAt   DateTime @updatedAt
 
   @@map("terminal_routes")
+}
+
+model CityEvent {
+  id          String   @id @default(cuid())
+  title       String
+  description String   @db.Text
+  date        String
+  time        String?
+  location    String?
+  imageUrl    String?
+  link        String?
+  isFeatured  Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("city_events")
 }
 
 model SavedItem {

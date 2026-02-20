@@ -4,21 +4,30 @@ import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import TopBar from "@/components/layout/TopBar";
 import EmptyState from "@/components/common/EmptyState";
-import { Search, Utensils, Star, Clock, MapPin, ChevronRight, Filter } from "lucide-react";
+import { Search, Utensils, Star, Clock, MapPin, ChevronRight, Filter, X } from "lucide-react";
 import styles from "./Comida.module.css";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { getRestaurants, getUserFavorites } from "@/app/actions/data";
 import FavoriteButton from "@/components/common/FavoriteButton";
 import LoadingScreen from "@/components/common/LoadingScreen";
 
-const categories = ["Todos", "Rotisería", "Bar", "Cafetería", "Restaurante", "Kiosco", "Carnicería", "Fiambrería", "Panadería", "Supermercado", "Dietética", "Verdulería", "Otro"];
+
 
 export default function ComidaPage() {
     const { data: session } = useSession();
     const [activeCategory, setActiveCategory] = useState("Todos");
+    const [searchQuery, setSearchQuery] = useState("");
+    const [currentPage, setCurrentPage] = useState(1);
+    const [selectedRestaurant, setSelectedRestaurant] = useState<any>(null);
     const [restaurants, setRestaurants] = useState<any[]>([]);
     const [savedIds, setSavedIds] = useState<string[]>([]);
     const [loading, setLoading] = useState(true);
+
+    const ITEMS_PER_PAGE = 10;
+
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [activeCategory, searchQuery]);
 
     useEffect(() => {
         const loadData = async () => {
@@ -35,9 +44,21 @@ export default function ComidaPage() {
 
     const normalize = (str: string) => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 
-    const filtered = activeCategory === "Todos"
-        ? restaurants
-        : restaurants.filter(r => normalize(r.category) === normalize(activeCategory));
+    const filtered = restaurants.filter(r => {
+        const matchesCategory = activeCategory === "Todos" || normalize(r.category) === normalize(activeCategory);
+        const matchesSearch = searchQuery === "" ||
+            normalize(r.name).includes(normalize(searchQuery)) ||
+            normalize(r.category).includes(normalize(searchQuery));
+        return matchesCategory && matchesSearch;
+    });
+
+    const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
+    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+    const currentItems = filtered.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+
+    // Obtener las categorías únicas de los restaurantes reales
+    const rawCategories = Array.from(new Set(restaurants.map(r => r.category).filter(Boolean)));
+    const categories = ["Todos", ...rawCategories.sort()];
 
     return (
         <main className="safe-bottom">
@@ -52,7 +73,12 @@ export default function ComidaPage() {
                 <div className={styles.searchSection}>
                     <div className={styles.searchBar}>
                         <Search size={18} color="var(--text-muted)" />
-                        <input type="text" placeholder="¿Qué se te antoja?" />
+                        <input
+                            type="text"
+                            placeholder="¿Qué se te antoja?"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                        />
                     </div>
                     <button className={styles.filterBtn}>
                         <Filter size={18} />
@@ -86,8 +112,8 @@ export default function ComidaPage() {
                 <div className={styles.list}>
                     {loading ? (
                         <LoadingScreen />
-                    ) : filtered.length > 0 ? (
-                        filtered.map((res, i) => (
+                    ) : currentItems.length > 0 ? (
+                        currentItems.map((res, i) => (
                             <motion.div
                                 key={res.id}
                                 className={styles.restaurantCard}
@@ -95,6 +121,7 @@ export default function ComidaPage() {
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ delay: i * 0.1 }}
                                 whileHover={{ scale: 1.01 }}
+                                onClick={() => setSelectedRestaurant(res)}
                             >
                                 <div className={styles.cardImage}>
                                     {res.image ? (
@@ -113,11 +140,13 @@ export default function ComidaPage() {
                                         <Star size={10} fill="currentColor" />
                                         <span>{res.rating}</span>
                                     </div>
-                                    <FavoriteButton
-                                        itemId={res.id}
-                                        type="restaurant"
-                                        initialIsSaved={savedIds.includes(res.id)}
-                                    />
+                                    <div onClick={(e) => e.stopPropagation()}>
+                                        <FavoriteButton
+                                            itemId={res.id}
+                                            type="restaurant"
+                                            initialIsSaved={savedIds.includes(res.id)}
+                                        />
+                                    </div>
                                 </div>
                                 <div className={styles.cardInfo}>
                                     <div className={styles.mainInfo}>
@@ -150,7 +179,103 @@ export default function ComidaPage() {
                         />
                     )}
                 </div>
+
+                {!loading && totalPages > 1 && (
+                    <div className={styles.pagination}>
+                        <button
+                            className={styles.pageBtn}
+                            disabled={currentPage === 1}
+                            onClick={() => {
+                                setCurrentPage(p => p - 1);
+                                window.scrollTo({ top: 0, behavior: "smooth" });
+                            }}
+                        >
+                            <ChevronRight size={18} style={{ transform: 'rotate(180deg)' }} />
+                        </button>
+                        {Array.from({ length: totalPages }).map((_, i) => (
+                            <button
+                                key={i}
+                                className={`${styles.pageBtn} ${currentPage === i + 1 ? styles.activePage : ''}`}
+                                onClick={() => {
+                                    setCurrentPage(i + 1);
+                                    window.scrollTo({ top: 0, behavior: "smooth" });
+                                }}
+                            >
+                                {i + 1}
+                            </button>
+                        ))}
+                        <button
+                            className={styles.pageBtn}
+                            disabled={currentPage === totalPages}
+                            onClick={() => {
+                                setCurrentPage(p => p + 1);
+                                window.scrollTo({ top: 0, behavior: "smooth" });
+                            }}
+                        >
+                            <ChevronRight size={18} />
+                        </button>
+                    </div>
+                )}
             </div>
+
+            <AnimatePresence>
+                {selectedRestaurant && (
+                    <motion.div
+                        className={styles.modalOverlay}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onClick={() => setSelectedRestaurant(null)}
+                    >
+                        <motion.div
+                            className={styles.modalContent}
+                            initial={{ scale: 0.9, y: 20, opacity: 0 }}
+                            animate={{ scale: 1, y: 0, opacity: 1 }}
+                            exit={{ scale: 0.9, y: 20, opacity: 0 }}
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <div className={styles.modalHeader}>
+                                {selectedRestaurant.image ? (
+                                    <img src={selectedRestaurant.image} alt={selectedRestaurant.name} />
+                                ) : (
+                                    <div className={styles.imageFallback} style={{ height: '100%' }}>
+                                        <Utensils size={48} style={{ opacity: 0.2 }} />
+                                    </div>
+                                )}
+                                <button className={styles.modalCloseBtn} onClick={() => setSelectedRestaurant(null)}>
+                                    <X size={20} />
+                                </button>
+                            </div>
+                            <div className={styles.modalBody}>
+                                <div className={styles.modalCategory}>{selectedRestaurant.category || "General"}</div>
+                                <h2 className={styles.modalTitle}>{selectedRestaurant.name}</h2>
+                                {selectedRestaurant.featured && <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem' }}>{selectedRestaurant.featured}</p>}
+
+                                <div className={styles.modalDetails}>
+                                    {selectedRestaurant.address && (
+                                        <a
+                                            href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(selectedRestaurant.address + ", Pergamino, Buenos Aires")}`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className={styles.modalDetailRow}
+                                            style={{ textDecoration: 'none', cursor: 'pointer' }}
+                                        >
+                                            <MapPin size={16} />
+                                            <span style={{ textDecoration: 'underline' }}>{selectedRestaurant.address}</span>
+                                        </a>
+                                    )}
+                                    {selectedRestaurant.distance && (
+                                        <div className={styles.modalDetailRow}>
+                                            <Clock size={16} />
+                                            <span>A {selectedRestaurant.distance} de la facu</span>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </main>
     );
 }

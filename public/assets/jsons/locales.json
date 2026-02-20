@@ -1,0 +1,2046 @@
+[{
+  "title": "La Toscana",
+  "totalScore": 4.1,
+  "reviewsCount": 2237,
+  "street": "Av. de Mayo 347",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 41-7700",
+  "categories": [
+    "Restaurante"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=La%20Toscana&query_place_id=ChIJmXIVElq1uZURnsfca9Lb5rs",
+  "categoryName": "Restaurante"
+},
+{
+  "title": "La Madrileña",
+  "totalScore": 4,
+  "reviewsCount": 1843,
+  "street": "Italia 389",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 31-9031",
+  "categories": [
+    "Panadería",
+    "Restaurante de desayunos"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=La%20Madrile%C3%B1a&query_place_id=ChIJOfmMh1a1uZURm2ntm0LysF4",
+  "categoryName": "Panadería"
+},
+{
+  "title": "Casa Surei Bodegon de Pizzas",
+  "totalScore": 4.8,
+  "reviewsCount": 25,
+  "street": "Castelli 643",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 51-5745",
+  "categories": [
+    "Restaurante familiar"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Casa%20Surei%20Bodegon%20de%20Pizzas&query_place_id=ChIJT5LuOwC1uZURaoJPD1aj99w",
+  "categoryName": "Restaurante familiar"
+},
+{
+  "title": "Pizza House",
+  "totalScore": 4.1,
+  "reviewsCount": 14,
+  "street": "Dorrego 483",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 41-7788",
+  "categories": [
+    "Pizzería"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Pizza%20House&query_place_id=ChIJawjkSM61uZURfqZ5uHgx4r0",
+  "categoryName": "Pizzería"
+},
+{
+  "title": "Ay Caramba!",
+  "totalScore": 5,
+  "reviewsCount": 16,
+  "street": "Dr. Alem 689",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": null,
+  "categories": [
+    "Comida a domicilio"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Ay%20Caramba!&query_place_id=ChIJTSGzwt-1uZUR29vpqx7Higg",
+  "categoryName": "Comida a domicilio"
+},
+{
+  "title": "Donny",
+  "totalScore": 4.2,
+  "reviewsCount": 59,
+  "street": "Av. de Mayo 323",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": "https://www.instagram.com/donny_arg?igsh=MTdkd245d2dyZ2pxNg==",
+  "phone": "+54 2477 20-6060",
+  "categories": [
+    "Pizzería"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Donny&query_place_id=ChIJp7MqMQC1uZURjj46x320h60",
+  "categoryName": "Pizzería"
+},
+{
+  "title": "Mastropizza",
+  "totalScore": 3.8,
+  "reviewsCount": 24,
+  "street": "Alberti 369",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 43-8395",
+  "categories": [
+    "Pizza para llevar"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Mastropizza&query_place_id=ChIJcySzfZa1uZURTok5I7RtmlE",
+  "categoryName": "Pizza para llevar"
+},
+{
+  "title": "Pizzeria Nino",
+  "totalScore": 4.3,
+  "reviewsCount": 171,
+  "street": "Av. de Mayo 269",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 33-8349",
+  "categories": [
+    "Restaurante"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Pizzeria%20Nino&query_place_id=ChIJF8KrQVq1uZUR34waz2NypBk",
+  "categoryName": "Restaurante"
+},
+{
+  "title": "Pizza y Pasta I Fratelli Envios A Domicilio",
+  "totalScore": 4.5,
+  "reviewsCount": 283,
+  "street": "Avenida Juan B. Justo 2617",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 43-5673",
+  "categories": [
+    "Pizzería",
+    "Restaurante italiano"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Pizza%20y%20Pasta%20I%20Fratelli%20Envios%20A%20Domicilio&query_place_id=ChIJYXSg0Uq1uZURZLHQ97gmzbs",
+  "categoryName": "Pizzería"
+},
+{
+  "title": "Pizzeria Los Camba II",
+  "totalScore": 4.5,
+  "reviewsCount": 484,
+  "street": "Avenida Juan B. Justo 1604",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 43-3828",
+  "categories": [
+    "Pizzería",
+    "Bar",
+    "Restaurante italiano"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Pizzeria%20Los%20Camba%20II&query_place_id=ChIJR0E_V0y1uZURZOxdy10I0kM",
+  "categoryName": "Pizzería"
+},
+{
+  "title": null,
+  "totalScore": null,
+  "reviewsCount": null,
+  "street": null,
+  "city": null,
+  "state": null,
+  "countryCode": null,
+  "website": null,
+  "phone": null,
+  "categories": [],
+  "url": "https://www.google.com/maps/search/?api=1&query=undefined&query_place_id=undefined",
+  "categoryName": null
+},
+{
+  "title": "Pizzeria Cosa Nostra",
+  "totalScore": 4.6,
+  "reviewsCount": 57,
+  "street": "Blvd. Paraguay 353",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 50-8282",
+  "categories": [
+    "Restaurante"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Pizzeria%20Cosa%20Nostra&query_place_id=ChIJEaUWK6fKuZURJjWMmSf6HRY",
+  "categoryName": "Restaurante"
+},
+{
+  "title": "Pizzeria Don Basilio",
+  "totalScore": 4.3,
+  "reviewsCount": 506,
+  "street": "Blvd. Alsina 709",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 41-3654",
+  "categories": [
+    "Restaurante"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Pizzeria%20Don%20Basilio&query_place_id=ChIJL8SBNFq1uZURaBAHDxBrSTg",
+  "categoryName": "Restaurante"
+},
+{
+  "title": "Fortunata's Pizzería",
+  "totalScore": 4,
+  "reviewsCount": 230,
+  "street": "Blvd. Rocha 707",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 41-8999",
+  "categories": [
+    "Pizza para llevar"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Fortunata's%20Pizzer%C3%ADa&query_place_id=ChIJ_6rnqkW1uZURK_atJ8in5KU",
+  "categoryName": "Pizza para llevar"
+},
+{
+  "title": "Pizzeria los Cambá",
+  "totalScore": 4.4,
+  "reviewsCount": 376,
+  "street": "Blvd. Rocha 334",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 43-0260",
+  "categories": [
+    "Pizzería",
+    "Restaurante italiano"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Pizzeria%20los%20Camb%C3%A1&query_place_id=ChIJG7d4d1u1uZUR7DRDKN9UTGc",
+  "categoryName": "Pizzería"
+},
+{
+  "title": "Pizzeria Napoles",
+  "totalScore": 4.2,
+  "reviewsCount": 39,
+  "street": "Blvd. Colón 652",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 43-4111",
+  "categories": [
+    "Pizzería",
+    "Restaurante italiano"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Pizzeria%20Napoles&query_place_id=ChIJR4J0PFW1uZURMBORyVf7TZ4",
+  "categoryName": "Pizzería"
+},
+{
+  "title": "Massa Mia",
+  "totalScore": 3.9,
+  "reviewsCount": 7,
+  "street": "Av. Hipólito Yrigoyen 643",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 444800",
+  "categories": [
+    "Pizzería"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Massa%20Mia&query_place_id=ChIJlQYjbgC1uZURJmrVhSolV9k",
+  "categoryName": "Pizzería"
+},
+{
+  "title": "El Candil",
+  "totalScore": 4.5,
+  "reviewsCount": 106,
+  "street": "Av. Hipólito Yrigoyen 625",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 43-7313",
+  "categories": [
+    "Tienda de alimentación"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=El%20Candil&query_place_id=ChIJp_MjjkK1uZUR-EAgph8nbTk",
+  "categoryName": "Tienda de alimentación"
+},
+{
+  "title": "Tomasso",
+  "totalScore": 4.2,
+  "reviewsCount": 91,
+  "street": "Av. de Mayo 284",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 31-4833",
+  "categories": [
+    "Pizzería"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Tomasso&query_place_id=ChIJwfOzyXy1uZURkduVBLoiYc0",
+  "categoryName": "Pizzería"
+},
+{
+  "title": "Los Especialistas Yrigoyen",
+  "totalScore": 5,
+  "reviewsCount": 1,
+  "street": "Av. Hipólito Yrigoyen 251",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 22-7729",
+  "categories": [
+    "Comida a domicilio"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Los%20Especialistas%20Yrigoyen&query_place_id=ChIJfV9N5jK1uZURrw8_98D76S4",
+  "categoryName": "Comida a domicilio"
+},
+{
+  "title": "El Caserito",
+  "totalScore": 4.4,
+  "reviewsCount": 83,
+  "street": "Joaquin Menéndez, Somoza y",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": "https://www.instagram.com/elcaserito.pergamino/",
+  "phone": "+54 2477 45-3201",
+  "categories": [
+    "Pizzería",
+    "Comida a domicilio"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=El%20Caserito&query_place_id=ChIJsf4xLeO1uZURpDZzbY4JAw4",
+  "categoryName": "Pizzería"
+},
+{
+  "title": "Patagón",
+  "totalScore": 4.3,
+  "reviewsCount": 577,
+  "street": "Azcuénaga 301",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 44-1512",
+  "categories": [
+    "Pizzería"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Patag%C3%B3n&query_place_id=ChIJEaBwUqq1uZURRuPXlxMm-94",
+  "categoryName": "Pizzería"
+},
+{
+  "title": "La Familia Empanadas Pizzas",
+  "totalScore": 5,
+  "reviewsCount": 6,
+  "street": "11 de Septiembre 32",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 419878",
+  "categories": [
+    "Restaurante"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=La%20Familia%20Empanadas%20Pizzas&query_place_id=ChIJtwCWoEW1uZURmimcpAN0VaM",
+  "categoryName": "Restaurante"
+},
+{
+  "title": "Aikenn",
+  "totalScore": 4.2,
+  "reviewsCount": 92,
+  "street": "Bartolomé Mitre 1246",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 32-2880",
+  "categories": [
+    "Pizzería"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Aikenn&query_place_id=ChIJlUZslVW1uZURdwBIZsqhzBU",
+  "categoryName": "Pizzería"
+},
+{
+  "title": "La Orden Pergamino",
+  "totalScore": 5,
+  "reviewsCount": 5,
+  "street": "11 de Septiembre 546",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": "https://www.laordenweb.com/",
+  "phone": "+54 2477 32-1612",
+  "categories": [
+    "Restaurante de comida rápida"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=La%20Orden%20Pergamino&query_place_id=ChIJJ8gSwqy1uZURvsH0LVh9Lk8",
+  "categoryName": "Restaurante de comida rápida"
+},
+{
+  "title": "El Repulgue",
+  "totalScore": 3.4,
+  "reviewsCount": 20,
+  "street": "Blvd. Florencio Sánchez 607",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 44-3366",
+  "categories": [
+    "Comida a domicilio"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=El%20Repulgue&query_place_id=ChIJwxh3zlU1uJURCy_neuEjxVg",
+  "categoryName": "Comida a domicilio"
+},
+{
+  "title": "300 Grados",
+  "totalScore": 4.7,
+  "reviewsCount": 18,
+  "street": "Avenida Juan B. Justo 2365",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 44-4334",
+  "categories": [
+    "Comida a domicilio"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=300%20Grados&query_place_id=ChIJ6XOKQWRLuJURrNKNzJ02fKk",
+  "categoryName": "Comida a domicilio"
+},
+{
+  "title": "300 Grados",
+  "totalScore": 4.3,
+  "reviewsCount": 456,
+  "street": "Blvd. Colón 1296",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 42-5360",
+  "categories": [
+    "Comida a domicilio"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=300%20Grados&query_place_id=ChIJE6UjvqxKuJUR_7pwyeBa1jI",
+  "categoryName": "Comida a domicilio"
+},
+{
+  "title": "Los Especialistas",
+  "totalScore": 4.4,
+  "reviewsCount": 585,
+  "street": "Blvd. Rocha 985",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 41-9898",
+  "categories": [
+    "Restaurante de comida para llevar"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Los%20Especialistas&query_place_id=ChIJ9U0qWCm1uZURvikYBVS28bM",
+  "categoryName": "Restaurante de comida para llevar"
+},
+{
+  "title": "Giuseppe - Casa de Empanadas",
+  "totalScore": 4.6,
+  "reviewsCount": 264,
+  "street": "11 de Septiembre 218",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 42-1025",
+  "categories": [
+    "Tienda de alimentación"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Giuseppe%20-%20Casa%20de%20Empanadas&query_place_id=ChIJITpp80-1uZURHyHPElinhOE",
+  "categoryName": "Tienda de alimentación"
+},
+{
+  "title": "Cocina Primavera",
+  "totalScore": 4.5,
+  "reviewsCount": 72,
+  "street": "Merced 670",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": null,
+  "categories": [
+    "Restaurante"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Cocina%20Primavera&query_place_id=ChIJLxWCFVG1uZURDnK2L2NkucU",
+  "categoryName": "Restaurante"
+},
+{
+  "title": "La casona de Nestor",
+  "totalScore": 4.7,
+  "reviewsCount": 107,
+  "street": "9 de Julio 99",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 41-1515",
+  "categories": [
+    "Pizzería"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=La%20casona%20de%20Nestor&query_place_id=ChIJKaY5xEa1uZUR09yk9CIrWec",
+  "categoryName": "Pizzería"
+},
+{
+  "title": "Los Nonos",
+  "totalScore": 4.5,
+  "reviewsCount": 58,
+  "street": "Blvd. Rocha 1031",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 58-0755",
+  "categories": [
+    "Tienda general"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Los%20Nonos&query_place_id=ChIJSZrz1du1uZUR9nYbqdJTssY",
+  "categoryName": "Tienda general"
+},
+{
+  "title": "La Ca'di Reggio",
+  "totalScore": 4.7,
+  "reviewsCount": 133,
+  "street": "Bartolomé Mitre 440",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": "https://www.facebook.com/La-CaDi-Reggio-103144765015065/",
+  "phone": "+54 2477 43-7977",
+  "categories": [
+    "Supermercado"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=La%20Ca'di%20Reggio&query_place_id=ChIJm9CahVC1uZURxV0e6qXY7ko",
+  "categoryName": "Supermercado"
+},
+{
+  "title": "Parrilla y Pizzeria EL ASADOR",
+  "totalScore": 4.7,
+  "reviewsCount": 86,
+  "street": "Blvd. Colón 1493",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": "https://www.facebook.com/ParrillaYPizzeriaElAsador",
+  "phone": "+54 2477 43-4612",
+  "categories": [
+    "Comida a domicilio"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Parrilla%20y%20Pizzeria%20EL%20ASADOR&query_place_id=ChIJz8QpBK1KuJURMpr2cJPTAnU",
+  "categoryName": "Comida a domicilio"
+},
+{
+  "title": "BETANIA Pastas Frescas - Panaderia - Rotiseria",
+  "totalScore": 4.4,
+  "reviewsCount": 68,
+  "street": "Av. Hipólito Yrigoyen 841",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 43-7508",
+  "categories": [
+    "Tienda de alimentación"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=BETANIA%20Pastas%20Frescas%20-%20Panaderia%20-%20Rotiseria&query_place_id=ChIJoUxMzwW1uZURolnS_7_qch0",
+  "categoryName": "Tienda de alimentación"
+},
+{
+  "title": "Rotisería La Chacha",
+  "totalScore": 4.4,
+  "reviewsCount": 153,
+  "street": "3 de Febrero 551",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 43-2169",
+  "categories": [
+    "Restaurante"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Rotiser%C3%ADa%20La%20Chacha&query_place_id=ChIJQcnHbU61uZUR6mJWl_ee0so",
+  "categoryName": "Restaurante"
+},
+{
+  "title": "La Paila \"Casa De Comidas\"",
+  "totalScore": 4.5,
+  "reviewsCount": 290,
+  "street": "Merced, Castelli &",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 44-0361",
+  "categories": [
+    "Comida a domicilio"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=La%20Paila%20%22Casa%20De%20Comidas%22&query_place_id=ChIJW5agBlK1uZURZQ1NTP1Yi3U",
+  "categoryName": "Comida a domicilio"
+},
+{
+  "title": "Pollería y rotisería Lo de Isa",
+  "totalScore": 4.8,
+  "reviewsCount": 30,
+  "street": "Av. Ernesto Illia 2667",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": "https://instagram.com/pollerialodeisa?igshid=YmMyMTA2M2Y=",
+  "phone": "+54 2477 62-7726",
+  "categories": [
+    "Pollería",
+    "Tienda naturista",
+    "Comida a domicilio",
+    "Tienda de aves de corral"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Poller%C3%ADa%20y%20rotiser%C3%ADa%20Lo%20de%20Isa&query_place_id=ChIJ-ab8GWtLuJURKjyWt-aM4o8",
+  "categoryName": "Pollería"
+},
+{
+  "title": "Rotisería Al Paso",
+  "totalScore": 5,
+  "reviewsCount": 1,
+  "street": "Pasteur 194",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": "https://instagram.com/rotiseriaalpaso",
+  "phone": "+54 2477 35-3120",
+  "categories": [
+    "Comida a domicilio"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Rotiser%C3%ADa%20Al%20Paso&query_place_id=ChIJgxE7Y2W1uZUReMo6mJjuOWc",
+  "categoryName": "Comida a domicilio"
+},
+{
+  "title": "Rotisería Los Hermanos",
+  "totalScore": 5,
+  "reviewsCount": 3,
+  "street": "Boulevard Alsina, Italia &",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": "https://instagram.com/loshermanos_rotiseria",
+  "phone": "+54 2477 58-2096",
+  "categories": [
+    "Restaurante de comida para llevar"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Rotiser%C3%ADa%20Los%20Hermanos&query_place_id=ChIJ67B5BgDLuZURm9jY1CkewdI",
+  "categoryName": "Restaurante de comida para llevar"
+},
+{
+  "title": "EL BOULEVARD ROTISERIA",
+  "totalScore": 4.5,
+  "reviewsCount": 289,
+  "street": "Blvd. Alsina 1302",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 41-3363",
+  "categories": [
+    "Restaurante"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=EL%20BOULEVARD%20ROTISERIA&query_place_id=ChIJfz_or6vKuZURySIBBvVqjMs",
+  "categoryName": "Restaurante"
+},
+{
+  "title": "Rotisería Francisquito",
+  "totalScore": 4.7,
+  "reviewsCount": 6,
+  "street": "2700",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 34-9374",
+  "categories": [
+    "Comida a domicilio"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Rotiser%C3%ADa%20Francisquito&query_place_id=ChIJMVn5mRW1uZURxuJnJIoM0MQ",
+  "categoryName": "Comida a domicilio"
+},
+{
+  "title": "Rotiseria Pergamino",
+  "totalScore": 4.1,
+  "reviewsCount": 93,
+  "street": "Blvd. Colón 1429-1449",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 43-4612",
+  "categories": [
+    "Restaurante"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Rotiseria%20Pergamino&query_place_id=ChIJvXk246xKuJURxqx9aVYF6eI",
+  "categoryName": "Restaurante"
+},
+{
+  "title": "Almacen-Kiosco Carlitos",
+  "totalScore": 5,
+  "reviewsCount": 1,
+  "street": "Av. Barrancas del Paraná 1998",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 55-3473",
+  "categories": [
+    "Kiosco"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Almacen-Kiosco%20Carlitos&query_place_id=ChIJE9rpK6VLuJURZ2q2iBaDfVU",
+  "categoryName": "Kiosco"
+},
+{
+  "title": "Kiosco",
+  "totalScore": 4.1,
+  "reviewsCount": 8,
+  "street": "Azcuénaga 2000",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": null,
+  "categories": [
+    "Kiosco"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Kiosco&query_place_id=ChIJQQmoyTe1uZURTkV9Bnk-lQI",
+  "categoryName": "Kiosco"
+},
+{
+  "title": "Verduleria el Quincho",
+  "totalScore": 5,
+  "reviewsCount": 1,
+  "street": "Av. Enrique Venini 10",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": null,
+  "categories": [
+    "Frutería"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Verduleria%20el%20Quincho&query_place_id=ChIJSXl6dH61uZURFToH0dQeQ-0",
+  "categoryName": "Frutería"
+},
+{
+  "title": "El Regreso",
+  "totalScore": 4.3,
+  "reviewsCount": 11,
+  "street": "Larrea 1290",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 42-8290",
+  "categories": [
+    "Tienda de alimentación"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=El%20Regreso&query_place_id=ChIJe1sW5KxKuJURDDpmtCV9_bk",
+  "categoryName": "Tienda de alimentación"
+},
+{
+  "title": "Verduleria Fisherton",
+  "totalScore": 5,
+  "reviewsCount": 2,
+  "street": "Merced",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": null,
+  "categories": [
+    "Tienda de alimentación"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Verduleria%20Fisherton&query_place_id=ChIJ8W0Lv021uZURpfe3ZWU-ut4",
+  "categoryName": "Tienda de alimentación"
+},
+{
+  "title": "Frutería y verdulería Virgen de Luján",
+  "totalScore": 5,
+  "reviewsCount": 2,
+  "street": "Av. Ernesto Illia 2175",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": null,
+  "categories": [
+    "Frutería"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Fruter%C3%ADa%20y%20verduler%C3%ADa%20Virgen%20de%20Luj%C3%A1n&query_place_id=ChIJy_7BGpVLuJURkMBRF-aQ90c",
+  "categoryName": "Frutería"
+},
+{
+  "title": "Almacén Y Verdulería Abasto",
+  "totalScore": 3.8,
+  "reviewsCount": 9,
+  "street": "Blvd. Ameghino 386",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": null,
+  "categories": [
+    "Tienda de alimentación"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Almac%C3%A9n%20Y%20Verduler%C3%ADa%20Abasto&query_place_id=ChIJgaFpEKzKuZURlyRPgBRPISE",
+  "categoryName": "Tienda de alimentación"
+},
+{
+  "title": "Vazquez Carlos J Despensa Y Verduleria",
+  "totalScore": 3.6,
+  "reviewsCount": 17,
+  "street": "Diego de la Fuente 1096",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 44-0907",
+  "categories": [
+    "Frutería"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Vazquez%20Carlos%20J%20Despensa%20Y%20Verduleria&query_place_id=ChIJIwkKja_KuZURCauIpondcW8",
+  "categoryName": "Frutería"
+},
+{
+  "title": "La Impecable II - Verdulería, Pollería y Kiosco",
+  "totalScore": 4.9,
+  "reviewsCount": 13,
+  "street": "Av. de Mayo 1350",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": null,
+  "categories": [
+    "Frutería"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=La%20Impecable%20II%20-%20Verduler%C3%ADa%2C%20Poller%C3%ADa%20y%20Kiosco&query_place_id=ChIJz26oW7fLuZUR_EB3vRRNnK8",
+  "categoryName": "Frutería"
+},
+{
+  "title": "Rotisería San Juan",
+  "totalScore": 5,
+  "reviewsCount": 3,
+  "street": null,
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": "https://rotiseriasanjuan.com/",
+  "phone": "+54 2477 56-8083",
+  "categories": [
+    "Comida a domicilio"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Rotiser%C3%ADa%20San%20Juan&query_place_id=ChIJd79J4fm1uZURDXEhlT8yOTg",
+  "categoryName": "Comida a domicilio"
+},
+{
+  "title": "Sandwichería Avenida",
+  "totalScore": 4.5,
+  "reviewsCount": 713,
+  "street": "11 de Septiembre 1297",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": "https://www.sandwicheriaavenida.com.ar/",
+  "phone": "+54 2477 43-5575",
+  "categories": [
+    "Panadería",
+    "Supermercado"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Sandwicher%C3%ADa%20Avenida&query_place_id=ChIJWwhcS6tKuJURqO_7rIaTPWw",
+  "categoryName": "Panadería"
+},
+{
+  "title": "Cafe Otavalo",
+  "totalScore": 5,
+  "reviewsCount": 12,
+  "street": "Blvd. Colón 876",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 41-2399",
+  "categories": [
+    "Cafetería"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Cafe%20Otavalo&query_place_id=ChIJr9_hSWK1uZUR3dF8jsqzF7Q",
+  "categoryName": "Cafetería"
+},
+{
+  "title": "Isabella Café",
+  "totalScore": 4.3,
+  "reviewsCount": 176,
+  "street": "San Nicolás 595",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 41-5888",
+  "categories": [
+    "Cafetería"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Isabella%20Caf%C3%A9&query_place_id=ChIJlWh4WR-1uZUR-VsPqoOMvIs",
+  "categoryName": "Cafetería"
+},
+{
+  "title": "Wu gastronomía artesanal",
+  "totalScore": 4.7,
+  "reviewsCount": 15,
+  "street": "Blvd. Alsina 338",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": "http://instagram.com/wugastronomiartesanal",
+  "phone": "+54 2477 53-2975",
+  "categories": [
+    "Cafetería"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Wu%20gastronom%C3%ADa%20artesanal&query_place_id=ChIJaWH-v9u1uZURJbZtmUQHe6g",
+  "categoryName": "Cafetería"
+},
+{
+  "title": "L'amour cafe bistrot by Le flâneur hotel",
+  "totalScore": 4.1,
+  "reviewsCount": 43,
+  "street": "Blvd. Alsina 436",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": "https://www.instagram.com/lamourcafebistrot",
+  "phone": "+54 2477 23-8674",
+  "categories": [
+    "Cafetería"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=L'amour%20cafe%20bistrot%20by%20Le%20fl%C3%A2neur%20hotel&query_place_id=ChIJG15n-3i1uZURF-bEoKMAz7c",
+  "categoryName": "Cafetería"
+},
+{
+  "title": "CoffeePrint",
+  "totalScore": 4.6,
+  "reviewsCount": 25,
+  "street": "Monteagudo 2775",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 50-6691",
+  "categories": [
+    "Cafetería"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=CoffeePrint&query_place_id=ChIJo-p-pu1LuJURlJkG2o2cXYo",
+  "categoryName": "Cafetería"
+},
+{
+  "title": "Roma Café",
+  "totalScore": 4.2,
+  "reviewsCount": 811,
+  "street": "San Nicolás 570",
+  "city": "Pergamino",
+  "state": "Ciudad Autónoma de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 23-6933",
+  "categories": [
+    "Cafetería",
+    "Pastelería",
+    "Restaurante"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Roma%20Caf%C3%A9&query_place_id=ChIJFVWN2VC1uZURIgsfG4Ayisk",
+  "categoryName": "Cafetería"
+},
+{
+  "title": "ARTOS",
+  "totalScore": 4.2,
+  "reviewsCount": 286,
+  "street": "2700, Av. de Mayo 143",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": "https://www.instagram.com/artospergamino?igsh=Z3V5cXZ6d3hubXA4&utm_source=qr",
+  "phone": "+54 2477 36-8899",
+  "categories": [
+    "Cafetería",
+    "Panadería",
+    "Pastelería"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=ARTOS&query_place_id=ChIJ4ejBBea1uZURv7RlZjNkXQ4",
+  "categoryName": "Cafetería"
+},
+{
+  "title": "Torto’s Café",
+  "totalScore": 4.3,
+  "reviewsCount": 372,
+  "street": "Florida 675",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": "https://gaboapp.com/tortos/index.php",
+  "phone": "+54 2477 60-5085",
+  "categories": [
+    "Cafetería",
+    "Bar",
+    "Pastelería"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Torto%E2%80%99s%20Caf%C3%A9&query_place_id=ChIJ28yU1VO1uZUR11Z08hcb6wU",
+  "categoryName": "Cafetería"
+},
+{
+  "title": "Amelie Café",
+  "totalScore": 4.3,
+  "reviewsCount": 1413,
+  "street": "San Nicolás 502",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 44-3998",
+  "categories": [
+    "Cafetería"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Amelie%20Caf%C3%A9&query_place_id=ChIJwce73CS1uZURT3ZsAbMnB0E",
+  "categoryName": "Cafetería"
+},
+{
+  "title": "La Dolce Vita",
+  "totalScore": 4.3,
+  "reviewsCount": 665,
+  "street": "Av. de Mayo 198",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 33-0580",
+  "categories": [
+    "Cafetería"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=La%20Dolce%20Vita&query_place_id=ChIJS1cnXKG1uZURD7cgCOsFVqk",
+  "categoryName": "Cafetería"
+},
+{
+  "title": "Verdulería El Mariachi",
+  "totalScore": 4.7,
+  "reviewsCount": 3,
+  "street": "Av. de Mayo 1736",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": "https://www.facebook.com/profile.php?id=100066565517664&mibextid=ZbWKwL",
+  "phone": "+54 2477 53-8009",
+  "categories": [
+    "Frutería"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Verduler%C3%ADa%20El%20Mariachi&query_place_id=ChIJY_sVYAA1uJURy6iM989dNJI",
+  "categoryName": "Frutería"
+},
+{
+  "title": "La Verdulería de Adrián",
+  "totalScore": 5,
+  "reviewsCount": 1,
+  "street": "Dorrego 615",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": "https://instagram.com/lo_de_adrian?igshid=YmMyMTA2M2Y=https://instagram.com/lo_de_adrian?igshid=YmMyMTA2M2Y=",
+  "phone": null,
+  "categories": [
+    "Frutería"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=La%20Verduler%C3%ADa%20de%20Adri%C3%A1n&query_place_id=ChIJB3fG2Q61uZURTFj4ewSeNyI",
+  "categoryName": "Frutería"
+},
+{
+  "title": "Frutas y Verduras \"Juan\"",
+  "totalScore": 4.6,
+  "reviewsCount": 234,
+  "street": "Blvd. Rocha 1011",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": "https://m.facebook.com/Frutas-y-Verduras-Juan-236414087113499/",
+  "phone": "+54 2477 41-4702",
+  "categories": [
+    "Frutería"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Frutas%20y%20Verduras%20%22Juan%22&query_place_id=ChIJ9UuK2l-1uZUReXOV_5gqIo8",
+  "categoryName": "Frutería"
+},
+{
+  "title": "Camelio",
+  "totalScore": 4.5,
+  "reviewsCount": 125,
+  "street": "Merced 94",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": "https://www.instagram.com/cameliocafe",
+  "phone": null,
+  "categories": [
+    "Cafetería"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Camelio&query_place_id=ChIJR9HpJgC1uZUR8dXy9Q-keRM",
+  "categoryName": "Cafetería"
+},
+{
+  "title": "Verdulería La Impecable",
+  "totalScore": 5,
+  "reviewsCount": 1,
+  "street": "Blvd. Colón 1344",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": "https://www.facebook.com/mariela.beccerica.832?mibextid=ZbWKwL",
+  "phone": "+54 2477 42-0480",
+  "categories": [
+    "Frutería"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Verduler%C3%ADa%20La%20Impecable&query_place_id=ChIJcb4B66xKuJUR66IozHoAhCM",
+  "categoryName": "Frutería"
+},
+{
+  "title": "Super Feria La Monumental",
+  "totalScore": 4.2,
+  "reviewsCount": 83,
+  "street": "Blvd. Paraguay 30",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 36-4178",
+  "categories": [
+    "Frutería"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Super%20Feria%20La%20Monumental&query_place_id=ChIJSy2qRmjLuZURPe-Zo-9g5pQ",
+  "categoryName": "Frutería"
+},
+{
+  "title": "Verdulería y Frutería Agustin",
+  "totalScore": 4.6,
+  "reviewsCount": 31,
+  "street": "Blvd. Paraguay 618",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": null,
+  "categories": [
+    "Frutería"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Verduler%C3%ADa%20y%20Fruter%C3%ADa%20Agustin&query_place_id=ChIJcYAGj0XLuZURCEGXFsS6py4",
+  "categoryName": "Frutería"
+},
+{
+  "title": "Tu Huerta",
+  "totalScore": 4.5,
+  "reviewsCount": 138,
+  "street": "Avenida Juan B. Justo 2240",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 43-5134",
+  "categories": [
+    "Frutería"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Tu%20Huerta&query_place_id=ChIJEUEozEq1uZURb24swAOHNOM",
+  "categoryName": "Frutería"
+},
+{
+  "title": "PERGAMINO Café Laureles, Medellín",
+  "totalScore": 4.6,
+  "reviewsCount": 1855,
+  "street": "Tv 34 #34 - 65",
+  "city": "Medellín, Laureles, Medellín",
+  "state": "Antioquia",
+  "countryCode": "CO",
+  "website": "http://www.pergamino.co/",
+  "phone": "+57 318 8211303",
+  "categories": [
+    "Cafetería",
+    "Tienda de café",
+    "Restaurante"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=PERGAMINO%20Caf%C3%A9%20Laureles%2C%20Medell%C3%ADn&query_place_id=ChIJzcFcU8spRI4RKdDH5QXv8LU",
+  "categoryName": "Cafetería"
+},
+{
+  "title": "PERGAMINO Café San Lucas, Medellín",
+  "totalScore": 4.7,
+  "reviewsCount": 810,
+  "street": "Cl 16A Sur #30a-57",
+  "city": "Medellín, El Poblado, Medellín",
+  "state": "Antioquia",
+  "countryCode": "CO",
+  "website": "http://www.pergamino.co/",
+  "phone": "+57 318 8211303",
+  "categories": [
+    "Tienda de café",
+    "Cafetería"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=PERGAMINO%20Caf%C3%A9%20San%20Lucas%2C%20Medell%C3%ADn&query_place_id=ChIJD-5zTWqDRo4RSRIZcuelDgI",
+  "categoryName": "Tienda de café"
+},
+{
+  "title": "Armando Fruteria - Verduleria",
+  "totalScore": 5,
+  "reviewsCount": 25,
+  "street": "Av. Hipólito Yrigoyen 208",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 44-3466",
+  "categories": [
+    "Frutería"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Armando%20Fruteria%20-%20Verduleria&query_place_id=ChIJaw6VsFy1uZUR7PmMn8z1yNA",
+  "categoryName": "Frutería"
+},
+{
+  "title": "Edison Café",
+  "totalScore": 4.3,
+  "reviewsCount": 211,
+  "street": "Dr Alem y Florida",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": "http://www.edisoncafe.com.ar/",
+  "phone": null,
+  "categories": [
+    "Cafetería"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Edison%20Caf%C3%A9&query_place_id=ChIJJS6Fzf21uZUR24awEMsPaTE",
+  "categoryName": "Cafetería"
+},
+{
+  "title": "Cortado Verde (lima limón)",
+  "totalScore": 5,
+  "reviewsCount": 23,
+  "street": "Catamarca 86",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": null,
+  "categories": [
+    "Frutería"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Cortado%20Verde%20(lima%20lim%C3%B3n)&query_place_id=ChIJL2rwaQC1uZURaGBDtC6cd9U",
+  "categoryName": "Frutería"
+},
+{
+  "title": "PERGAMINO Café Calle 10B, Medellín",
+  "totalScore": 4.7,
+  "reviewsCount": 1618,
+  "street": "Cl. 10b #36-38",
+  "city": "Medellín, El Poblado, Medellín",
+  "state": "Antioquia",
+  "countryCode": "CO",
+  "website": "https://pergamino.co/",
+  "phone": "+57 318 8211303",
+  "categories": [
+    "Cafetería",
+    "Tienda de café",
+    "Restaurante"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=PERGAMINO%20Caf%C3%A9%20Calle%2010B%2C%20Medell%C3%ADn&query_place_id=ChIJmyfHJngpRI4RLQG7fWFfH_I",
+  "categoryName": "Cafetería"
+},
+{
+  "title": "Bisicity SA",
+  "totalScore": 4.5,
+  "reviewsCount": 128,
+  "street": "RP32 1806",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": "https://www.instagram.com/bisicity/",
+  "phone": null,
+  "categories": [
+    "Frutería"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Bisicity%20SA&query_place_id=ChIJiUljkDvLuZURUi3lkU6cJ64",
+  "categoryName": "Frutería"
+},
+{
+  "title": "El Verduleiro",
+  "totalScore": 4.9,
+  "reviewsCount": 35,
+  "street": "Gral. Paz 347",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 62-3044",
+  "categories": [
+    "Frutería"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=El%20Verduleiro&query_place_id=ChIJUzaXd7K1uZURdluhvwfTZ5w",
+  "categoryName": "Frutería"
+},
+{
+  "title": "Fruteria Bigote Entrega A Domicilio",
+  "totalScore": 4.3,
+  "reviewsCount": 237,
+  "street": "Blvd. Marcelino Ugarte 535",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 43-4354",
+  "categories": [
+    "Comercio"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Fruteria%20Bigote%20Entrega%20A%20Domicilio&query_place_id=ChIJM2dGYl21uZURW9dX2Sn5lzU",
+  "categoryName": "Comercio"
+},
+{
+  "title": "kiosco Almacén La Esquina",
+  "totalScore": null,
+  "reviewsCount": null,
+  "street": "Colombia 701",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": "https://www.facebook.com/kiosco.almacen.laesquina9",
+  "phone": "+54 2477 45-6905",
+  "categories": [
+    "Tienda general"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=kiosco%20Almac%C3%A9n%20La%20Esquina&query_place_id=ChIJ04Ag9qi1uZURO-HgloVC6Ro",
+  "categoryName": "Tienda general"
+},
+{
+  "title": "Maxi Kiosco Santi",
+  "totalScore": 4.2,
+  "reviewsCount": 13,
+  "street": "Av. Ernesto Illia 2561",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": null,
+  "categories": [
+    "Quiosco"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Maxi%20Kiosco%20Santi&query_place_id=ChIJqTGJ9rZKuJURRl7tVP912aQ",
+  "categoryName": "Quiosco"
+},
+{
+  "title": "Maxikiosco \"Parada 1\"",
+  "totalScore": 5,
+  "reviewsCount": 3,
+  "street": "9 de Julio 500",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": null,
+  "categories": [
+    "Cafetería"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Maxikiosco%20%22Parada%201%22&query_place_id=ChIJ4Q00Diq1uZURmVpXFK9izSk",
+  "categoryName": "Cafetería"
+},
+{
+  "title": "DESPENSA MARIA",
+  "totalScore": 5,
+  "reviewsCount": 2,
+  "street": "Baradero 350",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 33-8896",
+  "categories": [
+    "Kiosco",
+    "Comercio"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=DESPENSA%20MARIA&query_place_id=ChIJm2PPnrm1uZUR8Kqc3jfkzQE",
+  "categoryName": "Kiosco"
+},
+{
+  "title": "Kiosco El Shaddai",
+  "totalScore": 5,
+  "reviewsCount": 4,
+  "street": "Blvd. Colón 865",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": null,
+  "categories": [
+    "Kiosco"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Kiosco%20El%20Shaddai&query_place_id=ChIJi9g0ZPe1uZURUjJNa286MJE",
+  "categoryName": "Kiosco"
+},
+{
+  "title": "Maky Kiosco - Kiosco y Cotillón",
+  "totalScore": 4.7,
+  "reviewsCount": 15,
+  "street": "Av. de Mayo 1580",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 27-2016",
+  "categories": [
+    "Kiosco"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Maky%20Kiosco%20-%20Kiosco%20y%20Cotill%C3%B3n&query_place_id=ChIJzUpcde81uJUR5G_VenmxfD0",
+  "categoryName": "Kiosco"
+},
+{
+  "title": "Maxi Kiosco Sarlenga",
+  "totalScore": 5,
+  "reviewsCount": 1,
+  "street": "Avenida Juan B. Justo",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": null,
+  "categories": [
+    "Tienda de alimentación"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Maxi%20Kiosco%20Sarlenga&query_place_id=ChIJkep90Eq1uZURfyRUw2wb8aE",
+  "categoryName": "Tienda de alimentación"
+},
+{
+  "title": "Kiosco Pepe",
+  "totalScore": 4.5,
+  "reviewsCount": 4,
+  "street": "Av. Gral. Savio 1780",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": null,
+  "categories": [
+    "Tienda de alimentación"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Kiosco%20Pepe&query_place_id=ChIJW_HUaxXLuZURvC6b6WkXa_8",
+  "categoryName": "Tienda de alimentación"
+},
+{
+  "title": "Kiosco \"Marcelo\"",
+  "totalScore": 5,
+  "reviewsCount": 2,
+  "street": "Italia 2398",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": null,
+  "categories": [
+    "Quiosco"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Kiosco%20%22Marcelo%22&query_place_id=ChIJu1TlbbVKuJURa2xB8MAdtYs",
+  "categoryName": "Quiosco"
+},
+{
+  "title": "Kiosco Almacén",
+  "totalScore": 4.8,
+  "reviewsCount": 13,
+  "street": "Manuel Gálvez 1890",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": null,
+  "categories": [
+    "Kiosco"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Kiosco%20Almac%C3%A9n&query_place_id=ChIJPfyUGDy1uZUR8slNk531uQI",
+  "categoryName": "Kiosco"
+},
+{
+  "title": "Maxikiosco \"El Muñeco\"",
+  "totalScore": 4.5,
+  "reviewsCount": 6,
+  "street": "Blvd. Florencio Sánchez 829",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": null,
+  "categories": [
+    "Supermercado"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Maxikiosco%20%22El%20Mu%C3%B1eco%22&query_place_id=ChIJJTmBTTI1uJURU3ZEp3HeN94",
+  "categoryName": "Supermercado"
+},
+{
+  "title": "Kiosco Top",
+  "totalScore": 4.5,
+  "reviewsCount": 6,
+  "street": "Av. de Mayo 399-499",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": null,
+  "categories": [
+    "Quiosco"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Kiosco%20Top&query_place_id=ChIJh0CZrVC1uZURQMX6M2_R8Ko",
+  "categoryName": "Quiosco"
+},
+{
+  "title": "Maxikiosco Acevedo, Pergamino BA",
+  "totalScore": 4.4,
+  "reviewsCount": 69,
+  "street": "Blvd. Vélez Sarsfield 248",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 22-4062",
+  "categories": [
+    "Comercio"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Maxikiosco%20Acevedo%2C%20Pergamino%20BA&query_place_id=ChIJb2omdda1uZURVvFMhN51HCQ",
+  "categoryName": "Comercio"
+},
+{
+  "title": "Autoservicio Tik Tok",
+  "totalScore": 4.3,
+  "reviewsCount": 54,
+  "street": "Av. de Mayo 543",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": "https://instagram.com/autoserviciotiktok?igshid=MmIzYWVlNDQ5Yg==",
+  "phone": "+54 2477 38-0430",
+  "categories": [
+    "Kiosco"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Autoservicio%20Tik%20Tok&query_place_id=ChIJ7bjaffe1uZURKsHn4chTaBE",
+  "categoryName": "Kiosco"
+},
+{
+  "title": "Kiosco Julio",
+  "totalScore": 3.9,
+  "reviewsCount": 13,
+  "street": "Del Campo 1497",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 42-1789",
+  "categories": [
+    "Tienda de alimentación"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Kiosco%20Julio&query_place_id=ChIJNT9bvBa1uZURt2Rm4TevekY",
+  "categoryName": "Tienda de alimentación"
+},
+{
+  "title": "Kiosko \" la mary del 12\"",
+  "totalScore": 5,
+  "reviewsCount": 5,
+  "street": "Julián Anolles 830",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 53-2863",
+  "categories": [
+    "Kiosco"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Kiosko%20%22%20la%20mary%20del%2012%22&query_place_id=ChIJESt2tU41uJUR8eu4nh6jTIY",
+  "categoryName": "Kiosco"
+},
+{
+  "title": "KAIROS Maxikiosco",
+  "totalScore": 5,
+  "reviewsCount": 2,
+  "street": "Blvd. Colón 293",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": "https://www.instagram.com/kairos.maxikiosco",
+  "phone": "+54 2477 22-3675",
+  "categories": [
+    "Kiosco"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=KAIROS%20Maxikiosco&query_place_id=ChIJFTC0EHXLuZURB9jChSWW-AY",
+  "categoryName": "Kiosco"
+},
+{
+  "title": "Macanudo resto-bar",
+  "totalScore": 4.1,
+  "reviewsCount": 86,
+  "street": "Azcuénaga 431",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 58-9729",
+  "categories": [
+    "Pub restaurante"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Macanudo%20resto-bar&query_place_id=ChIJKdM6DA21uZURhaU6wDgBLro",
+  "categoryName": "Pub restaurante"
+},
+{
+  "title": "Pergamino",
+  "totalScore": 5,
+  "reviewsCount": 3,
+  "street": null,
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": null,
+  "categories": [
+    "Bar"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Pergamino&query_place_id=ChIJwyKQHAC1uZURl-QhjIIGHxs",
+  "categoryName": "Bar"
+},
+{
+  "title": "PERGAMINO Café Via Primavera, Medellín",
+  "totalScore": 4.7,
+  "reviewsCount": 4214,
+  "street": "Cra. 37 #8A-37",
+  "city": "Medellín, El Poblado, Medellín",
+  "state": "Antioquia",
+  "countryCode": "CO",
+  "website": "http://www.pergamino.co/",
+  "phone": "+57 318 8211303",
+  "categories": [
+    "Cafetería",
+    "Tienda de café"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=PERGAMINO%20Caf%C3%A9%20Via%20Primavera%2C%20Medell%C3%ADn&query_place_id=ChIJAwOZ5ikoRI4RWqsKH3Ve1gI",
+  "categoryName": "Cafetería"
+},
+{
+  "title": "Bar Alsina Mitre",
+  "totalScore": 5,
+  "reviewsCount": 2,
+  "street": "Blvd. Alsina 1360",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 62-0011",
+  "categories": [
+    "Bar"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Bar%20Alsina%20Mitre&query_place_id=ChIJ24n43DbLuZURP-MBlJXnRZc",
+  "categoryName": "Bar"
+},
+{
+  "title": "UP",
+  "totalScore": 4.4,
+  "reviewsCount": 128,
+  "street": "San Nicolás 123",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 45-3108",
+  "categories": [
+    "Bar"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=UP&query_place_id=ChIJn7kmG5-1uZURpFFt68OkcK0",
+  "categoryName": "Bar"
+},
+{
+  "title": "Zappa Coffé-Bar",
+  "totalScore": 4.2,
+  "reviewsCount": 89,
+  "street": "Dr. Alem 375",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": null,
+  "categories": [
+    "Bar"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Zappa%20Coff%C3%A9-Bar&query_place_id=ChIJYXZxUle1uZURi85FR_IT3eE",
+  "categoryName": "Bar"
+},
+{
+  "title": "Point Bar (Pergamino)",
+  "totalScore": 3.8,
+  "reviewsCount": 102,
+  "street": "Av. de Mayo 250",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": null,
+  "categories": [
+    "Club nocturno",
+    "Pub"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Point%20Bar%20(Pergamino)&query_place_id=ChIJU-suQFq1uZURqUov9JmITkQ",
+  "categoryName": "Club nocturno"
+},
+{
+  "title": "RioKiosco",
+  "totalScore": 4.7,
+  "reviewsCount": 6,
+  "street": "Río de Janeiro 325",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": null,
+  "categories": [
+    "Kiosco"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=RioKiosco&query_place_id=ChIJR7ybcp_LuZURUhtC-jZZJos",
+  "categoryName": "Kiosco"
+},
+{
+  "title": "Bar Friends",
+  "totalScore": 4.2,
+  "reviewsCount": 1173,
+  "street": "Avenida Juan B. Justo 2598",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 43-3663",
+  "categories": [
+    "Restaurante",
+    "Parrilla",
+    "Bar",
+    "Cafetería",
+    "Tienda de pasta",
+    "Pizzería",
+    "Tienda de té"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Bar%20Friends&query_place_id=ChIJO2ys6spKuJURx_sz3rUwSI4",
+  "categoryName": "Restaurante"
+},
+{
+  "title": "halcones de Pergamino",
+  "totalScore": 5,
+  "reviewsCount": 1,
+  "street": null,
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": null,
+  "categories": [
+    "Bar"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=halcones%20de%20Pergamino&query_place_id=ChIJiy61i1C1uZURnxtSaEGksSM",
+  "categoryName": "Bar"
+},
+{
+  "title": "La Esquina de Hugo",
+  "totalScore": 4.1,
+  "reviewsCount": 97,
+  "street": "Av. de Mayo 1099",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 44-3268",
+  "categories": [
+    "Bar"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=La%20Esquina%20de%20Hugo&query_place_id=ChIJ9UnSDVi1uZURFuR1gFwI44Y",
+  "categoryName": "Bar"
+},
+{
+  "title": "Bar del Roma",
+  "totalScore": 4.7,
+  "reviewsCount": 16,
+  "street": null,
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 23-6933",
+  "categories": [
+    "Lugar de interés histórico"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Bar%20del%20Roma&query_place_id=ChIJzUyYhpa1uZUR-bfENpogpro",
+  "categoryName": "Lugar de interés histórico"
+},
+{
+  "title": "Bar Mitre",
+  "totalScore": 4.4,
+  "reviewsCount": 1180,
+  "street": "Blvd. Alsina 400-476",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 31-9131",
+  "categories": [
+    "Cafetería",
+    "Bar"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Bar%20Mitre&query_place_id=ChIJFd03tFm1uZURBqlV1Od3a20",
+  "categoryName": "Cafetería"
+},
+{
+  "title": "Bulliban Street Pub",
+  "totalScore": 4.3,
+  "reviewsCount": 1526,
+  "street": "Av. de Mayo 320",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 46-7929",
+  "categories": [
+    "Pub"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Bulliban%20Street%20Pub&query_place_id=ChIJi7jTbFq1uZUReb4tIu2iTAo",
+  "categoryName": "Pub"
+},
+{
+  "title": "Point - Punto Patagonia",
+  "totalScore": 4.2,
+  "reviewsCount": 286,
+  "street": "Av. de Mayo 270",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 50-2446",
+  "categories": [
+    "Bar"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Point%20-%20Punto%20Patagonia&query_place_id=ChIJ88JRe8y1uZURrb5aXw2Hk3A",
+  "categoryName": "Bar"
+},
+{
+  "title": "BREWER BEER WAREHOUSE",
+  "totalScore": 4.3,
+  "reviewsCount": 502,
+  "street": "Av. de Mayo 208",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 61-5551",
+  "categories": [
+    "Bar"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=BREWER%20BEER%20WAREHOUSE&query_place_id=ChIJcZzVP6S1uZURpzUabRODHLU",
+  "categoryName": "Bar"
+},
+{
+  "title": "Session Haus",
+  "totalScore": 4.5,
+  "reviewsCount": 1648,
+  "street": "Dr. Alem 599",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": "https://m.facebook.com/SessionHausPergamino/",
+  "phone": "+54 9 2477 60-7686",
+  "categories": [
+    "Cervecería artesanal"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Session%20Haus&query_place_id=ChIJF2Z0klC1uZUR4Vpzra6bKeI",
+  "categoryName": "Cervecería artesanal"
+},
+{
+  "title": "Bar Querede",
+  "totalScore": 4.7,
+  "reviewsCount": 114,
+  "street": null,
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": null,
+  "categories": [
+    "Bar"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Bar%20Querede&query_place_id=ChIJM6n4-CvLuZURwMXGCcdlcBQ",
+  "categoryName": "Bar"
+},
+{
+  "title": "Don Pedro",
+  "totalScore": 4.7,
+  "reviewsCount": 244,
+  "street": "alvear y terraplen",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": "https://www.facebook.com/matias.ricci.908",
+  "phone": "+54 341 336-4605",
+  "categories": [
+    "Bar"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Don%20Pedro&query_place_id=ChIJLRI-GUy1uZURNBRqmAWuczY",
+  "categoryName": "Bar"
+},
+{
+  "title": "Bar Florentino",
+  "totalScore": 4.5,
+  "reviewsCount": 293,
+  "street": "Lorenzo Moreno 900-998",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 2477 63-3462",
+  "categories": [
+    "Bar"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Bar%20Florentino&query_place_id=ChIJSdMYWkS1uZURsu3pWSHk7Us",
+  "categoryName": "Bar"
+},
+{
+  "title": "El Bagual",
+  "totalScore": 4.8,
+  "reviewsCount": 11,
+  "street": "Vergara Campos 2331",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": "https://wa.me/2477272752",
+  "phone": "+54 414040",
+  "categories": [
+    "Pizzería"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=El%20Bagual&query_place_id=ChIJW7rsMxu1uZURaQ2j9X2aDhU",
+  "categoryName": "Pizzería"
+},
+{
+  "title": "Ritmo Club Restobar",
+  "totalScore": 4.5,
+  "reviewsCount": 191,
+  "street": "Blvd. Alsina 950",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": "https://www.facebook.com/ritmo.pergamino/",
+  "phone": "+54 9 2477 50-2370",
+  "categories": [
+    "Restaurante"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Ritmo%20Club%20Restobar&query_place_id=ChIJGdX90tbLuZURQ_ynazmSg8A",
+  "categoryName": "Restaurante"
+},
+{
+  "title": "Café Martínez Pergamino",
+  "totalScore": 4.2,
+  "reviewsCount": 1384,
+  "street": "Av. de Mayo 350",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": "https://www.cafemartinez.com/",
+  "phone": null,
+  "categories": [
+    "Cafetería"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Caf%C3%A9%20Mart%C3%ADnez%20Pergamino&query_place_id=ChIJNahiElq1uZURYGLtOumBkx0",
+  "categoryName": "Cafetería"
+},
+{
+  "title": "Mayolosnogalesrista Dietética",
+  "totalScore": 4.4,
+  "reviewsCount": 47,
+  "street": "C1406FHW, Pergamino 1105",
+  "city": "Cdad. Autónoma de Buenos Aires",
+  "state": "Cdad. Autónoma de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": null,
+  "categories": [
+    "Centro comercial"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Mayolosnogalesrista%20Diet%C3%A9tica&query_place_id=ChIJRb-jJH_JvJURnXnIGq6xOWg",
+  "categoryName": "Centro comercial"
+},
+{
+  "title": "Delicia Natural",
+  "totalScore": 4,
+  "reviewsCount": 5,
+  "street": "Blvd. Colón 205",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 9 2477 41-5299",
+  "categories": [
+    "Tienda de alimentación"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Delicia%20Natural&query_place_id=ChIJIRBC0lS1uZURbZssOmzpbeA",
+  "categoryName": "Tienda de alimentación"
+},
+{
+  "title": "Chau Chau Tacc Alm. Natural",
+  "totalScore": 4.6,
+  "reviewsCount": 24,
+  "street": "Alberti 321",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 9 2477 59-3953",
+  "categories": [
+    "Tienda de alimentación"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Chau%20Chau%20Tacc%20Alm.%20Natural&query_place_id=ChIJNebmIlq1uZURtznJelhmreo",
+  "categoryName": "Tienda de alimentación"
+},
+{
+  "title": "Mandarina tienda saludable",
+  "totalScore": 5,
+  "reviewsCount": 5,
+  "street": "Blvd. Marcelino Ugarte 946",
+  "city": "Pergamino",
+  "state": "Provincia de Buenos Aires",
+  "countryCode": "AR",
+  "website": null,
+  "phone": "+54 9 2477 27-2354",
+  "categories": [
+    "Tienda de alimentos naturales"
+  ],
+  "url": "https://www.google.com/maps/search/?api=1&query=Mandarina%20tienda%20saludable&query_place_id=ChIJ2QQNIem1uZURYwevUVCPCTY",
+  "categoryName": "Tienda de alimentos naturales"
+}]

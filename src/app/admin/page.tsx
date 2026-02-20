@@ -161,6 +161,16 @@ export default function AdminDashboard() {
                         <p>Gestioná los tips que se muestran en la pantalla principal.</p>
                     </div>
                 </Link>
+
+                <Link href="/admin/eventos" className={styles.menuItem}>
+                    <div className={styles.iconWrapper} style={{ background: 'rgba(217, 119, 6, 0.1)', color: '#d97706' }}>
+                        <BarChart3 size={24} />
+                    </div>
+                    <div className={styles.menuInfo}>
+                        <h3>Eventos</h3>
+                        <p>Agregá y gestioná eventos de la ciudad.</p>
+                    </div>
+                </Link>
             </div>
 
             <div style={{ marginTop: '2rem', textAlign: 'center' }}>

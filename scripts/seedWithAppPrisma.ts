@@ -1,10 +1,10 @@
-import "dotenv/config";
-import { PrismaClient } from '@prisma/client';
+// 1. Cargar dotenv lo primero para que src/lib/prisma tenga DATABASE_URL
+import 'dotenv/config';
+
+// 2. Importar prisma desde la app (que usa adapter-pg y SÍ funciona)
+import { prisma } from '../src/lib/prisma';
 import fs from 'fs';
 import path from 'path';
-
-// Cliente estandar
-const prisma = new PrismaClient({});
 
 async function main() {
     console.log('🌱 Iniciando carga de restaurantes REALES a la base de datos...');
@@ -13,7 +13,7 @@ async function main() {
     const jsonText = fs.readFileSync(filePath, 'utf-8');
     const locales = JSON.parse(jsonText);
 
-    console.log(`Encontrados ${locales.length} restaurantes. Insertando en entorno de producción...`);
+    console.log(`Encontrados ${locales.length} restaurantes. Insertando en entorno de producción mediante PG Adapter...`);
 
     let successCount = 0;
     for (const local of locales) {
@@ -41,7 +41,7 @@ async function main() {
         } catch (e: any) {
             console.error(`❌ Error insertando ${local.title}:`);
             console.error(e);
-            break;
+            break; // Si falla uno, que pare para ver el error
         }
     }
 

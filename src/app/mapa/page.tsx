@@ -169,7 +169,7 @@ function MapContent() {
                 </div>
 
                 <div style={{ height: 'calc(100% - 10px)', borderRadius: '1rem', overflow: 'hidden', boxShadow: 'var(--shadow-lg)' }}>
-                    <SurvivalMap activeLine={activeLine} pois={filteredPois} />
+                    <SurvivalMap activeLine={activeLine} pois={filteredPois} activePolyline={activePolyline} />
                 </div>
 
                 {/* Legend */}

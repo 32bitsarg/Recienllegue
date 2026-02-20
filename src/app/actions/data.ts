@@ -921,3 +921,26 @@ export async function globalSearch(query: string) {
     }
 }
 
+// ================= CITY EVENTS =================
+
+export async function getCityEvents() {
+    try {
+        return await prisma.cityEvent.findMany({
+            orderBy: { date: 'asc' }
+        });
+    } catch {
+        return [];
+    }
+}
+
+export async function createCityEvent(data: any) {
+    return await prisma.cityEvent.create({ data });
+}
+
+export async function updateCityEvent(id: string, data: any) {
+    return await prisma.cityEvent.update({ where: { id }, data });
+}
+
+export async function deleteCityEvent(id: string) {
+    return await prisma.cityEvent.delete({ where: { id } });
+}
