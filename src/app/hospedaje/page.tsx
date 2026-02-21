@@ -122,7 +122,9 @@ export default function HospedajePage() {
                                                 </div>
                                             )}
                                         </div>
-                                        <div className={styles.priceBadge}>${Number(h.price).toLocaleString()} /mes</div>
+                                        <div className={styles.priceBadge}>
+                                            {Number(h.price) === 0 ? "Consultar precio" : `$${Number(h.price).toLocaleString()} /mes`}
+                                        </div>
 
                                         <FavoriteButton
                                             itemId={h.id}
@@ -136,6 +138,7 @@ export default function HospedajePage() {
                                             <span className={styles.distanceTag}>{h.distance}</span>
                                         </div>
                                         <h3 className={styles.cardTitle}>{h.title}</h3>
+                                        <p className={styles.cardDescription}>{h.description}</p>
                                         <div className={styles.services}>
                                             <div className={styles.genderItem}>
                                                 <User size={12} /> {h.gender}

@@ -79,10 +79,14 @@ export async function getOndutyPharmacies() {
 
 export async function getProperties() {
     try {
-        return await prisma.property.findMany({
+        const properties = await prisma.property.findMany({
             where: { active: true },
             orderBy: { createdAt: "desc" },
         });
+        return properties.map(p => ({
+            ...p,
+            price: Number(p.price)
+        }));
     } catch (error) {
         console.error("Error fetching properties:", error);
         return [];
@@ -149,7 +153,7 @@ export async function getNotices() {
 
 export async function getPropertyById(id: string) {
     try {
-        return await prisma.property.findUnique({
+        const property = await prisma.property.findUnique({
             where: { id },
             include: {
                 owner: {
@@ -157,6 +161,11 @@ export async function getPropertyById(id: string) {
                 }
             }
         });
+        if (!property) return null;
+        return {
+            ...property,
+            price: Number(property.price)
+        };
     } catch (error) {
         console.error("Error fetching property:", error);
         return null;

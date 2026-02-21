@@ -25,6 +25,13 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
     const { id } = use(params);
     const [property, setProperty] = useState<any>(null);
     const [loading, setLoading] = useState(true);
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+    const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+        const target = e.target as HTMLDivElement;
+        const index = Math.round(target.scrollLeft / target.clientWidth);
+        setCurrentImageIndex(index);
+    };
 
     useEffect(() => {
         const fetchProperty = async () => {
@@ -58,12 +65,38 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
     // Adapt Json fields (services and images)
     const services = Array.isArray(property.services) ? property.services : [];
     const mainImage = property.mainImage;
+    const allImages = Array.isArray(property.images) && property.images.length > 0
+        ? property.images
+        : (mainImage ? [mainImage] : []);
 
     return (
         <main className="safe-bottom">
             <div className={styles.hero}>
-                {mainImage ? (
-                    <img src={mainImage} alt={property.title} className={styles.heroImage} />
+                {allImages.length > 0 ? (
+                    <>
+                        <div className={styles.imageGallery} onScroll={handleScroll}>
+                            {allImages.map((img: string, idx: number) => (
+                                <div key={idx} className={styles.gallerySlide}>
+                                    <img src={img} alt={`${property.title} - Foto ${idx + 1}`} className={styles.heroImage} />
+                                </div>
+                            ))}
+                        </div>
+                        {allImages.length > 1 && (
+                            <>
+                                <div className={styles.galleryDots}>
+                                    {allImages.map((_: any, idx: number) => (
+                                        <div
+                                            key={idx}
+                                            className={`${styles.galleryDot} ${currentImageIndex === idx ? styles.galleryDotActive : ''}`}
+                                        />
+                                    ))}
+                                </div>
+                                <div className={styles.imageCounter}>
+                                    {currentImageIndex + 1}/{allImages.length}
+                                </div>
+                            </>
+                        )}
+                    </>
                 ) : (
                     <div className={styles.imageFallback}>
                         <img
@@ -105,7 +138,9 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
                 <div className={styles.priceCard}>
                     <div className={styles.priceInfo}>
                         <span className={styles.priceLabel}>Precio Mensual</span>
-                        <span className={styles.priceValue}>${Number(property.price).toLocaleString('es-AR')}</span>
+                        <span className={styles.priceValue}>
+                            {Number(property.price) === 0 ? "Consultar" : `$${Number(property.price).toLocaleString('es-AR')}`}
+                        </span>
                     </div>
                     <div className={styles.genderBadge}>
                         <User size={16} />
