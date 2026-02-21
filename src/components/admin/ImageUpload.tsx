@@ -14,7 +14,9 @@ interface ImageUploadProps {
     onMultiUpload?: (urls: string[]) => void;
 }
 
-const MAX_SIZE = 5 * 1024 * 1024; // 5MB
+import imageCompression from 'browser-image-compression';
+
+const MAX_SIZE = 5 * 1024 * 1024; // 5MB limit for Appwrite free tier just in case
 
 export default function ImageUpload({
     onUpload,
@@ -33,11 +35,6 @@ export default function ImageUpload({
     const uploadFile = async (file: File): Promise<string | null> => {
         if (!file.type.startsWith("image/")) {
             alert("Por favor subí un archivo de imagen");
-            return null;
-        }
-
-        if (file.size > MAX_SIZE) {
-            alert("El archivo es demasiado grande. Máximo 5MB.");
             return null;
         }
 
@@ -65,17 +62,26 @@ export default function ImageUpload({
         setUploading(true);
 
         try {
+            const options = {
+                maxSizeMB: 0.8,
+                maxWidthOrHeight: 1200,
+                useWebWorker: true,
+                fileType: "image/webp" as any
+            };
+
             if (multiple && onMultiUpload) {
                 const newUrls: string[] = [];
                 for (const file of Array.from(files)) {
-                    const url = await uploadFile(file);
+                    const compressedFile = await imageCompression(file, options);
+                    const url = await uploadFile(compressedFile);
                     if (url) newUrls.push(url);
                 }
                 const updatedUrls = [...multiPreviews, ...newUrls];
                 setMultiPreviews(updatedUrls);
                 onMultiUpload(updatedUrls);
             } else {
-                const url = await uploadFile(files[0]);
+                const compressedFile = await imageCompression(files[0], options);
+                const url = await uploadFile(compressedFile);
                 if (url) {
                     setPreview(url);
                     onUpload(url);
