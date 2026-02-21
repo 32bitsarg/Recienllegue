@@ -207,7 +207,10 @@ export default function Home() {
         <section className={styles.section}>
           <div className={styles.sectionHeader}>
             <h3>Eventos en la ciudad</h3>
-            <span className={styles.viewAll} style={{ color: '#d97706' }}>No te los pierdas</span>
+            <div className={styles.scrollHint} style={{ color: '#d97706', opacity: 0.8 }}>
+              <span>Deslizar</span>
+              <ChevronRight size={14} />
+            </div>
           </div>
           <div className={styles.eventsGrid}>
             {events.map((ev, i) => {
