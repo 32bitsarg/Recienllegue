@@ -20,9 +20,11 @@ import { getPropertyById } from "@/app/actions/data";
 import EmptyState from "@/components/common/EmptyState";
 import LoadingScreen from "@/components/common/LoadingScreen";
 import { Building } from "lucide-react";
+import { useDragScroll } from "@/hooks/useDragScroll";
 
 export default function PropertyDetailPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = use(params);
+    const galleryScroll = useDragScroll<HTMLDivElement>();
     const [property, setProperty] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -74,7 +76,16 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
             <div className={styles.hero}>
                 {allImages.length > 0 ? (
                     <>
-                        <div className={styles.imageGallery} onScroll={handleScroll}>
+                        <div
+                            className={styles.imageGallery}
+                            onScroll={handleScroll}
+                            ref={galleryScroll.ref}
+                            onMouseDown={galleryScroll.onMouseDown}
+                            onMouseLeave={galleryScroll.onMouseLeave}
+                            onMouseUp={galleryScroll.onMouseUp}
+                            onMouseMove={galleryScroll.onMouseMove}
+                            style={galleryScroll.style}
+                        >
                             {allImages.map((img: string, idx: number) => (
                                 <div key={idx} className={styles.gallerySlide}>
                                     <img src={img} alt={`${property.title} - Foto ${idx + 1}`} className={styles.heroImage} />

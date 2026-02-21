@@ -24,9 +24,13 @@ import {
   ExternalLink
 } from "lucide-react";
 import { getNotices, getTips, getFeaturedRestaurants, getCityEvents } from "@/app/actions/data";
+import { useDragScroll } from "@/hooks/useDragScroll";
 
 export default function Home() {
   const { data: session } = useSession();
+  const categoryScroll = useDragScroll<HTMLDivElement>();
+  const eventsScroll = useDragScroll<HTMLDivElement>();
+  const foodScroll = useDragScroll<HTMLDivElement>();
   const [latestNotices, setLatestNotices] = useState<any[]>([]);
   const [tips, setTips] = useState<any[]>([]);
   const [currentTip, setCurrentTip] = useState(0);
@@ -146,6 +150,12 @@ export default function Home() {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
+          ref={categoryScroll.ref as any}
+          onMouseDown={categoryScroll.onMouseDown}
+          onMouseLeave={categoryScroll.onMouseLeave}
+          onMouseUp={categoryScroll.onMouseUp}
+          onMouseMove={categoryScroll.onMouseMove}
+          style={categoryScroll.style}
         >
           {categories.map((cat, i) => (
             <motion.div key={i} variants={itemVariants}>
@@ -212,7 +222,15 @@ export default function Home() {
               <ChevronRight size={14} />
             </div>
           </div>
-          <div className={styles.eventsGrid}>
+          <div
+            className={styles.eventsGrid}
+            ref={eventsScroll.ref}
+            onMouseDown={eventsScroll.onMouseDown}
+            onMouseLeave={eventsScroll.onMouseLeave}
+            onMouseUp={eventsScroll.onMouseUp}
+            onMouseMove={eventsScroll.onMouseMove}
+            style={eventsScroll.style}
+          >
             {events.map((ev, i) => {
               const content = (
                 <>
@@ -263,7 +281,15 @@ export default function Home() {
             <h3>Sugerencias</h3>
             <Link href="/comida" className={styles.viewAll}>Ver todo <ChevronRight size={14} /></Link>
           </div>
-          <div className={styles.featuredFoodGrid}>
+          <div
+            className={styles.featuredFoodGrid}
+            ref={foodScroll.ref}
+            onMouseDown={foodScroll.onMouseDown}
+            onMouseLeave={foodScroll.onMouseLeave}
+            onMouseUp={foodScroll.onMouseUp}
+            onMouseMove={foodScroll.onMouseMove}
+            style={foodScroll.style}
+          >
             {featuredFood.map((food, i) => (
               <Link href="/comida" key={food.id || i} className={styles.featuredFoodCard}>
                 {food.image ? (

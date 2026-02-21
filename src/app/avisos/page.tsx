@@ -10,11 +10,12 @@ import { Plus, MessageSquare, Clock, Tag as TagIcon, Filter, Flag, ShieldAlert }
 import styles from "./Avisos.module.css";
 import { getNotices } from "@/app/actions/data";
 import LoadingScreen from "@/components/common/LoadingScreen";
-
+import { useDragScroll } from "@/hooks/useDragScroll";
 const categories = ["Todos", "Vivienda", "Libros", "Eventos", "Otros"];
 
 export default function AvisosPage() {
     const { data: session, status } = useSession();
+    const categoriesScroll = useDragScroll<HTMLDivElement>();
     const [activeCategory, setActiveCategory] = useState("Todos");
     const [reportedIds, setReportedIds] = useState<string[]>([]);
     const [notices, setNotices] = useState<any[]>([]);
@@ -82,7 +83,15 @@ export default function AvisosPage() {
                 </button>
             </div>
 
-            <div className={styles.categories}>
+            <div
+                className={styles.categories}
+                ref={categoriesScroll.ref}
+                onMouseDown={categoriesScroll.onMouseDown}
+                onMouseLeave={categoriesScroll.onMouseLeave}
+                onMouseUp={categoriesScroll.onMouseUp}
+                onMouseMove={categoriesScroll.onMouseMove}
+                style={categoriesScroll.style}
+            >
                 {categories.map((cat, i) => (
                     <motion.button
                         key={cat}
