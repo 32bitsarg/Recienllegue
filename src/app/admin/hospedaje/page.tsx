@@ -125,8 +125,8 @@ export default function AdminHospedajePage() {
             gender: prop.gender,
             ownerName: prop.ownerName,
             ownerPhone: prop.ownerPhone,
-            mainImage: prop.mainImage,
-            images: (prop.images as string[]) || [],
+            mainImage: prop.mainImage || "",
+            images: (prop.images as string[]) || (prop.mainImage ? [prop.mainImage] : []),
             services: (prop.services as string[]) || [],
             verified: prop.verified || false,
             sponsor: prop.sponsor || false
@@ -391,9 +391,53 @@ export default function AdminHospedajePage() {
                         </div>
                     </div>
 
-                    <ImageUpload label="Imagen Principal" previewUrl={formData.mainImage}
-                        onUpload={(url) => setFormData(prev => ({ ...prev, mainImage: url }))} />
-                    <button className={styles.submitBtn} disabled={loading}>
+                    <div>
+                        <label style={{ display: 'block', fontWeight: 600, marginBottom: '0.4rem' }}>Imágenes del Hospedaje</label>
+                        <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '1rem' }}>Sube todas las fotos que quieras. La que marques con la ⭐ será la portada principal.</p>
+
+                        <ImageUpload
+                            multiple={true}
+                            urls={formData.images.length > 0 ? formData.images : (formData.mainImage ? [formData.mainImage] : [])}
+                            onUpload={(url) => { }} // Not strictly needed for multi-mode but required by props
+                            onMultiUpload={(urls) => {
+                                // If there's no mainImage yet but we just uploaded something, set the first one as main
+                                setFormData(prev => ({
+                                    ...prev,
+                                    images: urls,
+                                    mainImage: !prev.mainImage && urls.length > 0 ? urls[0] : (urls.includes(prev.mainImage) ? prev.mainImage : urls[0] || "")
+                                }));
+                            }}
+                        />
+
+                        {formData.images.length > 0 && (
+                            <div style={{ marginTop: '1rem', background: 'var(--surface)', padding: '1rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--border)' }}>
+                                <h4 style={{ fontSize: '0.9rem', marginBottom: '0.75rem', fontWeight: 600 }}>🌟 Elige la foto de Portada</h4>
+                                <div style={{ display: 'flex', gap: '0.5rem', overflowX: 'auto', paddingBottom: '0.5rem' }}>
+                                    {formData.images.map((imgUrl, idx) => (
+                                        <div
+                                            key={idx}
+                                            onClick={() => setFormData(prev => ({ ...prev, mainImage: imgUrl }))}
+                                            style={{
+                                                width: '80px', height: '80px', flexShrink: 0, cursor: 'pointer',
+                                                borderRadius: '8px', overflow: 'hidden', position: 'relative',
+                                                border: formData.mainImage === imgUrl ? '3px solid #f59e0b' : '1px solid transparent',
+                                                transition: 'all 0.2s', opacity: formData.mainImage === imgUrl ? 1 : 0.6
+                                            }}
+                                        >
+                                            <img src={imgUrl} alt={`Opción ${idx}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                            {formData.mainImage === imgUrl && (
+                                                <div style={{ position: 'absolute', top: 4, right: 4, background: '#f59e0b', borderRadius: '50%', padding: '2px', color: 'white' }}>
+                                                    <Star size={12} fill="white" />
+                                                </div>
+                                            )}
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+                    </div>
+
+                    <button className={styles.submitBtn} disabled={loading} style={{ marginTop: '1.5rem' }}>
                         {loading ? "Guardando..." : editingId ? "Actualizar Propiedad" : "Guardar Propiedad"}
                         <Save size={20} />
                     </button>

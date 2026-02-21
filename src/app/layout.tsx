@@ -1,10 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Outfit } from "next/font/google";
+import { Quicksand } from "next/font/google";
 import "./globals.css";
 
-const outfit = Outfit({
+const quicksand = Quicksand({
   subsets: ["latin"],
-  variable: "--font-outfit",
+  variable: "--font-quicksand",
 });
 
 export const metadata: Metadata = {
@@ -58,6 +58,7 @@ import PageTransition from "@/components/layout/PageTransition";
 import BottomNav from "@/components/layout/BottomNav";
 import LoadingScreen from "@/components/common/LoadingScreen";
 import { AuthProvider } from "@/components/providers/AuthProvider";
+import Script from "next/script";
 
 export default function RootLayout({
   children,
@@ -67,6 +68,26 @@ export default function RootLayout({
   return (
     <html lang="es" style={{ colorScheme: 'light' }}>
       <head>
+        {/* Google Analytics - Carga en toda la app sin tener que ponerlo página por página */}
+        <Script
+          strategy="afterInteractive"
+          src={`https://www.googletagmanager.com/gtag/js?id=G-VCTWHCEV8H`}
+        />
+        <Script
+          id="google-analytics"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', 'G-VCTWHCEV8H', {
+                    page_path: window.location.pathname,
+                  });
+                `,
+          }}
+        />
+
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#6366f1" />
         <link rel="apple-touch-icon" href="/assets/icons/Iconrmbg.png" />
@@ -89,7 +110,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${outfit.variable}`}>
+      <body className={`${quicksand.variable}`}>
         <AuthProvider>
           <LoadingScreen />
           <div className="mobile-container">
