@@ -23,6 +23,30 @@
   max-width: 80%;
 }
 
+.heroDots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  opacity: 0.3;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.activeDot {
+  opacity: 1;
+  background: var(--primary);
+  width: 16px;
+  border-radius: 4px;
+}
+
 .section {
   padding: 1.5rem 1.5rem 0.5rem;
 }

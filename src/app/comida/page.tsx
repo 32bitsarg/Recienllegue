@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import TopBar from "@/components/layout/TopBar";
 import EmptyState from "@/components/common/EmptyState";
-import { Search, Utensils, Star, Clock, MapPin, ChevronRight, Filter, X } from "lucide-react";
+import { Search, Utensils, Star, Clock, MapPin, ChevronRight, Filter, X, Phone, BadgeCheck } from "lucide-react";
 import styles from "./Comida.module.css";
 import { motion, AnimatePresence } from "framer-motion";
 import { getRestaurants, getUserFavorites } from "@/app/actions/data";
@@ -66,8 +66,16 @@ export default function ComidaPage() {
 
             <div className={styles.container}>
                 <div className={styles.header}>
-                    <h1>Comida y Ocio</h1>
-                    <p>Los mejores lugares para comer cerca de la facu.</p>
+                    <h1>Comercios</h1>
+                    <p>Explorá restaurantes y locales en Pergamino.</p>
+                </div>
+
+                <div className={styles.infoBanner}>
+                    <BadgeCheck size={20} className={styles.infoIcon} />
+                    <p>
+                        Información obtenida automáticamente de <strong>Google Maps</strong>.
+                        Los locales que muestren este icono <BadgeCheck size={14} style={{ display: 'inline', color: 'var(--secondary)', verticalAlign: 'middle' }} /> indican que su dueño <strong>verificó y actualizó</strong> sus datos en nuestra app.
+                    </p>
                 </div>
 
                 <div className={styles.searchSection}>
@@ -262,6 +270,16 @@ export default function ComidaPage() {
                                         >
                                             <MapPin size={16} />
                                             <span style={{ textDecoration: 'underline' }}>{selectedRestaurant.address}</span>
+                                        </a>
+                                    )}
+                                    {selectedRestaurant.phone && (
+                                        <a
+                                            href={`tel:${selectedRestaurant.phone.replace(/\D/g, '')}`}
+                                            className={styles.modalDetailRow}
+                                            style={{ textDecoration: 'none', cursor: 'pointer' }}
+                                        >
+                                            <Phone size={16} />
+                                            <span style={{ textDecoration: 'underline' }}>Llamar ({selectedRestaurant.phone})</span>
                                         </a>
                                     )}
                                     {selectedRestaurant.distance && (

@@ -4,7 +4,8 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { getUserFavorites } from "@/app/actions/data";
 import TopBar from "@/components/layout/TopBar";
-import { ChevronLeft, Heart, Home as HomeIcon, Utensils, ChevronRight, CheckCircle, Star } from "lucide-react";
+import { ChevronLeft, Heart, Home as HomeIcon, Utensils, ChevronRight, CheckCircle, Star, Clock, MapPin, X, Phone } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import styles from "../ContenidoPerfil.module.css";
 // We reuse some card styles from original pages by necessity or reimplement them here
@@ -16,6 +17,7 @@ export default function FavoritesPage() {
     const [favorites, setFavorites] = useState<{ properties: any[], restaurants: any[] }>({ properties: [], restaurants: [] });
     const [loading, setLoading] = useState(true);
     const [activeTab, setActiveTab] = useState("properties");
+    const [selectedRestaurant, setSelectedRestaurant] = useState<any>(null);
 
     useEffect(() => {
         async function load() {
@@ -106,29 +108,115 @@ export default function FavoritesPage() {
                                 </Link>
                             ))
                         ) : (
-                            favorites.restaurants.map((r) => (
-                                <Link key={r.id} href={`/comida/${r.id}`} className={cStyles.restaurantCard}>
-                                    <img src={r.image} alt={r.name} className={cStyles.restaurantImage} />
-                                    <div className={cStyles.restaurantInfo}>
-                                        <div className={cStyles.restaurantHeader}>
-                                            <h3 className={cStyles.restaurantName}>{r.name}</h3>
-                                            <div className={cStyles.rating}>
-                                                <Star size={14} fill="#f59e0b" color="#f59e0b" />
-                                                <span>{r.rating}</span>
+                            favorites.restaurants.map((res: any) => (
+                                <div key={res.id} className={cStyles.restaurantCard} onClick={() => setSelectedRestaurant(res)}>
+                                    <div className={cStyles.cardImage}>
+                                        {res.image ? (
+                                            <img src={res.image} alt={res.name} />
+                                        ) : (
+                                            <div className={cStyles.imageFallback}>
+                                                <Utensils size={32} style={{ opacity: 0.2 }} />
                                             </div>
-                                        </div>
-                                        <p className={cStyles.restaurantCategory}>{r.category} • {r.distance}</p>
-                                        <div className={cStyles.restaurantFooter}>
-                                            <span className={cStyles.prepTime}>{r.prepTime}</span>
-                                            <span className={cStyles.priceRange}>{"$".repeat(r.priceRange === "ALTO" ? 3 : r.priceRange === "MEDIO" ? 2 : 1)}</span>
+                                        )}
+                                        <div className={cStyles.ratingBadge}>
+                                            <Star size={10} fill="currentColor" />
+                                            <span>{res.rating}</span>
                                         </div>
                                     </div>
-                                </Link>
+                                    <div className={cStyles.cardInfo}>
+                                        <div className={cStyles.mainInfo}>
+                                            <h3 className={cStyles.resName}>{res.name}</h3>
+                                            <p className={cStyles.featuredText}>{res.featured || res.category}</p>
+                                        </div>
+                                        <div className={cStyles.metaInfo}>
+                                            <div className={cStyles.metaItem}>
+                                                <Clock size={14} />
+                                                <span>{res.prepTime}</span>
+                                            </div>
+                                            <div className={cStyles.metaItem}>
+                                                <MapPin size={14} />
+                                                <span>{res.distance}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className={cStyles.viewBtn}>
+                                        <ChevronRight size={20} />
+                                    </div>
+                                </div>
                             ))
                         )}
                     </div>
                 )}
             </div>
+
+            <AnimatePresence>
+                {selectedRestaurant && (
+                    <motion.div
+                        className={cStyles.modalOverlay}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onClick={() => setSelectedRestaurant(null)}
+                    >
+                        <motion.div
+                            className={cStyles.modalContent}
+                            initial={{ scale: 0.9, y: 20, opacity: 0 }}
+                            animate={{ scale: 1, y: 0, opacity: 1 }}
+                            exit={{ scale: 0.9, y: 20, opacity: 0 }}
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <div className={cStyles.modalHeader}>
+                                {selectedRestaurant.image ? (
+                                    <img src={selectedRestaurant.image} alt={selectedRestaurant.name} />
+                                ) : (
+                                    <div className={cStyles.imageFallback} style={{ height: '100%' }}>
+                                        <Utensils size={48} style={{ opacity: 0.2 }} />
+                                    </div>
+                                )}
+                                <button className={cStyles.modalCloseBtn} onClick={() => setSelectedRestaurant(null)}>
+                                    <X size={20} />
+                                </button>
+                            </div>
+                            <div className={cStyles.modalBody}>
+                                <div className={cStyles.modalCategory}>{selectedRestaurant.category || "General"}</div>
+                                <h2 className={cStyles.modalTitle}>{selectedRestaurant.name}</h2>
+                                {selectedRestaurant.featured && <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem' }}>{selectedRestaurant.featured}</p>}
+
+                                <div className={cStyles.modalDetails}>
+                                    {selectedRestaurant.address && (
+                                        <a
+                                            href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(selectedRestaurant.address + ", Pergamino, Buenos Aires")}`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className={cStyles.modalDetailRow}
+                                            style={{ textDecoration: 'none', cursor: 'pointer' }}
+                                        >
+                                            <MapPin size={16} />
+                                            <span style={{ textDecoration: 'underline' }}>{selectedRestaurant.address}</span>
+                                        </a>
+                                    )}
+                                    {selectedRestaurant.phone && (
+                                        <a
+                                            href={`tel:${selectedRestaurant.phone.replace(/\D/g, '')}`}
+                                            className={cStyles.modalDetailRow}
+                                            style={{ textDecoration: 'none', cursor: 'pointer' }}
+                                        >
+                                            <Phone size={16} />
+                                            <span style={{ textDecoration: 'underline' }}>Llamar ({selectedRestaurant.phone})</span>
+                                        </a>
+                                    )}
+                                    {selectedRestaurant.distance && (
+                                        <div className={cStyles.modalDetailRow}>
+                                            <Clock size={16} />
+                                            <span>A {selectedRestaurant.distance} de la facu</span>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </main>
     );
 }

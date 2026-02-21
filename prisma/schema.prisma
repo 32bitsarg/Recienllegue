@@ -124,6 +124,7 @@ model Restaurant {
   image          String
   featured       String?      // Especialidad
   address        String
+  phone          String?      // Numero de contacto
   isFeaturedHome Boolean      @default(false)
   
   savedBy        SavedItem[]

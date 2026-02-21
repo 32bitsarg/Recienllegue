@@ -30,6 +30,12 @@ export default function Home() {
   const [latestNotices, setLatestNotices] = useState<any[]>([]);
   const [tips, setTips] = useState<any[]>([]);
   const [currentTip, setCurrentTip] = useState(0);
+  const [currentHeroSlide, setCurrentHeroSlide] = useState(0);
+
+  const heroSlides = [
+    { title: "¿Recién llegaste?", desc: "No te preocupes, acá tenés todo para empezar tu nueva vida universitaria." },
+    { title: "Cada día más completa", desc: "Seguimos sumando información, servicios y nuevos comercios constantemente para vos." }
+  ];
   const [featuredFood, setFeaturedFood] = useState<any[]>([]);
   const [events, setEvents] = useState<any[]>([]);
   const [selectedEvent, setSelectedEvent] = useState<any>(null);
@@ -60,6 +66,14 @@ export default function Home() {
     }, 8000);
     return () => clearInterval(interval);
   }, [tips.length]);
+
+  // Auto-rotate hero slides every 5 seconds
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentHeroSlide(prev => (prev + 1) % heroSlides.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [heroSlides.length]);
 
   const categories = [
     { icon: <HomeIcon size={24} />, label: "Hospedaje", color: "#6366f1", description: "Residencias y deptos", href: "/hospedaje" },
@@ -93,16 +107,31 @@ export default function Home() {
     <main className="safe-bottom">
       <TopBar />
 
-      <motion.section
-        className={styles.hero}
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-      >
+      <section className={styles.hero}>
         <div className={styles.heroContent}>
-          <h2>¿Recién llegaste?</h2>
-          <p>No te preocupes, acá tenés todo para arrancar.</p>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentHeroSlide}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.3 }}
+            >
+              <h2>{heroSlides[currentHeroSlide].title}</h2>
+              <p>{heroSlides[currentHeroSlide].desc}</p>
+            </motion.div>
+          </AnimatePresence>
         </div>
-      </motion.section>
+        <div className={styles.heroDots}>
+          {heroSlides.map((_, i) => (
+            <div
+              key={i}
+              className={`${styles.dot} ${i === currentHeroSlide ? styles.activeDot : ''}`}
+              onClick={() => setCurrentHeroSlide(i)}
+            />
+          ))}
+        </div>
+      </section>
 
       <section className={styles.section}>
         <div className={styles.sectionHeader}>
