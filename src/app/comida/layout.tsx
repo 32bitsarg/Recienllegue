@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Comida y Ocio en Pergamino | El Estudiante",
+    title: "Comida y Ocio en Pergamino | Recién Llegué",
     description: "Descubrí los mejores lugares para comer en Pergamino: rotiserías, bares, cafeterías y restaurantes cerca de la UNNOBA.",
     keywords: ["Comida Pergamino", "Restaurantes UNNOBA", "Dónde comer Pergamino", "Bares Pergamino"],
 };

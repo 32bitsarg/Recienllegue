@@ -1,0 +1,225 @@
+.container {
+    padding: 3rem 2rem;
+    max-width: 1150px;
+    /* Aumentado sustancialmente para computadoras */
+    margin: 0 auto;
+    min-height: calc(100vh - 4rem);
+}
+
+.backLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    color: var(--text-muted);
+    font-weight: 700;
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
+}
+
+.backLink:hover {
+    color: var(--primary);
+}
+
+.editCard {
+    background: white;
+    padding: 0;
+    border-radius: 2rem;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.03);
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    /* Dividimos en dos columnas principales */
+    overflow: hidden;
+}
+
+.header {
+    padding: 3rem 4rem 1.5rem 4rem;
+    grid-column: span 2;
+    border-bottom: 1px solid var(--border);
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    margin-bottom: 0.5rem;
+}
+
+.header p {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+}
+
+.avatarSection {
+    background: #fdfdfd;
+    padding: 4rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 2.5rem;
+    border-right: 1px solid var(--border);
+}
+
+.avatarContainer {
+    position: relative;
+    border: 6px solid white;
+    border-radius: 50%;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+}
+
+.randomizeBtn {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    background: var(--primary);
+    color: white;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: 4px solid white;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+}
+
+.randomizeBtn:hover {
+    transform: rotate(180deg) scale(1.15);
+    background: var(--primary-dark);
+}
+
+.avatarInfo h3 {
+    font-weight: 900;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.avatarInfo p {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+}
+
+.formArea {
+    padding: 4rem;
+}
+
+.formGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+}
+
+.fullWidth {
+    grid-column: span 2;
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+}
+
+.inputLabel {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-weight: 800;
+    font-size: 0.95rem;
+    color: var(--foreground);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.inputIcon {
+    color: var(--primary);
+}
+
+.inputField,
+.textareaField {
+    padding: 1.25rem 1.5rem;
+    background: white;
+    border: 2px solid #f1f5f9;
+    border-radius: 1.25rem;
+    font-size: 1.05rem;
+    font-family: inherit;
+    transition: all 0.3s ease;
+    color: var(--foreground);
+}
+
+.inputField:focus,
+.textareaField:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 5px rgba(99, 102, 241, 0.1);
+}
+
+.textareaField {
+    min-height: 180px;
+    resize: none;
+}
+
+.actions {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.saveBtn {
+    background: var(--primary);
+    color: white;
+    padding: 1.35rem 3.5rem;
+    border-radius: 1.5rem;
+    font-weight: 900;
+    font-size: 1.15rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+}
+
+.saveBtn:hover:not(:disabled) {
+    background: var(--primary-dark);
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(99, 102, 241, 0.4);
+}
+
+.errorMsg,
+.successMsg {
+    grid-column: span 2;
+    padding: 1.5rem;
+    border-radius: 1.25rem;
+    font-weight: 700;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.errorMsg {
+    background: #fff1f2;
+    color: #e11d48;
+    border: 1px solid #fecdd3;
+}
+
+.successMsg {
+    background: #f0fdf4;
+    color: #166534;
+    border: 1px solid #dcfce7;
+}
+
+@media (max-width: 1100px) {
+    .editCard {
+        grid-template-columns: 1fr;
+    }
+
+    .avatarSection {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+    }
+}

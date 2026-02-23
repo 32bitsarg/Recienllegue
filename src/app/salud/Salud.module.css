@@ -150,6 +150,12 @@
     border-left: 3px solid var(--primary);
 }
 
+.locationList {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
 .locationCard {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -210,6 +216,10 @@
     line-height: 1.4;
     color: var(--foreground);
     opacity: 0.8;
+}
+
+.emptyContainer {
+    padding: 1rem 0;
 }
 
 .capsGrid {

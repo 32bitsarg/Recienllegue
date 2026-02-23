@@ -51,23 +51,37 @@
     filter: drop-shadow(0 4px 15px rgba(99, 102, 241, 0.25));
 }
 
-.formSection {
+.formContentWrapper {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.decorativePanel {
+    display: none;
+}
+
+.formSection {
+    width: 100%;
 }
 
 .title {
-    font-size: 2rem;
-    font-weight: 800;
+    font-size: 2.25rem;
+    font-weight: 900;
     margin-bottom: 0.5rem;
     line-height: 1.1;
     text-align: center;
+    letter-spacing: -0.04em;
+    color: var(--foreground);
 }
 
 .subtitle {
     color: var(--text-muted);
-    font-size: 1rem;
-    margin-bottom: 2.5rem;
+    font-size: 1.05rem;
+    margin-bottom: 3rem;
     line-height: 1.4;
+    font-weight: 500;
 }
 
 .form {
@@ -91,20 +105,22 @@
 
 .input {
     width: 100%;
-    padding: 1rem 1rem 1rem 3rem;
+    padding: 1.15rem 1.15rem 1.15rem 3.25rem;
     border-radius: var(--radius-md);
-    border: 1px solid var(--border);
-    background: var(--surface);
+    border: 1px solid transparent;
+    background: var(--surface-hover);
     color: var(--foreground);
     font-family: inherit;
     font-size: 1rem;
-    transition: all 0.2s ease;
+    font-weight: 500;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .input:focus {
     outline: none;
+    background: var(--surface);
     border-color: var(--primary);
-    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+    box-shadow: 0 4px 20px -5px rgba(99, 102, 241, 0.15);
 }
 
 .primaryButton {
@@ -119,7 +135,7 @@
     justify-content: center;
     gap: 0.5rem;
     margin-top: 1rem;
-    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
+    box-shadow: none;
     transition: transform 0.2s ease;
 }
 
@@ -244,14 +260,15 @@
 }
 
 .formSectionCompact {
-    flex: 1;
+    width: 100%;
 }
 
 .titleSmall {
-    font-size: 1.5rem;
-    font-weight: 800;
-    margin-bottom: 1rem;
+    font-size: 1.75rem;
+    font-weight: 900;
+    margin-bottom: 1.5rem;
     text-align: center;
+    letter-spacing: -0.03em;
 }
 
 .formCompact {
@@ -268,12 +285,21 @@
 
 .inputSmall {
     width: 100%;
-    padding: 0.75rem 0.75rem 0.75rem 2.75rem;
+    padding: 0.85rem 0.85rem 0.85rem 2.85rem;
     border-radius: var(--radius-md);
-    border: 1px solid var(--border);
-    background: var(--surface);
+    border: 1px solid transparent;
+    background: var(--surface-hover);
     color: var(--foreground);
     font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.inputSmall:focus {
+    outline: none;
+    background: var(--surface);
+    border-color: var(--primary);
+    box-shadow: 0 4px 15px -5px rgba(99, 102, 241, 0.15);
 }
 
 .primaryButtonSmall {
@@ -322,4 +348,139 @@
     font-size: 1.25rem;
     color: var(--text-muted);
     text-decoration: none;
+}
+
+/* =========================================
+   MEDIA QUERIES - DISEÑO PREMIUM (DESKTOP)
+========================================= */
+
+@media (min-width: 1024px) {
+
+    .container,
+    .containerCompact {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        grid-template-areas: "form logo" !important;
+        width: 100%;
+        height: 100vh;
+        min-height: 100vh;
+        padding: 0;
+        margin: 0;
+        background: white;
+        /* Unified background */
+        overflow: hidden;
+    }
+
+    /* Ocultar elementos móviles y logos redundantes */
+    .header,
+    .headerSmall,
+    .largeIconContainer,
+    .largeIconContainerSmall {
+        display: none !important;
+    }
+
+    /* Columna del formulario (Izquierda) */
+    .formContentWrapper {
+        grid-area: form !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 4rem;
+        background: white;
+        height: 100%;
+    }
+
+    .formSection,
+    .formSectionCompact {
+        width: 100%;
+        max-width: 440px;
+        margin: 0;
+    }
+
+    .title,
+    .titleSmall {
+        text-align: center;
+        font-size: 2.25rem;
+        font-weight: 800;
+        margin-bottom: 0.75rem;
+        line-height: 1.2;
+        color: var(--foreground);
+    }
+
+    .subtitle {
+        text-align: center;
+        font-size: 1.05rem;
+        margin-bottom: 3rem;
+        color: var(--text-muted);
+        max-width: 380px;
+    }
+
+    /* Inputs Limpios y Estándar */
+    .input,
+    .inputSmall {
+        padding: 1.15rem 1rem 1.15rem 3rem;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        font-size: 1rem;
+        transition: all 0.2s ease;
+    }
+
+    .input:focus,
+    .inputSmall:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+        background: var(--surface);
+    }
+
+    .inputIcon {
+        left: 1rem;
+        color: var(--text-muted);
+        width: 20px;
+    }
+
+    /* Botón redondeado tradicional */
+    .primaryButton,
+    .primaryButtonSmall {
+        border-radius: var(--radius-md);
+        padding: 1.1rem;
+        font-size: 1.05rem;
+        font-weight: 600;
+        margin-top: 1.5rem;
+        background: var(--primary);
+        color: white;
+    }
+
+    .socialButton {
+        border-radius: var(--radius-md);
+        padding: 1rem;
+        border: 1px solid var(--border);
+        font-size: 1rem;
+    }
+
+    /* Panel del logo (Derecha) */
+    .logoPanel {
+        grid-area: logo !important;
+        background: white;
+        /* Same background as form for seamless integration */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 4rem;
+        border: none;
+        /* Removed border for perfect integration */
+    }
+
+    .largeLogo {
+        display: block;
+        width: 580px;
+        /* Mantener el tamaño grande que te gustó */
+        height: auto;
+        opacity: 0.9;
+    }
+
+    .videoLogo {
+        display: none;
+    }
 }

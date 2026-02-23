@@ -189,3 +189,10 @@
     color: white;
     backdrop-filter: blur(4px);
 }
+
+.noData {
+    padding: 1.5rem;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}

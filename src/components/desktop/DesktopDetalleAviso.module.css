@@ -1,0 +1,328 @@
+.container {
+    padding: 2rem 1rem;
+    max-width: 900px;
+    margin: 0 auto;
+    min-height: calc(100vh - 4rem);
+}
+
+.backLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    color: var(--text-muted);
+    font-weight: 700;
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
+}
+
+.backLink:hover {
+    color: var(--primary);
+}
+
+.noticeCard {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 2.5rem;
+    border-radius: 2.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+    margin-bottom: 2.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.noticeCard::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--primary), #818cf8);
+}
+
+.noticeHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+}
+
+.authorWrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.authorMeta h4 {
+    font-size: 1.1rem;
+    font-weight: 800;
+    margin: 0;
+    color: var(--foreground);
+}
+
+.authorMeta p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+.headerRight {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+}
+
+.categoryBadge {
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: white;
+    background: var(--primary);
+    padding: 0.4rem 1rem;
+    border-radius: 999px;
+    letter-spacing: 0.05em;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+}
+
+.dateInfo {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-weight: 500;
+}
+
+.title {
+    font-size: 2.75rem;
+    font-weight: 900;
+    letter-spacing: -0.05em;
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+    background: linear-gradient(135deg, var(--foreground) 0%, #4b5563 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.description {
+    font-size: 1.25rem;
+    line-height: 1.8;
+    color: var(--foreground);
+    white-space: pre-wrap;
+    background: rgba(0, 0, 0, 0.02);
+    padding: 2rem;
+    border-radius: 1.5rem;
+    border-left: 4px solid var(--primary);
+}
+
+/* Actions */
+.detailActions {
+    display: flex;
+    justify-content: flex-start;
+    gap: 3rem;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+}
+
+.actionBtn {
+    background: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--text-muted);
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
+    transition: all 0.2s ease;
+}
+
+.iconCircle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.03);
+    transition: all 0.2s ease;
+}
+
+/* Specific button styles */
+.actionBtn:hover {
+    background: rgba(0, 0, 0, 0.02);
+}
+
+.editBtn:hover {
+    color: var(--primary);
+}
+
+.editBtn:hover .iconCircle {
+    background: rgba(99, 102, 241, 0.15);
+}
+
+.deleteBtn:hover {
+    color: #ef4444;
+}
+
+.deleteBtn:hover .iconCircle {
+    background: rgba(239, 68, 68, 0.15);
+}
+
+.reportBtn:hover {
+    color: #f59e0b;
+}
+
+.reportBtn:hover .iconCircle {
+    background: rgba(245, 158, 11, 0.15);
+}
+
+/* Comments Section */
+.commentsSection {
+    margin-top: 3rem;
+}
+
+.commentsHeader {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.25rem;
+    font-weight: 800;
+    margin-bottom: 2rem;
+    color: var(--foreground);
+}
+
+.commentList {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.commentItem {
+    display: flex;
+    gap: 1rem;
+    animation: fadeIn 0.3s ease forwards;
+}
+
+.commentBubble {
+    flex: 1;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 1.5rem;
+    padding: 1.25rem 1.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+}
+
+.commentMeta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.commentAuthor {
+    font-weight: 800;
+    font-size: 0.95rem;
+}
+
+.commentDate {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.commentText {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--foreground);
+}
+
+/* Comment Form */
+.commentForm {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-end;
+    background: white;
+    padding: 1.5rem;
+    border-radius: 1.5rem;
+    border: 1px solid var(--border);
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.03);
+    position: sticky;
+    bottom: 2rem;
+}
+
+.textarea {
+    flex: 1;
+    padding: 1rem 1.25rem;
+    background: var(--background);
+    border: 1.5px solid var(--border);
+    border-radius: 1rem;
+    font-size: 1rem;
+    font-family: inherit;
+    resize: none;
+    transition: all 0.2s ease;
+    min-height: 60px;
+}
+
+.textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: white;
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+}
+
+.sendBtn {
+    background: var(--primary);
+    color: white;
+    height: 60px;
+    padding: 0 1.75rem;
+    border-radius: 1rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+}
+
+.sendBtn:hover:not(:disabled) {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+}
+
+.sendBtn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.notFound {
+    text-align: center;
+    padding: 10rem 2rem;
+}
+
+.notFound h2 {
+    font-size: 2.5rem;
+    font-weight: 900;
+    margin-bottom: 1rem;
+}

@@ -65,88 +65,93 @@ export default function RegisterPage() {
                 </div>
             </header>
 
-            <main className={styles.formSectionCompact}>
-                <div className={styles.largeIconContainerSmall}>
-                    <img src="/assets/icons/Iconrmbg.png" alt="Logo" className={styles.largeIconSmall} />
+            <main className={styles.formContentWrapper}>
+                <div className={styles.formSectionCompact}>
+                    <div className={styles.largeIconContainerSmall}>
+                        <img src="/assets/icons/Iconrmbg.png" alt="Logo" className={styles.largeIconSmall} />
+                    </div>
+                    <h1 className={styles.titleSmall}>Crear cuenta</h1>
+
+                    {error && <div className={styles.errorBannerSmall}>{error}</div>}
+
+                    <form className={styles.formCompact} onSubmit={handleSubmit}>
+                        <div className={styles.inputGroupSmall}>
+                            <User size={18} className={styles.inputIcon} />
+                            <input
+                                type="text"
+                                placeholder="Nombre completo"
+                                className={styles.inputSmall}
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                required
+                            />
+                        </div>
+
+                        <div className={styles.inputGroupSmall}>
+                            <User size={18} className={styles.inputIcon} />
+                            <input
+                                type="text"
+                                placeholder="Nombre de usuario"
+                                className={styles.inputSmall}
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                                required
+                            />
+                        </div>
+
+                        <div className={styles.inputGroupSmall}>
+                            <Mail size={18} className={styles.inputIcon} />
+                            <input
+                                type="email"
+                                placeholder="Email"
+                                className={styles.inputSmall}
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
+                            />
+                        </div>
+
+                        <div className={styles.inputGroupSmall}>
+                            <Lock size={18} className={styles.inputIcon} />
+                            <input
+                                type="password"
+                                placeholder="Contraseña"
+                                className={styles.inputSmall}
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                            />
+                        </div>
+
+                        <div className={styles.inputGroupSmall}>
+                            <Lock size={18} className={styles.inputIcon} />
+                            <input
+                                type="password"
+                                placeholder="Confirmar contraseña"
+                                className={styles.inputSmall}
+                                value={confirmPassword}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
+                                required
+                            />
+                        </div>
+
+                        <p className={styles.termsCompact}>
+                            Al registrarte aceptas los Términos y la Política.
+                        </p>
+
+                        <button className={styles.primaryButtonSmall} disabled={loading}>
+                            {loading ? "Registrando..." : "Registrarme"} <ArrowRight size={18} />
+                        </button>
+                    </form>
                 </div>
-                <h1 className={styles.titleSmall}>Crear cuenta</h1>
 
-                {error && <div className={styles.errorBannerSmall}>{error}</div>}
-
-                <form className={styles.formCompact} onSubmit={handleSubmit}>
-                    <div className={styles.inputGroupSmall}>
-                        <User size={18} className={styles.inputIcon} />
-                        <input
-                            type="text"
-                            placeholder="Nombre completo"
-                            className={styles.inputSmall}
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            required
-                        />
-                    </div>
-
-                    <div className={styles.inputGroupSmall}>
-                        <User size={18} className={styles.inputIcon} />
-                        <input
-                            type="text"
-                            placeholder="Nombre de usuario"
-                            className={styles.inputSmall}
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            required
-                        />
-                    </div>
-
-                    <div className={styles.inputGroupSmall}>
-                        <Mail size={18} className={styles.inputIcon} />
-                        <input
-                            type="email"
-                            placeholder="Email"
-                            className={styles.inputSmall}
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                        />
-                    </div>
-
-                    <div className={styles.inputGroupSmall}>
-                        <Lock size={18} className={styles.inputIcon} />
-                        <input
-                            type="password"
-                            placeholder="Contraseña"
-                            className={styles.inputSmall}
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                        />
-                    </div>
-
-                    <div className={styles.inputGroupSmall}>
-                        <Lock size={18} className={styles.inputIcon} />
-                        <input
-                            type="password"
-                            placeholder="Confirmar contraseña"
-                            className={styles.inputSmall}
-                            value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
-                            required
-                        />
-                    </div>
-
-                    <p className={styles.termsCompact}>
-                        Al registrarte aceptas los Términos y la Política.
-                    </p>
-
-                    <button className={styles.primaryButtonSmall} disabled={loading}>
-                        {loading ? "Registrando..." : "Registrarme"} <ArrowRight size={18} />
-                    </button>
-                </form>
+                <footer className={styles.footerSmall}>
+                    ¿Ya tenés cuenta? <Link href="/login">Iniciá sesión</Link>
+                </footer>
             </main>
-
-            <footer className={styles.footerSmall}>
-                ¿Ya tenés cuenta? <Link href="/login">Iniciá sesión</Link>
-            </footer>
+            <aside className={styles.logoPanel}>
+                <img src="/assets/icons/Iconrmbg.png" alt="RecienLlegue App" className={styles.largeLogo} />
+            </aside>
         </div>
     );
 }

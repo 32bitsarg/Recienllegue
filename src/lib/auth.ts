@@ -52,7 +52,8 @@ export const authOptions: NextAuthOptions = {
                     campus: user.campus,
                     gradYear: user.gradYear,
                     phone: user.phone,
-                    avatarSeed: user.avatarSeed
+                    avatarSeed: user.avatarSeed,
+                    image: user.image
                 };
             }
         })
@@ -68,6 +69,7 @@ export const authOptions: NextAuthOptions = {
                 token.gradYear = (user as any).gradYear;
                 token.phone = (user as any).phone;
                 token.avatarSeed = (user as any).avatarSeed;
+                token.image = (user as any).image;
             }
             // Always refresh role and active status from DB to pick up changes
             if (token.id) {
@@ -101,6 +103,7 @@ export const authOptions: NextAuthOptions = {
                 (session.user as any).gradYear = token.gradYear;
                 (session.user as any).phone = token.phone;
                 (session.user as any).avatarSeed = token.avatarSeed;
+                (session.user as any).image = token.image;
             }
             return session;
         }

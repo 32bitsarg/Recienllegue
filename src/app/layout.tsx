@@ -59,6 +59,8 @@ import BottomNav from "@/components/layout/BottomNav";
 import LoadingScreen from "@/components/common/LoadingScreen";
 import { AuthProvider } from "@/components/providers/AuthProvider";
 import Script from "next/script";
+import DesktopSidebar from "@/components/layout/DesktopSidebar";
+import desktopStyles from "./desktop-layout.module.css";
 
 export default function RootLayout({
   children,
@@ -113,11 +115,22 @@ export default function RootLayout({
       <body className={`${quicksand.variable}`}>
         <AuthProvider>
           <LoadingScreen />
-          <div className="mobile-container">
-            <PageTransition>
-              {children}
-            </PageTransition>
-            <BottomNav />
+
+          {/* Universal App Shell */}
+          <div className="app-shell">
+            <div className="desktop-only" style={{ zIndex: 100 }}>
+              <DesktopSidebar />
+            </div>
+
+            <main className="main-wrapper">
+              <PageTransition>
+                {children}
+              </PageTransition>
+            </main>
+
+            <div className="mobile-only">
+              <BottomNav />
+            </div>
           </div>
         </AuthProvider>
       </body>
