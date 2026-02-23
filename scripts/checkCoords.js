@@ -18,7 +18,7 @@ const addresses = [
 async function geocode(address) {
     const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}&limit=1`;
     try {
-        const response = await fetch(url, { headers: { 'User-Agent': 'ElEstudianteApp/1.0' } });
+        const response = await fetch(url, { headers: { 'User-Agent': 'RecienLlegueApp/1.0' } });
         const data = await response.json();
         if (data && data.length > 0) {
             console.log(`✅ [${address}] -> Lat: ${data[0].lat}, Lng: ${data[0].lon}`);

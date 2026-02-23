@@ -1,0 +1,270 @@
+.container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 4rem 6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.header h1 {
+    font-size: 3rem;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    color: var(--foreground);
+}
+
+.searchBox {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: white;
+    padding: 1rem 2rem;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    min-width: 400px;
+    box-shadow: var(--shadow-sm);
+}
+
+.searchBox input {
+    border: none;
+    background: none;
+    font-weight: 700;
+    width: 100%;
+    outline: none;
+    font-size: 1rem;
+}
+
+/* New Layout: Sidebar-less Full Width */
+
+.verifiedBanner {
+    background: rgba(99, 102, 241, 0.05);
+    border: 1px solid rgba(99, 102, 241, 0.1);
+    padding: 1.25rem 2rem;
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    color: var(--foreground);
+    font-size: 1rem;
+}
+
+.verifiedBanner svg {
+    color: var(--primary);
+}
+
+.filterSection {
+    margin: 1.5rem 0;
+}
+
+.categoryGrid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.categoryTag {
+    padding: 0.6rem 1.75rem;
+    border-radius: 100px;
+    background: white;
+    border: 1px solid var(--border);
+    font-weight: 700;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.categoryTag:hover {
+    border-color: var(--primary);
+    color: var(--foreground);
+}
+
+.activeTag {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+    box-shadow: 0 8px 15px -5px rgba(99, 102, 241, 0.3);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2.5rem;
+    padding-top: 1rem;
+}
+
+/* Card Styles */
+.card {
+    background: white;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.08);
+    border-color: var(--primary-light);
+}
+
+.imageSection {
+    height: 180px;
+    position: relative;
+    overflow: hidden;
+}
+
+.imageSection img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s;
+}
+
+.cardBody {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.category {
+    font-size: 0.7rem;
+    font-weight: 900;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+}
+
+.name {
+    font-size: 1.25rem;
+    font-weight: 900;
+    color: var(--foreground);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+}
+
+.meta {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.metaRow {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+/* Modal */
+.modalOverlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(12px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.modalContent {
+    background: white;
+    width: 1000px;
+    border-radius: var(--radius-xl);
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    overflow: hidden;
+}
+
+.modalHeader {
+    height: 100%;
+    position: relative;
+}
+
+.modalHeader img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.closeBtn {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: white;
+    border-radius: 50%;
+    padding: 0.5rem;
+    font-size: 0;
+}
+
+.modalBody {
+    padding: 4rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.modalBody h2 {
+    font-size: 3rem;
+    font-weight: 950;
+    line-height: 1.1;
+    margin: 1.5rem 0;
+    letter-spacing: -0.04em;
+}
+
+.modalActions {
+    display: flex;
+    gap: 1rem;
+    margin-top: auto;
+}
+
+.callBtn {
+    flex: 1;
+    background: var(--primary);
+    color: white;
+    padding: 1.25rem;
+    border-radius: var(--radius-md);
+    font-weight: 800;
+    text-align: center;
+}
+
+.mapBtn {
+    flex: 1;
+    background: var(--surface-hover);
+    color: var(--foreground);
+    padding: 1.25rem;
+    border-radius: var(--radius-md);
+    font-weight: 800;
+    text-align: center;
+}

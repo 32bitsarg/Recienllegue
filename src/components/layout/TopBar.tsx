@@ -16,7 +16,7 @@ const TopBar = () => {
             <div className={styles.brand}>
                 <img src="/assets/icons/Iconrmbg.png" alt="Recien Llegue Icon" className={styles.appIcon} />
                 <h1 className={styles.logo}>Recien<span>Llegue</span></h1>
-                <span className={styles.versionBadge}>v0.0.1</span>
+                <span className={styles.versionBadge}>v0.1.0</span>
             </div>
             <Link href="/buscar" className={styles.searchBtn}>
                 <div className={styles.searchIconWrapper}>

@@ -1,0 +1,495 @@
+/* 1. Global Container */
+.container {
+    background: var(--background);
+    min-height: 100vh;
+}
+
+.layout {
+    max-width: 1260px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 275px minmax(600px, 1fr) 350px;
+    gap: 0;
+    align-items: flex-start;
+}
+
+/* 2. Left Sidebar */
+.leftSidebar {
+    padding: 1rem 1.5rem;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.logoArea {
+    padding: 1.5rem 0;
+    margin-bottom: 1rem;
+}
+
+.logoArea h1 {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--foreground);
+    letter-spacing: -0.03em;
+}
+
+.navMenu {
+    flex: 1;
+}
+
+.sidebarTitle {
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    padding-left: 1rem;
+}
+
+.filterList {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.filterItem {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    padding: 0.8rem 1.2rem;
+    border-radius: 999px;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--foreground);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    text-align: left;
+}
+
+.filterItem:hover {
+    background: var(--surface);
+}
+
+.activeFilter {
+    font-weight: 800;
+}
+
+.iconActive {
+    color: var(--primary);
+}
+
+.iconMuted {
+    color: var(--foreground);
+}
+
+.tweetBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: var(--primary);
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 800;
+    padding: 1.25rem;
+    border-radius: 999px;
+    text-decoration: none;
+    margin-top: 2rem;
+    box-shadow: 0 8px 15px -3px rgba(99, 102, 241, 0.4);
+    transition: background 0.2s ease, transform 0.2s;
+}
+
+.tweetBtn:hover {
+    background: var(--primary-dark);
+}
+
+/* 3. Main Feed Column */
+.feed {
+    border-left: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    min-height: 100vh;
+}
+
+.feedHeader {
+    top: 0;
+    position: sticky;
+    background: rgba(255, 255, 255, 0.85);
+    /* fallback */
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 1.5rem;
+    z-index: 10;
+}
+
+@supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+    .feedHeader {
+        background: rgba(255, 255, 255, 0.7);
+    }
+}
+
+/* If dark mode the feedHeader should technically use surface but we'll stick to a simple opacity over background */
+
+.feedHeader h2 {
+    font-size: 1.25rem;
+    font-weight: 800;
+}
+
+.postList {
+    display: flex;
+    flex-direction: column;
+}
+
+/* 4. Tweet / Card Design */
+.tweet {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    transition: background 0.15s ease;
+    background: var(--background);
+}
+
+.tweet:hover {
+    background: var(--surface);
+}
+
+.tweetAvatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+    /* Asegura que el avatar no se salga del círculo */
+}
+
+.tweetContent {
+    flex: 1;
+    min-width: 0;
+    /* Prevents flex blowout */
+}
+
+.tweetHeader {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.2rem;
+}
+
+.authorName {
+    font-weight: 800;
+    font-size: 1rem;
+    color: var(--foreground);
+}
+
+.authorHandle,
+.dot,
+.time {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.categoryBadge {
+    margin-left: auto;
+    font-size: 0.75rem;
+    padding: 0.1rem 0.5rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.postTitle {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 0.3rem 0;
+    color: var(--foreground);
+}
+
+.postDesc {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--foreground);
+    margin-bottom: 0.75rem;
+}
+
+.tweetActions {
+    display: flex;
+    justify-content: flex-start;
+    gap: 4rem;
+    margin-top: 0.5rem;
+}
+
+.actionBtn {
+    background: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.2s ease;
+}
+
+.iconCircle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease;
+}
+
+.actionBtn:hover {
+    color: var(--primary);
+}
+
+.actionBtn:hover .iconCircle {
+    background: rgba(99, 102, 241, 0.15);
+}
+
+
+/* 5. Right Sidebar */
+.rightSidebar {
+    padding: 1rem 1.5rem;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+}
+
+.widgetCard {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.widgetCard h3 {
+    font-size: 1.25rem;
+    font-weight: 800;
+    padding: 1rem 1.25rem;
+}
+
+.trendList {
+    display: flex;
+    flex-direction: column;
+}
+
+.trendItem {
+    padding: 0.8rem 1.25rem;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.trendItem:hover {
+    background: rgba(0, 0, 0, 0.03);
+    /* subtle hover */
+}
+
+.trendCategory {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.trendTitle {
+    font-size: 0.95rem;
+    font-weight: 800;
+    margin: 0.15rem 0;
+}
+
+.trendStats {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* Utils */
+.guestContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10rem 2rem;
+    text-align: center;
+}
+
+.guestContainer h2 {
+    font-size: 2rem;
+    font-weight: 900;
+    margin-top: 1rem;
+}
+
+.primaryBtn {
+    margin-top: 1.5rem;
+    background: var(--primary);
+    color: white;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 800;
+    border-radius: 999px;
+    cursor: pointer;
+}
+
+.emptyContainer {
+    padding: 4rem 2rem;
+}
+
+/* 6. Compose Box */
+.composeBox {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    cursor: text;
+    background: var(--background);
+}
+
+.composeBox:hover {
+    background: var(--surface);
+}
+
+.composeAvatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.composeContent {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.composeInput {
+    border: none;
+    background: transparent;
+    font-size: 1.25rem;
+    padding: 0.5rem 0;
+    color: var(--foreground);
+    outline: none;
+    cursor: pointer;
+}
+
+.composeInput::placeholder {
+    color: var(--text-muted);
+}
+
+.composeForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.composeTextarea {
+    border: none;
+    background: transparent;
+    font-size: 1.1rem;
+    padding: 0.5rem 0;
+    color: var(--foreground);
+    outline: none;
+    resize: vertical;
+    min-height: 80px;
+    margin-top: 0.5rem;
+}
+
+.composeTextarea::placeholder {
+    color: var(--text-muted);
+}
+
+.composeSelect {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--primary);
+    font-weight: 700;
+    padding: 0.4rem 0.8rem;
+    border-radius: 999px;
+    outline: none;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+.composeExpanded {
+    cursor: default;
+    border-bottom: 8px solid var(--border);
+    /* Visually separates the compose area strongly */
+}
+
+.composeExpanded:hover {
+    background: var(--background);
+    /* prevents the slight hover darken when expanded */
+}
+
+.composeActions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+}
+
+.composeBtn {
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 999px;
+    padding: 0.6rem 1.4rem;
+    font-weight: 800;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.composeBtn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.composeBtn:hover:not(:disabled) {
+    background: var(--primary-dark);
+}
+
+.composeCancelBtn {
+    background: transparent;
+    color: var(--text-muted);
+    border: none;
+    padding: 0.6rem 1.2rem;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.composeCancelBtn:hover {
+    color: #ef4444;
+}
+
+.postCategory {
+    display: inline-flex;
+    align-items: center;
+    color: var(--primary);
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.editForm {
+    margin-top: 0.5rem;
+    padding: 1rem;
+    background: var(--surface);
+    border-radius: 1rem;
+    border: 1px solid var(--border);
+}

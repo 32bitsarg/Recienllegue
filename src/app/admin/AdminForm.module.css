@@ -106,3 +106,38 @@
     text-align: center;
     margin-bottom: 1rem;
 }
+
+/* =========================================
+   MEDIA QUERIES - DISEÑO PREMIUM (DESKTOP)
+========================================= */
+
+@media (min-width: 768px) {
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 3rem 2rem;
+    }
+
+    .form {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2.5rem;
+        gap: 1.75rem;
+    }
+
+    .submitBtn {
+        font-size: 1.1rem;
+        padding: 1.2rem;
+    }
+
+    .row {
+        gap: 1.5rem;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+        font-size: 1rem;
+        padding: 1rem;
+    }
+}

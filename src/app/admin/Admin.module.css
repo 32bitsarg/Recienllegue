@@ -108,3 +108,54 @@
     color: #f43f5e;
     margin: 1rem 0;
 }
+
+/* =========================================
+   MEDIA QUERIES - DISEÑO PREMIUM (DESKTOP)
+========================================= */
+
+@media (min-width: 768px) {
+
+    /* 1. Contenedor centrado y limitación de ancho */
+    .adminContainer {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 3rem 2rem;
+    }
+
+    /* 2. Cabeceras más imponentes */
+    .header {
+        margin-bottom: 3rem;
+    }
+
+    .header h1 {
+        font-size: 2.25rem;
+    }
+
+    /* 3. Stats en 4 columnas en lugar de 2 */
+    .statsGrid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.5rem;
+        margin-bottom: 3.5rem;
+    }
+
+    .statCard {
+        padding: 1.5rem;
+    }
+
+    /* 4. Menú en Grid fluido e inteligente */
+    .menuGrid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .menuItem {
+        padding: 1.5rem;
+    }
+
+    /* 5. Comportamiento en tarjetas para PC (Hover hacia arriba en vez de al costado) */
+    .menuItem:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-lg, 0 10px 15px -3px rgba(0, 0, 0, 0.1));
+    }
+}

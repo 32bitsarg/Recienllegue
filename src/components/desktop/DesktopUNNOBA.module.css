@@ -1,0 +1,278 @@
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 4rem 4rem;
+    animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Hero */
+.hero {
+    margin-bottom: 2.5rem;
+}
+
+.badge {
+    display: inline-block;
+    background: var(--primary);
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.75rem;
+    border-radius: var(--radius-full);
+    margin-bottom: 0.75rem;
+}
+
+.hero h1 {
+    font-size: 2.25rem;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    color: var(--foreground);
+    margin-bottom: 0.4rem;
+}
+
+.hero p {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    max-width: 520px;
+}
+
+/* Section titles */
+.sectionTitle {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--foreground);
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.sectionTitle::after {
+    content: "";
+    flex: 1;
+    max-width: 120px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), transparent);
+    border-radius: 2px;
+}
+
+/* Sedes: grid de 2 columnas */
+.sedesSection {
+    margin-bottom: 2.5rem;
+}
+
+.sedesGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+}
+
+.sedeCard {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.35rem;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.sedeCard:hover {
+    border-color: rgba(99, 102, 241, 0.3);
+    box-shadow: 0 8px 24px rgba(99, 102, 241, 0.08);
+}
+
+.sedeHeader {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-bottom: 0.6rem;
+}
+
+.sedeIcon {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-md);
+    background: rgba(99, 102, 241, 0.1);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.sedeName {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--foreground);
+    line-height: 1.3;
+}
+
+.sedeAddress {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--foreground);
+    margin-bottom: 0.35rem;
+}
+
+.sedeDetails {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin-bottom: 0.75rem;
+}
+
+.sedePhone {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+/* Servicios: grid de cards */
+.servicesSection {
+    margin-bottom: 2.5rem;
+}
+
+.servicesGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.25rem;
+}
+
+.serviceCard {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.35rem;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.serviceCard:hover {
+    border-color: rgba(99, 102, 241, 0.25);
+    box-shadow: 0 8px 24px rgba(99, 102, 241, 0.1);
+    transform: translateY(-2px);
+}
+
+.serviceIcon {
+    width: 52px;
+    height: 52px;
+    border-radius: var(--radius-md);
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.12) 0%, rgba(99, 102, 241, 0.06) 100%);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.serviceTitle {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--foreground);
+    margin-bottom: 0.4rem;
+}
+
+.serviceDesc {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin-bottom: 0.6rem;
+}
+
+.serviceContact {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+}
+
+.serviceLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--primary);
+    text-decoration: none;
+    transition: gap 0.2s ease;
+}
+
+.serviceLink:hover {
+    gap: 0.6rem;
+}
+
+/* CTA Guaraní */
+.guaraniCta {
+    background: linear-gradient(135deg, var(--primary) 0%, #4f46e5 50%, #4338ca 100%);
+    border-radius: var(--radius-xl);
+    padding: 1.5rem 2rem;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 12px 32px -8px rgba(99, 102, 241, 0.45);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.guaraniCta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 40px -8px rgba(99, 102, 241, 0.5);
+}
+
+.guaraniText h4 {
+    font-size: 1.25rem;
+    font-weight: 900;
+    margin-bottom: 0.3rem;
+    letter-spacing: -0.02em;
+}
+
+.guaraniText p {
+    font-size: 0.95rem;
+    opacity: 0.92;
+}
+
+.guaraniBtn {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-decoration: none;
+    transition: background 0.2s ease;
+}
+
+.guaraniBtn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    color: white;
+}
+
+.noData {
+    padding: 2rem;
+    text-align: center;
+    color: var(--text-muted);
+    background: var(--surface);
+    border: 1px dashed var(--border);
+    border-radius: var(--radius-lg);
+}

@@ -215,3 +215,31 @@
     opacity: 1;
     text-decoration: underline;
 }
+
+/* =========================================
+   MEDIA QUERIES - DISEÑO PREMIUM (DESKTOP)
+========================================= */
+
+@media (min-width: 768px) {
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 3rem 2rem;
+    }
+
+    .list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .poiCard {
+        padding: 1.5rem;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .poiCard:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-lg, 0 10px 15px -3px rgba(0, 0, 0, 0.1));
+    }
+}

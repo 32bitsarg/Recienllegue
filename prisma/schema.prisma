@@ -138,6 +138,7 @@ model Restaurant {
 model Notice {
   id          String         @id @default(cuid())
   title       String
+  slug        String?        @unique
   description String         @db.Text
   category    NoticeCategory @default(OTROS)
   isReported  Boolean        @default(false)

@@ -31,7 +31,7 @@ export default function AdminDashboard() {
         <div className={styles.adminContainer}>
             <header className={styles.header}>
                 <h1>Panel de Control</h1>
-                <p>Gestión completa de la plataforma El Estudiante.</p>
+                <p>Gestión completa de la plataforma Recién Llegué.</p>
             </header>
 
             <div className={styles.statsGrid}>

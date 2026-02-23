@@ -246,3 +246,25 @@
 .emptyState p {
     font-size: 0.9rem;
 }
+
+/* =========================================
+   MEDIA QUERIES - DISEÑO PREMIUM (DESKTOP)
+========================================= */
+
+@media (min-width: 768px) {
+    .tipsList {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .tipItem {
+        padding: 1.5rem;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .tipItem:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md, 0 4px 6px -1px rgba(0, 0, 0, 0.1));
+    }
+}
