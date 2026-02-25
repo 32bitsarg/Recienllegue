@@ -1,6 +1,6 @@
 .container {
     min-height: 100vh;
-    padding: 2rem 1.5rem;
+    padding: 2rem 1.5rem 7rem;
     display: flex;
     flex-direction: column;
     background: var(--background);
@@ -56,6 +56,10 @@
     display: flex;
     flex-direction: column;
     width: 100%;
+}
+
+.logoPanel {
+    display: none;
 }
 
 .decorativePanel {
@@ -147,7 +151,7 @@
     display: flex;
     align-items: center;
     text-align: center;
-    margin: 2rem 0;
+    margin: 1.5rem 0;
     color: var(--text-muted);
     font-size: 0.85rem;
 }
@@ -183,10 +187,33 @@
 }
 
 .footer {
-    margin-top: 2rem;
+    margin-top: 1.5rem;
     text-align: center;
     font-size: 0.95rem;
     color: var(--text-muted);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.businessLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border: 1px dashed var(--primary);
+    border-radius: var(--radius-md);
+    color: var(--primary) !important;
+    font-weight: 700;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.businessLink:hover {
+    background: rgba(99, 102, 241, 0.05);
+    transform: translateY(-2px);
 }
 
 .footer a {
@@ -386,9 +413,10 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        padding: 4rem;
+        padding: 2.5rem 4rem;
         background: white;
         height: 100%;
+        overflow-y: auto;
     }
 
     .formSection,
@@ -410,8 +438,8 @@
 
     .subtitle {
         text-align: center;
-        font-size: 1.05rem;
-        margin-bottom: 3rem;
+        font-size: 1rem;
+        margin-bottom: 2rem;
         color: var(--text-muted);
         max-width: 380px;
     }
@@ -444,10 +472,10 @@
     .primaryButton,
     .primaryButtonSmall {
         border-radius: var(--radius-md);
-        padding: 1.1rem;
+        padding: 1rem;
         font-size: 1.05rem;
         font-weight: 600;
-        margin-top: 1.5rem;
+        margin-top: 1rem;
         background: var(--primary);
         color: white;
     }
@@ -464,7 +492,7 @@
         grid-area: logo !important;
         background: white;
         /* Same background as form for seamless integration */
-        display: flex;
+        display: flex !important;
         align-items: center;
         justify-content: center;
         padding: 4rem;
@@ -474,7 +502,8 @@
 
     .largeLogo {
         display: block;
-        width: 580px;
+        max-width: 580px;
+        width: 100%;
         /* Mantener el tamaño grande que te gustó */
         height: auto;
         opacity: 0.9;

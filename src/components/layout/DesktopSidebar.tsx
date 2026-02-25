@@ -80,6 +80,7 @@ const DesktopSidebar = memo(function DesktopSidebar() {
                                 <UserAvatar
                                     seed={(session.user as any).avatarSeed || session.user?.email || "default"}
                                     size={36}
+                                    role={(session.user as any).role}
                                 />
                             )}
                         </div>

@@ -8,10 +8,11 @@
   border-radius: var(--radius-lg);
   color: white;
   box-shadow: var(--shadow-lg);
-  min-height: 180px;
+  height: 180px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  overflow: hidden;
 }
 
 .heroContent h2 {
@@ -320,6 +321,17 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.featuredFoodCardPremium {
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.featuredFoodBadgePremium {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  filter: drop-shadow(0 1px 3px rgba(16, 185, 129, 0.4));
 }
 
 .remisesGrid {

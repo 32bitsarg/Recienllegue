@@ -76,6 +76,9 @@ model User {
   comments      NoticeComment[]
   savedItems    SavedItem[]
   reportsMade   Report[]  @relation("Reporter")
+  businessClaims BusinessClaim[]
+  restaurants   Restaurant[]
+  notifications Notification[]
 
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
@@ -101,6 +104,11 @@ model Property {
   images       Json?        // Array de URLs
   services     Json?        // Array de servicios
   active       Boolean      @default(true)
+  isVerified   Boolean      @default(false)
+  isPremium    Boolean      @default(false)
+  
+  lat           Float?
+  lng           Float?
   
   ownerId      String
   owner        User         @relation(fields: [ownerId], references: [id])
@@ -122,10 +130,19 @@ model Restaurant {
   priceRange     PriceRange   @default(MEDIO)
   distance       String
   image          String
+  images         Json?        // Array de URLs adicionales
   featured       String?      // Especialidad
   address        String
   phone          String?      // Numero de contacto
   isFeaturedHome Boolean      @default(false)
+  isVerified     Boolean      @default(false)
+  isPremium      Boolean      @default(false)
+  
+  lat            Float?
+  lng            Float?
+
+  ownerId        String?
+  owner          User?         @relation(fields: [ownerId], references: [id])
   
   savedBy        SavedItem[]
 
@@ -310,4 +327,33 @@ model Tip {
   updatedAt DateTime @updatedAt
 
   @@map("tips")
+}
+
+model BusinessClaim {
+  id               String       @id @default(cuid())
+  userId           String
+  user             User         @relation(fields: [userId], references: [id])
+  targetId         String       // ID del Restaurant o Property
+  businessType     String       // "RESTAURANT" o "PROPERTY"
+  proof            String?      @db.Text
+  status           ReportStatus @default(PENDIENTE)
+  adminNote        String?      // Nota del admin al aprobar/rechazar
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+
+  @@map("business_claims")
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type      String   // "CLAIM_APPROVED" | "CLAIM_REJECTED"
+  title     String
+  body      String   @db.Text
+  read      Boolean  @default(false)
+  link      String?  // Link opcional para llevar al usuario a la acción
+  createdAt DateTime @default(now())
+
+  @@map("notifications")
 }

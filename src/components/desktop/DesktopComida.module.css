@@ -58,19 +58,28 @@
 /* New Layout: Sidebar-less Full Width */
 
 .verifiedBanner {
-    background: rgba(99, 102, 241, 0.05);
-    border: 1px solid rgba(99, 102, 241, 0.1);
-    padding: 1.25rem 2rem;
-    border-radius: var(--radius-lg);
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(139, 92, 246, 0.08));
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    padding: 1.5rem 2.5rem;
+    border-radius: var(--radius-xl);
     display: flex;
     align-items: center;
-    gap: 1.25rem;
+    gap: 1.5rem;
     color: var(--foreground);
-    font-size: 1rem;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+}
+
+.verifiedBanner:hover {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.12), rgba(139, 92, 246, 0.12));
+    border-color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
 }
 
 .verifiedBanner svg {
     color: var(--primary);
+    filter: drop-shadow(0 0 8px rgba(99, 102, 241, 0.3));
 }
 
 .filterSection {
@@ -127,9 +136,23 @@
 }
 
 .card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.08);
-    border-color: var(--primary-light);
+    transform: translateY(-10px);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.12);
+}
+
+.card.verified {
+    border: 1.5px solid #cbd5e1;
+    background: linear-gradient(to bottom, white, #f8fafc);
+}
+
+.card.premium {
+    border: 2px solid #22c55e;
+    box-shadow: 0 10px 30px rgba(34, 197, 94, 0.1), 0 0 20px rgba(34, 197, 94, 0.05);
+    background: linear-gradient(to bottom, white, #f0fdf4);
+}
+
+.card.premium:hover {
+    box-shadow: 0 25px 50px -12px rgba(34, 197, 94, 0.2), 0 0 30px rgba(34, 197, 94, 0.1);
 }
 
 .imageSection {
@@ -161,13 +184,31 @@
     margin-bottom: 0.5rem;
 }
 
+.titleRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+    width: 100%;
+}
+
 .name {
-    font-size: 1.25rem;
+    font-size: 1.4rem;
     font-weight: 900;
     color: var(--foreground);
-    margin-bottom: 1rem;
     line-height: 1.2;
     letter-spacing: -0.02em;
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.premiumCheck,
+.verifiedCheck {
+    flex-shrink: 0;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
 .meta {
@@ -235,12 +276,19 @@
     flex-direction: column;
 }
 
+.modalTitleRow {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
 .modalBody h2 {
     font-size: 3rem;
     font-weight: 950;
     line-height: 1.1;
-    margin: 1.5rem 0;
     letter-spacing: -0.04em;
+    margin: 0;
 }
 
 .modalActions {

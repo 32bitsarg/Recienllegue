@@ -97,7 +97,7 @@ export default function MobileDetalleAviso({ initialData }: MobileDetalleAvisoPr
                     <article className={styles.noticeCard}>
                         <div className={styles.noticeMeta}>
                             <div className={styles.authorCard} style={{ margin: 0, padding: 0, background: 'none' }}>
-                                <UserAvatar seed={notice.author?.avatarSeed || notice.author?.email || "default"} size={36} />
+                                <UserAvatar seed={notice.author?.avatarSeed || notice.author?.email || "default"} size={36} role={notice.author?.role} />
                                 <div className={styles.authorInfo} style={{ marginLeft: '0.5rem' }}>
                                     <h4 style={{ fontSize: '0.85rem' }}>{notice.author?.name}</h4>
                                     <p style={{ fontSize: '0.75rem' }}>@{notice.author?.username || "estudiante"}</p>
@@ -119,7 +119,7 @@ export default function MobileDetalleAviso({ initialData }: MobileDetalleAvisoPr
                             ) : (
                                 notice.comments.map((c: any) => (
                                     <div key={c.id} className={styles.commentItem}>
-                                        <UserAvatar seed={c.author?.avatarSeed || c.author?.email || "default"} size={32} />
+                                        <UserAvatar seed={c.author?.avatarSeed || c.author?.email || "default"} size={32} role={c.author?.role} />
                                         <div className={styles.commentBubble}>
                                             <div className={styles.commentHeader}>
                                                 <span className={styles.commentAuthor}>{c.author?.name} (@{c.author?.username || "estudiante"})</span>

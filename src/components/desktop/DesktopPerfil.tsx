@@ -3,7 +3,7 @@
 import { useSession, signOut } from "next-auth/react";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { LogOut, Heart, FileText, Edit2, MapPin, GraduationCap, HelpCircle } from "lucide-react";
+import { LogOut, Heart, FileText, Edit2, MapPin, GraduationCap, HelpCircle, Store } from "lucide-react";
 import UserAvatar from "@/components/common/UserAvatar";
 import { getUserStats } from "@/app/actions/data";
 import styles from "./DesktopPerfil.module.css";
@@ -39,8 +39,7 @@ export default function DesktopPerfil({ initialData }: DesktopPerfilProps) {
             <div className={styles.container}>
                 <div className={styles.welcomeGrid}>
                     <main className={styles.guestCard}>
-                        <img src="/assets/icons/Iconrmbg.png" alt="Recien Llegue" className={styles.guestIcon} />
-                        <h2>¡Hola! 👋</h2>
+                        <h2>¡Bienvenido! 👋</h2>
                         <p>Iniciá sesión para administrar tu perfil, guardar lugares favoritos y publicar avisos en la comunidad de Pergamino.</p>
 
                         <div className={styles.guestActions}>
@@ -53,13 +52,11 @@ export default function DesktopPerfil({ initialData }: DesktopPerfilProps) {
                         </div>
                     </main>
 
-                    <div style={{
-                        backgroundImage: 'url("https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=2000&auto=format&fit=crop")',
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center',
-                        borderRadius: '2rem',
-                        opacity: 0.9
-                    }}></div>
+                    <div className={styles.guestBrand}>
+                        <img src="/assets/icons/Iconrmbg.png" alt="RecienLlegué" className={styles.guestBrandLogo} />
+                        <h3 className={styles.guestBrandTitle}>Recien<span>Llegué</span></h3>
+                        <p className={styles.guestBrandSub}>Todo lo que necesitás en Pergamino, en un solo lugar.</p>
+                    </div>
                 </div>
             </div>
         );
@@ -69,7 +66,7 @@ export default function DesktopPerfil({ initialData }: DesktopPerfilProps) {
         <div className={styles.container}>
             <header className={styles.profileHeader}>
                 <div className={styles.avatarWrapper}>
-                    <UserAvatar seed={(session.user as any).avatarSeed || session.user?.email || "default"} size={120} />
+                    <UserAvatar seed={(session.user as any).avatarSeed || session.user?.email || "default"} size={120} role={(session.user as any).role} />
                 </div>
                 <div className={styles.userInfo}>
                     <h1>{session.user?.name}</h1>
@@ -105,6 +102,16 @@ export default function DesktopPerfil({ initialData }: DesktopPerfilProps) {
             </div>
 
             <nav className={styles.menuGrid}>
+                {(session.user as any).role === "DUENO" && (
+                    <Link href="/perfil/mis-locales" className={styles.menuItem} style={{ borderLeft: '4px solid var(--primary)', background: 'rgba(99, 102, 241, 0.05)' }}>
+                        <div className={styles.iconCircle}><Store size={24} color="var(--primary)" /></div>
+                        <div className={styles.itemInfo}>
+                            <h3 style={{ color: 'var(--primary)' }}>Panel de Comercio</h3>
+                            <p>Gestioná tus locales y revisá el estado de verificación.</p>
+                        </div>
+                    </Link>
+                )}
+
                 <Link href="/perfil/mis-avisos" className={styles.menuItem}>
                     <div className={styles.iconCircle}><FileText size={24} /></div>
                     <div className={styles.itemInfo}>

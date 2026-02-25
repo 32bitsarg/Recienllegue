@@ -16,9 +16,10 @@ import {
     Phone,
     Calendar,
     MapPin,
-    X
+    X,
+    BadgeCheck
 } from "lucide-react";
-import { getNotices, getTips, getFeaturedRestaurants, getCityEvents } from "@/app/actions/data";
+import { getNotices, getTips, getFeaturedRestaurants, getCityEvents, getPremiumRestaurants, getRestaurants } from "@/app/actions/data";
 import { useDragScroll } from "@/hooks/useDragScroll";
 import styles from "@/app/page.module.css";
 
@@ -54,16 +55,30 @@ export default function MobileHome({ initialData }: MobileHomeProps) {
     useEffect(() => {
         if (initialData) return;
         const fetchData = async () => {
-            const [noticesData, tipsData, foodData, eventsData] = await Promise.all([
+            const [noticesData, tipsData, foodData, eventsData, premiumData] = await Promise.all([
                 getNotices(),
                 getTips(),
                 getFeaturedRestaurants(),
-                getCityEvents()
+                getCityEvents(),
+                getPremiumRestaurants()
             ]);
             setLatestNotices(noticesData.slice(0, 2));
             setTips(tipsData);
-            setFeaturedFood(foodData);
             setEvents(eventsData.filter((e: any) => e.isFeatured));
+
+            // Combinar: premium primero, luego featured (sin duplicados)
+            const premiumIds = new Set(premiumData.map((r: any) => r.id));
+            const nonDuplicateFeatured = foodData.filter((r: any) => !premiumIds.has(r.id));
+            let combined = [...premiumData, ...nonDuplicateFeatured];
+
+            if (combined.length < 4) {
+                const allRestaurants = await getRestaurants();
+                const usedIds = new Set(combined.map((r: any) => r.id));
+                const available = allRestaurants.filter((r: any) => !usedIds.has(r.id));
+                const randoms = available.sort(() => 0.5 - Math.random()).slice(0, 4 - combined.length);
+                combined = [...combined, ...randoms];
+            }
+            setFeaturedFood(combined);
             setLoading(false);
         };
         fetchData();
@@ -267,19 +282,26 @@ export default function MobileHome({ initialData }: MobileHomeProps) {
                         style={foodScroll.style}
                     >
                         {featuredFood.map((food, i) => (
-                            <Link href="/comida" key={food.id || i} className={styles.featuredFoodCard}>
-                                {food.image ? (
-                                    <img src={food.image} alt={food.name} className={styles.featuredFoodImage} />
-                                ) : (
-                                    <div className={styles.featuredFoodFallback} style={{ position: 'relative' }}>
-                                        <img
-                                            src={`https://api.dicebear.com/9.x/shapes/svg?seed=${food.id || i}&backgroundColor=f1f5f9,e2e8f0,cbd5e1`}
-                                            alt="Generated background"
-                                            style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', opacity: 0.1, objectFit: 'cover' }}
-                                        />
-                                        <Utensils size={32} style={{ opacity: 0.2, zIndex: 1 }} />
-                                    </div>
-                                )}
+                            <Link href="/comida" key={food.id || i} className={`${styles.featuredFoodCard} ${food.isPremium ? styles.featuredFoodCardPremium : ''}`}>
+                                <div style={{ position: 'relative' }}>
+                                    {food.image ? (
+                                        <img src={food.image} alt={food.name} className={styles.featuredFoodImage} />
+                                    ) : (
+                                        <div className={styles.featuredFoodFallback} style={{ position: 'relative' }}>
+                                            <img
+                                                src={`https://api.dicebear.com/9.x/shapes/svg?seed=${food.id || i}&backgroundColor=f1f5f9,e2e8f0,cbd5e1`}
+                                                alt="Generated background"
+                                                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', opacity: 0.1, objectFit: 'cover' }}
+                                            />
+                                            <Utensils size={32} style={{ opacity: 0.2, zIndex: 1 }} />
+                                        </div>
+                                    )}
+                                    {food.isPremium && (
+                                        <div className={styles.featuredFoodBadgePremium}>
+                                            <BadgeCheck size={16} fill="#10b981" color="white" />
+                                        </div>
+                                    )}
+                                </div>
                                 <div className={styles.featuredFoodInfo}>
                                     <h4>{food.name}</h4>
                                     <p>{food.featured || food.category}</p>

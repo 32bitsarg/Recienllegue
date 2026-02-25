@@ -207,6 +207,7 @@ export default function DesktopAvisos({ initialData }: DesktopAvisosProps) {
                             <UserAvatar
                                 seed={(session?.user as any)?.avatarSeed || session?.user?.email || "default"}
                                 size={44}
+                                role={(session?.user as any)?.role}
                             />
                         </div>
                         <div className={styles.composeContent}>
@@ -295,6 +296,7 @@ export default function DesktopAvisos({ initialData }: DesktopAvisosProps) {
                                         <UserAvatar
                                             seed={aviso.author?.avatarSeed || aviso.author?.email || "default"}
                                             size={44}
+                                            role={aviso.author?.role}
                                         />
                                     </div>
 
