@@ -11,6 +11,7 @@ import { getRestaurants, getUserFavorites } from "@/app/actions/data";
 import FavoriteButton from "@/components/common/FavoriteButton";
 import LoadingScreen from "@/components/common/LoadingScreen";
 import { useDragScroll } from "@/hooks/useDragScroll";
+import { useRouter } from "next/navigation";
 
 interface MobileComidaProps {
     initialData?: {
@@ -26,6 +27,7 @@ export default function MobileComida({ initialData }: MobileComidaProps) {
     const [searchQuery, setSearchQuery] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedRestaurant, setSelectedRestaurant] = useState<any>(null);
+    const router = useRouter();
     const [restaurants, setRestaurants] = useState<any[]>(initialData?.restaurants || []);
     const [savedIds, setSavedIds] = useState<string[]>(initialData?.savedIds || []);
     const [loading, setLoading] = useState(!initialData);
@@ -60,9 +62,17 @@ export default function MobileComida({ initialData }: MobileComidaProps) {
         return matchesCategory && matchesSearch;
     });
 
-    const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
+    const sorted = [...filtered].sort((a, b) => {
+        if (a.isPremium && !b.isPremium) return -1;
+        if (!a.isPremium && b.isPremium) return 1;
+        if (a.isVerified && !b.isVerified) return -1;
+        if (!a.isVerified && b.isVerified) return 1;
+        return 0;
+    });
+
+    const totalPages = Math.ceil(sorted.length / ITEMS_PER_PAGE);
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-    const currentItems = filtered.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+    const currentItems = sorted.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
     const rawCategories = Array.from(new Set(restaurants.map(r => r.category).filter(Boolean)));
     const categories = ["Todos", ...rawCategories.sort()];
@@ -77,11 +87,11 @@ export default function MobileComida({ initialData }: MobileComidaProps) {
                     <p>Explorá restaurantes y locales en Pergamino.</p>
                 </div>
 
-                <div className={styles.infoBanner}>
+                <div className={styles.infoBanner} onClick={() => router.push('/unirse')} style={{ cursor: 'pointer' }}>
                     <BadgeCheck size={20} className={styles.infoIcon} />
                     <p>
-                        Información obtenida automáticamente de <strong>Google Maps</strong>.
-                        Los locales que muestren este icono <BadgeCheck size={14} style={{ display: 'inline', color: 'var(--secondary)', verticalAlign: 'middle' }} /> indican que su dueño <strong>verificó y actualizó</strong> sus datos en nuestra app.
+                        Información de <strong>Google Maps</strong>.
+                        ¿Sos dueño? <strong>Tocá acá para verificar tu local</strong> y destacar con insignias <BadgeCheck size={14} style={{ display: 'inline', color: 'var(--secondary)', verticalAlign: 'middle' }} /> y beneficios.
                     </p>
                 </div>
 
@@ -136,7 +146,7 @@ export default function MobileComida({ initialData }: MobileComidaProps) {
                         currentItems.map((res, i) => (
                             <motion.div
                                 key={res.id}
-                                className={styles.restaurantCard}
+                                className={`${styles.restaurantCard} ${res.isPremium ? styles.premium : ""} ${res.isVerified && !res.isPremium ? styles.verified : ""}`}
                                 initial={{ opacity: 0, scale: 0.9 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ delay: i * 0.1 }}
@@ -168,7 +178,14 @@ export default function MobileComida({ initialData }: MobileComidaProps) {
                                     </div>
                                 </div>
                                 <div className={styles.cardInfo}>
-                                    <h3 className={styles.resName}>{res.name}</h3>
+                                    <div className={styles.titleRow}>
+                                        <h3 className={styles.resName}>{res.name}</h3>
+                                        {res.isPremium ? (
+                                            <BadgeCheck size={18} className={styles.premiumCheck} fill="var(--success)" color="white" />
+                                        ) : res.isVerified ? (
+                                            <BadgeCheck size={18} className={styles.verifiedCheck} fill="#94a3b8" color="white" />
+                                        ) : null}
+                                    </div>
                                     <div className={styles.metaInfo}>
                                         <div className={styles.metaItem}>
                                             <Clock size={14} />
@@ -255,7 +272,14 @@ export default function MobileComida({ initialData }: MobileComidaProps) {
                             </div>
                             <div className={styles.modalBody}>
                                 <div className={styles.modalCategory}>{selectedRestaurant.category || "General"}</div>
-                                <h2 className={styles.modalTitle}>{selectedRestaurant.name}</h2>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                    <h2 className={styles.modalTitle}>{selectedRestaurant.name}</h2>
+                                    {selectedRestaurant.isPremium ? (
+                                        <BadgeCheck size={22} fill="#10b981" color="white" />
+                                    ) : selectedRestaurant.isVerified ? (
+                                        <BadgeCheck size={22} fill="#94a3b8" color="white" />
+                                    ) : null}
+                                </div>
                                 <div className={styles.modalDetails}>
                                     {selectedRestaurant.address && (
                                         <div className={styles.modalDetailRow}><MapPin size={16} /> <span>{selectedRestaurant.address}</span></div>

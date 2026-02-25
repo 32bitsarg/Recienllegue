@@ -5,7 +5,7 @@ import { prisma } from "@/lib/prisma";
 
 export async function registerUser(formData: any) {
     try {
-        const { name, username, email, password, confirmPassword } = formData;
+        const { name, username, email, password, confirmPassword, role } = formData;
 
         if (!name || !username || !email || !password) {
             return { error: "Faltan campos obligatorios" };
@@ -40,7 +40,7 @@ export async function registerUser(formData: any) {
                 email,
                 avatarSeed: email,
                 passwordHash,
-                role: "ESTUDIANTE"
+                role: role || "ESTUDIANTE"
             }
         });
 

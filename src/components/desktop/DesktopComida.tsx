@@ -9,6 +9,8 @@ import FavoriteButton from "@/components/common/FavoriteButton";
 import LoadingScreen from "@/components/common/LoadingScreen";
 import styles from "./DesktopComida.module.css";
 import { motion, AnimatePresence } from "framer-motion";
+import { useRouter } from "next/navigation";
+import { BadgeCheck as BadgeCheckIcon } from "lucide-react";
 
 interface DesktopComidaProps {
     initialData?: {
@@ -25,6 +27,7 @@ const DesktopComida = memo(function DesktopComida({ initialData }: DesktopComida
     const [savedIds, setSavedIds] = useState<string[]>(initialData?.savedIds || []);
     const [loading, setLoading] = useState(!initialData);
     const [selectedRestaurant, setSelectedRestaurant] = useState<any>(null);
+    const router = useRouter();
 
     const userId = session?.user ? (session.user as any).id : null;
 
@@ -54,12 +57,20 @@ const DesktopComida = memo(function DesktopComida({ initialData }: DesktopComida
     const normalize = (str: string) => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 
     const filtered = useMemo(() => {
-        return restaurants.filter(r => {
+        const result = restaurants.filter(r => {
             const matchesCategory = activeCategory === "Todos" || normalize(r.category) === normalize(activeCategory);
             const matchesSearch = searchQuery === "" ||
                 normalize(r.name).includes(normalize(searchQuery)) ||
                 normalize(r.category).includes(normalize(searchQuery));
             return matchesCategory && matchesSearch;
+        });
+
+        return [...result].sort((a, b) => {
+            if (a.isPremium && !b.isPremium) return -1;
+            if (!a.isPremium && b.isPremium) return 1;
+            if (a.isVerified && !b.isVerified) return -1;
+            if (!a.isVerified && b.isVerified) return 1;
+            return 0;
         });
     }, [restaurants, activeCategory, searchQuery]);
 
@@ -87,9 +98,11 @@ const DesktopComida = memo(function DesktopComida({ initialData }: DesktopComida
             </header>
 
             <div className={styles.topInfo}>
-                <div className={styles.verifiedBanner}>
-                    <BadgeCheck size={20} />
-                    <span><strong>Locales Verificados:</strong> Los sitios con este icono mantienen sus datos y promociones al día.</span>
+                <div className={styles.verifiedBanner} onClick={() => router.push('/unirse')} style={{ cursor: 'pointer' }}>
+                    <BadgeCheckIcon size={22} color="var(--primary)" />
+                    <span>
+                        <strong>¿Sos dueño de un local?</strong> Verificá tu comercio para destacar con insignias y mantener tus datos al día. <strong>Tocá acá para empezar.</strong>
+                    </span>
                 </div>
             </div>
 
@@ -119,8 +132,9 @@ const DesktopComida = memo(function DesktopComida({ initialData }: DesktopComida
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: i * 0.02 }}
                                 onClick={() => setSelectedRestaurant(r)}
+                                className={styles.cardWrapper}
                             >
-                                <div className={styles.card}>
+                                <div className={`${styles.card} ${r.isPremium ? styles.premium : ""} ${r.isVerified && !r.isPremium ? styles.verified : ""}`}>
                                     <div className={styles.imageSection}>
                                         {r.image ? (
                                             <Image
@@ -142,8 +156,15 @@ const DesktopComida = memo(function DesktopComida({ initialData }: DesktopComida
                                         />
                                     </div>
                                     <div className={styles.cardBody}>
+                                        <div className={styles.titleRow}>
+                                            <h3 className={styles.name}>{r.name}</h3>
+                                            {r.isPremium ? (
+                                                <BadgeCheckIcon size={20} className={styles.premiumCheck} fill="var(--success)" color="white" />
+                                            ) : r.isVerified ? (
+                                                <BadgeCheckIcon size={20} className={styles.verifiedCheck} fill="#94a3b8" color="white" />
+                                            ) : null}
+                                        </div>
                                         <span className={styles.category}>{r.category}</span>
-                                        <h3 className={styles.name}>{r.name}</h3>
                                         <div className={styles.meta}>
                                             <div className={styles.metaRow}><MapPin size={14} /> {r.address}</div>
                                             {r.rating && <div className={styles.metaRow}><Star size={14} fill="var(--warning)" color="var(--warning)" /> {r.rating}</div>}
@@ -180,7 +201,14 @@ const DesktopComida = memo(function DesktopComida({ initialData }: DesktopComida
                             </div>
                             <div className={styles.modalBody}>
                                 <span className={styles.category}>{selectedRestaurant.category}</span>
-                                <h2>{selectedRestaurant.name}</h2>
+                                <div className={styles.modalTitleRow}>
+                                    <h2>{selectedRestaurant.name}</h2>
+                                    {selectedRestaurant.isPremium ? (
+                                        <BadgeCheckIcon size={32} className={styles.premiumCheck} fill="var(--success)" color="white" />
+                                    ) : selectedRestaurant.isVerified ? (
+                                        <BadgeCheckIcon size={32} className={styles.verifiedCheck} fill="#94a3b8" color="white" />
+                                    ) : null}
+                                </div>
                                 <p className={styles.modalDesc}>{selectedRestaurant.description}</p>
                                 <div className={styles.modalActions}>
                                     {selectedRestaurant.phone && <a href={`tel:${selectedRestaurant.phone}`} className={styles.callBtn}><Phone size={20} /> Llamar ahora</a>}

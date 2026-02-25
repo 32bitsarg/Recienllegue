@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import TopBar from "@/components/layout/TopBar";
 import BottomNav from "@/components/layout/BottomNav";
 import Link from "next/link";
-import { LogOut, Heart, FileText, Edit2, MapPin, GraduationCap, HelpCircle } from "lucide-react";
+import { LogOut, Heart, FileText, Edit2, MapPin, GraduationCap, HelpCircle, Store } from "lucide-react";
 import styles from "@/app/perfil/Perfil.module.css";
 import UserAvatar from "@/components/common/UserAvatar";
 import { getUserStats } from "@/app/actions/data";
@@ -69,7 +69,7 @@ export default function MobilePerfil({ initialData }: MobilePerfilProps) {
                 <TopBar />
                 <div className={styles.profileContainer}>
                     <div className={styles.profileHeader}>
-                        <UserAvatar seed={(session.user as any).avatarSeed || session.user?.email || "default"} size={80} className={styles.avatar} />
+                        <UserAvatar seed={(session.user as any).avatarSeed || session.user?.email || "default"} size={80} role={(session.user as any).role} className={styles.avatar} />
                         <div className={styles.profileInfo}>
                             <h2>{session.user?.name}</h2>
                             <p>{session.user?.email}</p>
@@ -108,6 +108,12 @@ export default function MobilePerfil({ initialData }: MobilePerfilProps) {
                         </div>
                     </div>
                     <div className={styles.menu}>
+                        {(session.user as any).role === "DUENO" && (
+                            <Link href="/perfil/mis-locales" className={styles.menuItem} style={{ borderLeft: '4px solid var(--primary)', background: 'rgba(99, 102, 241, 0.05)' }}>
+                                <Store size={20} color="var(--primary)" />
+                                <span style={{ fontWeight: 700, color: 'var(--primary)' }}>Panel de Comercio</span>
+                            </Link>
+                        )}
                         <Link href="/perfil/mis-avisos" className={styles.menuItem}>
                             <FileText size={20} />
                             <span>Mis Publicaciones</span>

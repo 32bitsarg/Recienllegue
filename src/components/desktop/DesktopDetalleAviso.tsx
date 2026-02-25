@@ -133,7 +133,7 @@ export default function DesktopDetalleAviso({ initialData }: DesktopDetalleAviso
             <article className={styles.noticeCard}>
                 <header className={styles.noticeHeader}>
                     <div className={styles.authorWrapper}>
-                        <UserAvatar seed={notice.author?.avatarSeed || notice.author?.email || "default"} size={52} />
+                        <UserAvatar seed={notice.author?.avatarSeed || notice.author?.email || "default"} size={52} role={notice.author?.role} />
                         <div className={styles.authorMeta}>
                             <h4>{notice.author?.name}</h4>
                             <p>@{notice.author?.username || "estudiante"}</p>
@@ -232,7 +232,7 @@ export default function DesktopDetalleAviso({ initialData }: DesktopDetalleAviso
                     ) : (
                         notice.comments.map((c: any) => (
                             <div key={c.id} className={styles.commentItem}>
-                                <UserAvatar seed={c.author?.avatarSeed || c.author?.email || "default"} size={40} />
+                                <UserAvatar seed={c.author?.avatarSeed || c.author?.email || "default"} size={40} role={c.author?.role} />
                                 <div className={styles.commentBubble}>
                                     <div className={styles.commentMeta}>
                                         <span className={styles.commentAuthor}>

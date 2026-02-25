@@ -148,26 +148,39 @@
 .restaurantCard {
     background: var(--surface);
     border-radius: var(--radius-lg);
-    border: 1px solid var(--border);
     overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
     display: flex;
-    align-items: center;
-    padding: 0.75rem;
-    gap: 1rem;
+    flex-direction: column;
     position: relative;
-    box-shadow: var(--shadow);
-    transition: transform 0.2s ease;
+    transition: all 0.2s ease;
     cursor: pointer;
+    /* Added back from original */
 }
 
 .restaurantCard:active {
     transform: scale(0.98);
 }
 
+.restaurantCard.verified {
+    border: 1px solid #cbd5e1;
+    box-shadow: var(--shadow-md);
+}
+
+.restaurantCard.premium {
+    border: 1.5px solid #22c55e;
+    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.15), 0 0 1px rgba(34, 197, 94, 0.5);
+    background: linear-gradient(to bottom, var(--surface), #f0fdf4);
+}
+
 .cardImage {
-    width: 80px;
-    height: 80px;
-    border-radius: var(--radius-md);
+    width: 100%;
+    /* Changed from 80px */
+    height: 160px;
+    /* Changed from 80px */
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    /* Changed from var(--radius-md) */
     overflow: hidden;
     position: relative;
     flex-shrink: 0;
@@ -211,12 +224,36 @@
     display: flex;
     flex-direction: column;
     gap: 0.4rem;
+    padding: 0.75rem 1rem 1rem;
+    /* Added padding */
 }
 
 .resName {
-    font-size: 1rem;
+    font-size: 1.1rem;
+    /* Changed from 1rem */
     font-weight: 700;
     line-height: 1.2;
+    color: var(--foreground);
+    /* Added */
+    white-space: nowrap;
+    /* Added */
+    overflow: hidden;
+    /* Added */
+    text-overflow: ellipsis;
+    /* Added */
+}
+
+.titleRow {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.25rem;
+    width: 100%;
+}
+
+.premiumCheck,
+.verifiedCheck {
+    flex-shrink: 0;
 }
 
 .featuredText {

@@ -22,9 +22,11 @@ import {
     MessageCircle,
     Phone,
     Building2,
-    Zap
+    Zap,
+    BadgeCheck,
+    Star
 } from "lucide-react";
-import { getNotices, getTips, getFeaturedRestaurants, getCityEvents, getRestaurants } from "@/app/actions/data";
+import { getNotices, getTips, getFeaturedRestaurants, getCityEvents, getRestaurants, getPremiumRestaurants } from "@/app/actions/data";
 import styles from "./DesktopHome.module.css";
 
 const CATEGORIES = [
@@ -85,11 +87,12 @@ const DesktopHome = memo(function DesktopHome({ initialData }: DesktopHomeProps)
         let isMounted = true;
         const fetchData = async () => {
             try {
-                const [tipsData, featuredFoodData, eventsData, noticesData] = await Promise.all([
+                const [tipsData, featuredFoodData, eventsData, noticesData, premiumData] = await Promise.all([
                     getTips(),
                     getFeaturedRestaurants(),
                     getCityEvents(),
-                    getNotices()
+                    getNotices(),
+                    getPremiumRestaurants()
                 ]);
 
                 if (isMounted) {
@@ -97,15 +100,20 @@ const DesktopHome = memo(function DesktopHome({ initialData }: DesktopHomeProps)
                     setEvents(eventsData.filter((e: any) => e.isFeatured));
                     setNoticesCount(noticesData.length);
 
-                    // If we don't have enough featured restaurants, pick some random ones
-                    if (featuredFoodData.length < 3) {
+                    // Combinar: premium primero, luego featured (sin duplicados)
+                    const premiumIds = new Set(premiumData.map((r: any) => r.id));
+                    const nonDuplicateFeatured = featuredFoodData.filter((r: any) => !premiumIds.has(r.id));
+                    let combined = [...premiumData, ...nonDuplicateFeatured];
+
+                    // Si no hay suficientes, rellenar con aleatorios
+                    if (combined.length < 4) {
                         const allRestaurants = await getRestaurants();
-                        const available = allRestaurants.filter(r => !featuredFoodData.some(f => f.id === r.id));
-                        const randoms = available.sort(() => 0.5 - Math.random()).slice(0, 4 - featuredFoodData.length);
-                        setFeaturedFood([...featuredFoodData, ...randoms]);
-                    } else {
-                        setFeaturedFood(featuredFoodData);
+                        const usedIds = new Set(combined.map((r: any) => r.id));
+                        const available = allRestaurants.filter((r: any) => !usedIds.has(r.id));
+                        const randoms = available.sort(() => 0.5 - Math.random()).slice(0, 4 - combined.length);
+                        combined = [...combined, ...randoms];
                     }
+                    setFeaturedFood(combined);
 
                     setLoading(false);
                 }
@@ -200,7 +208,7 @@ const DesktopHome = memo(function DesktopHome({ initialData }: DesktopHomeProps)
                 {/* 3. PREMIUM EVENTS SECTION */}
                 <section>
                     <div className={styles.sectionHeader}>
-                        <h2>Agenda Destacada</h2>
+                        <h2>Eventos en Pergamino</h2>
                         <Link href="/eventos" className={styles.viewAll}>Ver cartelera completa</Link>
                     </div>
 
@@ -262,7 +270,7 @@ const DesktopHome = memo(function DesktopHome({ initialData }: DesktopHomeProps)
                                     viewport={{ once: true }}
                                     transition={{ delay: i * 0.1 }}
                                 >
-                                    <Link href="/comida" className={styles.foodCard}>
+                                    <Link href="/comida" className={`${styles.foodCard} ${food.isPremium ? styles.foodCardPremium : ''}`}>
                                         <div className={styles.foodImgWrapper}>
                                             {food.image ? (
                                                 <Image
@@ -277,13 +285,17 @@ const DesktopHome = memo(function DesktopHome({ initialData }: DesktopHomeProps)
                                                     <Utensils size={32} opacity={0.2} />
                                                 </div>
                                             )}
-                                            {food.isFeaturedHome && <div className={styles.foodBadge}>Destacado</div>}
+                                            {food.isPremium && (
+                                                <div className={styles.foodBadgePremium}>
+                                                    <BadgeCheck size={14} fill="#10b981" color="white" />
+                                                </div>
+                                            )}
                                         </div>
                                         <div className={styles.foodCardInfo}>
                                             <h4>{food.name}</h4>
                                             <p>{food.category}</p>
                                             <div className={styles.foodRating}>
-                                                <span style={{ color: '#f59e0b' }}>★</span> {food.rating || '4.5'}
+                                                <Star size={13} fill="#f59e0b" color="#f59e0b" /> {food.rating || '4.5'}
                                             </div>
                                         </div>
                                     </Link>

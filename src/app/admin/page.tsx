@@ -15,7 +15,9 @@ import {
     Bus,
     Loader2,
     User,
-    MessageSquare
+    MessageSquare,
+    Store,
+    AlertTriangle
 } from "lucide-react";
 import styles from "./Admin.module.css";
 import { getAdminStats } from "@/app/actions/data";
@@ -60,6 +62,36 @@ export default function AdminDashboard() {
                     </div>
                 </div>
             </div>
+
+            {/* Alerta de Solicitudes Pendientes */}
+            {stats && stats.pendingClaims > 0 && (
+                <Link href="/admin/comida" style={{ textDecoration: 'none' }}>
+                    <div style={{
+                        display: 'flex', alignItems: 'center', gap: '1rem',
+                        padding: '1.25rem 1.5rem', marginBottom: '1.5rem',
+                        background: 'rgba(245,158,11,0.08)', border: '1px solid rgba(245,158,11,0.25)',
+                        borderRadius: 'var(--radius-lg)', cursor: 'pointer',
+                        transition: 'all 0.2s'
+                    }}>
+                        <div style={{
+                            width: 44, height: 44, borderRadius: 'var(--radius-md)',
+                            background: 'rgba(245,158,11,0.15)', display: 'flex',
+                            alignItems: 'center', justifyContent: 'center', color: '#f59e0b', flexShrink: 0
+                        }}>
+                            <Store size={22} />
+                        </div>
+                        <div style={{ flex: 1 }}>
+                            <div style={{ fontWeight: 800, fontSize: '0.95rem', color: '#b45309' }}>
+                                {stats.pendingClaims} solicitud{stats.pendingClaims > 1 ? 'es' : ''} de comercio pendiente{stats.pendingClaims > 1 ? 's' : ''}
+                            </div>
+                            <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '0.15rem' }}>
+                                Hay comercios esperando tu aprobación. Tocá para revisarlos.
+                            </div>
+                        </div>
+                        <AlertTriangle size={20} color="#f59e0b" />
+                    </div>
+                </Link>
+            )}
 
             <div className={styles.menuGrid}>
                 <Link href="/admin/moderacion" className={styles.menuItem}>

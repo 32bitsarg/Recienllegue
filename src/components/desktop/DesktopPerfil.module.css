@@ -9,7 +9,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 2rem;
-    height: 100%;
+    min-height: calc(100vh - 10rem);
 }
 
 .guestCard {
@@ -31,11 +31,55 @@
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
 }
 
-.guestIcon {
-    width: 160px;
+.guestBrand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.04), rgba(99, 102, 241, 0.08));
+    border-radius: 2rem;
+    border: 1px solid rgba(99, 102, 241, 0.12);
+    padding: 3rem;
+}
+
+.guestBrandLogo {
+    width: 220px;
     height: auto;
     margin-bottom: 2rem;
-    filter: drop-shadow(0 10px 20px rgba(99, 102, 241, 0.15));
+    filter: drop-shadow(0 15px 30px rgba(99, 102, 241, 0.15));
+    animation: floatLogo 4s ease-in-out infinite;
+}
+
+@keyframes floatLogo {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.guestBrandTitle {
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--foreground);
+    letter-spacing: -0.03em;
+    margin-bottom: 0.5rem;
+}
+
+.guestBrandTitle span {
+    color: #6366f1;
+}
+
+.guestBrandSub {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    text-align: center;
+    max-width: 300px;
+    line-height: 1.5;
 }
 
 .guestCard h2 {
