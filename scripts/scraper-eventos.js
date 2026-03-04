@@ -97,7 +97,7 @@ async function scrapeEventos() {
                         location: locationName,
                         imageUrl: eventData.image || '',
                         link: eventData.url || '',
-                        isFeatured: false
+                        isFeatured: true
                     });
                 }
             } catch (e) {
