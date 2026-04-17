@@ -19,6 +19,7 @@ export async function getFeaturedBusiness(
   citySlug: string,
   serviceSlug: string
 ): Promise<FeaturedBusiness | null> {
+  if (!serverDb) return null
   try {
     const { data } = await serverDb
       .from('featured_businesses')
