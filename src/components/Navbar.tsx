@@ -34,7 +34,7 @@ export default function Navbar() {
       <nav
         className="fixed top-0 w-full z-50 transition-all duration-300"
         style={{
-          background: scrolled ? 'rgba(248, 250, 248, 0.95)' : 'rgba(248, 250, 248, 0.6)',
+          background: '#ffffff',
           backdropFilter: 'blur(20px)',
           borderBottom: scrolled ? '1px solid rgba(22, 56, 50, 0.08)' : '1px solid transparent',
         }}
@@ -43,7 +43,7 @@ export default function Navbar() {
 
           {/* LOGO */}
           <a href="/" className="flex items-center gap-2.5 group">
-            <img src="/logo.png" alt="Recien Llegue" className="h-8 w-auto transition-transform group-hover:scale-105" />
+            <img src="/logo.svg" alt="Recien Llegue" className="h-8 w-auto transition-transform group-hover:scale-105" />
             <span
               className="font-extrabold text-lg tracking-tight"
               style={{ color: '#051f20' }}

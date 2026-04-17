@@ -522,21 +522,25 @@ export default function CityClient({ citySlug, city }: { citySlug: string; city:
                   </div>
 
                   <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-                     {city.details.barrios.map((barrio, i) => (
-                        <motion.div
+                     {city.details.barrios.map((barrio, i) => {
+                        const barrioSlug = barrio.toLowerCase().replace(/\s+/g, '-').normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+                        return (
+                        <motion.a
                            key={barrio}
+                           href={`/${citySlug}/alojamiento-estudiantes/${barrioSlug}`}
                            initial={{ opacity: 0, scale: 0.95 }}
                            whileInView={{ opacity: 1, scale: 1 }}
                            viewport={{ once: true }}
                            transition={{ delay: i * 0.05 }}
-                           className="rounded-2xl p-5 flex flex-col gap-2"
+                           className="group rounded-2xl p-5 flex flex-col gap-2 transition-all hover:-translate-y-0.5"
                            style={{ background: 'white', border: `1px solid ${C.border}` }}
                         >
                            <MapPin size={14} style={{ color: C.secondary }} />
-                           <p className="font-bold tracking-tight text-sm" style={{ color: C.text }}>{barrio}</p>
+                           <p className="font-bold tracking-tight text-sm group-hover:text-[#235347] transition-colors" style={{ color: C.text }}>{barrio}</p>
                            <p className="text-[10px] font-medium" style={{ color: C.muted }}>{city.name}</p>
-                        </motion.div>
-                     ))}
+                        </motion.a>
+                        )
+                     })}
                   </div>
                </div>
             </section>

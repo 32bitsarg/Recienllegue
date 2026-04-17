@@ -3,11 +3,12 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { useUser } from '@/hooks/useUser'
 import {
-  Phone, ChevronRight, LogIn, UserPlus,
+  Phone, ChevronRight, LogIn, LogOut, UserPlus,
   Sparkles, ArrowRight,
 } from 'lucide-react'
 import { publicDb as db } from '@/lib/db'
 import AppSectionNav from '@/components/AppSectionNav'
+import { logout } from '@/app/actions/auth'
 
 // ─────────────────────────────────────────────────────────────────
 // 3D Tilt card — wrapper div que tiltea, inner div clipea
@@ -359,7 +360,7 @@ function HeroCarousel({ username }: { username: string | null }) {
       position: 'relative',
       background: '#163832',
       overflow: 'hidden',
-      paddingBottom: 56,   // espacio real para los dots (no float sobre contenido)
+      paddingBottom: 56,
     }}>
       {/* Canvas de partículas — position:absolute, no afecta layout */}
       <HeroParticles />
@@ -474,30 +475,29 @@ function OnboardingSection() {
       <div style={{ marginLeft: -16, marginRight: -16, paddingLeft: 16, overflowX: 'auto', WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none' }}>
         <div style={{ display: 'inline-flex', gap: 12, paddingRight: 16 }}>
           {USE_CASES.map((item) => (
-            <TiltCard
+            <a
               key={item.href}
-              as="a"
               href={item.href}
-              strength={14}
-              glareColor="rgba(218,241,222,0.2)"
-              innerStyle={{ borderRadius: 20, background: item.bg, minHeight: 200, width: 196, padding: '20px' }}
-              style={{ width: 196, minHeight: 200, flexShrink: 0 }}
+              style={{
+                display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
+                width: 196, minHeight: 200, flexShrink: 0,
+                borderRadius: 20, background: item.bg, padding: '20px',
+                textDecoration: 'none',
+              }}
             >
-              <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%', minHeight: 160 }}>
-                <span style={{ fontSize: 32, lineHeight: 1 }}>{item.emoji}</span>
-                <div>
-                  <p style={{ color: '#daf1de', fontWeight: 800, fontSize: 15, lineHeight: 1.3, marginBottom: 6 }}>
-                    {item.question}
-                  </p>
-                  <p style={{ color: '#b8e4bf', fontSize: 12, lineHeight: 1.5, marginBottom: 12 }}>
-                    {item.desc}
-                  </p>
-                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, color: '#a8ddb5', fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-                    Ver sección <ArrowRight size={10} />
-                  </span>
-                </div>
+              <span style={{ fontSize: 32, lineHeight: 1 }}>{item.emoji}</span>
+              <div>
+                <p style={{ color: '#daf1de', fontWeight: 800, fontSize: 15, lineHeight: 1.3, marginBottom: 6 }}>
+                  {item.question}
+                </p>
+                <p style={{ color: '#b8e4bf', fontSize: 12, lineHeight: 1.5, marginBottom: 12 }}>
+                  {item.desc}
+                </p>
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, color: '#a8ddb5', fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+                  Ver sección <ArrowRight size={10} />
+                </span>
               </div>
-            </TiltCard>
+            </a>
           ))}
         </div>
       </div>
@@ -511,12 +511,6 @@ function OnboardingSection() {
 
 // ─── Desktop Aside ─────────────────────────────────────────────
 
-const HOME_HIGHLIGHTS = [
-  { value: '6', label: 'secciones' },
-  { value: '24/7', label: 'disponible' },
-  { value: '1', label: 'todo en un lugar' },
-]
-
 function HomeDesktopAside({ username, isAdmin }: { username: string | null; isAdmin: boolean }) {
   const quickLinks = isAdmin
     ? [{ label: 'Ir a Perfil', href: '/app/perfil' }, { label: 'Panel Admin', href: '/app/adm/dashboard' }]
@@ -524,31 +518,6 @@ function HomeDesktopAside({ username, isAdmin }: { username: string | null; isAd
 
   return (
     <aside className="hidden lg:flex lg:flex-col gap-4 lg:w-[320px]">
-      {/* Resumen */}
-      <div className="rounded-[28px] p-6 flex flex-col justify-between flex-1"
-        style={{ background: 'linear-gradient(160deg, rgba(22,56,50,0.07) 0%, rgba(22,56,50,0.02) 100%)', border: '1px solid rgba(22,56,50,0.08)' }}>
-        <div>
-          <p className="app-section-kicker mb-2">Tu punto de partida</p>
-          <h3 className="text-2xl font-black leading-tight mb-3" style={{ color: '#051f20' }}>
-            {username ? `Hola, ${username.split(' ')[0]}.` : 'Bienvenido a Recienllegue.'}
-          </h3>
-          <p className="text-sm leading-relaxed" style={{ color: '#235347' }}>
-            {username
-              ? 'Usá el menú superior para navegar. Todo está a un click.'
-              : 'La app para estudiantes nuevos en Pergamino. Hospedajes, transporte, comercios y comunidad en un solo lugar.'}
-          </p>
-        </div>
-        <div className="grid grid-cols-3 gap-2 mt-5">
-          {HOME_HIGHLIGHTS.map((item) => (
-            <div key={item.label} className="rounded-2xl px-3 py-3"
-              style={{ background: '#fff', border: '1px solid rgba(22,56,50,0.08)' }}>
-              <p className="text-lg font-black leading-none" style={{ color: '#163832' }}>{item.value}</p>
-              <p className="text-[10px] mt-1 leading-tight" style={{ color: 'rgba(22,56,50,0.5)' }}>{item.label}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-
       {/* Atajos */}
       <div className="app-card p-4 space-y-1">
         <p className="app-section-kicker px-2 pt-1 pb-2">Atajos rápidos</p>
@@ -560,6 +529,19 @@ function HomeDesktopAside({ username, isAdmin }: { username: string | null; isAd
             <ChevronRight size={16} style={{ color: 'rgba(22,56,50,0.35)' }} />
           </a>
         ))}
+        {username && (
+          <form action={logout}>
+            <button
+              type="submit"
+              className="w-full flex items-center justify-between rounded-2xl px-4 py-3 transition-colors hover:bg-[rgba(220,38,38,0.04)]"
+              style={{ color: '#dc2626' }}
+            >
+              <span className="inline-flex items-center gap-2 text-sm font-bold">
+                <LogOut size={16} /> Cerrar sesión
+              </span>
+            </button>
+          </form>
+        )}
       </div>
 
       {!username && (
@@ -832,8 +814,8 @@ function EventosSection() {
 
   useEffect(() => {
     const today = new Date().toLocaleDateString('en-CA')
-    db.from('eventos').gte('dateSortable', today).order('dateSortable', { ascending: true }).limit(50).find()
-      .then(data => setEventos(data as any)).catch(() => {})
+    db.from('eventos').gte('dateSortable', today).order('dateSortable', { ascending: true }).limit(50).get()
+      .then(res => res.data && setEventos(res.data as any)).catch(() => {})
   }, [])
 
   if (eventos.length === 0) return null
@@ -1031,7 +1013,7 @@ export default function InicioPage() {
       </div>
 
       {/* Hero + aside */}
-      <div className="lg:mt-6 lg:grid lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-4 lg:items-stretch">
+      <div className="lg:mt-6 lg:grid lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-4 lg:items-start">
         <div
           className="lg:rounded-[32px] lg:overflow-hidden lg:shadow-2xl lg:shadow-[rgba(22,56,50,0.15)]"
           style={{ background: '#163832' }}

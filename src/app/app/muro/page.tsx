@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { useUser } from '@/hooks/useUser'
 import { publicDb as db, getUserDb } from '@/lib/db'
 import AppSectionNav from '@/components/AppSectionNav'
+import HeroParticles from '@/components/HeroParticles'
 import {
   ChevronDown,
   ChevronUp,
@@ -94,6 +95,7 @@ function InlinePostForm({ token, userName, userId, userRole, onCreated }: {
   const [body, setBody] = useState('')
   const [sending, setSending] = useState(false)
   const [error, setError] = useState('')
+  const titleRef = useRef<HTMLInputElement>(null)
 
   const collapse = () => {
     setExpanded(false)
@@ -101,6 +103,12 @@ function InlinePostForm({ token, userName, userId, userRole, onCreated }: {
     setTitle('')
     setBody('')
     setError('')
+  }
+
+  const handleOpen = () => {
+    setExpanded(true)
+    // Foco en el título luego de que termine la transición
+    setTimeout(() => titleRef.current?.focus(), 320)
   }
 
   const submit = async () => {
@@ -127,54 +135,90 @@ function InlinePostForm({ token, userName, userId, userRole, onCreated }: {
   if (!token) return null
 
   return (
-    <div className="app-card overflow-hidden">
-      {!expanded ? (
-        <button onClick={() => setExpanded(true)} className="w-full flex items-center gap-3 px-4 py-4 text-left">
-          <Avatar name={userName} size={34} />
-          <span className="flex-1 text-sm px-4 py-3 rounded-full" style={{ background: 'var(--surface-soft)', border: '1px solid var(--border-subtle)', color: 'var(--text-muted)' }}>
-            ¿Qué querés publicar hoy?
-          </span>
+    <div
+      className="app-card overflow-hidden"
+      style={{ transition: 'box-shadow 0.2s ease' }}
+    >
+      {/* Barra superior — siempre visible */}
+      <div className="flex items-center gap-3 px-4 py-3.5">
+        <Avatar name={userName} size={34} />
+        <button
+          onClick={handleOpen}
+          className="flex-1 text-left text-sm px-4 py-2.5 rounded-2xl transition-all"
+          style={{
+            background: expanded ? '#fff' : 'var(--surface-soft)',
+            border: `1px solid ${expanded ? 'rgba(22,56,50,0.15)' : 'var(--border-subtle)'}`,
+            color: expanded ? 'var(--text-primary)' : 'var(--text-muted)',
+            fontWeight: expanded ? 600 : 400,
+          }}
+        >
+          {expanded ? (title || '¿Qué querés publicar hoy?') : '¿Qué querés publicar hoy?'}
         </button>
-      ) : (
-        <div className="p-4 sm:p-5 space-y-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2.5">
-              <Avatar name={userName} size={34} />
-              <p className="text-sm font-bold" style={{ color: 'var(--text-primary)' }}>{userName}</p>
+        {expanded && (
+          <button
+            onClick={collapse}
+            className="w-8 h-8 shrink-0 flex items-center justify-center rounded-xl hover:opacity-70 transition-opacity"
+            style={{ color: 'var(--text-muted)', background: 'var(--surface-soft)' }}
+          >
+            <X size={15} />
+          </button>
+        )}
+      </div>
+
+      {/* Formulario expandible — transición CSS, sin swap de contenido */}
+      <div
+        style={{
+          maxHeight: expanded ? 600 : 0,
+          opacity: expanded ? 1 : 0,
+          overflow: 'hidden',
+          transition: 'max-height 0.35s cubic-bezier(0.4,0,0.2,1), opacity 0.25s ease',
+        }}
+      >
+        <div
+          className="px-4 pb-4 space-y-3.5"
+          style={{ borderTop: '1px solid var(--border-subtle)' }}
+        >
+          {/* Categorías */}
+          <div className="pt-3.5">
+            <p className="text-[10px] font-bold uppercase tracking-wider mb-2" style={{ color: 'var(--text-muted-soft)' }}>
+              Categoría
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {CATEGORIES.map((item) => (
+                <button
+                  key={item.value}
+                  onClick={() => setCategory(item.value)}
+                  className="px-3 py-1.5 rounded-full text-[11px] font-bold transition-all"
+                  style={{
+                    background: category === item.value ? item.color : `${item.color}12`,
+                    color: category === item.value ? '#fff' : item.color,
+                    transform: category === item.value ? 'scale(1.05)' : 'scale(1)',
+                  }}
+                >
+                  {item.label}
+                </button>
+              ))}
             </div>
-            <button onClick={collapse} className="w-8 h-8 flex items-center justify-center rounded-xl transition-colors hover:opacity-70" style={{ color: 'var(--text-muted)' }}>
-              <X size={16} />
-            </button>
           </div>
 
-          <div className="flex flex-wrap gap-2">
-            {CATEGORIES.map((item) => (
-              <button
-                key={item.value}
-                onClick={() => setCategory(item.value)}
-                className="px-3 py-1.5 rounded-full text-[11px] font-bold transition-all"
-                style={{ background: category === item.value ? item.color : `${item.color}12`, color: category === item.value ? '#fff' : item.color }}
-              >
-                {item.label}
-              </button>
-            ))}
-          </div>
-
+          {/* Título */}
           <div>
             <p className="text-[10px] font-bold uppercase tracking-wider mb-1.5" style={{ color: 'var(--text-muted-soft)' }}>
               Título <span className="normal-case font-normal">({title.length}/60)</span>
             </p>
             <input
+              ref={titleRef}
               type="text"
               value={title}
               maxLength={60}
-              onChange={(event) => setTitle(event.target.value)}
+              onChange={(e) => setTitle(e.target.value)}
               placeholder="Ej: Vendo bicicleta rodado 26"
               className="w-full px-4 py-3 rounded-2xl text-sm outline-none"
               style={{ background: 'var(--surface-soft)', border: '1px solid var(--border-subtle)', color: 'var(--text-primary)' }}
             />
           </div>
 
+          {/* Descripción */}
           <div>
             <p className="text-[10px] font-bold uppercase tracking-wider mb-1.5" style={{ color: 'var(--text-muted-soft)' }}>
               Descripción <span className="normal-case font-normal">({body.length}/400)</span>
@@ -182,15 +226,17 @@ function InlinePostForm({ token, userName, userId, userRole, onCreated }: {
             <textarea
               value={body}
               maxLength={400}
-              onChange={(event) => setBody(event.target.value)}
+              onChange={(e) => setBody(e.target.value)}
               placeholder="Contá detalles, precio, contacto o ubicación."
-              rows={4}
+              rows={3}
               className="w-full px-4 py-3 rounded-2xl text-sm outline-none resize-none"
               style={{ background: 'var(--surface-soft)', border: '1px solid var(--border-subtle)', color: 'var(--text-primary)' }}
             />
           </div>
 
-          {error && <p className="text-xs font-medium" style={{ color: '#dc2626' }}>{error}</p>}
+          {error && (
+            <p className="text-xs font-medium" style={{ color: '#dc2626' }}>{error}</p>
+          )}
 
           <button
             onClick={submit}
@@ -201,7 +247,7 @@ function InlinePostForm({ token, userName, userId, userRole, onCreated }: {
             {sending ? 'Publicando...' : 'Publicar aviso'}
           </button>
         </div>
-      )}
+      </div>
     </div>
   )
 }
@@ -259,7 +305,7 @@ function CommentsSection({ post, token, currentUserId, userName, onComment }: {
         <div key={comment.id} className="flex gap-2.5">
           <Avatar name={comment.userName} size={24} />
           <div className="flex-1">
-            <div className="rounded-xl rounded-tl-none px-3 py-2" style={{ background: 'var(--surface-soft)' }}>
+            <div className="rounded-xl rounded-tl-none px-3 py-2" style={{ background: '#eef6f0' }}>
               <p className="text-[11px] font-bold mb-0.5" style={{ color: 'var(--text-primary)' }}>{comment.userName}</p>
               <p className="text-xs leading-relaxed" style={{ color: 'var(--text-muted)' }}>{comment.body}</p>
             </div>
@@ -519,22 +565,17 @@ export default function MuroPage() {
       <section className="grid lg:grid-cols-[minmax(0,1fr)_300px] gap-4">
         <div
           className="rounded-[28px] p-5 sm:p-7 overflow-hidden relative"
-          style={{ background: 'linear-gradient(135deg, var(--accent) 0%, var(--accent-strong) 100%)' }}
+          style={{ background: '#163832' }}
         >
-          <div className="absolute inset-y-0 right-0 w-44 opacity-10">
-            <svg className="h-full w-full" viewBox="0 0 220 200" aria-hidden>
-              <circle cx="106" cy="72" r="54" fill="none" stroke="var(--accent-contrast)" strokeWidth="1" />
-              <circle cx="162" cy="126" r="28" fill="none" stroke="var(--accent-contrast)" strokeWidth="1" />
-            </svg>
-          </div>
+          <HeroParticles />
           <div className="relative z-10 max-w-2xl">
-            <p className="text-[10px] font-bold uppercase tracking-[0.18em] mb-2" style={{ color: 'var(--accent-highlight)' }}>
+            <p className="text-[10px] font-bold uppercase tracking-[0.18em] mb-2" style={{ color: '#a8ddb5' }}>
               Comunidad
             </p>
-            <h1 className="text-3xl sm:text-4xl font-black tracking-tight mb-2" style={{ color: 'var(--accent-contrast)' }}>
+            <h1 className="text-3xl sm:text-4xl font-black tracking-tight mb-2" style={{ color: '#daf1de' }}>
               Muro para publicar, buscar y conectar
             </h1>
-            <p className="text-sm sm:text-base leading-relaxed" style={{ color: 'var(--accent-contrast)', opacity: 0.66 }}>
+            <p className="text-sm sm:text-base leading-relaxed" style={{ color: '#b8e4bf' }}>
               Un espacio simple para mover avisos entre estudiantes, compartir oportunidades y resolver necesidades cotidianas.
             </p>
           </div>
@@ -546,16 +587,16 @@ export default function MuroPage() {
             <h2 className="app-section-title text-lg">Actividad del muro</h2>
           </div>
           <div className="grid grid-cols-2 gap-3">
-            <div className="rounded-2xl p-3" style={{ background: 'var(--surface-soft)' }}>
+            <div className="rounded-2xl p-3" style={{ background: '#eef6f0' }}>
               <p className="text-xl font-black leading-none" style={{ color: 'var(--accent)' }}>{posts.length}</p>
               <p className="text-[10px] mt-1" style={{ color: 'var(--text-muted)' }}>avisos visibles</p>
             </div>
-            <div className="rounded-2xl p-3" style={{ background: 'var(--surface-soft)' }}>
+            <div className="rounded-2xl p-3" style={{ background: '#eef6f0' }}>
               <p className="text-xl font-black leading-none" style={{ color: 'var(--accent)' }}>{filterCat ? 1 : CATEGORIES.length}</p>
               <p className="text-[10px] mt-1" style={{ color: 'var(--text-muted)' }}>{filterCat ? 'filtro activo' : 'categorías'}</p>
             </div>
           </div>
-          <div className="rounded-2xl p-4" style={{ background: 'var(--surface-soft)' }}>
+          <div className="rounded-2xl p-4" style={{ background: '#eef6f0' }}>
             <div className="flex items-center gap-2 mb-2">
               <div className="w-9 h-9 rounded-2xl flex items-center justify-center" style={{ background: 'var(--surface)', color: 'var(--accent)' }}>
                 <Users size={16} />

@@ -30,7 +30,7 @@ jobs:
         working-directory: scripts
 
       - name: Ejecutar scraper de eventos
-        run: node scraper-eventos-matebase.js
+        run: npx tsx scraper-eventos-matebase.ts
         working-directory: scripts
         env:
           MATECITODB_URL: ${{ secrets.MATECITODB_URL }}

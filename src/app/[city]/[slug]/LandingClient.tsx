@@ -38,7 +38,7 @@ const CATEGORY_CTA: Record<ServiceCategory, { label: string; verb: string; icon:
 
 const DEFAULT_CTA = { label: 'Abrir Recien Llegue', verb: 'Abrir', icon: <ExternalLink size={16} /> };
 
-const APP_HREF = '/app/inicio';
+const APP_HREF = '/registro';
 const REGISTER_HREF = '/registro';
 
 // --- Trust stats ---
@@ -660,16 +660,16 @@ export default function LandingClient({
                            className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-bold text-sm transition-all hover:scale-[1.02]"
                            style={{ background: C.mint, color: C.primary }}
                         >
-                           Entrar a la app <ArrowRight size={16} />
+                           Registrate gratis <ArrowRight size={16} />
                         </a>
                         <a
-                           href={REGISTER_HREF}
+                           href="/login"
                            className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-bold text-xs transition-all"
                            style={{ color: '#fff', border: '1px solid rgba(255,255,255,0.15)' }}
                            onMouseEnter={(e: React.MouseEvent<HTMLAnchorElement>) => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)')}
                            onMouseLeave={(e: React.MouseEvent<HTMLAnchorElement>) => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)')}
                         >
-                           Crear cuenta gratis
+                           Ya tengo cuenta
                         </a>
                      </div>
 

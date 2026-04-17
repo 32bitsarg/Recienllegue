@@ -1,7 +1,6 @@
 import { createClient } from 'matecitodb'
 
-const IS_BROWSER = typeof window !== 'undefined'
-const URL        = IS_BROWSER ? (window.location.origin + '/api/matecito') : process.env.NEXT_PUBLIC_MATECITODB_URL!
+const URL        = process.env.NEXT_PUBLIC_MATECITODB_URL!
 const ANON_KEY   = process.env.NEXT_PUBLIC_MATECITODB_ANON_KEY!
 
 /** 

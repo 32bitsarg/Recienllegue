@@ -1,18 +1,12 @@
 User-agent: *
 Allow: /
 Allow: /pergamino/
-Allow: /app/inicio
-Allow: /app/hospedajes
-Allow: /app/comercios
-Allow: /app/transportes
-Allow: /app/muro
 
-# Bloquear areas privadas y de admin
-Disallow: /app/adm/
-Disallow: /app/perfil
+# Rutas de la app requieren login — no indexar
+Disallow: /app/
+
+# Bloquear areas de admin y API
 Disallow: /api/
-Disallow: /login
-Disallow: /registro
 
 # Sitemap
-Sitemap: https://recienllegue.com/sitemap.xml
+Sitemap: https://recienlleguee.com.ar/sitemap.xml

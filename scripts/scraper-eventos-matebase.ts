@@ -1,19 +1,18 @@
-require('dotenv').config({ path: '../.env.local' })
+import dotenv from 'dotenv'
+dotenv.config({ path: '../.env.local' })
 
-const puppeteer = require('puppeteer')
-const cheerio   = require('cheerio')
-
-const { createClient } = require('matecitodb')
+import puppeteer from 'puppeteer'
+import * as cheerio from 'cheerio'
+import { createClient } from 'matecitodb'
 
 const URL         = process.env.MATECITODB_URL || process.env.NEXT_PUBLIC_MATECITODB_URL
 const SERVICE_KEY = process.env.MATECITODB_SERVICE_KEY
 
 if (!URL || !SERVICE_KEY) {
-  console.error('Faltan variables de entorno: MATECITODB_URL (o NEXT_PUBLIC_MATECITODB_URL), MATECITODB_SERVICE_KEY')
+  console.error('Faltan variables de entorno: MATECITODB_URL, MATECITODB_SERVICE_KEY')
   process.exit(1)
 }
 
-// Usa el SDK v2 con serviceKey — misma estructura de datos que lee la home
 const db = createClient(URL, {
   apiKey: SERVICE_KEY,
   apiVersion: 'v2',
@@ -62,7 +61,6 @@ async function scrapeEventos() {
     try {
       const eventData = JSON.parse(scriptLdJson.trim())
 
-      // Descartar eventos pasados
       const endDate   = eventData.endDate   ? new Date(eventData.endDate)   : null
       const startDate = eventData.startDate ? new Date(eventData.startDate) : null
       const refDate   = endDate || startDate
@@ -70,21 +68,22 @@ async function scrapeEventos() {
 
       if (!eventData.name) return
 
-      // Formatear fecha: "2025-06-15T09:00" → date: "15/06/2025", time: "09:00 hs"
       const dateRaw  = eventData.startDate || ''
-      const datePart = dateRaw.split('T')[0] || ''
+      let datePart = dateRaw.split('T')[0] || '' 
       const timePart = dateRaw.split('T')[1] || ''
 
       let dateFormatted = datePart
-      if (datePart) {
-        const [y, m, d] = datePart.split('-')
+      let dateSortableStr = datePart
+      if (datePart && datePart.includes('-')) {
+        let [y, m, d] = datePart.split('-')
+        m = m.padStart(2, '0')
+        d = d.padStart(2, '0')
+        dateSortableStr = `${y}-${m}-${d}` 
         dateFormatted = `${d}/${m}/${y}`
       }
-      const timeFormatted = timePart
-        ? timePart.split('-')[0].split('+')[0] + ' hs'
-        : ''
+      
+      const timeFormatted = timePart ? timePart.split('-')[0].split('+')[0] + ' hs' : ''
 
-      // Location
       let location = ''
       if (Array.isArray(eventData.location) && eventData.location.length > 0) {
         location = eventData.location[0].name || ''
@@ -101,7 +100,7 @@ async function scrapeEventos() {
         title:        eventData.name,
         description,
         date:         dateFormatted,
-        dateSortable: datePart,   // ISO YYYY-MM-DD para ordenar/filtrar en queries
+        dateSortable: dateSortableStr,
         time:         timeFormatted,
         location,
         imageUrl:     eventData.image || '',
@@ -127,38 +126,57 @@ async function main() {
     return
   }
 
-  // ── Limpiar eventos vencidos ───────────────────────────────
-  console.log('[db] Buscando eventos vencidos...')
-  const todayISO = new Date().toLocaleDateString('en-CA') // YYYY-MM-DD
+  console.log('[db] Obteniendo registros de la DB...')
+  const todayISO = new Date().toLocaleDateString('en-CA')
 
-  // Trae todos los registros existentes (hasta 500 para el cleanup)
-  const existing = await db.from('eventos').limit(500).find()
+  // Auto-crear colección 'eventos' por las dudas usando la API cruda del admin
+  try {
+    await fetch(`${URL}/api/v2/collections`, {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${SERVICE_KEY}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: 'eventos', type: 'base' })
+    })
+  } catch(e) {}
+
+  const { data: existingRaw, error: getErr } = await db.from('eventos').limit(500).get()
+  if (getErr) throw new Error(`Error obteniendo existentes: ${JSON.stringify(getErr)}`)
+  const existing = existingRaw || []
   console.log(`[db] Registros existentes: ${existing.length}`)
 
   let deleted = 0
   let malformed = 0
+  
   for (const ev of existing) {
-    // Si viene anidado en .data, es un registro malformado del script anterior (V1)
     if (ev.data && Object.keys(ev).length <= 4) {
-      await db.from('eventos').eq('id', ev.id).hardDelete()
+      await db.from('eventos').hardDelete(ev.id)
       malformed++
       console.log(`[db] Eliminado (malformado v1): ${ev.id}`)
       continue
     }
 
     const sortable = ev.dateSortable
-    if (sortable && sortable < todayISO) {
-      await db.from('eventos').eq('id', ev.id).hardDelete()
-      deleted++
-      console.log(`[db] Eliminado (vencido): ${ev.title} (${sortable})`)
+    if (sortable) {
+      const isPast = new Date(sortable) < new Date(todayISO)
+      // O adicionalmente, si el sortable no tiene el formato YYYY-MM-DD correcto (está sin ceros), lo pisamos para regenerarlo bien.
+      const isBadFormat = sortable.match(/^\d{4}-\d{1,2}-\d{1,2}$/) && sortable.length < 10
+
+      if (isPast || isBadFormat) {
+        await db.from('eventos').hardDelete(ev.id)
+        deleted++
+        console.log(`[db] Eliminado (vencido o formato mal): ${ev.title} (${sortable})`)
+      }
     }
   }
   console.log(`[db] Eventos vencidos eliminados: ${deleted} | Malformados: ${malformed}`)
 
-  // ── Insertar nuevos, evitando duplicados por title + date ──
   const existingKeys = new Set(
     existing
-      .filter(ev => ev.dateSortable >= todayISO) // solo los que sobrevivieron al cleanup
+      .filter(ev => {
+        if (!ev.dateSortable) return false
+        const isBadFormat = ev.dateSortable.length < 10
+        const isPast = new Date(ev.dateSortable) < new Date(todayISO)
+        return !isPast && !isBadFormat
+      }) // solo los que sobrevivieron y están bien estructurados
       .map(ev => `${ev.title}__${ev.date}`)
   )
 
@@ -171,7 +189,8 @@ async function main() {
       skipped++
       continue
     }
-    await db.from('eventos').insert(ev)
+    const { error: insErr } = await db.from('eventos').insert(ev)
+    if (insErr) throw new Error(`Fallo al insertar evento: ${JSON.stringify(insErr)}`)
     inserted++
     console.log(`[db] Creado: ${ev.title} (${ev.date})`)
   }

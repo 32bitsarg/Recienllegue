@@ -1,8 +1,9 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
-import { BedDouble, Bus, Home, LayoutDashboard, Megaphone, ShoppingBag, User } from 'lucide-react'
+import { BedDouble, Bus, Home, LayoutDashboard, LogOut, Megaphone, ShoppingBag, User } from 'lucide-react'
 import { useUser } from '@/hooks/useUser'
+import { logout } from '@/app/actions/auth'
 
 const links = [
   { label: 'Inicio', href: '/app/inicio', icon: Home },
@@ -44,19 +45,33 @@ export default function AppSectionNav() {
             )
           })}
 
-          {isAdmin && (
-            <a
-              href="/app/adm/dashboard"
-              className="ml-auto flex items-center gap-2 px-3.5 py-2.5 rounded-2xl text-sm font-bold transition-all"
-              style={{
-                background: pathname.startsWith('/app/adm') ? 'var(--accent)' : 'var(--surface-soft)',
-                color: pathname.startsWith('/app/adm') ? 'var(--accent-contrast)' : 'var(--accent)',
-              }}
-            >
-              <LayoutDashboard size={15} />
-              <span>Admin</span>
-            </a>
-          )}
+          <div className="ml-auto flex items-center gap-2">
+            {isAdmin && (
+              <a
+                href="/app/adm/dashboard"
+                className="flex items-center gap-2 px-3.5 py-2.5 rounded-2xl text-sm font-bold transition-all"
+                style={{
+                  background: pathname.startsWith('/app/adm') ? 'var(--accent)' : 'var(--surface-soft)',
+                  color: pathname.startsWith('/app/adm') ? 'var(--accent-contrast)' : 'var(--accent)',
+                }}
+              >
+                <LayoutDashboard size={15} />
+                <span>Admin</span>
+              </a>
+            )}
+            {user && (
+              <form action={logout}>
+                <button
+                  type="submit"
+                  className="flex items-center gap-2 px-3.5 py-2.5 rounded-2xl text-sm font-bold transition-all hover:opacity-70"
+                  style={{ background: 'var(--surface-soft)', color: 'var(--text-muted)' }}
+                >
+                  <LogOut size={15} />
+                  <span>Salir</span>
+                </button>
+              </form>
+            )}
+          </div>
         </div>
       </div>
     </nav>

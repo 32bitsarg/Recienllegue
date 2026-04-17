@@ -2,6 +2,30 @@
 
 ## [Unreleased]
 
+### 2026-04-17 (continuación)
+
+#### Fix — aside "Tu punto de partida" con partículas visibles (inicio)
+
+- `HomeDesktopAside` primer card: background cambiado de `rgba(22,56,50,0.07)` (casi transparente) a `#eef6f0` (opaco)
+- Las partículas globales (z-index:0) eran visibles a través del fondo semitransparente del card
+- Causa raíz: stacking context — contenido en z-index:1 no oculta elementos de z-index inferior si tiene bg transparente
+
+#### Fix — hover en cards de acceso rápido (OnboardingSection)
+
+- Eliminado `TiltCard` de las cards de `OnboardingSection` en `/app/inicio`
+- Reemplazado por `<a>` plano con los mismos estilos de layout, sin efecto 3D ni glare
+- Las cards de comercios destacados y remises conservan `TiltCard` (hover intencional)
+
+#### Rediseño heroes — hospedajes, comercios, transportes, muro (2026-04-17)
+
+- **Todos los heroes de sección**: fondo sólido `#163832` en lugar de `linear-gradient` — consistencia con `/app/inicio`
+- **SVG decoration eliminado** de los 4 heroes — reemplazado por `<HeroParticles />` compartido
+- **Texto explícito**: `color: '#daf1de'` (título), `'#b8e4bf'` (párrafo), `'#a8ddb5'` (kicker) — sin `opacity` inline
+- **Stat boxes en asides**: `var(--surface-soft)` → `#eef6f0` (opaco) para evitar bleeding de partículas globales
+- `HeroParticles` importado en: `hospedajes/page.tsx`, `comercios/page.tsx`, `transportes/page.tsx`, `muro/page.tsx`
+
+---
+
 ### 2026-04-17
 
 #### app/inicio — Rediseño UI + efectos 3D

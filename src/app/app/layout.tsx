@@ -29,8 +29,22 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       {/* Contenido por encima del canvas (z-index: 0) */}
       <div style={{ position: 'relative', zIndex: 1 }}>
         <AppNav />
-        <main className="pb-16 lg:pb-0">
-          {children}
+        <main className="pb-16 lg:pb-0 relative">
+          {/* Frosted glass column — el bg de partículas se ve a través */}
+          <div
+            aria-hidden
+            className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-full max-w-6xl pointer-events-none"
+            style={{
+              background: 'rgba(248,250,248,0.78)',
+              backdropFilter: 'blur(10px)',
+              WebkitBackdropFilter: 'blur(10px)',
+              boxShadow: '0 0 0 1px rgba(22,56,50,0.05), 0 8px 60px rgba(22,56,50,0.06)',
+              zIndex: 0,
+            }}
+          />
+          <div style={{ position: 'relative', zIndex: 1 }}>
+            {children}
+          </div>
         </main>
       </div>
     </div>

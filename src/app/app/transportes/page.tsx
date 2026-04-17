@@ -5,11 +5,12 @@ import dynamic from 'next/dynamic'
 import { Bus, MapPin, Navigation, Phone, Route } from 'lucide-react'
 import { publicDb as db } from '@/lib/db'
 import AppSectionNav from '@/components/AppSectionNav'
+import HeroParticles from '@/components/HeroParticles'
 
 const MapaColectivos = dynamic(() => import('./MapaColectivos'), {
   ssr: false,
   loading: () => (
-    <div className="w-full h-full flex items-center justify-center" style={{ background: 'var(--surface-soft)' }}>
+    <div className="w-full h-full flex items-center justify-center" style={{ background: '#eef6f0' }}>
       <p className="text-sm font-medium" style={{ color: 'var(--text-muted)' }}>
         Cargando mapa...
       </p>
@@ -167,23 +168,17 @@ export default function TransportesPage() {
       <section className="grid lg:grid-cols-[minmax(0,1fr)_300px] gap-4">
         <div
           className="rounded-[28px] p-5 sm:p-7 overflow-hidden relative"
-          style={{ background: 'linear-gradient(135deg, var(--accent) 0%, var(--accent-strong) 100%)' }}
+          style={{ background: '#163832' }}
         >
-          <div className="absolute inset-y-0 right-0 w-44 opacity-10">
-            <svg className="h-full w-full" viewBox="0 0 220 200" aria-hidden>
-              <circle cx="108" cy="70" r="62" fill="none" stroke="var(--accent-contrast)" strokeWidth="1" />
-              <circle cx="158" cy="124" r="32" fill="none" stroke="var(--accent-contrast)" strokeWidth="1" />
-              <path d="M18 144C62 98 108 108 186 64" fill="none" stroke="var(--accent-contrast)" strokeWidth="1" />
-            </svg>
-          </div>
+          <HeroParticles />
           <div className="relative z-10 max-w-2xl">
-            <p className="text-[10px] font-bold uppercase tracking-[0.18em] mb-2" style={{ color: 'var(--accent-highlight)' }}>
+            <p className="text-[10px] font-bold uppercase tracking-[0.18em] mb-2" style={{ color: '#a8ddb5' }}>
               Moverse rápido
             </p>
-            <h1 className="text-3xl sm:text-4xl font-black tracking-tight mb-2" style={{ color: 'var(--accent-contrast)' }}>
+            <h1 className="text-3xl sm:text-4xl font-black tracking-tight mb-2" style={{ color: '#daf1de' }}>
               Transportes para ir y volver sin perderte
             </h1>
-            <p className="text-sm sm:text-base leading-relaxed" style={{ color: 'var(--accent-contrast)', opacity: 0.66 }}>
+            <p className="text-sm sm:text-base leading-relaxed" style={{ color: '#b8e4bf' }}>
               Colectivos y remises en una sola pantalla, con rutas visibles y contactos directos para resolver movilidad diaria.
             </p>
           </div>
@@ -195,16 +190,16 @@ export default function TransportesPage() {
             <h2 className="app-section-title text-lg">Panorama de movilidad</h2>
           </div>
           <div className="grid grid-cols-2 gap-3">
-            <div className="rounded-2xl p-3" style={{ background: 'var(--surface-soft)' }}>
+            <div className="rounded-2xl p-3" style={{ background: '#eef6f0' }}>
               <p className="text-xl font-black leading-none" style={{ color: 'var(--accent)' }}>{ramales.length}</p>
               <p className="text-[10px] mt-1" style={{ color: 'var(--text-muted)' }}>ramales cargados</p>
             </div>
-            <div className="rounded-2xl p-3" style={{ background: 'var(--surface-soft)' }}>
+            <div className="rounded-2xl p-3" style={{ background: '#eef6f0' }}>
               <p className="text-xl font-black leading-none" style={{ color: 'var(--accent)' }}>{destacados}</p>
               <p className="text-[10px] mt-1" style={{ color: 'var(--text-muted)' }}>remises destacados</p>
             </div>
           </div>
-          <div className="rounded-2xl p-4" style={{ background: 'var(--surface-soft)' }}>
+          <div className="rounded-2xl p-4" style={{ background: '#eef6f0' }}>
             <p className="text-[10px] font-bold uppercase tracking-[0.18em] mb-1.5" style={{ color: 'var(--text-muted-soft)' }}>
               Cobertura
             </p>
@@ -225,7 +220,7 @@ export default function TransportesPage() {
             <h2 className="app-section-title text-xl">Elegí cómo moverte</h2>
           </div>
 
-          <div className="flex items-center gap-1 p-1 rounded-2xl self-start md:self-auto" style={{ background: 'var(--surface-soft)' }}>
+          <div className="flex items-center gap-1 p-1 rounded-2xl self-start md:self-auto" style={{ background: '#eef6f0' }}>
             {(['colectivos', 'remises'] as const).map((item) => (
               <button
                 key={item}
@@ -249,20 +244,20 @@ export default function TransportesPage() {
               {loading ? (
                 <div className="flex gap-2">
                   {Array.from({ length: 5 }).map((_, index) => (
-                    <div key={index} className="shrink-0 rounded-full h-8 w-16 animate-pulse" style={{ background: 'var(--surface-soft)' }} />
+                    <div key={index} className="shrink-0 rounded-full h-8 w-16 animate-pulse" style={{ background: '#eef6f0' }} />
                   ))}
                 </div>
               ) : (
                 <RamalPills ramales={ramales} activoId={activoId} onSelect={setActivoId} />
               )}
-              <div className="rounded-2xl p-3" style={{ background: 'var(--surface-soft)' }}>
+              <div className="rounded-2xl p-3" style={{ background: '#eef6f0' }}>
                 <Leyenda ramal={ramalActivo} />
               </div>
             </div>
 
             <div className="grid lg:grid-cols-[280px_minmax(0,1fr)] gap-4 min-h-[560px]">
               <div className="hidden lg:flex flex-col gap-3">
-                <div className="rounded-[24px] p-4" style={{ background: 'var(--surface-soft)' }}>
+                <div className="rounded-[24px] p-4" style={{ background: '#eef6f0' }}>
                   <div className="flex items-center gap-2 mb-3">
                     <div className="w-9 h-9 rounded-2xl flex items-center justify-center" style={{ background: 'var(--surface)', color: 'var(--accent)' }}>
                       <Bus size={16} />
@@ -284,7 +279,7 @@ export default function TransportesPage() {
                   </div>
                 </div>
 
-                <div className="rounded-[24px] p-4" style={{ background: 'var(--surface-soft)' }}>
+                <div className="rounded-[24px] p-4" style={{ background: '#eef6f0' }}>
                   <div className="flex items-center gap-2 mb-3">
                     <div className="w-9 h-9 rounded-2xl flex items-center justify-center" style={{ background: 'var(--surface)', color: 'var(--accent)' }}>
                       <Route size={16} />
@@ -339,7 +334,7 @@ export default function TransportesPage() {
 
               {remisLoading ? (
                 Array.from({ length: 4 }).map((_, index) => (
-                  <div key={index} className="app-card h-20 animate-pulse" style={{ background: 'var(--surface-soft)' }} />
+                  <div key={index} className="app-card h-20 animate-pulse" style={{ background: '#eef6f0' }} />
                 ))
               ) : remises.length === 0 ? (
                 <div className="app-card px-5 py-12 text-center">

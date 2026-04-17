@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo } from 'react'
 import { MapPin, Users, BadgeCheck, Phone, BedDouble, ChevronRight } from 'lucide-react'
 import { publicDb as db } from '@/lib/db'
 import AppSectionNav from '@/components/AppSectionNav'
+import HeroParticles from '@/components/HeroParticles'
 
 // ─── Types ────────────────────────────────────────────────────
 
@@ -144,25 +145,17 @@ export default function HospedajesPage() {
       <section className="grid lg:grid-cols-[minmax(0,1fr)_280px] gap-4">
         <div
           className="rounded-[28px] p-5 sm:p-7 overflow-hidden relative"
-          style={{
-            background: 'linear-gradient(135deg, var(--accent) 0%, var(--accent-strong) 100%)',
-          }}
+          style={{ background: '#163832', position: 'relative' }}
         >
-          <div className="absolute inset-y-0 right-0 w-40 opacity-10">
-            <svg className="h-full w-full" viewBox="0 0 200 200" aria-hidden>
-              <circle cx="120" cy="70" r="64" fill="none" stroke="var(--accent-contrast)" strokeWidth="1" />
-              <circle cx="120" cy="70" r="42" fill="none" stroke="var(--accent-contrast)" strokeWidth="1" />
-              <circle cx="120" cy="70" r="18" fill="none" stroke="var(--accent-contrast)" strokeWidth="1" />
-            </svg>
-          </div>
+          <HeroParticles />
           <div className="relative z-10 max-w-xl">
-            <p className="text-[10px] font-bold uppercase tracking-[0.18em] mb-2" style={{ color: 'var(--accent-highlight)' }}>
+            <p className="text-[10px] font-bold uppercase tracking-[0.18em] mb-2" style={{ color: '#a8ddb5' }}>
               Vivir en Pergamino
             </p>
-            <h1 className="text-3xl sm:text-4xl font-black tracking-tight mb-2" style={{ color: 'var(--accent-contrast)' }}>
+            <h1 className="text-3xl sm:text-4xl font-black tracking-tight mb-2" style={{ color: '#daf1de' }}>
               Hospedajes para estudiantes
             </h1>
-            <p className="text-sm sm:text-base leading-relaxed" style={{ color: 'var(--accent-contrast)', opacity: 0.62 }}>
+            <p className="text-sm sm:text-base leading-relaxed" style={{ color: '#b8e4bf' }}>
               Pensiones, departamentos y habitaciones para arrancar más rápido y con información clara.
             </p>
           </div>
@@ -174,16 +167,16 @@ export default function HospedajesPage() {
             <h2 className="app-section-title text-lg">Estado actual</h2>
           </div>
           <div className="grid grid-cols-2 gap-3">
-            <div className="rounded-2xl p-3" style={{ background: 'var(--surface-soft)' }}>
+            <div className="rounded-2xl p-3" style={{ background: '#eef6f0' }}>
               <p className="text-xl font-black leading-none" style={{ color: 'var(--accent)' }}>{hospedajes.length}</p>
               <p className="text-[10px] mt-1" style={{ color: 'var(--text-muted)' }}>opciones cargadas</p>
             </div>
-            <div className="rounded-2xl p-3" style={{ background: 'var(--surface-soft)' }}>
+            <div className="rounded-2xl p-3" style={{ background: '#eef6f0' }}>
               <p className="text-xl font-black leading-none" style={{ color: 'var(--accent)' }}>{verifiedCount}</p>
               <p className="text-[10px] mt-1" style={{ color: 'var(--text-muted)' }}>verificadas</p>
             </div>
           </div>
-          <div className="rounded-2xl p-4" style={{ background: 'var(--surface-soft)' }}>
+          <div className="rounded-2xl p-4" style={{ background: '#eef6f0' }}>
             <p className="text-[10px] font-bold uppercase tracking-[0.18em] mb-1.5" style={{ color: 'var(--text-muted-soft)' }}>
               Navegación
             </p>
@@ -246,7 +239,7 @@ export default function HospedajesPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
           {[1, 2, 3].map(i => (
             <div key={i} className="app-card h-56 animate-pulse"
-              style={{ background: 'var(--surface-soft)' }} />
+              style={{ background: '#eef6f0' }} />
           ))}
         </div>
       ) : filtered.length === 0 ? (

@@ -12,7 +12,7 @@
   --color-brand-mint: #daf1de;
   --color-brand-mint-strong: #a8ddb5;
   --color-brand-primary-soft: #1e4d44;
-  --color-brand-border: rgba(22, 56, 50, 0.08);
+  --color-brand-border: rgba(22, 56, 50, 0.11);
   --color-brand-border-strong: rgba(22, 56, 50, 0.14);
   --color-brand-muted: rgba(22, 56, 50, 0.5);
   --color-brand-muted-soft: rgba(22, 56, 50, 0.4);
@@ -68,8 +68,9 @@ html {
 
 .app-card {
   background: var(--surface);
-  border: 1px solid var(--border-subtle);
+  border: 1px solid var(--border-strong);
   border-radius: var(--radius-card);
+  box-shadow: 0 2px 16px rgba(22,56,50,0.07);
 }
 
 .app-section-title {

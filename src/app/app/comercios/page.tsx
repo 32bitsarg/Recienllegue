@@ -14,6 +14,7 @@ import {
 } from 'lucide-react'
 import { publicDb as db } from '@/lib/db'
 import AppSectionNav from '@/components/AppSectionNav'
+import HeroParticles from '@/components/HeroParticles'
 
 interface Comercio {
   id: string
@@ -99,12 +100,12 @@ function Stars({ rating }: { rating: number }) {
 function SkeletonCard() {
   return (
     <div className="app-card overflow-hidden animate-pulse">
-      <div className="h-20 w-full" style={{ background: 'var(--surface-soft)' }} />
+      <div className="h-20 w-full" style={{ background: '#eef6f0' }} />
       <div className="p-4 space-y-3">
         <div className="h-3 w-1/3 rounded-full" style={{ background: 'rgba(22,56,50,0.06)' }} />
         <div className="h-4 w-3/4 rounded-full" style={{ background: 'rgba(22,56,50,0.06)' }} />
         <div className="h-3 w-1/2 rounded-full" style={{ background: 'rgba(22,56,50,0.06)' }} />
-        <div className="h-10 w-full rounded-2xl" style={{ background: 'var(--surface-soft)' }} />
+        <div className="h-10 w-full rounded-2xl" style={{ background: '#eef6f0' }} />
       </div>
     </div>
   )
@@ -322,88 +323,58 @@ export default function ComerciosPage() {
     <div ref={topRef} className="max-w-6xl mx-auto px-4 lg:px-8 py-6 sm:py-8 space-y-6 sm:space-y-7">
       <AppSectionNav />
 
-      <section className="grid lg:grid-cols-[minmax(0,1fr)_300px] gap-4">
+      <section className="space-y-4">
         <div
           className="rounded-[28px] p-5 sm:p-7 overflow-hidden relative"
-          style={{
-            background: 'linear-gradient(135deg, var(--accent) 0%, var(--accent-strong) 100%)',
-          }}
+          style={{ background: '#163832' }}
         >
-          <div className="absolute inset-y-0 right-0 w-44 opacity-10">
-            <svg className="h-full w-full" viewBox="0 0 220 200" aria-hidden>
-              <circle cx="120" cy="60" r="72" fill="none" stroke="var(--accent-contrast)" strokeWidth="1" />
-              <circle cx="160" cy="130" r="42" fill="none" stroke="var(--accent-contrast)" strokeWidth="1" />
-              <circle cx="95" cy="145" r="24" fill="none" stroke="var(--accent-contrast)" strokeWidth="1" />
-            </svg>
-          </div>
-
+          <HeroParticles />
           <div className="relative z-10 max-w-2xl">
-            <p className="text-[10px] font-bold uppercase tracking-[0.18em] mb-2" style={{ color: 'var(--accent-highlight)' }}>
+            <p className="text-[10px] font-bold uppercase tracking-[0.18em] mb-2" style={{ color: '#a8ddb5' }}>
               Moverse por Pergamino
             </p>
-            <h1 className="text-3xl sm:text-4xl font-black tracking-tight mb-2" style={{ color: 'var(--accent-contrast)' }}>
+            <h1 className="text-3xl sm:text-4xl font-black tracking-tight mb-2" style={{ color: '#daf1de' }}>
               Comercios para resolver el día a día
             </h1>
-            <p className="text-sm sm:text-base leading-relaxed" style={{ color: 'var(--accent-contrast)', opacity: 0.66 }}>
+            <p className="text-sm sm:text-base leading-relaxed" style={{ color: '#b8e4bf' }}>
               Restaurantes, cafés, kioscos y servicios útiles cerca de la zona universitaria y del centro.
             </p>
+            <div className="flex flex-wrap gap-2 mt-5">
+              {['🍽️ Restaurantes', '☕ Cafés', '🥐 Panaderías', '🍕 Pizzerías', '🛒 Super', '🗞️ Kioscos'].map((label) => (
+                <span
+                  key={label}
+                  className="px-3 py-1.5 rounded-full text-[11px] font-bold"
+                  style={{ background: 'rgba(218,241,222,0.12)', color: '#daf1de', border: '1px solid rgba(218,241,222,0.18)' }}
+                >
+                  {label}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
 
-        <aside className="app-card p-4 sm:p-5 flex flex-col gap-4">
-          <div>
-            <p className="app-section-kicker mb-1">Resumen</p>
-            <h2 className="app-section-title text-lg">Panorama actual</h2>
+        <div className="app-card p-4 sm:p-5 grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          <div className="rounded-2xl p-3" style={{ background: '#eef6f0' }}>
+            <p className="text-xl font-black leading-none" style={{ color: 'var(--accent)' }}>{pagination.total}</p>
+            <p className="text-[10px] mt-1" style={{ color: 'var(--text-muted)' }}>lugares relevados</p>
           </div>
-
-          <div className="grid grid-cols-2 gap-3">
-            <div className="rounded-2xl p-3" style={{ background: 'var(--surface-soft)' }}>
-              <p className="text-xl font-black leading-none" style={{ color: 'var(--accent)' }}>
-                {pagination.total}
-              </p>
-              <p className="text-[10px] mt-1" style={{ color: 'var(--text-muted)' }}>
-                lugares relevados
-              </p>
-            </div>
-
-            <div className="rounded-2xl p-3" style={{ background: 'var(--surface-soft)' }}>
-              <p className="text-xl font-black leading-none" style={{ color: 'var(--accent)' }}>
-                {featuredCount}
-              </p>
-              <p className="text-[10px] mt-1" style={{ color: 'var(--text-muted)' }}>
-                destacados
-              </p>
-            </div>
+          <div className="rounded-2xl p-3" style={{ background: '#eef6f0' }}>
+            <p className="text-xl font-black leading-none" style={{ color: 'var(--accent)' }}>{featuredCount}</p>
+            <p className="text-[10px] mt-1" style={{ color: 'var(--text-muted)' }}>destacados</p>
           </div>
-
-          <div className="rounded-2xl p-4" style={{ background: 'var(--surface-soft)' }}>
-            <p className="text-[10px] font-bold uppercase tracking-[0.18em] mb-1.5" style={{ color: 'var(--text-muted-soft)' }}>
-              Navegación
-            </p>
-            <div className="space-y-2">
-              <a href="/app/inicio" className="flex items-center justify-between rounded-2xl px-4 py-3 hover:bg-[var(--surface)] transition-colors" style={{ color: 'var(--text-primary)' }}>
-                <span className="text-sm font-bold">Volver al hub principal</span>
-                <ChevronRight size={16} style={{ color: 'var(--text-muted-soft)' }} />
-              </a>
-              <a href="/app/transportes" className="flex items-center justify-between rounded-2xl px-4 py-3 hover:bg-[var(--surface)] transition-colors" style={{ color: 'var(--text-primary)' }}>
-                <span className="text-sm font-bold">Seguir con transportes</span>
-                <ChevronRight size={16} style={{ color: 'var(--text-muted-soft)' }} />
-              </a>
-            </div>
+          <div className="rounded-2xl p-3" style={{ background: '#eef6f0' }}>
+            <p className="text-xl font-black leading-none" style={{ color: 'var(--accent)' }}>{ratedCount}</p>
+            <p className="text-[10px] mt-1" style={{ color: 'var(--text-muted)' }}>con calificación</p>
           </div>
-
-          <div className="rounded-2xl p-4" style={{ background: 'var(--surface-soft)' }}>
-            <p className="text-[10px] font-bold uppercase tracking-[0.18em] mb-1.5" style={{ color: 'var(--text-muted-soft)' }}>
-              Calidad de datos
-            </p>
-            <p className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>
-              {ratedCount} comercios con calificación visible
-            </p>
-            <p className="text-xs mt-1" style={{ color: 'var(--text-muted)' }}>
-              La búsqueda y los filtros se actualizan sin salir de la pantalla.
-            </p>
+          <div className="rounded-2xl p-3 flex flex-col gap-1">
+            <a href="/app/inicio" className="flex items-center justify-between text-sm font-bold hover:opacity-70 transition-opacity" style={{ color: 'var(--text-primary)' }}>
+              Hub principal <ChevronRight size={14} style={{ color: 'var(--text-muted-soft)' }} />
+            </a>
+            <a href="/app/transportes" className="flex items-center justify-between text-sm font-bold hover:opacity-70 transition-opacity" style={{ color: 'var(--text-primary)' }}>
+              Transportes <ChevronRight size={14} style={{ color: 'var(--text-muted-soft)' }} />
+            </a>
           </div>
-        </aside>
+        </div>
       </section>
 
       <section className="space-y-4">

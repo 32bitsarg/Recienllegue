@@ -15,12 +15,12 @@ export default function Footer() {
           <div className="md:col-span-4 space-y-5">
             <div className="flex items-center gap-2.5">
               <Image
-                src="/logo.png"
+                src="/logo.svg"
                 alt="Recién Llegué"
                 width={120}
                 height={40}
                 className="object-contain"
-
+                style={{ filter: 'invert(1)' }}
               />
             </div>
             <p className="text-sm leading-relaxed max-w-sm" style={{ color: 'rgba(218, 241, 222, 0.45)' }}>
@@ -68,13 +68,12 @@ export default function Footer() {
             </h5>
             <ul className="space-y-3">
               {[
-                { label: 'Alojamiento', href: '/pergamino/alojamiento-estudiantes' },
-                { label: 'Alquileres', href: '/pergamino/alquiler-estudiantes' },
-                { label: 'Pensiones', href: '/pergamino/pensiones-estudiantiles' },
-                { label: 'Monoambientes', href: '/pergamino/departamentos-monoambiente' },
-                { label: 'Hospedaje urgente', href: '/pergamino/hospedaje-urgente' },
+                { label: 'Ver hospedajes', href: '/app/hospedajes' },
+                { label: 'Pensiones', href: '/app/hospedajes' },
+                { label: 'Departamentos', href: '/app/hospedajes' },
+                { label: 'Habitaciones', href: '/app/hospedajes' },
               ].map(link => (
-                <li key={link.href}>
+                <li key={link.label}>
                   <a
                     href={link.href}
                     className="text-xs font-medium transition-colors hover:text-white"
@@ -87,7 +86,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Col 3: Transporte y servicios */}
+          {/* Col 3: Transporte */}
           <div className="md:col-span-2 space-y-5">
             <h5
               className="text-[10px] font-bold uppercase tracking-[0.2em]"
@@ -97,12 +96,11 @@ export default function Footer() {
             </h5>
             <ul className="space-y-3">
               {[
-                { label: 'Remises 24hs', href: '/pergamino/remis-24hs' },
-                { label: 'Colectivos', href: '/pergamino/colectivos-urbanos' },
-                { label: 'Tarifas 2026', href: '/pergamino/tarifas-transporte' },
-                { label: 'Bicicletas', href: '/pergamino/bicicletas-alquiler' },
+                { label: 'Colectivos', href: '/app/transportes' },
+                { label: 'Remises 24hs', href: '/app/transportes' },
+                { label: 'Ver mapa de recorridos', href: '/app/transportes' },
               ].map(link => (
-                <li key={link.href}>
+                <li key={link.label}>
                   <a
                     href={link.href}
                     className="text-xs font-medium transition-colors hover:text-white"
@@ -115,23 +113,22 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Col 4: Vida estudiantil */}
+          {/* Col 4: Vida diaria */}
           <div className="md:col-span-2 space-y-5">
             <h5
               className="text-[10px] font-bold uppercase tracking-[0.2em]"
               style={{ color: 'rgba(218, 241, 222, 0.25)' }}
             >
-              Vida estudiantil
+              Vida diaria
             </h5>
             <ul className="space-y-3">
               {[
-                { label: 'Comida', href: '/pergamino/comida-universitaria' },
-                { label: 'Farmacias', href: '/pergamino/farmacia' },
-                { label: 'Supermercados', href: '/pergamino/supermercado-economico' },
-                { label: 'Lavanderias', href: '/pergamino/lavanderia' },
-                { label: 'Internet', href: '/pergamino/internet-wifi' },
+                { label: 'Comercios', href: '/app/comercios' },
+                { label: 'Restaurantes', href: '/app/comercios' },
+                { label: 'Supermercados', href: '/app/comercios' },
+                { label: 'Muro de avisos', href: '/app/muro' },
               ].map(link => (
-                <li key={link.href}>
+                <li key={link.label}>
                   <a
                     href={link.href}
                     className="text-xs font-medium transition-colors hover:text-white"
@@ -154,7 +151,7 @@ export default function Footer() {
             </h5>
             <div className="space-y-4">
               <a
-                href="/pergamino"
+                href="/app/inicio"
                 className="flex items-center gap-2 text-xs font-semibold transition-colors hover:text-white"
                 style={{ color: 'rgba(218, 241, 222, 0.7)' }}
               >
