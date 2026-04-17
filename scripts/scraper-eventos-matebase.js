@@ -3,51 +3,21 @@ require('dotenv').config({ path: '../.env.local' })
 const puppeteer = require('puppeteer')
 const cheerio   = require('cheerio')
 
-// El proyecto está embebido en el subdominio (ej: recienllegue.matecito.dev)
-// no se necesita PROJECT_ID separado
-const API_BASE    = process.env.MATECITODB_URL
+const { createClient } = require('matecitodb')
+
+const URL         = process.env.MATECITODB_URL || process.env.NEXT_PUBLIC_MATECITODB_URL
 const SERVICE_KEY = process.env.MATECITODB_SERVICE_KEY
 
-if (!API_BASE || !SERVICE_KEY) {
-  console.error('Faltan variables de entorno: MATECITODB_URL, MATECITODB_SERVICE_KEY')
+if (!URL || !SERVICE_KEY) {
+  console.error('Faltan variables de entorno: MATECITODB_URL (o NEXT_PUBLIC_MATECITODB_URL), MATECITODB_SERVICE_KEY')
   process.exit(1)
 }
 
-const BASE = `${API_BASE}/api/v1`
-const HEADERS = {
-  'Content-Type': 'application/json',
-  'x-matecito-key': SERVICE_KEY,
-}
-
-// ─── Matebase helpers ─────────────────────────────────────────
-
-async function ensureCollection() {
-  // Crea la colección si no existe (idempotente — el backend devuelve ok:true aunque ya exista)
-  await fetch(`${BASE}/collections`, {
-    method: 'POST',
-    headers: HEADERS,
-    body: JSON.stringify({ collection: 'eventos' }),
-  })
-}
-
-async function getExistingEvents() {
-  const res = await fetch(`${BASE}/records?collection=eventos&limit=200`, { headers: HEADERS })
-  const json = await res.json()
-  return json.records ?? []
-}
-
-async function createEvent(data) {
-  const res = await fetch(`${BASE}/records`, {
-    method: 'POST',
-    headers: HEADERS,
-    body: JSON.stringify({ collection: 'eventos', data }),
-  })
-  return res.json()
-}
-
-async function deleteEvent(id) {
-  await fetch(`${BASE}/records/${id}`, { method: 'DELETE', headers: HEADERS })
-}
+// Usa el SDK v2 con serviceKey — misma estructura de datos que lee la home
+const db = createClient(URL, {
+  apiKey: SERVICE_KEY,
+  apiVersion: 'v2',
+})
 
 // ─── Scraper ──────────────────────────────────────────────────
 
@@ -59,7 +29,7 @@ async function scrapeEventos() {
     args: [
       '--no-sandbox',
       '--disable-setuid-sandbox',
-      '--disable-dev-shm-usage',   // evita crashes en contenedores CI con /dev/shm limitado
+      '--disable-dev-shm-usage',
       '--disable-gpu',
     ],
     defaultViewport: { width: 1280, height: 800 },
@@ -128,15 +98,15 @@ async function scrapeEventos() {
       const description = cheerio.load(eventData.description || '').text().trim()
 
       events.push({
-        title:      eventData.name,
+        title:        eventData.name,
         description,
-        date:       dateFormatted,
-        dateSortable: datePart,   // ISO para ordenar en queries
-        time:       timeFormatted,
+        date:         dateFormatted,
+        dateSortable: datePart,   // ISO YYYY-MM-DD para ordenar/filtrar en queries
+        time:         timeFormatted,
         location,
-        imageUrl:   eventData.image || '',
-        link:       eventData.url   || '',
-        isFeatured: false,
+        imageUrl:     eventData.image || '',
+        link:         eventData.url   || '',
+        isFeatured:   false,
       })
     } catch (e) {
       console.error('[scraper] Error parseando evento:', e.message)
@@ -153,35 +123,43 @@ async function main() {
   const scraped = await scrapeEventos()
 
   if (scraped.length === 0) {
-    console.log('[matebase] No hay eventos para procesar.')
+    console.log('[db] No hay eventos para procesar.')
     return
   }
 
-  // Asegurar que la colección existe antes de operar
-  await ensureCollection()
+  // ── Limpiar eventos vencidos ───────────────────────────────
+  console.log('[db] Buscando eventos vencidos...')
+  const todayISO = new Date().toLocaleDateString('en-CA') // YYYY-MM-DD
 
-  // Traer eventos existentes para evitar duplicados y limpiar los vencidos
-  console.log('[matebase] Obteniendo eventos existentes...')
-  const existing = await getExistingEvents()
+  // Trae todos los registros existentes (hasta 500 para el cleanup)
+  const existing = await db.from('eventos').limit(500).find()
+  console.log(`[db] Registros existentes: ${existing.length}`)
 
-  // Eliminar eventos que ya pasaron (limpieza mensual)
-  const today = new Date()
-  today.setHours(0, 0, 0, 0)
   let deleted = 0
-
+  let malformed = 0
   for (const ev of existing) {
-    const sortable = ev.data.dateSortable
-    if (sortable && new Date(sortable) < today) {
-      await deleteEvent(ev.id)
+    // Si viene anidado en .data, es un registro malformado del script anterior (V1)
+    if (ev.data && Object.keys(ev).length <= 4) {
+      await db.from('eventos').eq('id', ev.id).hardDelete()
+      malformed++
+      console.log(`[db] Eliminado (malformado v1): ${ev.id}`)
+      continue
+    }
+
+    const sortable = ev.dateSortable
+    if (sortable && sortable < todayISO) {
+      await db.from('eventos').eq('id', ev.id).hardDelete()
       deleted++
-      console.log(`[matebase] Eliminado (vencido): ${ev.data.title}`)
+      console.log(`[db] Eliminado (vencido): ${ev.title} (${sortable})`)
     }
   }
-  console.log(`[matebase] Eventos vencidos eliminados: ${deleted}`)
+  console.log(`[db] Eventos vencidos eliminados: ${deleted} | Malformados: ${malformed}`)
 
-  // Insertar los nuevos evitando duplicados por title + date
+  // ── Insertar nuevos, evitando duplicados por title + date ──
   const existingKeys = new Set(
-    existing.map(ev => `${ev.data.title}__${ev.data.date}`)
+    existing
+      .filter(ev => ev.dateSortable >= todayISO) // solo los que sobrevivieron al cleanup
+      .map(ev => `${ev.title}__${ev.date}`)
   )
 
   let inserted = 0
@@ -193,9 +171,9 @@ async function main() {
       skipped++
       continue
     }
-    await createEvent(ev)
+    await db.from('eventos').insert(ev)
     inserted++
-    console.log(`[matebase] Creado: ${ev.title} (${ev.date})`)
+    console.log(`[db] Creado: ${ev.title} (${ev.date})`)
   }
 
   console.log(`\n=== Finalizado. Creados: ${inserted} | Omitidos: ${skipped} | Vencidos eliminados: ${deleted} ===`)
