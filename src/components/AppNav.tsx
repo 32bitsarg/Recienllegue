@@ -1,8 +1,9 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
-import { Home, BedDouble, ShoppingBag, Bus, Megaphone, User, LayoutDashboard } from 'lucide-react'
+import { Home, BedDouble, ShoppingBag, Bus, Megaphone, User, LayoutDashboard, ArrowLeft } from 'lucide-react'
 import { useUser } from '@/hooks/useUser'
+import Image from 'next/image'
 
 const links = [
   { label: 'Inicio',      href: '/app/inicio',      icon: Home },
@@ -21,6 +22,31 @@ export default function AppNav() {
 
   return (
     <>
+      {/* ── DESKTOP TOP BAR — solo en /app/adm/* ── */}
+      {isAdmPage && (
+        <header
+          className="hidden lg:flex items-center justify-between px-6 h-14 sticky top-0 z-50"
+          style={{
+            background: 'rgba(248,250,248,0.95)',
+            backdropFilter: 'blur(16px)',
+            borderBottom: '1px solid rgba(22,56,50,0.07)',
+          }}
+        >
+          <a href="/" className="flex items-center gap-2 opacity-60 hover:opacity-100 transition-opacity">
+            <ArrowLeft size={13} style={{ color: '#163832' }} />
+            <Image src="/logo.svg" alt="Recién Llegué" width={90} height={28} className="object-contain" />
+          </a>
+          <a
+            href="/app/inicio"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-semibold transition-all"
+            style={{ color: 'rgba(22,56,50,0.5)' }}
+          >
+            <Home size={13} />
+            Volver a la app
+          </a>
+        </header>
+      )}
+
       {/* ── MOBILE BOTTOM NAV ──────────────────── */}
       <nav
         className="lg:hidden fixed bottom-0 inset-x-0 z-50 flex items-center justify-around px-1 pb-safe"
@@ -75,13 +101,22 @@ export default function AppNav() {
               )
             })}
             {/* Admin shortcut — solo si es admin y no está en adm */}
-            {isAdmin && (
+            {isAdmin ? (
               <a
                 href="/app/adm/dashboard"
                 className="flex flex-col items-center justify-center gap-0.5 flex-1 py-2 transition-all"
                 style={{ color: '#235347', opacity: 0.32 }}
               >
                 <LayoutDashboard size={19} strokeWidth={1.7} />
+              </a>
+            ) : (
+              <a
+                href="/"
+                className="flex flex-col items-center justify-center gap-0.5 flex-1 py-2 transition-all"
+                style={{ color: '#235347', opacity: 0.28 }}
+              >
+                <ArrowLeft size={17} strokeWidth={1.7} />
+                <span className="text-[8px] font-bold uppercase tracking-wide leading-none">Web</span>
               </a>
             )}
           </>

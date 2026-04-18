@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import PageTracker from '@/components/PageTracker';
 import type { ServiceCategory, CityData } from '@/data/seo-data';
 
 // --- Palette (white premium) ---
@@ -233,6 +234,7 @@ export default function CityClient({ citySlug, city }: { citySlug: string; city:
 
    return (
       <>
+         <PageTracker page={`/${citySlug}`} extra={{ city: citySlug }} />
          <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

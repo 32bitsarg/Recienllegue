@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
 import Script from "next/script";
+import CookieBanner from "@/components/CookieBanner";
 import "./globals.css";
 
-const GA_ID = "G-VCTWHCEV8H";
+const GA_ID  = "G-VCTWHCEV8H";
+const AW_ID  = "AW-18014513807";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -40,18 +42,36 @@ export default function RootLayout({
         }}
       >
         {children}
+        <CookieBanner />
 
-        {/* Google Analytics */}
+        {/* Google Analytics con consent mode */}
+        <Script id="ga-consent-default" strategy="beforeInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            // Denegar por defecto hasta que el usuario acepte
+            gtag('consent', 'default', {
+              analytics_storage: 'denied',
+              ad_storage: 'denied',
+            });
+            // Si ya aceptó en sesión anterior, restaurar
+            try {
+              var consent = localStorage.getItem('rl_cookie_consent');
+              if (consent === 'all') {
+                gtag('consent', 'update', { analytics_storage: 'granted', ad_storage: 'granted' });
+              }
+            } catch(e) {}
+          `}
+        </Script>
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
           strategy="afterInteractive"
         />
         <Script id="google-analytics" strategy="afterInteractive">
           {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', '${GA_ID}');
+            gtag('config', '${AW_ID}');
           `}
         </Script>
       </body>

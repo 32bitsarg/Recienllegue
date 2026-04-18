@@ -116,8 +116,22 @@ function SkeletonCard() {
   )
 }
 
-function ComercioCard({ comercio }: { comercio: Comercio }) {
+function walkLabel(meters: number): string {
+  const mins = Math.round(meters / 80)
+  if (mins <= 1) return '1 min a pie'
+  if (mins < 60) return `${mins} min a pie`
+  return `${Math.round(mins / 60)}h a pie`
+}
+
+function ComercioCard({ comercio, getDistanceKm }: { comercio: Comercio; getDistanceKm?: (lat: number, lng: number) => number | null }) {
   const emoji = CATEGORY_EMOJI[comercio.category] ?? '📍'
+
+  const userDistanceLabel = (() => {
+    if (!getDistanceKm || comercio.lat == null || comercio.lng == null) return null
+    const km = getDistanceKm(comercio.lat, comercio.lng)
+    if (km == null) return null
+    return walkLabel(km * 1000)
+  })()
 
   return (
     <article className="app-card overflow-hidden flex flex-col h-full">
@@ -166,10 +180,15 @@ function ComercioCard({ comercio }: { comercio: Comercio }) {
             </div>
           )}
 
-          {comercio.walkTime && (
+          {(userDistanceLabel || comercio.walkTime) && (
             <div className="flex items-center gap-1.5" style={{ color: 'var(--text-muted)' }}>
-              <MapPin size={11} />
-              <span className="text-[10px] font-medium">{comercio.walkTime}</span>
+              <MapPin size={11} style={{ color: userDistanceLabel ? 'var(--accent)' : undefined }} />
+              <span className="text-[10px] font-medium" style={{ color: userDistanceLabel ? 'var(--accent)' : undefined }}>
+                {userDistanceLabel ?? comercio.walkTime}
+              </span>
+              {!userDistanceLabel && comercio.walkTime && (
+                <span className="text-[9px] opacity-50">desde UNNOBA</span>
+              )}
             </div>
           )}
 
@@ -308,9 +327,16 @@ export default function ComerciosPage() {
   const handleSearch = (value: string) => {
     setSearch(value)
     setCurrentPage(1)
-    trackSearch(value, '/app/comercios')
     if (debounce.current) clearTimeout(debounce.current)
-    debounce.current = setTimeout(() => {}, 0) // reset
+    debounce.current = setTimeout(() => {
+      // Calcular resultados al momento del debounce para saber si hubo 0 resultados
+      const q = value.toLowerCase()
+      const count = allComercios.filter(c =>
+        (!category || c.category === category) &&
+        (!q || c.name?.toLowerCase().includes(q) || c.address?.toLowerCase().includes(q) || c.category?.toLowerCase().includes(q))
+      ).length
+      trackSearch(value, '/app/comercios', count)
+    }, 800)
   }
 
   const handlePage = (page: number) => {
@@ -547,7 +573,7 @@ export default function ComerciosPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
               {paginated.map((comercio) => (
                 <div key={comercio.id} onClick={() => trackClick(comercio.id, 'comercio', '/app/comercios')}>
-                  <ComercioCard comercio={comercio} />
+                  <ComercioCard comercio={comercio} getDistanceKm={coords ? getDistanceKm : undefined} />
                 </div>
               ))}
             </div>

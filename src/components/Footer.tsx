@@ -68,10 +68,11 @@ export default function Footer() {
             </h5>
             <ul className="space-y-3">
               {[
-                { label: 'Ver hospedajes', href: '/app/hospedajes' },
-                { label: 'Pensiones', href: '/app/hospedajes' },
-                { label: 'Departamentos', href: '/app/hospedajes' },
-                { label: 'Habitaciones', href: '/app/hospedajes' },
+                { label: 'Guía de alojamiento', href: '/pergamino/alojamiento-estudiantes' },
+                { label: 'Pensiones estudiantiles', href: '/pergamino/pensiones-estudiantiles' },
+                { label: 'Habitaciones compartidas', href: '/pergamino/habitaciones-compartidas' },
+                { label: 'Departamentos', href: '/pergamino/departamentos-monoambiente' },
+                { label: 'Ver todos los hospedajes', href: '/app/hospedajes' },
               ].map(link => (
                 <li key={link.label}>
                   <a
@@ -92,13 +93,15 @@ export default function Footer() {
               className="text-[10px] font-bold uppercase tracking-[0.2em]"
               style={{ color: 'rgba(218, 241, 222, 0.25)' }}
             >
-              Transporte
+              Transporte y vida
             </h5>
             <ul className="space-y-3">
               {[
-                { label: 'Colectivos', href: '/app/transportes' },
-                { label: 'Remises 24hs', href: '/app/transportes' },
-                { label: 'Ver mapa de recorridos', href: '/app/transportes' },
+                { label: 'Remis 24hs', href: '/pergamino/remis-24hs' },
+                { label: 'Colectivos urbanos', href: '/pergamino/colectivos-urbanos' },
+                { label: 'Comida universitaria', href: '/pergamino/comida-universitaria' },
+                { label: 'Supermercados', href: '/pergamino/supermercado-economico' },
+                { label: 'Lavanderías', href: '/pergamino/lavanderia' },
               ].map(link => (
                 <li key={link.label}>
                   <a
@@ -113,20 +116,21 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Col 4: Vida diaria */}
+          {/* Col 4: Recursos */}
           <div className="md:col-span-2 space-y-5">
             <h5
               className="text-[10px] font-bold uppercase tracking-[0.2em]"
               style={{ color: 'rgba(218, 241, 222, 0.25)' }}
             >
-              Vida diaria
+              Recursos
             </h5>
             <ul className="space-y-3">
               {[
-                { label: 'Comercios', href: '/app/comercios' },
-                { label: 'Restaurantes', href: '/app/comercios' },
-                { label: 'Supermercados', href: '/app/comercios' },
+                { label: 'Farmacia', href: '/pergamino/farmacia' },
+                { label: 'Internet y WiFi', href: '/pergamino/internet-wifi' },
+                { label: 'Psicología y bienestar', href: '/pergamino/psicologia-bienestar' },
                 { label: 'Muro de avisos', href: '/app/muro' },
+                { label: 'Todos los comercios', href: '/app/comercios' },
               ].map(link => (
                 <li key={link.label}>
                   <a
@@ -151,12 +155,20 @@ export default function Footer() {
             </h5>
             <div className="space-y-4">
               <a
-                href="/app/inicio"
+                href="/pergamino"
                 className="flex items-center gap-2 text-xs font-semibold transition-colors hover:text-white"
                 style={{ color: 'rgba(218, 241, 222, 0.7)' }}
               >
                 <MapPin size={12} />
                 Pergamino (UNNOBA)
+                <ArrowUpRight size={10} style={{ opacity: 0.4 }} />
+              </a>
+              <a
+                href="/app/inicio"
+                className="flex items-center gap-2 text-xs font-medium transition-colors hover:text-white"
+                style={{ color: 'rgba(218, 241, 222, 0.4)' }}
+              >
+                Abrir la app
                 <ArrowUpRight size={10} style={{ opacity: 0.4 }} />
               </a>
               <div className="space-y-2 pt-2" style={{ borderTop: '1px solid rgba(218, 241, 222, 0.06)' }}>

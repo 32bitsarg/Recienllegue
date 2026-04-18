@@ -73,7 +73,7 @@ const withPWA = withPWAInit({
 const CSP = [
   "default-src 'self'",
   // Scripts propios + Next.js inline + Google Tag Manager / Analytics
-  "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://ssl.google-analytics.com https://tagmanager.google.com",
+  "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://ssl.google-analytics.com https://tagmanager.google.com https://www.googleadservices.com https://googleads.g.doubleclick.net",
   // Estilos propios + Google Fonts
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://tagmanager.google.com",
   // Fuentes — Google Fonts
@@ -81,9 +81,9 @@ const CSP = [
   // Imágenes — permisivo para contenido generado por usuarios + GA pixel
   "img-src 'self' data: blob: https: http:",
   // Conexiones — GA, GTM, DoubleClick, APIs internas
-  "connect-src 'self' http://localhost:3001 https://recienllegue.matecito.dev https://www.google-analytics.com https://analytics.google.com https://stats.g.doubleclick.net https://region1.google-analytics.com https://region1.analytics.google.com https://www.googletagmanager.com https://tagmanager.google.com",
+  "connect-src 'self' http://localhost:3001 https://recienllegue.matecito.dev https://www.google-analytics.com https://analytics.google.com https://stats.g.doubleclick.net https://region1.google-analytics.com https://region1.analytics.google.com https://www.googletagmanager.com https://tagmanager.google.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com",
   // iframes — GTM preview
-  "frame-src https://www.googletagmanager.com https://td.doubleclick.net",
+  "frame-src https://www.googletagmanager.com https://td.doubleclick.net https://bid.g.doubleclick.net",
   // Workers del service worker (PWA)
   "worker-src 'self' blob:",
 ].join("; ");

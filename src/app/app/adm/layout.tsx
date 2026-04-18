@@ -9,6 +9,7 @@ import {
   Store,
   Car,
   Flag,
+  BarChart2,
   ArrowLeft,
 } from 'lucide-react'
 
@@ -20,6 +21,7 @@ const NAV = [
   { href: '/app/adm/comercios',   label: 'Comercios',   Icon: Store           },
   { href: '/app/adm/transportes', label: 'Transportes', Icon: Car             },
   { href: '/app/adm/reportes',    label: 'Reportes',    Icon: Flag            },
+  { href: '/app/adm/analytics',   label: 'Analytics',   Icon: BarChart2       },
 ]
 
 // ─── Spinner ──────────────────────────────────────────────────

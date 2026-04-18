@@ -37,18 +37,28 @@ export function useTracking() {
     insertEvent({ eventType: 'click_item', entityId, entityType, page, metadata: null })
   }, [insertEvent])
 
-  const trackSearch = useCallback((query: string, page: string) => {
+  const trackSearch = useCallback((query: string, page: string, resultCount?: number) => {
     if (!query.trim()) return
     if (searchTimer.current) clearTimeout(searchTimer.current)
     searchTimer.current = setTimeout(() => {
-      insertEvent({ eventType: 'search', entityId: null, entityType: null, page, metadata: { query } })
+      insertEvent({
+        eventType: 'search',
+        entityId: null,
+        entityType: null,
+        page,
+        metadata: { query, resultCount: resultCount ?? null, noResults: resultCount === 0 },
+      })
     }, 800)
   }, [insertEvent])
 
   const trackTimeOnPage = useCallback((page: string, seconds: number) => {
-    if (seconds < 3) return // Ignorar visitas muy cortas (rebotes)
+    if (seconds < 3) return
     insertEvent({ eventType: 'time_on_page', entityId: null, entityType: null, page, metadata: { seconds } })
   }, [insertEvent])
 
-  return { trackClick, trackSearch, trackTimeOnPage }
+  const trackFunnel = useCallback((step: string, metadata?: Record<string, unknown>) => {
+    insertEvent({ eventType: 'funnel', entityId: null, entityType: null, page: step, metadata: metadata ?? null })
+  }, [insertEvent])
+
+  return { trackClick, trackSearch, trackTimeOnPage, trackFunnel }
 }

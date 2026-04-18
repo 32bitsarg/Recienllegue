@@ -9,7 +9,13 @@
       "WebFetch(domain:matecito.dev)",
       "WebFetch(domain:pub.dev)",
       "WebFetch(domain:github.com)",
-      "WebSearch"
+      "WebSearch",
+      "Bash(grep -n \"^import\\\\|export default\" /c/Programacion/Recienllegue/src/app/[city]/CityClient.tsx)",
+      "Bash(grep -n \"^import\\\\|export default\\\\|return \\(\" /c/Programacion/Recienllegue/src/app/[city]/[slug]/LandingClient.tsx)",
+      "Read(//c/Programacion/sdktest/app/**)",
+      "Read(//c/Programacion/sdktest/components/**)",
+      "Read(//c/Programacion/sdktest/lib/**)",
+      "Bash(node:*)"
     ]
   }
 }

@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import PageTracker from '@/components/PageTracker';
 import type { ServiceCategory, CityData, ServiceBase } from '@/data/seo-data';
 import type { FeaturedBusiness } from '@/lib/featured';
 
@@ -249,6 +250,7 @@ export default function LandingClient({
 
    return (
       <>
+         <PageTracker page={`/${citySlug}/${serviceSlug}`} extra={{ city: citySlug, service: serviceSlug }} />
          {jsonLd.map((schema, i) => (
             <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
          ))}

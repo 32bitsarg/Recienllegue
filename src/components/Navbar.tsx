@@ -22,7 +22,9 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { label: 'Explorar', href: '/app/inicio' },
+    { label: 'Inicio', href: '/' },
+    { label: 'Pergamino', href: '/pergamino' },
+    { label: 'App', href: '/app/inicio' },
   ];
 
   const handleLogout = async () => {

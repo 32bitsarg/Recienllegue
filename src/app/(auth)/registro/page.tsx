@@ -2,6 +2,9 @@
 import { register } from '@/app/actions/auth'
 import { useState } from 'react'
 import Link from 'next/link'
+import PageTracker from '@/components/PageTracker'
+import { publicDb } from '@/lib/db'
+import { generateId } from '@/lib/uuid'
 
 function GraduationCapIcon() {
   return (
@@ -36,6 +39,18 @@ export default function RegisterPage() {
     if (result?.error) {
       setError(result.error)
       setLoading(false)
+    } else {
+      // Trackear conversión de registro exitoso
+      const sessionId = localStorage.getItem('rl_session') ?? generateId()
+      publicDb.from('user_events').insert({
+        sessionId,
+        userId: null,
+        eventType: 'funnel',
+        page: '/registro',
+        entityId: null,
+        entityType: null,
+        metadata: { step: 'registro_completado', role: formData.get('role') ?? 'estudiante' },
+      }).catch(() => {})
     }
   }
 
@@ -45,6 +60,7 @@ export default function RegisterPage() {
 
   return (
     <div className="w-full max-w-sm">
+      <PageTracker page="/registro" />
       <div
         className="bg-white rounded-2xl shadow-sm px-8 py-10"
         style={{ border: '1px solid rgba(22,56,50,0.08)' }}

@@ -11,6 +11,7 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import HeroParticles from '@/components/HeroParticles'
 import GlobalParticles from '@/components/GlobalParticles'
+import PageTracker from '@/components/PageTracker'
 
 const SIGNUP = '/registro'
 const LOGIN = '/login'
@@ -228,6 +229,7 @@ function NewsletterSection() {
 export default function GlobalHomePage() {
   return (
     <>
+      <PageTracker page="/" />
       <script type="application/ld+json" dangerouslySetInnerHTML={{
         __html: JSON.stringify({
           '@context': 'https://schema.org',
@@ -292,7 +294,7 @@ export default function GlobalHomePage() {
                   style={{ background: C.mint, color: C.primary }}>
                   Crear cuenta gratis <ArrowRight size={15} />
                 </a>
-                <a href={APP}
+                <a href="/pergamino"
                   className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl font-bold text-sm transition-all hover:opacity-80"
                   style={{ color: C.mint, border: '1px solid rgba(218,241,222,0.25)', background: 'rgba(218,241,222,0.08)' }}>
                   Explorar Pergamino
@@ -405,12 +407,12 @@ export default function GlobalHomePage() {
                     </p>
                   </div>
                   <div className="flex flex-wrap gap-3 mt-8">
-                    <a href={APP}
+                    <a href="/pergamino"
                       className="inline-flex items-center gap-2 px-5 py-3 rounded-xl font-bold text-sm transition-all hover:scale-[1.02]"
                       style={{ background: C.mint, color: C.primary }}>
-                      Abrir portal Pergamino <ArrowRight size={13} />
+                      Guía completa Pergamino <ArrowRight size={13} />
                     </a>
-                    <a href="/app/hospedajes"
+                    <a href="/pergamino/alojamiento-estudiantes"
                       className="inline-flex items-center gap-2 px-5 py-3 rounded-xl font-bold text-sm transition-all hover:opacity-80"
                       style={{ color: '#fff', border: '1px solid rgba(255,255,255,0.15)' }}>
                       Buscar alojamiento
@@ -447,6 +449,56 @@ export default function GlobalHomePage() {
                   Avisarme cuando llegue <ArrowRight size={11} />
                 </a>
               </motion.div>
+            </div>
+          </section>
+
+          {/* ══ GUÍAS PERGAMINO ══════════════════════════════ */}
+          <section className="py-8 px-6">
+            <div className="max-w-7xl mx-auto space-y-5">
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-wider mb-1.5" style={{ color: C.muted }}>
+                  Guías para estudiantes · Pergamino
+                </p>
+                <h2 className="text-xl font-extrabold tracking-tight" style={{ color: C.text }}>
+                  Todo lo que necesitás saber antes de llegar
+                </h2>
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+                {[
+                  { label: 'Alojamiento para estudiantes', href: '/pergamino/alojamiento-estudiantes', emoji: '🏠' },
+                  { label: 'Pensiones estudiantiles', href: '/pergamino/pensiones-estudiantiles', emoji: '🛏️' },
+                  { label: 'Habitaciones compartidas', href: '/pergamino/habitaciones-compartidas', emoji: '🤝' },
+                  { label: 'Departamentos monoambiente', href: '/pergamino/departamentos-monoambiente', emoji: '🏢' },
+                  { label: 'Remis 24hs', href: '/pergamino/remis-24hs', emoji: '🚖' },
+                  { label: 'Colectivos urbanos', href: '/pergamino/colectivos-urbanos', emoji: '🚌' },
+                  { label: 'Comida universitaria', href: '/pergamino/comida-universitaria', emoji: '🍽️' },
+                  { label: 'Supermercados económicos', href: '/pergamino/supermercado-economico', emoji: '🛒' },
+                  { label: 'Farmacias', href: '/pergamino/farmacia', emoji: '💊' },
+                  { label: 'Lavanderías', href: '/pergamino/lavanderia', emoji: '👕' },
+                  { label: 'Internet y WiFi', href: '/pergamino/internet-wifi', emoji: '📶' },
+                  { label: 'Psicología y bienestar', href: '/pergamino/psicologia-bienestar', emoji: '🧠' },
+                ].map(({ label, href, emoji }) => (
+                  <a
+                    key={href}
+                    href={href}
+                    className="flex items-center gap-3 px-4 py-3.5 rounded-2xl text-sm font-semibold transition-all hover:scale-[1.02] hover:shadow-sm"
+                    style={{ background: C.surface, border: `1px solid ${C.border}`, color: C.text }}
+                  >
+                    <span className="text-base shrink-0">{emoji}</span>
+                    <span className="text-xs leading-tight">{label}</span>
+                    <ArrowRight size={11} className="ml-auto shrink-0" style={{ color: C.muted, opacity: 0.5 }} />
+                  </a>
+                ))}
+              </div>
+              <div className="pt-1">
+                <a
+                  href="/pergamino"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold transition-opacity hover:opacity-60"
+                  style={{ color: C.secondary }}
+                >
+                  Ver guía completa de Pergamino <ArrowRight size={11} />
+                </a>
+              </div>
             </div>
           </section>
 
@@ -597,7 +649,7 @@ export default function GlobalHomePage() {
                       style={{ background: C.mint, color: C.primary }}>
                       Crear cuenta gratis <ArrowRight size={15} />
                     </a>
-                    <a href={APP}
+                    <a href="/pergamino"
                       className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-bold text-sm transition-all hover:opacity-80"
                       style={{ color: '#fff', border: '1px solid rgba(255,255,255,0.18)' }}>
                       Explorar Pergamino

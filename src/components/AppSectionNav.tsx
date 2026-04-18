@@ -1,7 +1,8 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
-import { BedDouble, Bus, Home, LayoutDashboard, LogOut, Megaphone, ShoppingBag, User } from 'lucide-react'
+import { BedDouble, Bus, Home, LayoutDashboard, LogOut, Megaphone, ShoppingBag, User, ArrowLeft } from 'lucide-react'
+import Image from 'next/image'
 import { useUser } from '@/hooks/useUser'
 import { logout } from '@/app/actions/auth'
 
@@ -26,6 +27,20 @@ export default function AppSectionNav() {
         style={{ boxShadow: 'var(--shadow-soft)' }}
       >
         <div className="flex items-center gap-2 flex-wrap">
+          {/* Volver al home */}
+          <a
+            href="/"
+            className="flex items-center gap-2 px-3 py-2.5 rounded-2xl text-sm font-bold transition-all hover:opacity-70"
+            style={{ color: 'var(--text-muted)', background: 'transparent' }}
+            title="Volver al inicio"
+          >
+            <ArrowLeft size={14} />
+            <Image src="/logo.svg" alt="Recién Llegué" width={72} height={22} style={{ width: 72, height: 'auto' }} />
+          </a>
+
+          {/* Separador */}
+          <div className="w-px h-5 self-center" style={{ background: 'var(--border-subtle)' }} />
+
           {links.map(({ label, href, icon: Icon }) => {
             const active = pathname === href
             return (
