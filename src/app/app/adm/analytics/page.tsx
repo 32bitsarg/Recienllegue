@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, useCallback } from 'react'
 import { publicDb as db } from '@/lib/db'
+import { getAnalyticsSnapshot } from '@/app/actions/analytics'
 import {
   BarChart2,
   Search,
@@ -30,7 +31,7 @@ interface LiveEvent {
   createdAt?: string
 }
 
-interface ClickStat  { entityId: string; count: number }
+interface ClickStat  { entityId: string; name: string; count: number }
 interface SearchStat { query: string; count: number; noResults: boolean }
 interface PageStat   { page: string; count: number }
 interface FunnelStep { label: string; count: number; color: string }
@@ -56,13 +57,35 @@ function eventColor(type: string): string {
   return map[type] ?? '#6b7280'
 }
 
+function friendlyPage(page?: string): string {
+  if (!page) return '(sin página)'
+  const map: Record<string, string> = {
+    '/': 'Inicio (landing)',
+    '/registro': 'Registro',
+    '/login': 'Login',
+    '/app/inicio': 'App · Inicio',
+    '/app/hospedajes': 'App · Hospedajes',
+    '/app/comercios': 'App · Comercios',
+    '/app/transportes': 'App · Transportes',
+    '/app/muro': 'App · Muro',
+    '/app/perfil': 'App · Perfil',
+    '/app/adm/dashboard': 'Admin · Dashboard',
+    '/app/adm/analytics': 'Admin · Analytics',
+  }
+  if (map[page]) return map[page]
+  if (page.startsWith('/pergamino/')) return `SEO · ${page.replace('/pergamino/', '')}`
+  if (page.startsWith('/pergamino')) return 'Pergamino (hub)'
+  return page
+}
+
 function eventLabel(e: LiveEvent): string {
-  if (e.eventType === 'click_item') return `Click en ${e.entityType ?? 'item'}`
-  if (e.eventType === 'search') return `Buscó "${e.metadata?.query ?? ''}"`
-  if (e.eventType === 'time_on_page') return `${e.metadata?.seconds ?? 0}s en ${e.page}`
-  if (e.eventType === 'funnel') return `Funnel: ${e.metadata?.step ?? e.page}`
-  if (e.eventType === 'page_view') return `Visitó ${e.page}`
-  return e.eventType
+  if (e.eventType === 'click_item') return `Click · ${e.entityType ?? 'item'}`
+  if (e.eventType === 'search') return `Búsqueda: "${e.metadata?.query ?? '(vacía)'}"`
+  if (e.eventType === 'time_on_page') return `${e.metadata?.seconds ?? 0}s · ${friendlyPage(e.page)}`
+  if (e.eventType === 'funnel') return `Funnel: ${e.metadata?.step ?? friendlyPage(e.page)}`
+  if (e.eventType === 'page_view') return `Visitó ${friendlyPage(e.page)}`
+  if (e.eventType && e.eventType !== 'unknown') return e.eventType
+  return '(evento sin tipo)'
 }
 
 // ─── KPI Card ─────────────────────────────────────────────────
@@ -197,6 +220,7 @@ function Row({
   )
 }
 
+
 // ─── Page ─────────────────────────────────────────────────────
 
 export default function AnalyticsPage() {
@@ -205,7 +229,8 @@ export default function AnalyticsPage() {
   const [pages, setPages]       = useState<PageStat[]>([])
   const [funnel, setFunnel]     = useState<FunnelStep[]>([])
   const [barrios, setBarrios]   = useState<{ zona: string; count: number }[]>([])
-  const [loading, setLoading]   = useState(true)
+  const [loading, setLoading]       = useState(true)
+  const [fromCache, setFromCache]   = useState(false)
   const [lastRefresh, setLastRefresh] = useState<Date>(new Date())
 
   // Live feed
@@ -214,125 +239,219 @@ export default function AnalyticsPage() {
   const [liveCount, setLiveCount]     = useState(0)
   const unsubEventsRef = useRef<(() => void) | null>(null)
   const unsubPvRef     = useRef<(() => void) | null>(null)
+  const seenIdsRef     = useRef<Set<string>>(new Set())
 
-  // ── Load snapshot ─────────────────────────────────────────
+  // ── Compute + apply snapshot ───────────────────────────────
 
-  const loadSnapshot = useCallback(async () => {
+  const applySnapshot = useCallback((result: {
+    events: any[]; pvs: any[]; locs: any[]
+    entityNames: Record<string, string>
+  }) => {
+    const { events: eventsArr, pvs: pvArr, locs: locsArr, entityNames } = result
+
+    const clickEvents  = eventsArr.filter((e: any) => e.eventType === 'click_item')
+    const searchEvents = eventsArr.filter((e: any) => e.eventType === 'search')
+    const funnelEvents = eventsArr.filter((e: any) => e.eventType === 'funnel')
+
+    const clickMap: Record<string, number> = {}
+    for (const e of clickEvents) {
+      if (!e.entityId) continue
+      clickMap[e.entityId] = (clickMap[e.entityId] ?? 0) + 1
+    }
+    setClicks(
+      Object.entries(clickMap)
+        .sort((a, b) => b[1] - a[1]).slice(0, 15)
+        .map(([entityId, count]) => ({
+          entityId,
+          name: entityNames[entityId] ?? entityId.slice(0, 8) + '…',
+          count,
+        }))
+    )
+
+    const searchMap: Record<string, { count: number; noResults: boolean }> = {}
+    for (const e of searchEvents) {
+      const q = e.metadata?.query?.toLowerCase?.()?.trim()
+      if (!q) continue
+      if (!searchMap[q]) searchMap[q] = { count: 0, noResults: false }
+      searchMap[q].count++
+      if (e.metadata?.noResults) searchMap[q].noResults = true
+    }
+    setSearches(
+      Object.entries(searchMap)
+        .sort((a, b) => b[1].count - a[1].count).slice(0, 20)
+        .map(([query, { count, noResults }]) => ({ query, count, noResults }))
+    )
+
+    const pvMap: Record<string, number> = {}
+    for (const pv of pvArr) { if (pv.page) pvMap[pv.page] = (pvMap[pv.page] ?? 0) + 1 }
+    setPages(
+      Object.entries(pvMap).sort((a, b) => b[1] - a[1]).slice(0, 15)
+        .map(([page, count]) => ({ page, count }))
+    )
+
+    const landingCount   = pvArr.filter((p: any) => p.page === '/').length
+    const pergaminoCount = pvArr.filter((p: any) => p.page?.startsWith('/pergamino')).length
+    const registroCount  = pvArr.filter((p: any) => p.page === '/registro').length
+    const completados    = funnelEvents.filter((e: any) => e.metadata?.step === 'registro_completado').length
+    setFunnel([
+      { label: 'Landing principal', count: landingCount,   color: '#163832' },
+      { label: 'Landings SEO',      count: pergaminoCount, color: '#1d4e43' },
+      { label: 'Página /registro',  count: registroCount,  color: '#2d7a5f' },
+      { label: 'Registro exitoso',  count: completados,    color: '#22c55e' },
+    ])
+
+    const zonaMap: Record<string, number> = {}
+    for (const loc of locsArr) {
+      if (!loc.latitude || !loc.longitude) continue
+      const zona = `${Number(loc.latitude).toFixed(2)},${Number(loc.longitude).toFixed(2)}`
+      zonaMap[zona] = (zonaMap[zona] ?? 0) + 1
+    }
+    setBarrios(
+      Object.entries(zonaMap).sort((a, b) => b[1] - a[1]).slice(0, 8)
+        .map(([zona, count]) => ({ zona, count }))
+    )
+  }, [])
+
+  // ── Load snapshot (cache 5 min en sessionStorage) ──────────
+
+  const CACHE_KEY = 'analytics_snapshot_v1'
+  const CACHE_TTL = 5 * 60 * 1000  // 5 minutos
+
+  const loadSnapshot = useCallback(async (force = false) => {
+    // 1. Intentar leer del cache primero
+    if (!force) {
+      try {
+        const raw = sessionStorage.getItem(CACHE_KEY)
+        if (raw) {
+          const { ts, data } = JSON.parse(raw)
+          if (Date.now() - ts < CACHE_TTL) {
+            applySnapshot(data)
+            setLastRefresh(new Date(ts))
+            setFromCache(true)
+            setLoading(false)
+            return
+          }
+        }
+      } catch (_) {}
+    }
+
+    // 2. Fetch desde el server
+    setFromCache(false)
     try {
-      const eventsRaw    = await db.from('user_events').limit(2000).find() as any[]
-      const pvRaw        = await db.from('page_views').limit(2000).find() as any[]
-      const locationsRaw = await db.from('user_locations').limit(500).find() as any[]
-
-      const clickEvents  = eventsRaw.filter((e: any) => e.eventType === 'click_item')
-      const searchEvents = eventsRaw.filter((e: any) => e.eventType === 'search')
-      const funnelEvents = eventsRaw.filter((e: any) => e.eventType === 'funnel')
-
-      // Clicks por entidad
-      const clickMap: Record<string, number> = {}
-      for (const e of clickEvents) {
-        if (!e.entityId) continue
-        clickMap[e.entityId] = (clickMap[e.entityId] ?? 0) + 1
+      const result = await getAnalyticsSnapshot()
+      const data = {
+        events: result.events,
+        pvs: result.pvs,
+        locs: result.locs,
+        entityNames: result.entityNames,
       }
-      setClicks(
-        Object.entries(clickMap)
-          .sort((a, b) => b[1] - a[1])
-          .slice(0, 15)
-          .map(([entityId, count]) => ({ entityId, count }))
-      )
-
-      // Búsquedas
-      const searchMap: Record<string, { count: number; noResults: boolean }> = {}
-      for (const e of searchEvents) {
-        const q = e.metadata?.query?.toLowerCase?.()?.trim()
-        if (!q) continue
-        if (!searchMap[q]) searchMap[q] = { count: 0, noResults: false }
-        searchMap[q].count++
-        if (e.metadata?.noResults) searchMap[q].noResults = true
-      }
-      setSearches(
-        Object.entries(searchMap)
-          .sort((a, b) => b[1].count - a[1].count)
-          .slice(0, 20)
-          .map(([query, { count, noResults }]) => ({ query, count, noResults }))
-      )
-
-      // Page views
-      const pvMap: Record<string, number> = {}
-      for (const pv of pvRaw) {
-        pvMap[pv.page] = (pvMap[pv.page] ?? 0) + 1
-      }
-      setPages(
-        Object.entries(pvMap)
-          .sort((a, b) => b[1] - a[1])
-          .slice(0, 15)
-          .map(([page, count]) => ({ page, count }))
-      )
-
-      // Funnel
-      const landingCount   = pvRaw.filter((p: any) => p.page === '/').length
-      const pergaminoCount = pvRaw.filter((p: any) => p.page?.startsWith('/pergamino')).length
-      const registroCount  = pvRaw.filter((p: any) => p.page === '/registro').length
-      const completados    = funnelEvents.filter((e: any) => e.metadata?.step === 'registro_completado').length
-
-      setFunnel([
-        { label: 'Landing principal', count: landingCount,   color: '#163832' },
-        { label: 'Landings SEO',      count: pergaminoCount, color: '#1d4e43' },
-        { label: 'Página /registro',  count: registroCount,  color: '#2d7a5f' },
-        { label: 'Registro exitoso',  count: completados,    color: '#22c55e' },
-      ])
-
-      // Zonas geográficas
-      const zonaMap: Record<string, number> = {}
-      for (const loc of locationsRaw) {
-        if (!loc.latitude || !loc.longitude) continue
-        const zona = `${Number(loc.latitude).toFixed(2)},${Number(loc.longitude).toFixed(2)}`
-        zonaMap[zona] = (zonaMap[zona] ?? 0) + 1
-      }
-      setBarrios(
-        Object.entries(zonaMap)
-          .sort((a, b) => b[1] - a[1])
-          .slice(0, 8)
-          .map(([zona, count]) => ({ zona, count }))
-      )
-
+      // Guardar en cache
+      try {
+        sessionStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), data }))
+      } catch (_) {}
+      applySnapshot(data)
       setLastRefresh(new Date())
     } catch (e) {
       console.error('[analytics] load error', e)
     } finally {
       setLoading(false)
     }
-  }, [])
+  }, [applySnapshot])
 
   // ── Subscribe realtime ─────────────────────────────────────
 
   const connectRealtime = useCallback(() => {
+    // El SDK hace flattenRecord: { type, collection, record: { id, page, ... } }
+    // record ya tiene todos los campos al mismo nivel (sin .data anidado)
+
     // user_events
     const unsubEvents = db.from('user_events').subscribe((event: unknown) => {
       const e = event as any
+      // SDK flattenRecord: { type, collection, record: { id, ...data fields } }
+      // Si data no se aplana correctamente, caer a e?.record?.data
+      const raw = e?.record ?? {}
+      const d   = (raw.eventType == null && raw.data) ? raw.data : raw  // fallback si no aplanó
+      const rid: string = raw.id ?? Math.random().toString()
+      if (seenIdsRef.current.has(rid)) return
+      seenIdsRef.current.add(rid)
+
+      const eventType: string = d.eventType ?? 'unknown'
+      const page: string | undefined = d.page
+      const entityId: string | undefined = d.entityId
+
+      // Ignorar eventos sin datos útiles
+      if (eventType === 'unknown' && !page) return
+      if (eventType === 'page_view' && !page) return  // page_view sin página
+
       const record: LiveEvent = {
-        id:         e?.record?.id ?? e?.id ?? Math.random().toString(),
-        eventType:  e?.record?.eventType ?? e?.eventType ?? 'unknown',
-        page:       e?.record?.page ?? e?.page,
-        entityType: e?.record?.entityType ?? e?.entityType,
-        metadata:   e?.record?.metadata ?? e?.metadata,
-        timestamp:  e?.record?.timestamp ?? e?.record?.createdAt ?? new Date().toISOString(),
+        id: rid, eventType, page,
+        entityType: d.entityType,
+        metadata:   d.metadata,
+        timestamp:  d.timestamp ?? raw.created_at ?? raw.createdAt ?? new Date().toISOString(),
       }
       setLiveEvents(prev => [record, ...prev].slice(0, 30))
       setLiveCount(c => c + 1)
+
+      // Actualizar contadores live
+      if (eventType === 'click_item' && entityId) {
+        setClicks(prev => {
+          const existing = prev.find(c => c.entityId === entityId)
+          if (existing) {
+            return prev.map(c => c.entityId === entityId ? { ...c, count: c.count + 1 } : c)
+              .sort((a, b) => b.count - a.count)
+          }
+          return [{ entityId, name: entityId.slice(0, 8) + '…', count: 1 }, ...prev].slice(0, 15)
+        })
+      }
+      if (eventType === 'search') {
+        const q = d.metadata?.query?.toLowerCase?.()?.trim()
+        if (q) {
+          setSearches(prev => {
+            const existing = prev.find(s => s.query === q)
+            if (existing) return prev.map(s => s.query === q ? { ...s, count: s.count + 1 } : s).sort((a, b) => b.count - a.count)
+            return [{ query: q, count: 1, noResults: false }, ...prev].slice(0, 20)
+          })
+        }
+      }
     })
     unsubEventsRef.current = typeof unsubEvents === 'function' ? unsubEvents : null
 
     // page_views
     const unsubPv = db.from('page_views').subscribe((event: unknown) => {
       const e = event as any
+      const raw = e?.record ?? {}
+      const d   = (raw.page == null && raw.data) ? raw.data : raw  // fallback si no aplanó
+      const rid: string = raw.id ?? Math.random().toString()
+      if (seenIdsRef.current.has(rid)) return
+      seenIdsRef.current.add(rid)
+
+      const page: string | undefined = d.page
+      if (!page) return  // ignorar page_views sin página
+
       const record: LiveEvent = {
-        id:        e?.record?.id ?? Math.random().toString(),
-        eventType: 'page_view',
-        page:      e?.record?.page ?? e?.page,
-        timestamp: e?.record?.createdAt ?? new Date().toISOString(),
+        id: rid, eventType: 'page_view', page,
+        timestamp: d.createdAt ?? raw.created_at ?? raw.createdAt ?? new Date().toISOString(),
       }
       setLiveEvents(prev => [record, ...prev].slice(0, 30))
       setLiveCount(c => c + 1)
+
+      // Actualizar páginas live
+      if (page) {
+        setPages(prev => {
+          const existing = prev.find(p => p.page === page)
+          if (existing) return prev.map(p => p.page === page ? { ...p, count: p.count + 1 } : p).sort((a, b) => b.count - a.count)
+          return [...prev, { page, count: 1 }].sort((a, b) => b.count - a.count).slice(0, 15)
+        })
+        // Actualizar funnel
+        if (page === '/' || page?.startsWith('/pergamino') || page === '/registro') {
+          setFunnel(prev => prev.map(step => {
+            if (page === '/' && step.label === 'Landing principal') return { ...step, count: step.count + 1 }
+            if (page?.startsWith('/pergamino') && step.label === 'Landings SEO') return { ...step, count: step.count + 1 }
+            if (page === '/registro' && step.label === 'Página /registro') return { ...step, count: step.count + 1 }
+            return step
+          }))
+        }
+      }
     })
     unsubPvRef.current = typeof unsubPv === 'function' ? unsubPv : null
 
@@ -348,7 +467,7 @@ export default function AnalyticsPage() {
   }, [])
 
   useEffect(() => {
-    loadSnapshot()
+    loadSnapshot(false)
     connectRealtime()
     return () => { disconnectRealtime() }
   }, [loadSnapshot, connectRealtime, disconnectRealtime])
@@ -385,7 +504,7 @@ export default function AnalyticsPage() {
           </p>
           <h1 className="text-2xl font-black" style={{ color: '#051f20' }}>Analytics</h1>
           <p className="text-xs mt-1" style={{ color: 'rgba(22,56,50,0.4)' }}>
-            Actualizado {lastRefresh.toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' })}
+            {fromCache ? 'Desde cache · ' : ''}Actualizado {lastRefresh.toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' })}
           </p>
         </div>
         <div className="flex items-center gap-2">
@@ -405,12 +524,12 @@ export default function AnalyticsPage() {
           </div>
           {/* Refresh */}
           <button
-            onClick={loadSnapshot}
+            onClick={() => loadSnapshot(true)}
             className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold transition-opacity hover:opacity-70"
             style={{ background: '#163832', color: '#daf1de' }}
           >
             <RefreshCw size={12} />
-            Refrescar
+            {fromCache ? 'Actualizar' : 'Refrescar'}
           </button>
         </div>
       </div>
@@ -470,9 +589,9 @@ export default function AnalyticsPage() {
                   </p>
                 </div>
               ) : (
-                liveEvents.map((e) => (
+                liveEvents.map((e, i) => (
                   <div
-                    key={e.id}
+                    key={`${e.id}-${i}`}
                     className="flex items-center gap-3 px-4 py-2.5"
                     style={{ borderBottom: '1px solid rgba(22,56,50,0.04)' }}
                   >
@@ -586,7 +705,7 @@ export default function AnalyticsPage() {
                 <Row
                   key={c.entityId}
                   rank={i + 1}
-                  label={c.entityId.slice(0, 24) + (c.entityId.length > 24 ? '…' : '')}
+                  label={c.name}
                   count={c.count}
                   suffix=" clicks"
                   maxCount={maxClickCount}

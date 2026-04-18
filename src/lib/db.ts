@@ -14,6 +14,16 @@ if (!DB_URL || !ANON_KEY) {
 export const publicDb = createClient(DB_URL || 'http://localhost', { apiKey: ANON_KEY || 'missing', apiVersion: 'v2' })
 
 /**
+ * Cliente admin — service key, solo para server-side (actions, route handlers).
+ * NUNCA importar en 'use client'.
+ */
+export function getAdminDb() {
+  const SERVICE_KEY = process.env.MATECITODB_SERVICE_KEY ?? ''
+  if (!DB_URL || !SERVICE_KEY) throw new Error('[matecitodb] SERVICE_KEY no configurada')
+  return createClient(DB_URL, { apiKey: SERVICE_KEY, apiVersion: 'v2' })
+}
+
+/**
  * Versión ligera para el cliente que recibe el token manualmente.
  * No usa next/headers para evitar errores de compilación en el browser.
  */

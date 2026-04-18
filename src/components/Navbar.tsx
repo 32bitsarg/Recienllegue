@@ -1,9 +1,9 @@
 'use client';
 
-import { useParams, usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useParams, usePathname, useRouter } from "next/navigation";
+import { useState, useEffect, useRef, FormEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, User, LogOut } from "lucide-react";
+import { Menu, X, User, LogOut, Search } from "lucide-react";
 import { useUser } from "@/hooks/useUser";
 import { logout } from "@/app/actions/auth";
 
@@ -13,7 +13,10 @@ export default function Navbar() {
   const city = params?.city as string;
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [mobileSearchQuery, setMobileSearchQuery] = useState('');
   const { user, isLoggedIn, loading } = useUser();
+  const router = useRouter();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -29,6 +32,14 @@ export default function Navbar() {
 
   const handleLogout = async () => {
     await logout();
+  };
+
+  const handleSearch = (q: string, e?: FormEvent) => {
+    e?.preventDefault();
+    const trimmed = q.trim();
+    if (!trimmed) return;
+    router.push(`/app/comercios?q=${encodeURIComponent(trimmed)}`);
+    setMobileOpen(false);
   };
 
   return (
@@ -74,6 +85,23 @@ export default function Navbar() {
               </a>
             ))}
           </div>
+
+          {/* DESKTOP SEARCH */}
+          <form
+            onSubmit={(e) => handleSearch(searchQuery, e)}
+            className="hidden lg:flex items-center gap-2 px-3.5 py-2 rounded-full"
+            style={{ background: 'rgba(22,56,50,0.07)', border: '1px solid rgba(22,56,50,0.1)', minWidth: 220 }}
+          >
+            <Search size={14} style={{ color: '#163832', opacity: 0.5, flexShrink: 0 }} />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={e => setSearchQuery(e.target.value)}
+              placeholder="Buscar comercios, hospedajes…"
+              className="bg-transparent outline-none text-[11px] font-medium w-full"
+              style={{ color: '#163832' }}
+            />
+          </form>
 
           {/* CTA + AUTH */}
           <div className="flex items-center gap-3">
@@ -146,6 +174,23 @@ export default function Navbar() {
                 border: '1px solid rgba(22, 56, 50, 0.08)',
               }}
             >
+              {/* Mobile search */}
+              <form
+                onSubmit={(e) => handleSearch(mobileSearchQuery, e)}
+                className="flex items-center gap-2 px-3.5 py-2.5 rounded-full"
+                style={{ background: 'rgba(22,56,50,0.07)', border: '1px solid rgba(22,56,50,0.1)' }}
+              >
+                <Search size={14} style={{ color: '#163832', opacity: 0.5, flexShrink: 0 }} />
+                <input
+                  type="text"
+                  value={mobileSearchQuery}
+                  onChange={e => setMobileSearchQuery(e.target.value)}
+                  placeholder="Buscar comercios, hospedajes…"
+                  className="bg-transparent outline-none text-[12px] font-medium w-full"
+                  style={{ color: '#163832' }}
+                />
+              </form>
+
               {navLinks.map(link => (
                 <a
                   key={link.href}

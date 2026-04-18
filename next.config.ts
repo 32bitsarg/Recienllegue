@@ -81,7 +81,7 @@ const CSP = [
   // Imágenes — permisivo para contenido generado por usuarios + GA pixel
   "img-src 'self' data: blob: https: http:",
   // Conexiones — GA, GTM, DoubleClick, APIs internas
-  "connect-src 'self' http://localhost:3001 https://recienllegue.matecito.dev https://www.google-analytics.com https://analytics.google.com https://stats.g.doubleclick.net https://region1.google-analytics.com https://region1.analytics.google.com https://www.googletagmanager.com https://tagmanager.google.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com",
+  "connect-src 'self' http://localhost:3001 ws://localhost:3001 https://recienllegue.matecito.dev wss://recienllegue.matecito.dev https://www.google-analytics.com https://analytics.google.com https://stats.g.doubleclick.net https://region1.google-analytics.com https://region1.analytics.google.com https://www.googletagmanager.com https://tagmanager.google.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com",
   // iframes — GTM preview
   "frame-src https://www.googletagmanager.com https://td.doubleclick.net https://bid.g.doubleclick.net",
   // Workers del service worker (PWA)

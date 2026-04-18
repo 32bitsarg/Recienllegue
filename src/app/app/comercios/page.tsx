@@ -1,6 +1,7 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
 import {
   ChevronLeft,
   ChevronRight,
@@ -283,7 +284,7 @@ function Paginator({ pagination, onChange }: { pagination: Pagination; onChange:
   )
 }
 
-export default function ComerciosPage() {
+function ComerciosContent() {
   // Todos los comercios cargados de una (120 registros)
   const [allComercios, setAllComercios] = useState<Comercio[]>([])
   const [currentPage, setCurrentPage] = useState(1)
@@ -299,6 +300,13 @@ export default function ComerciosPage() {
 
   const { coords, hasAsked, requestPermission, getDistanceKm } = useGeolocation()
   const { trackClick, trackSearch, trackTimeOnPage } = useTracking()
+  const searchParams = useSearchParams()
+
+  // Pre-fill search from URL ?q= param (e.g. from navbar search)
+  useEffect(() => {
+    const q = searchParams.get('q')
+    if (q) setSearch(q)
+  }, [searchParams])
 
   const showGeoBanner = !hasAsked && !bannerDismissed
 
@@ -582,5 +590,13 @@ export default function ComerciosPage() {
         )}
       </section>
     </div>
+  )
+}
+
+export default function ComerciosPage() {
+  return (
+    <Suspense>
+      <ComerciosContent />
+    </Suspense>
   )
 }
