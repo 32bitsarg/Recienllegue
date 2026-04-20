@@ -1,513 +1,779 @@
 'use client'
 
-import { useState, useEffect, useCallback, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useUser } from '@/hooks/useUser'
 import {
   Phone, ChevronRight, LogIn, LogOut, UserPlus,
-  Sparkles, ArrowRight,
+  BedDouble, Bus, ShoppingBag, Megaphone, MapPin,
 } from 'lucide-react'
 import { publicDb as db } from '@/lib/db'
-import AppSectionNav from '@/components/AppSectionNav'
 import { logout } from '@/app/actions/auth'
 import GeoPermissionPopup from '@/components/GeoPermissionPopup'
 import ProfileCompleteCard from '@/components/ProfileCompleteCard'
 import { useGeolocation } from '@/hooks/useGeolocation'
 
-// ─────────────────────────────────────────────────────────────────
-// 3D Tilt card — wrapper div que tiltea, inner div clipea
-// El glare (reflejo de luz) es lo que hace VISIBLE el efecto 3D
-// ─────────────────────────────────────────────────────────────────
+// ─── Quick Actions ─────────────────────────────────────────────
 
-interface TiltCardProps {
-  children: React.ReactNode
-  className?: string
-  style?: React.CSSProperties
-  innerClassName?: string
-  innerStyle?: React.CSSProperties
-  strength?: number
-  glareColor?: string
-  as?: 'div' | 'a'
-  href?: string
-}
+const QUICK_ACTIONS = [
+  { label: 'Hospedajes', Icon: BedDouble,   href: '/app/hospedajes',  bg: '#E2E8F0', color: '#0F172A' },
+  { label: 'Colectivos', Icon: Bus,          href: '/app/transportes', bg: '#EDE9FE', color: '#6D28D9' },
+  { label: 'Comercios',  Icon: ShoppingBag,  href: '/app/comercios',   bg: '#FCE7F3', color: '#9D174D' },
+  { label: 'Muro',       Icon: Megaphone,    href: '/app/muro',        bg: '#FEF3C7', color: '#92400E' },
+]
 
-function TiltCard({
-  children,
-  className = '',
-  style,
-  innerClassName = '',
-  innerStyle,
-  strength = 10,
-  glareColor = 'rgba(255,255,255,0.12)',
-  as: Tag = 'div',
-  href,
-}: TiltCardProps) {
-  const wrapperRef = useRef<HTMLDivElement>(null)
-  const glareRef = useRef<HTMLDivElement>(null)
-  const rafRef = useRef<number | null>(null)
-  const [reduced, setReduced] = useState(false)
-
-  useEffect(() => {
-    setReduced(window.matchMedia('(prefers-reduced-motion: reduce)').matches)
-  }, [])
-
-  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    if (reduced || !wrapperRef.current) return
-    const el = wrapperRef.current
-    if (rafRef.current) cancelAnimationFrame(rafRef.current)
-    rafRef.current = requestAnimationFrame(() => {
-      const rect = el.getBoundingClientRect()
-      const x = (e.clientX - rect.left) / rect.width   // 0..1
-      const y = (e.clientY - rect.top)  / rect.height  // 0..1
-      const rx = (y - 0.5) * -strength  // rotateX: arriba=positivo
-      const ry = (x - 0.5) *  strength  // rotateY: derecha=positivo
-      el.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.02)`
-      if (glareRef.current) {
-        // El glare sigue el cursor — efecto de luz especular
-        glareRef.current.style.background = `radial-gradient(circle at ${x * 100}% ${y * 100}%, ${glareColor}, transparent 65%)`
-        glareRef.current.style.opacity = '1'
-      }
-    })
-  }, [reduced, strength, glareColor])
-
-  const handleMouseLeave = useCallback(() => {
-    if (!wrapperRef.current) return
-    if (rafRef.current) cancelAnimationFrame(rafRef.current)
-    wrapperRef.current.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)'
-    if (glareRef.current) glareRef.current.style.opacity = '0'
-  }, [])
-
-  // Touch: tilt sutil en mobile
-  const handleTouchMove = useCallback((e: React.TouchEvent<HTMLDivElement>) => {
-    if (reduced || !wrapperRef.current || e.touches.length === 0) return
-    const el = wrapperRef.current
-    const touch = e.touches[0]
-    const rect = el.getBoundingClientRect()
-    const x = (touch.clientX - rect.left) / rect.width
-    const y = (touch.clientY - rect.top)  / rect.height
-    const mobileStrength = strength * 0.4
-    el.style.transition = 'none'
-    el.style.transform = `perspective(700px) rotateX(${(y - 0.5) * -mobileStrength}deg) rotateY(${(x - 0.5) * mobileStrength}deg)`
-    if (glareRef.current) {
-      glareRef.current.style.background = `radial-gradient(circle at ${x * 100}% ${y * 100}%, ${glareColor}, transparent 65%)`
-      glareRef.current.style.opacity = '0.6'
-    }
-  }, [reduced, strength, glareColor])
-
-  const handleTouchEnd = useCallback(() => {
-    if (!wrapperRef.current) return
-    wrapperRef.current.style.transition = 'transform 0.55s cubic-bezier(0.23,1,0.32,1)'
-    wrapperRef.current.style.transform = 'perspective(700px) rotateX(0deg) rotateY(0deg)'
-    if (glareRef.current) glareRef.current.style.opacity = '0'
-  }, [])
-
-  const inner = (
-    // inner: este div clipea el contenido con border-radius
-    <div
-      className={`relative overflow-hidden ${innerClassName}`}
-      style={{ height: '100%', ...innerStyle }}
-    >
-      {children}
-      {/* Glare overlay — invisible hasta que el mouse se mueve */}
-      <div
-        ref={glareRef}
-        aria-hidden
-        style={{
-          position: 'absolute',
-          inset: 0,
-          opacity: 0,
-          transition: 'opacity 0.15s ease',
-          pointerEvents: 'none',
-          zIndex: 20,
-          borderRadius: 'inherit',
-        }}
-      />
-    </div>
-  )
-
+function QuickActions() {
   return (
-    <div
-      ref={wrapperRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}
-      className={className}
-      style={{
-        transition: 'transform 0.2s cubic-bezier(0.23,1,0.32,1)',
-        willChange: 'transform',
-        // Sin overflow aquí: el clip lo hace el inner
-        ...style,
-      }}
-    >
-      {Tag === 'a' && href ? (
-        <a href={href} style={{ display: 'block', height: '100%', textDecoration: 'none' }}>
-          {inner}
-        </a>
-      ) : inner}
-    </div>
-  )
-}
-
-// ─── Hero Particles Canvas ─────────────────────────────────────
-// Figuras geométricas que caen lentamente, con profundidad 3D
-// Misma estética que las decoraciones SVG del hero anterior
-
-function HeroParticles() {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
-
-  useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-    const rawCtx = canvas.getContext('2d')
-    if (!rawCtx) return
-    // Alias no-nullable para uso en closures internas
-    const ctx: CanvasRenderingContext2D = rawCtx
-    const cvs: HTMLCanvasElement = canvas
-
-    type Shape = 'circle' | 'dot' | 'line' | 'arc' | 'cross' | 'triangle'
-    const SHAPES: Shape[] = ['circle', 'dot', 'line', 'arc', 'cross', 'triangle']
-
-    interface Particle {
-      x: number; y: number; z: number
-      vx: number; vy: number
-      size: number; opacity: number
-      shape: Shape
-      rotation: number; rotSpeed: number
-    }
-
-    let w = 0; let h = 0
-
-    function mkParticle(randomY = false): Particle {
-      const z = Math.random()                   // 0 = fondo, 1 = frente
-      return {
-        x: Math.random() * w,
-        y: randomY ? Math.random() * h : -40,
-        z,
-        vx: (Math.random() - 0.5) * 0.25,
-        vy: 0.12 + z * 0.38,                   // frente cae más rápido
-        size: 3 + z * 18,                       // frente es más grande
-        opacity: 0.05 + z * 0.2,
-        shape: SHAPES[Math.floor(Math.random() * SHAPES.length)],
-        rotation: Math.random() * Math.PI * 2,
-        rotSpeed: (Math.random() - 0.5) * 0.018,
-      }
-    }
-
-    const COUNT = 55
-    let particles: Particle[] = []
-
-    function drawShape(p: Particle) {
-      const s = p.size
-      ctx.save()
-      ctx.translate(p.x, p.y)
-      ctx.rotate(p.rotation)
-      ctx.globalAlpha = p.opacity
-      ctx.strokeStyle = '#daf1de'
-      ctx.fillStyle = '#daf1de'
-      ctx.lineWidth = 0.9
-
-      switch (p.shape) {
-        case 'circle':
-          ctx.beginPath(); ctx.arc(0, 0, s, 0, Math.PI * 2); ctx.stroke()
-          break
-        case 'dot':
-          ctx.beginPath(); ctx.arc(0, 0, Math.max(1, s * 0.15), 0, Math.PI * 2); ctx.fill()
-          break
-        case 'line':
-          ctx.beginPath(); ctx.moveTo(-s, 0); ctx.lineTo(s, 0); ctx.stroke()
-          break
-        case 'arc':
-          ctx.beginPath(); ctx.arc(0, 0, s, 0.2, Math.PI * 0.85); ctx.stroke()
-          break
-        case 'cross':
-          ctx.beginPath()
-          ctx.moveTo(-s * 0.5, 0); ctx.lineTo(s * 0.5, 0)
-          ctx.moveTo(0, -s * 0.5); ctx.lineTo(0, s * 0.5)
-          ctx.stroke()
-          break
-        case 'triangle':
-          ctx.beginPath()
-          ctx.moveTo(0, -s)
-          ctx.lineTo(s * 0.866, s * 0.5)
-          ctx.lineTo(-s * 0.866, s * 0.5)
-          ctx.closePath(); ctx.stroke()
-          break
-      }
-      ctx.restore()
-    }
-
-    let animId: number
-    let running = true
-
-    function tick() {
-      if (!running) return
-      ctx.clearRect(0, 0, w, h)
-      for (const p of particles) {
-        drawShape(p)
-        p.x += p.vx; p.y += p.vy; p.rotation += p.rotSpeed
-        if (p.y > h + 40) Object.assign(p, mkParticle(false))
-        if (p.x < -40) p.x = w + 40
-        if (p.x > w + 40) p.x = -40
-      }
-      animId = requestAnimationFrame(tick)
-    }
-
-    function resize() {
-      w = cvs.offsetWidth
-      h = cvs.offsetHeight
-      cvs.width = w
-      cvs.height = h
-      if (particles.length === 0)
-        particles = Array.from({ length: COUNT }, () => mkParticle(true))
-    }
-
-    const ro = new ResizeObserver(resize)
-    ro.observe(cvs)
-    resize()
-    tick()
-
-    return () => { running = false; cancelAnimationFrame(animId); ro.disconnect() }
-  }, [])
-
-  return (
-    <canvas
-      ref={canvasRef}
-      aria-hidden
-      style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 1 }}
-    />
-  )
-}
-
-// ─── Hero Carousel ─────────────────────────────────────────────
-
-const CAROUSEL_INTERVAL = 4500
-
-function HeroCarousel({ username }: { username: string | null }) {
-  const [current, setCurrent] = useState(0)
-
-  const slides = [
-    {
-      content: (
-        <div className="space-y-4">
-          <p className="text-[11px] font-bold uppercase tracking-widest" style={{ color: '#daf1de', opacity: 0.65 }}>
-            Pergamino · UNNOBA
-          </p>
-          <h2 className="font-black tracking-tight leading-[1.05]"
-            style={{ fontSize: 'clamp(2rem, 5vw, 3.4rem)', color: '#daf1de' }}>
-            Todos llegamos<br />por primera vez.
-          </h2>
-          <p className="text-[15px] max-w-md leading-relaxed font-medium" style={{ color: '#b8e4bf' }}>
-            Esta app es tu guía. Hospedajes, transporte, comercios — todo en un lugar.
-          </p>
-          <a href="/app/hospedajes"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all hover:scale-[1.04] active:scale-[0.97]"
-            style={{ background: 'rgba(218,241,222,0.18)', color: '#daf1de', border: '1px solid rgba(218,241,222,0.28)', backdropFilter: 'blur(4px)' }}>
-            Explorar hospedajes <ArrowRight size={14} />
-          </a>
-        </div>
-      ),
-    },
-    {
-      content: (
-        <div className="space-y-4">
-          <p className="text-[11px] font-bold uppercase tracking-widest" style={{ color: '#daf1de', opacity: 0.65 }}>
-            {new Date().toLocaleDateString('es-AR', { weekday: 'long', day: 'numeric', month: 'long' })}
-          </p>
-          <h2 className="font-black tracking-tight leading-[1.05]"
-            style={{ fontSize: 'clamp(2rem, 5vw, 3.4rem)', color: '#daf1de' }}>
-            {username
-              ? <><span style={{ color: '#a8ddb5' }}>{username.split(' ')[0]}</span>,<br />¿qué buscás hoy?</>
-              : <>¿Qué andás<br />buscando hoy?</>}
-          </h2>
-          <p className="text-[15px] max-w-md leading-relaxed font-medium" style={{ color: '#b8e4bf' }}>
-            Hospedajes, transportes, comercios y comunidad.
-          </p>
-          <a href="/app/transportes"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all hover:scale-[1.04] active:scale-[0.97]"
-            style={{ background: 'rgba(218,241,222,0.18)', color: '#daf1de', border: '1px solid rgba(218,241,222,0.28)', backdropFilter: 'blur(4px)' }}>
-            Ver transportes <ArrowRight size={14} />
-          </a>
-        </div>
-      ),
-    },
-    {
-      content: (
-        <div className="space-y-4">
-          <p className="text-[11px] font-bold uppercase tracking-widest" style={{ color: '#daf1de', opacity: 0.65 }}>
-            En construcción
-          </p>
-          <h2 className="font-black tracking-tight leading-[1.05]"
-            style={{ fontSize: 'clamp(2rem, 5vw, 3.4rem)', color: '#daf1de' }}>
-            Estamos{' '}
-            <span className="italic" style={{ WebkitTextStroke: '1.5px #a8ddb5', color: 'transparent' }}>
-              creciendo
-            </span>
-            <br />para que encuentres<br />todo en un lugar.
-          </h2>
-          <p className="text-[15px] max-w-md leading-relaxed font-medium" style={{ color: '#b8e4bf' }}>
-            Cada semana sumamos comercios, servicios y recursos para estudiantes.
-          </p>
-        </div>
-      ),
-    },
-  ]
-
-  const next = useCallback(() => setCurrent(c => (c + 1) % slides.length), [slides.length])
-  useEffect(() => {
-    const id = setInterval(next, CAROUSEL_INTERVAL)
-    return () => clearInterval(id)
-  }, [next])
-
-  return (
-    <div style={{
-      position: 'relative',
-      background: '#163832',
-      overflow: 'hidden',
-      paddingBottom: 56,
-    }}>
-      {/* Canvas de partículas — position:absolute, no afecta layout */}
-      <HeroParticles />
-
-      {/* Slides */}
-      <div
-        style={{
-          display: 'flex',
-          transform: `translateX(-${current * 100}%)`,
-          transition: 'transform 700ms cubic-bezier(0.77,0,0.18,1)',
-          position: 'relative',
-          zIndex: 2,
-        }}
-      >
-        {slides.map((slide, i) => (
-          <div
-            key={i}
+    <section>
+      <p className="app-section-kicker mb-3">Accesos rápidos</p>
+      <div style={{ display: 'flex', gap: 9, overflowX: 'auto', paddingBottom: 2, scrollbarWidth: 'none' }}>
+        {QUICK_ACTIONS.map((item) => (
+          <a
+            key={item.href}
+            href={item.href}
             style={{
-              flexShrink: 0,
-              width: '100%',
-              minHeight: 360,
-              display: 'flex',
-              alignItems: 'center',
-              padding: 'clamp(40px, 6vw, 64px) clamp(20px, 5vw, 64px)',
+              display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6,
+              padding: '12px 14px', borderRadius: 15,
+              border: '1px solid rgba(15,23,42,0.09)',
+              background: '#fff', minWidth: 66, flexShrink: 0,
+              textDecoration: 'none', transition: 'transform 0.15s',
             }}
+            onMouseEnter={e => (e.currentTarget.style.transform = 'scale(1.06)')}
+            onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')}
           >
-            {slide.content}
-          </div>
+            <div style={{ width: 36, height: 36, borderRadius: 11, background: item.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', color: item.color }}>
+              <item.Icon size={17} />
+            </div>
+            <span style={{ fontFamily: 'var(--font-head)', fontSize: 9.5, fontWeight: 700, color: '#0F172A', textAlign: 'center', lineHeight: 1.2 }}>{item.label}</span>
+          </a>
         ))}
       </div>
-
-      {/* Dots */}
-      <div
-        style={{
-          position: 'absolute', bottom: 20, left: 'clamp(20px, 5vw, 64px)',
-          display: 'flex', gap: 8, zIndex: 3,
-        }}
-      >
-        {slides.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => setCurrent(i)}
-            aria-label={`Slide ${i + 1}`}
-            style={{
-              width: i === current ? 24 : 6, height: 6,
-              borderRadius: 9999, background: '#daf1de',
-              opacity: i === current ? 0.92 : 0.35,
-              transition: 'all 300ms', border: 'none', cursor: 'pointer', padding: 0,
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Contador */}
-      <div style={{ position: 'absolute', bottom: 20, right: 'clamp(20px, 5vw, 64px)', zIndex: 3 }}>
-        <span style={{ fontSize: 10, fontWeight: 700, color: '#daf1de', opacity: 0.4 }}>
-          {current + 1}/{slides.length}
-        </span>
-      </div>
-    </div>
+    </section>
   )
 }
 
-// ─── Onboarding Section ────────────────────────────────────────
+// ─── SVG Themes ────────────────────────────────────────────────
 
-const USE_CASES = [
+function SvgConstruccion() {
+  return (
+    <svg viewBox="0 0 200 150" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%', maxHeight: 140 }}>
+      {/* Scaffolding poles */}
+      <rect x="30" y="38" width="3" height="88" rx="1.5" fill="rgba(226,232,240,0.15)" />
+      <rect x="167" y="38" width="3" height="88" rx="1.5" fill="rgba(226,232,240,0.15)" />
+      {/* Scaffolding planks */}
+      <rect x="28" y="65" width="144" height="3" rx="1.5" fill="rgba(226,232,240,0.1)" />
+      <rect x="28" y="88" width="144" height="3" rx="1.5" fill="rgba(226,232,240,0.07)" />
+      {/* Ground */}
+      <rect x="25" y="126" width="150" height="2.5" rx="1.25" fill="rgba(226,232,240,0.1)" />
+      {/* House walls */}
+      <rect x="52" y="76" width="96" height="50" rx="3" fill="rgba(226,232,240,0.05)" stroke="rgba(226,232,240,0.18)" strokeWidth="1.5" />
+      {/* Roof */}
+      <path d="M42 78L100 36L158 78" stroke="#F59E0B" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+      {/* Door */}
+      <rect x="84" y="96" width="32" height="30" rx="3" fill="rgba(245,158,11,0.12)" stroke="rgba(245,158,11,0.35)" strokeWidth="1.5" />
+      {/* Window */}
+      <rect x="60" y="86" width="16" height="16" rx="2" fill="rgba(226,232,240,0.07)" stroke="rgba(226,232,240,0.2)" strokeWidth="1.5" />
+      <line x1="68" y1="86" x2="68" y2="102" stroke="rgba(226,232,240,0.12)" strokeWidth="1" />
+      <rect x="124" y="86" width="16" height="16" rx="2" fill="rgba(226,232,240,0.07)" stroke="rgba(226,232,240,0.2)" strokeWidth="1.5" />
+      <line x1="132" y1="86" x2="132" y2="102" stroke="rgba(226,232,240,0.12)" strokeWidth="1" />
+      {/* Amber bricks being placed */}
+      <rect x="52" y="46" width="8" height="5" rx="1.5" fill="rgba(245,158,11,0.4)" />
+      <rect x="64" y="46" width="8" height="5" rx="1.5" fill="rgba(245,158,11,0.35)" />
+      <rect x="76" y="46" width="8" height="5" rx="1.5" fill="rgba(245,158,11,0.25)" />
+      <rect x="58" y="55" width="8" height="5" rx="1.5" fill="rgba(245,158,11,0.2)" />
+      <rect x="70" y="55" width="8" height="5" rx="1.5" fill="rgba(245,158,11,0.15)" />
+      {/* Hard hat */}
+      <ellipse cx="152" cy="40" rx="16" ry="10" fill="#F59E0B" opacity="0.75" />
+      <rect x="136" y="47" width="32" height="5" rx="2.5" fill="#F59E0B" opacity="0.55" />
+    </svg>
+  )
+}
+
+function SvgPropietario() {
+  return (
+    <svg viewBox="0 0 200 150" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%', maxHeight: 140 }}>
+      {/* House filled shape */}
+      <path d="M42 84L100 42L158 84V130H42V84Z" fill="rgba(226,232,240,0.05)" stroke="rgba(226,232,240,0.18)" strokeWidth="1.5" />
+      {/* Roof line */}
+      <path d="M32 86L100 40L168 86" stroke="#F59E0B" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+      {/* Door */}
+      <rect x="80" y="100" width="40" height="30" rx="4" fill="rgba(245,158,11,0.12)" stroke="rgba(245,158,11,0.35)" strokeWidth="1.5" />
+      {/* Door knob */}
+      <circle cx="116" cy="116" r="2.5" fill="rgba(245,158,11,0.5)" />
+      {/* Window left */}
+      <rect x="52" y="91" width="20" height="20" rx="3" fill="rgba(226,232,240,0.07)" stroke="rgba(226,232,240,0.2)" strokeWidth="1.5" />
+      <line x1="62" y1="91" x2="62" y2="111" stroke="rgba(226,232,240,0.12)" strokeWidth="1" />
+      <line x1="52" y1="101" x2="72" y2="101" stroke="rgba(226,232,240,0.12)" strokeWidth="1" />
+      {/* Window right */}
+      <rect x="128" y="91" width="20" height="20" rx="3" fill="rgba(226,232,240,0.07)" stroke="rgba(226,232,240,0.2)" strokeWidth="1.5" />
+      <line x1="138" y1="91" x2="138" y2="111" stroke="rgba(226,232,240,0.12)" strokeWidth="1" />
+      <line x1="128" y1="101" x2="148" y2="101" stroke="rgba(226,232,240,0.12)" strokeWidth="1" />
+      {/* Key */}
+      <circle cx="155" cy="38" r="13" stroke="#F59E0B" strokeWidth="2.5" fill="none" />
+      <circle cx="155" cy="38" r="5" fill="rgba(245,158,11,0.3)" />
+      <line x1="163" y1="46" x2="176" y2="59" stroke="#F59E0B" strokeWidth="2.5" strokeLinecap="round" />
+      <line x1="172" y1="57" x2="172" y2="63" stroke="#F59E0B" strokeWidth="2" strokeLinecap="round" />
+      <line x1="176" y1="53" x2="176" y2="59" stroke="#F59E0B" strokeWidth="2" strokeLinecap="round" />
+      {/* Gratis badge */}
+      <rect x="28" y="28" width="52" height="20" rx="10" fill="rgba(16,185,129,0.15)" stroke="rgba(16,185,129,0.35)" strokeWidth="1" />
+      <text x="54" y="42" textAnchor="middle" fontSize="8.5" fontWeight="700" fill="#10B981" letterSpacing="0.8">GRATIS</text>
+      {/* Sparkles */}
+      <circle cx="36" cy="70" r="2" fill="rgba(245,158,11,0.3)" />
+      <circle cx="170" cy="72" r="1.5" fill="rgba(245,158,11,0.25)" />
+      <circle cx="22" cy="55" r="1" fill="rgba(226,232,240,0.2)" />
+    </svg>
+  )
+}
+
+function SvgComunidad() {
+  return (
+    <svg viewBox="0 0 200 150" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%', maxHeight: 140 }}>
+      {/* Connection lines */}
+      <line x1="65" y1="72" x2="100" y2="88" stroke="rgba(99,102,241,0.25)" strokeWidth="1.5" strokeDasharray="4 3" />
+      <line x1="135" y1="72" x2="100" y2="88" stroke="rgba(99,102,241,0.25)" strokeWidth="1.5" strokeDasharray="4 3" />
+      <line x1="65" y1="72" x2="135" y2="72" stroke="rgba(226,232,240,0.1)" strokeWidth="1" strokeDasharray="4 3" />
+      {/* Person left */}
+      <circle cx="55" cy="56" r="14" fill="rgba(99,102,241,0.15)" stroke="rgba(99,102,241,0.4)" strokeWidth="1.5" />
+      <circle cx="55" cy="50" r="5" fill="rgba(99,102,241,0.5)" />
+      <path d="M42 75C42 68 48 63 55 63C62 63 68 68 68 75" stroke="rgba(99,102,241,0.4)" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+      {/* Person right */}
+      <circle cx="145" cy="56" r="14" fill="rgba(245,158,11,0.12)" stroke="rgba(245,158,11,0.4)" strokeWidth="1.5" />
+      <circle cx="145" cy="50" r="5" fill="rgba(245,158,11,0.5)" />
+      <path d="M132 75C132 68 138 63 145 63C152 63 158 68 158 75" stroke="rgba(245,158,11,0.4)" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+      {/* Person center (larger — featured) */}
+      <circle cx="100" cy="90" r="18" fill="rgba(226,232,240,0.08)" stroke="rgba(226,232,240,0.25)" strokeWidth="2" />
+      <circle cx="100" cy="83" r="7" fill="rgba(226,232,240,0.35)" />
+      <path d="M83 110C83 101 91 95 100 95C109 95 117 101 117 110" stroke="rgba(226,232,240,0.3)" strokeWidth="2" fill="none" strokeLinecap="round" />
+      {/* Heart above */}
+      <path d="M100 38C100 38 107 30 113 30C119 30 122 36 122 40C122 46 100 58 100 58C100 58 78 46 78 40C78 36 81 30 87 30C93 30 100 38 100 38Z" fill="rgba(245,158,11,0.2)" stroke="#F59E0B" strokeWidth="1.5" />
+      {/* UNNOBA tag */}
+      <rect x="66" y="122" width="68" height="18" rx="9" fill="rgba(99,102,241,0.12)" stroke="rgba(99,102,241,0.3)" strokeWidth="1" />
+      <text x="100" y="135" textAnchor="middle" fontSize="7.5" fontWeight="700" fill="rgba(99,102,241,0.8)" letterSpacing="0.5">UNNOBA · PERGAMINO</text>
+    </svg>
+  )
+}
+
+function SvgTransporte() {
+  return (
+    <svg viewBox="0 0 200 150" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%', maxHeight: 140 }}>
+      {/* Road */}
+      <rect x="0" y="112" width="200" height="16" rx="0" fill="rgba(226,232,240,0.07)" />
+      <line x1="20" y1="120" x2="50" y2="120" stroke="rgba(226,232,240,0.15)" strokeWidth="2" strokeDasharray="6 5" strokeLinecap="round" />
+      <line x1="80" y1="120" x2="110" y2="120" stroke="rgba(226,232,240,0.15)" strokeWidth="2" strokeDasharray="6 5" strokeLinecap="round" />
+      <line x1="140" y1="120" x2="170" y2="120" stroke="rgba(226,232,240,0.15)" strokeWidth="2" strokeDasharray="6 5" strokeLinecap="round" />
+      {/* Bus body */}
+      <rect x="28" y="55" width="144" height="60" rx="10" fill="rgba(226,232,240,0.07)" stroke="rgba(226,232,240,0.2)" strokeWidth="2" />
+      {/* Front accent */}
+      <rect x="155" y="62" width="12" height="46" rx="0" fill="rgba(245,158,11,0.08)" />
+      {/* Destination sign */}
+      <rect x="36" y="62" width="80" height="16" rx="4" fill="rgba(245,158,11,0.15)" stroke="rgba(245,158,11,0.3)" strokeWidth="1" />
+      <text x="76" y="73.5" textAnchor="middle" fontSize="8" fontWeight="700" fill="#F59E0B" letterSpacing="0.5">PERGAMINO</text>
+      {/* Windows */}
+      <rect x="36" y="84" width="24" height="18" rx="4" fill="rgba(226,232,240,0.1)" stroke="rgba(226,232,240,0.2)" strokeWidth="1.5" />
+      <rect x="66" y="84" width="24" height="18" rx="4" fill="rgba(226,232,240,0.1)" stroke="rgba(226,232,240,0.2)" strokeWidth="1.5" />
+      <rect x="96" y="84" width="24" height="18" rx="4" fill="rgba(226,232,240,0.1)" stroke="rgba(226,232,240,0.2)" strokeWidth="1.5" />
+      <rect x="126" y="84" width="18" height="18" rx="4" fill="rgba(226,232,240,0.06)" stroke="rgba(226,232,240,0.15)" strokeWidth="1.5" />
+      {/* Wheels */}
+      <circle cx="58" cy="114" r="11" fill="rgba(15,23,42,0.8)" stroke="rgba(226,232,240,0.2)" strokeWidth="2" />
+      <circle cx="58" cy="114" r="4" fill="rgba(226,232,240,0.15)" />
+      <circle cx="142" cy="114" r="11" fill="rgba(15,23,42,0.8)" stroke="rgba(226,232,240,0.2)" strokeWidth="2" />
+      <circle cx="142" cy="114" r="4" fill="rgba(226,232,240,0.15)" />
+      {/* Headlights */}
+      <rect x="158" y="75" width="10" height="8" rx="2" fill="rgba(245,158,11,0.5)" />
+      <rect x="158" y="91" width="10" height="6" rx="2" fill="rgba(245,158,11,0.3)" />
+      {/* Route number badge */}
+      <circle cx="35" cy="47" r="14" fill="rgba(245,158,11,0.15)" stroke="#F59E0B" strokeWidth="1.5" />
+      <text x="35" y="51.5" textAnchor="middle" fontSize="11" fontWeight="800" fill="#F59E0B">7</text>
+    </svg>
+  )
+}
+
+function SvgBusqueda() {
+  return (
+    <svg viewBox="0 0 200 150" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%', maxHeight: 140 }}>
+      {/* Background grid dots */}
+      {[40,60,80,100,120,140,160].map(x =>
+        [35,55,75,95,115].map(y => (
+          <circle key={`${x}-${y}`} cx={x} cy={y} r="1" fill="rgba(226,232,240,0.08)" />
+        ))
+      )}
+      {/* Magnifying glass circle */}
+      <circle cx="90" cy="72" r="36" fill="rgba(226,232,240,0.05)" stroke="rgba(226,232,240,0.2)" strokeWidth="3" />
+      <circle cx="90" cy="72" r="26" fill="rgba(226,232,240,0.04)" stroke="rgba(226,232,240,0.12)" strokeWidth="1.5" />
+      {/* Inner content — house icon inside */}
+      <path d="M80 76L90 64L100 76V86H80V76Z" fill="rgba(245,158,11,0.15)" stroke="rgba(245,158,11,0.4)" strokeWidth="1.5" />
+      <path d="M76 77L90 62L104 77" stroke="#F59E0B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      {/* Handle */}
+      <line x1="116" y1="96" x2="148" y2="128" stroke="rgba(226,232,240,0.35)" strokeWidth="7" strokeLinecap="round" />
+      <line x1="116" y1="96" x2="148" y2="128" stroke="rgba(226,232,240,0.15)" strokeWidth="10" strokeLinecap="round" />
+      {/* Search ripples */}
+      <circle cx="90" cy="72" r="46" stroke="rgba(245,158,11,0.07)" strokeWidth="2" />
+      <circle cx="90" cy="72" r="58" stroke="rgba(245,158,11,0.04)" strokeWidth="1.5" />
+      {/* Label */}
+      <rect x="132" y="38" width="52" height="18" rx="9" fill="rgba(245,158,11,0.12)" stroke="rgba(245,158,11,0.25)" strokeWidth="1" />
+      <text x="158" y="50" textAnchor="middle" fontSize="8" fontWeight="700" fill="rgba(245,158,11,0.8)" letterSpacing="0.5">BUSCANDO</text>
+    </svg>
+  )
+}
+
+function SvgMapa() {
+  return (
+    <svg viewBox="0 0 200 150" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%', maxHeight: 140 }}>
+      {/* Map background */}
+      <rect x="25" y="30" width="150" height="100" rx="10" fill="rgba(226,232,240,0.05)" stroke="rgba(226,232,240,0.15)" strokeWidth="1.5" />
+      {/* Grid lines */}
+      <line x1="25" y1="63" x2="175" y2="63" stroke="rgba(226,232,240,0.07)" strokeWidth="1" />
+      <line x1="25" y1="96" x2="175" y2="96" stroke="rgba(226,232,240,0.07)" strokeWidth="1" />
+      <line x1="75" y1="30" x2="75" y2="130" stroke="rgba(226,232,240,0.07)" strokeWidth="1" />
+      <line x1="125" y1="30" x2="125" y2="130" stroke="rgba(226,232,240,0.07)" strokeWidth="1" />
+      {/* Streets */}
+      <path d="M25 75L175 75" stroke="rgba(226,232,240,0.15)" strokeWidth="3" strokeLinecap="round" />
+      <path d="M100 30L100 130" stroke="rgba(226,232,240,0.15)" strokeWidth="3" strokeLinecap="round" />
+      {/* Location pin */}
+      <path d="M100 48C100 48 115 60 115 70C115 78 108 84 100 84C92 84 85 78 85 70C85 60 100 48 100 48Z" fill="#F59E0B" opacity="0.9" />
+      <circle cx="100" cy="70" r="5" fill="#0F172A" />
+      {/* Pin shadow */}
+      <ellipse cx="100" cy="90" rx="8" ry="3" fill="rgba(245,158,11,0.2)" />
+      {/* Secondary pins */}
+      <circle cx="55" cy="55" r="5" fill="rgba(99,102,241,0.5)" stroke="rgba(99,102,241,0.6)" strokeWidth="1" />
+      <circle cx="148" cy="105" r="4" fill="rgba(226,232,240,0.3)" stroke="rgba(226,232,240,0.4)" strokeWidth="1" />
+      <circle cx="62" cy="108" r="3.5" fill="rgba(245,158,11,0.3)" stroke="rgba(245,158,11,0.4)" strokeWidth="1" />
+      {/* Compass */}
+      <circle cx="158" cy="42" r="10" fill="rgba(226,232,240,0.08)" stroke="rgba(226,232,240,0.2)" strokeWidth="1" />
+      <text x="158" y="46" textAnchor="middle" fontSize="10" fontWeight="800" fill="rgba(245,158,11,0.7)">N</text>
+    </svg>
+  )
+}
+
+// Map of theme id → component
+const SVG_THEMES: Record<string, React.FC> = {
+  construccion: SvgConstruccion,
+  propietario:  SvgPropietario,
+  comunidad:    SvgComunidad,
+  transporte:   SvgTransporte,
+  busqueda:     SvgBusqueda,
+  mapa:         SvgMapa,
+}
+
+// Auto-select a svgTheme based on message content
+function autoTheme(kicker: string, title: string): string {
+  const text = `${kicker} ${title}`.toLowerCase()
+  if (/construc|relevan|verific|pronto|armando/.test(text)) return 'construccion'
+  if (/propietar|publicá|publicar|dueño|dueno|llave|gratis/.test(text)) return 'propietario'
+  if (/estudiant|comunidad|muro|unnoba|hecho por|juntos/.test(text)) return 'comunidad'
+  if (/colectivo|transporte|bus|linea/.test(text)) return 'transporte'
+  if (/busca|encontrá|encontra|busqueda/.test(text)) return 'busqueda'
+  if (/mapa|ubicacion|ubicación|zona|barrio/.test(text)) return 'mapa'
+  return 'construccion'
+}
+
+// ─── Hospedajes Section ────────────────────────────────────────
+
+interface Hospedaje {
+  id: string; name: string; type: string; price: string; priceMax?: string
+  address: string; phone?: string; isVerified?: boolean; isFeatured?: boolean
+  images?: string[]; amenities?: string[]
+}
+
+// ─── Hero Messages (fallback cuando no hay hospedaje destacado) ─
+// Configurable desde /app/adm — por ahora hardcodeado aquí
+// Formato futuro: tabla `hero_messages` { id, kicker, title, body, cta_label, cta_href, active }
+
+interface HeroMessage {
+  id: string
+  kicker: string
+  title: string
+  body: string
+  ctaLabel?: string
+  ctaHref?: string
+  badge?: { label: string; color: string }
+  svgTheme?: string
+}
+
+const HERO_MESSAGES_DEFAULT: HeroMessage[] = [
   {
-    emoji: '🏠',
-    question: '¿Dónde vivir?',
-    desc: 'Pensiones, cuartos y alquileres cerca de UNNOBA.',
-    href: '/app/hospedajes',
-    bg: '#163832',
+    id: 'construccion',
+    kicker: 'En construcción',
+    title: 'Estamos relevando hospedajes.',
+    body: 'Verificamos cada opción antes de publicarla. Pronto vas a encontrar pensiones, departamentos y habitaciones con precios reales.',
+    ctaLabel: 'Sumar mi hospedaje',
+    ctaHref: 'https://wa.me/5491124025239?text=Hola%2C%20quiero%20sumar%20mi%20hospedaje',
+    badge: { label: 'Próximamente', color: '#F59E0B' },
+    svgTheme: 'construccion',
   },
   {
-    emoji: '🚌',
-    question: '¿Cómo moverme?',
-    desc: 'Colectivos con mapa y remises con llamada directa.',
-    href: '/app/transportes',
-    bg: '#1a4038',
+    id: 'propietario',
+    kicker: '¿Tenés un hospedaje?',
+    title: 'Publicá gratis en Recién Llegué.',
+    body: 'Miles de estudiantes buscan alojamiento cada año. Sumá tu pensión, depto o habitación y llegá directo a ellos sin comisiones.',
+    ctaLabel: 'Escribinos por WhatsApp',
+    ctaHref: 'https://wa.me/5491124025239?text=Hola%2C%20quiero%20publicar%20mi%20hospedaje',
+    badge: { label: 'Gratis', color: '#10B981' },
+    svgTheme: 'propietario',
   },
   {
-    emoji: '🛍️',
-    question: '¿Dónde comer y comprar?',
-    desc: 'Comercios y restós útiles para el día a día.',
-    href: '/app/comercios',
-    bg: '#163832',
-  },
-  {
-    emoji: '📢',
-    question: '¿Qué pasa en el barrio?',
-    desc: 'Avisos, pedidos y publicaciones de la comunidad.',
-    href: '/app/muro',
-    bg: '#1a4038',
+    id: 'comunidad',
+    kicker: 'Hecho por estudiantes',
+    title: 'La info que nadie te da cuando llegás.',
+    body: 'Pergamino tiene mucho para ofrecer. Estamos armando la guía más completa de alojamiento para que tu llegada sea más fácil.',
+    ctaLabel: 'Ver el muro',
+    ctaHref: '/app/muro',
+    badge: { label: 'UNNOBA · Pergamino', color: '#6366F1' },
+    svgTheme: 'comunidad',
   },
 ]
 
-function OnboardingSection() {
-  return (
-    <section>
-      <div className="flex items-center gap-3 mb-5">
-        <div className="w-8 h-8 rounded-2xl flex items-center justify-center shrink-0"
-          style={{ background: 'rgba(22,56,50,0.07)' }}>
-          <Sparkles size={15} style={{ color: '#163832' }} />
-        </div>
-        <div>
-          <p className="app-section-kicker mb-0.5">Guía rápida</p>
-          <h2 className="app-section-title text-xl">¿Qué podés hacer acá?</h2>
-        </div>
-      </div>
+const CARD_H_MOBILE  = 230
+const CARD_H_DESKTOP = 260
 
-      {/* Horizontal scroll borde a borde */}
-      <div style={{ marginLeft: -16, marginRight: -16, paddingLeft: 16, overflowX: 'auto', WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none' }}>
-        <div style={{ display: 'inline-flex', gap: 12, paddingRight: 16 }}>
-          {USE_CASES.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
+type CarouselItem =
+  | { kind: 'hospedaje'; data: Hospedaje }
+  | { kind: 'message';   data: HeroMessage }
+
+function HeroCarousel({ items }: { items: CarouselItem[] }) {
+  const [idx, setIdx] = useState(0)
+  const total = items.length
+
+  // Auto-avanza cada 5s, se pausa al hover
+  const paused = useRef(false)
+  useEffect(() => {
+    if (total < 2) return
+    const id = setInterval(() => {
+      if (!paused.current) setIdx(i => (i + 1) % total)
+    }, 5000)
+    return () => clearInterval(id)
+  }, [total])
+
+  const item = items[idx]
+
+  const inner =
+    item.kind === 'hospedaje'
+      ? <HospedajeHeroSlide h={item.data} />
+      : <MessageHeroSlide msg={item.data} />
+
+  return (
+    <div
+      onMouseEnter={() => { paused.current = true }}
+      onMouseLeave={() => { paused.current = false }}
+    >
+      {inner}
+
+      {/* Dots */}
+      {total > 1 && (
+        <div className="flex justify-center gap-1.5 mt-2.5">
+          {items.map((it, i) => (
+            <button
+              key={i}
+              onClick={() => setIdx(i)}
+              aria-label={`Slide ${i + 1}`}
               style={{
-                display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
-                width: 196, minHeight: 200, flexShrink: 0,
-                borderRadius: 20, background: item.bg, padding: '20px',
-                textDecoration: 'none',
+                width: i === idx ? 20 : 6, height: 6,
+                borderRadius: 999, border: 'none', cursor: 'pointer', padding: 0,
+                background: i === idx
+                  ? '#0F172A'
+                  : it.kind === 'hospedaje'
+                    ? 'rgba(15,23,42,0.25)'
+                    : 'rgba(15,23,42,0.12)',
+                transition: 'all 0.3s',
               }}
-            >
-              <span style={{ fontSize: 32, lineHeight: 1 }}>{item.emoji}</span>
-              <div>
-                <p style={{ color: '#daf1de', fontWeight: 800, fontSize: 15, lineHeight: 1.3, marginBottom: 6 }}>
-                  {item.question}
-                </p>
-                <p style={{ color: '#b8e4bf', fontSize: 12, lineHeight: 1.5, marginBottom: 12 }}>
-                  {item.desc}
-                </p>
-                <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, color: '#a8ddb5', fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-                  Ver sección <ArrowRight size={10} />
-                </span>
-              </div>
-            </a>
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+function HospedajeHeroSlide({ h }: { h: Hospedaje }) {
+  const imgs = h.images ?? []
+  const [imgIdx, setImgIdx] = useState(0)
+
+  // Auto-avanza imágenes cada 3s
+  useEffect(() => {
+    if (imgs.length < 2) return
+    const id = setInterval(() => setImgIdx(i => (i + 1) % imgs.length), 3000)
+    return () => clearInterval(id)
+  }, [imgs.length])
+
+  const RightMedia = () => {
+    if (imgs.length === 0) {
+      return (
+        <div className="rounded-xl w-full h-full flex items-center justify-center" style={{
+          background: 'repeating-linear-gradient(45deg,rgba(226,232,240,0.04) 0,rgba(226,232,240,0.04) 1px,transparent 1px,transparent 8px),rgba(226,232,240,0.06)',
+        }}>
+          <BedDouble size={32} style={{ color: 'rgba(226,232,240,0.2)' }} />
+        </div>
+      )
+    }
+    if (imgs.length === 1) {
+      return <img src={imgs[0]} alt={h.name} className="rounded-xl w-full h-full object-cover" style={{ minHeight: 0 }} />
+    }
+    // 2+ imágenes: grid 2 columnas o animado
+    return (
+      <div className="relative rounded-xl overflow-hidden w-full h-full">
+        <img
+          src={imgs[imgIdx]}
+          alt={h.name}
+          className="w-full h-full object-cover transition-opacity duration-700"
+          style={{ minHeight: 0 }}
+        />
+        {/* Contador de fotos */}
+        <div className="absolute bottom-1.5 right-1.5 flex gap-1">
+          {imgs.slice(0, 4).map((_, i) => (
+            <div key={i} style={{
+              width: i === imgIdx ? 14 : 5, height: 5, borderRadius: 999,
+              background: i === imgIdx ? '#F59E0B' : 'rgba(255,255,255,0.5)',
+              transition: 'all 0.3s',
+            }} />
           ))}
         </div>
       </div>
+    )
+  }
 
-      <p className="text-[11px] mt-3 text-center font-medium" style={{ color: 'rgba(22,56,50,0.38)' }}>
-        Deslizá para ver todas →
-      </p>
+  return (
+    <a href="/app/hospedajes" className="rounded-[20px] overflow-hidden mb-1 relative" style={{ background: '#0F172A', textDecoration: 'none', display: 'block' }}>
+      {/* Mobile image background overlay */}
+      {imgs.length > 0 && (
+        <div className="lg:hidden absolute inset-0">
+          <img src={imgs[imgIdx]} alt="" className="w-full h-full object-cover opacity-20" />
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(15,23,42,0.95) 40%, rgba(15,23,42,0.6))' }} />
+        </div>
+      )}
+      <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(circle at 80% 20%, rgba(148,163,184,0.1), transparent 60%)' }} />
+
+      {/* Mobile */}
+      <div className="lg:hidden relative z-10 p-5 flex flex-col justify-between" style={{ height: CARD_H_MOBILE }}>
+        <div>
+          <div className="flex items-center gap-2 mb-2">
+            <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full" style={{ background: '#F59E0B', color: '#0F172A' }}>
+              Hospedaje
+            </span>
+            {h.isVerified && (
+              <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full" style={{ background: 'rgba(226,232,240,0.15)', color: '#E2E8F0' }}>
+                Verificado
+              </span>
+            )}
+            {imgs.length > 0 && (
+              <span className="text-[9px] font-bold px-2 py-0.5 rounded-full" style={{ background: 'rgba(226,232,240,0.12)', color: 'rgba(226,232,240,0.6)' }}>
+                📷 {imgs.length}
+              </span>
+            )}
+          </div>
+          <h3 className="font-bold text-base leading-snug line-clamp-1" style={{ color: '#fff' }}>{h.name}</h3>
+          <p className="text-[11px] mt-1 flex items-center gap-1" style={{ color: 'rgba(226,232,240,0.5)' }}>
+            <MapPin size={10} /> <span className="line-clamp-1">{h.address}</span>
+          </p>
+          {h.type && <p className="text-[11px] mt-0.5" style={{ color: 'rgba(226,232,240,0.35)' }}>{h.type}</p>}
+        </div>
+        <div className="flex items-center justify-between">
+          <p className="font-extrabold text-lg" style={{ color: '#E2E8F0' }}>
+            {h.price}<span className="text-[10px] font-normal opacity-40 ml-1">/mes</span>
+          </p>
+          <span className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[11px] font-bold" style={{ background: '#F59E0B', color: '#0F172A' }}>
+            Ver más →
+          </span>
+        </div>
+      </div>
+
+      {/* Desktop */}
+      <div className="hidden lg:grid relative z-10 p-[22px] gap-4" style={{ gridTemplateColumns: '1fr 1fr', height: CARD_H_DESKTOP }}>
+        <div className="flex flex-col justify-between overflow-hidden">
+          <div>
+            <span className="inline-flex items-center text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full mb-2" style={{ background: '#F59E0B', color: '#0F172A' }}>
+              Hospedaje
+            </span>
+            <h3 className="font-bold leading-snug line-clamp-1" style={{ fontSize: 15, color: '#fff' }}>{h.name}</h3>
+            <p className="text-xs mt-0.5 line-clamp-1" style={{ color: 'rgba(226,232,240,0.5)' }}>{h.address}</p>
+          </div>
+          <div>
+            <p className="font-extrabold mb-2" style={{ fontSize: 22, color: '#E2E8F0' }}>
+              {h.price}<span className="text-xs font-normal opacity-40 ml-1">/mes</span>
+            </p>
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[11px] font-bold" style={{ background: '#F59E0B', color: '#0F172A' }}>
+              Ver más →
+            </span>
+          </div>
+        </div>
+        <div style={{ minHeight: 0 }}>
+          <RightMedia />
+        </div>
+      </div>
+    </a>
+  )
+}
+
+function MessageHeroSlide({ msg }: { msg: HeroMessage }) {
+  return (
+    <a
+      href={msg.ctaHref ?? '/app/hospedajes'}
+      target={msg.ctaHref?.startsWith('http') ? '_blank' : undefined}
+      rel={msg.ctaHref?.startsWith('http') ? 'noopener noreferrer' : undefined}
+      className="rounded-[20px] overflow-hidden mb-1 relative"
+      style={{ background: '#0F172A', textDecoration: 'none', display: 'block' }}
+    >
+      <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(circle at 80% 20%, rgba(148,163,184,0.15), transparent 60%)' }} />
+
+      {/* Mobile */}
+      <div className="lg:hidden relative z-10 p-5 flex flex-col justify-between" style={{ height: CARD_H_MOBILE }}>
+        <div>
+          {msg.badge && (
+            <span className="inline-block text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full mb-2" style={{ background: msg.badge.color, color: '#0F172A' }}>
+              {msg.badge.label}
+            </span>
+          )}
+          <p className="text-[10px] font-bold uppercase tracking-widest mb-0.5" style={{ color: 'rgba(226,232,240,0.4)' }}>{msg.kicker}</p>
+          <h3 className="font-bold text-sm leading-snug mb-1.5" style={{ color: '#fff' }}>{msg.title}</h3>
+          <p className="text-[11px] leading-relaxed line-clamp-3" style={{ color: 'rgba(226,232,240,0.5)' }}>{msg.body}</p>
+        </div>
+        {msg.ctaLabel && (
+          <span className="self-start inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[11px] font-bold" style={{ background: '#F59E0B', color: '#0F172A' }}>
+            {msg.ctaLabel} →
+          </span>
+        )}
+      </div>
+
+      {/* Desktop */}
+      <div className="hidden lg:grid relative z-10 p-[22px] gap-4" style={{ gridTemplateColumns: '1fr 1fr', height: CARD_H_DESKTOP }}>
+        <div className="flex flex-col justify-between overflow-hidden">
+          <div>
+            {msg.badge && (
+              <span className="inline-flex items-center text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full mb-2" style={{ background: msg.badge.color, color: '#0F172A' }}>
+                {msg.badge.label}
+              </span>
+            )}
+            <p className="text-[10px] font-bold uppercase tracking-widest mb-0.5" style={{ color: 'rgba(226,232,240,0.4)' }}>{msg.kicker}</p>
+            <h3 className="font-bold leading-snug mb-1.5 line-clamp-2" style={{ fontSize: 15, color: '#fff' }}>{msg.title}</h3>
+            <p className="text-xs leading-relaxed line-clamp-3" style={{ color: 'rgba(226,232,240,0.5)' }}>{msg.body}</p>
+          </div>
+          {msg.ctaLabel && (
+            <span className="self-start inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[11px] font-bold" style={{ background: '#F59E0B', color: '#0F172A' }}>
+              {msg.ctaLabel} →
+            </span>
+          )}
+        </div>
+        <div className="rounded-xl flex items-center justify-center overflow-hidden" style={{
+          background: 'repeating-linear-gradient(45deg,rgba(226,232,240,0.025) 0,rgba(226,232,240,0.025) 1px,transparent 1px,transparent 8px)',
+          padding: '12px 8px',
+        }}>
+          {(() => {
+            const theme = msg.svgTheme ?? autoTheme(msg.kicker, msg.title)
+            const SvgComp = SVG_THEMES[theme]
+            return SvgComp ? <SvgComp /> : <BedDouble size={32} style={{ color: 'rgba(226,232,240,0.15)' }} />
+          })()}
+        </div>
+      </div>
+    </a>
+  )
+}
+
+function HospedajesSection() {
+  const [items, setItems] = useState<Hospedaje[]>([])
+  const [heroMessages, setHeroMessages] = useState<HeroMessage[]>(HERO_MESSAGES_DEFAULT)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    // Load hospedajes
+    db.from('hospedajes').latest().limit(20).find()
+      .then((data: any) => setItems(data as any))
+      .catch(() => {})
+      .finally(() => setLoading(false))
+
+    // Load hero_messages from DB (overrides hardcoded if any active exist)
+    db.from('heromessages').eq('active', true).latest().limit(10).find()
+      .then((data: any) => {
+        const rows = data as any[]
+        if (!rows || rows.length === 0) return
+        setHeroMessages(rows.map((r: any) => ({
+          id: r.id,
+          kicker: r.kicker ?? '',
+          title: r.title ?? '',
+          body: r.body ?? '',
+          ctaLabel: r.ctaLabel ?? undefined,
+          ctaHref: r.ctaHref ?? undefined,
+          badge: r.badgeLabel ? { label: r.badgeLabel, color: r.badgeColor ?? '#F59E0B' } : undefined,
+          svgTheme: r.svgTheme ?? undefined,
+        })))
+      })
+      .catch(() => {})
+  }, [])
+
+  // Carrusel unificado: hospedajes primero, luego mensajes
+  const carouselItems: CarouselItem[] = [
+    ...items.map(h => ({ kind: 'hospedaje' as const, data: h })),
+    ...heroMessages.map(m => ({ kind: 'message' as const, data: m })),
+  ]
+
+  // Mini cards: todos los hospedajes excepto el primero (el featured del carrusel)
+  const mini = items.slice(1, 7)
+
+  return (
+    <section>
+      <div className="flex items-center justify-between mb-3">
+        <div>
+          <p className="app-section-kicker mb-0.5">Alojamiento</p>
+          <h2 className="app-section-title text-xl">Hospedajes</h2>
+        </div>
+        <a href="/app/hospedajes" className="flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider hover:opacity-60 transition-opacity" style={{ color: '#0F172A' }}>
+          Ver todo <ChevronRight size={13} />
+        </a>
+      </div>
+
+      {loading ? (
+        <div className="space-y-3">
+          <div className="rounded-2xl h-44 animate-pulse" style={{ background: '#E2E8F0' }} />
+          <div className="flex gap-3 overflow-hidden">
+            {[1,2,3].map(i => <div key={i} className="rounded-2xl h-20 w-28 shrink-0 animate-pulse" style={{ background: '#E2E8F0' }} />)}
+          </div>
+        </div>
+      ) : (
+        <>
+          <HeroCarousel items={carouselItems} />
+
+          {/* Mini-cards — solo si hay hospedajes adicionales */}
+          {mini.length > 0 && (
+            <div className="mt-3">
+              {/* Mobile: horizontal scroll */}
+              <div className="lg:hidden" style={{ display: 'flex', gap: 10, overflowX: 'auto', scrollbarWidth: 'none', paddingBottom: 2 }}>
+                {mini.map(h => {
+                  const thumb = h.images?.[0]
+                  return (
+                    <a
+                      key={h.id}
+                      href="/app/hospedajes"
+                      className="shrink-0 rounded-2xl p-3 flex flex-col gap-1.5"
+                      style={{ minWidth: 130, background: '#fff', border: '1px solid rgba(15,23,42,0.08)', textDecoration: 'none' }}
+                    >
+                      <div className="w-full h-14 rounded-xl overflow-hidden flex items-center justify-center" style={{ background: '#E2E8F0' }}>
+                        {thumb
+                          ? <img src={thumb} alt={h.name} className="w-full h-full object-cover" />
+                          : <BedDouble size={18} style={{ color: '#64748B' }} />
+                        }
+                      </div>
+                      <p className="font-bold text-xs leading-snug line-clamp-1" style={{ color: '#0F172A' }}>{h.name}</p>
+                      <p className="text-[10px] font-semibold" style={{ color: '#F59E0B' }}>{h.price}/mes</p>
+                    </a>
+                  )
+                })}
+              </div>
+
+              {/* Desktop: 3-col grid */}
+              <div className="hidden lg:grid gap-3" style={{ gridTemplateColumns: 'repeat(3,1fr)' }}>
+                {mini.slice(0, 3).map(h => {
+                  const thumb = h.images?.[0]
+                  return (
+                    <a
+                      key={h.id}
+                      href="/app/hospedajes"
+                      className="rounded-[14px] p-3.5 flex flex-col gap-2"
+                      style={{ background: '#fff', border: '1px solid rgba(15,23,42,0.08)', textDecoration: 'none' }}
+                    >
+                      <div className="w-full rounded-lg overflow-hidden flex items-center justify-center" style={{ height: 64, background: '#E2E8F0' }}>
+                        {thumb
+                          ? <img src={thumb} alt={h.name} className="w-full h-full object-cover" />
+                          : <BedDouble size={20} style={{ color: '#64748B' }} />
+                        }
+                      </div>
+                      <p className="font-bold text-xs leading-snug line-clamp-1" style={{ color: '#0F172A' }}>{h.name}</p>
+                      <p className="text-[10px] font-semibold" style={{ color: 'rgba(15,23,42,0.45)' }}>{h.type} · {h.address?.split(',')[0]}</p>
+                      <p className="font-extrabold text-sm" style={{ color: '#0F172A' }}>{h.price}<span className="text-[10px] font-normal opacity-40">/mes</span></p>
+                    </a>
+                  )
+                })}
+              </div>
+            </div>
+          )}
+        </>
+      )}
+    </section>
+  )
+}
+
+// ─── Muro Preview ──────────────────────────────────────────────
+
+interface Post {
+  id: string; title: string; category: string; content?: string
+  authorName?: string; createdAt?: string
+}
+
+const CATEGORY_COLORS: Record<string, { bg: string; color: string }> = {
+  'Avisos':       { bg: '#DBEAFE', color: '#1E40AF' },
+  'Consultas':    { bg: '#E0E7FF', color: '#4338CA' },
+  'Compraventa':  { bg: '#FCE7F3', color: '#9D174D' },
+  'Eventos':      { bg: '#FEF3C7', color: '#92400E' },
+  'General':      { bg: '#F1F5F9', color: '#475569' },
+}
+
+function MuroPreview() {
+  const [posts, setPosts] = useState<Post[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    db.from('muro_posts').latest().limit(2).find()
+      .then((data: any) => setPosts(data as any))
+      .catch(() => {})
+      .finally(() => setLoading(false))
+  }, [])
+
+  return (
+    <section>
+      <div className="flex items-center justify-between mb-4">
+        <div>
+          <p className="app-section-kicker mb-1">Comunidad</p>
+          <h2 className="app-section-title text-xl">Muro</h2>
+        </div>
+        <a
+          href="/app/muro"
+          className="flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider hover:opacity-60 transition-opacity"
+          style={{ color: '#0F172A' }}
+        >
+          Ver todo <ChevronRight size={13} />
+        </a>
+      </div>
+
+      {loading ? (
+        <div className="space-y-3">
+          {[1,2].map(i => <div key={i} className="app-card h-16 animate-pulse" style={{ background: '#E2E8F0' }} />)}
+        </div>
+      ) : posts.length === 0 ? (
+        <div className="app-card px-5 py-6 text-center">
+          <p className="text-sm" style={{ color: 'var(--text-muted-soft)' }}>Sé el primero en publicar en el muro.</p>
+        </div>
+      ) : (
+        <div className="space-y-3">
+          {posts.map(post => {
+            const cat = CATEGORY_COLORS[post.category] ?? CATEGORY_COLORS['General']
+            const initials = post.authorName
+              ? post.authorName.split(' ').map((w:string) => w[0]).join('').slice(0,2).toUpperCase()
+              : '?'
+            return (
+              <a
+                key={post.id}
+                href="/app/muro"
+                className="app-card px-4 py-4 flex items-center gap-3"
+                style={{ textDecoration: 'none' }}
+              >
+                <div style={{
+                  width: 36, height: 36, borderRadius: '50%', flexShrink: 0,
+                  background: '#E2E8F0', display: 'flex', alignItems: 'center',
+                  justifyContent: 'center', fontSize: 12, fontWeight: 700, color: '#475569',
+                }}>
+                  {initials}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full"
+                      style={{ background: cat.bg, color: cat.color }}>
+                      {post.category}
+                    </span>
+                  </div>
+                  <p className="font-bold text-sm leading-snug line-clamp-1" style={{ color: '#0F172A' }}>{post.title}</p>
+                </div>
+                <ChevronRight size={14} style={{ color: 'rgba(15,23,42,0.3)', flexShrink: 0 }} />
+              </a>
+            )
+          })}
+        </div>
+      )}
     </section>
   )
 }
@@ -520,16 +786,15 @@ function HomeDesktopAside({ username, isAdmin }: { username: string | null; isAd
     : [{ label: 'Ver Perfil', href: '/app/perfil' }, { label: 'Abrir Muro', href: '/app/muro' }]
 
   return (
-    <aside className="hidden lg:flex lg:flex-col gap-4 lg:w-[320px]">
-      {/* Atajos */}
+    <aside className="hidden lg:flex lg:flex-col gap-4">
       <div className="app-card p-4 space-y-1">
-        <p className="app-section-kicker px-2 pt-1 pb-2">Atajos rápidos</p>
+        <p className="app-section-kicker px-2 pt-1 pb-2">Atajos</p>
         {quickLinks.map((link) => (
           <a key={link.href} href={link.href}
-            className="flex items-center justify-between rounded-2xl px-4 py-3 transition-colors hover:bg-[rgba(22,56,50,0.04)]"
-            style={{ color: '#051f20' }}>
+            className="flex items-center justify-between rounded-2xl px-4 py-3 transition-colors hover:bg-[rgba(15,23,42,0.04)]"
+            style={{ color: '#0F172A' }}>
             <span className="text-sm font-bold">{link.label}</span>
-            <ChevronRight size={16} style={{ color: 'rgba(22,56,50,0.35)' }} />
+            <ChevronRight size={16} style={{ color: 'rgba(15,23,42,0.35)' }} />
           </a>
         ))}
         {username && (
@@ -555,354 +820,22 @@ function HomeDesktopAside({ username, isAdmin }: { username: string | null; isAd
             { href: '/registro', icon: <UserPlus size={16} />, label: 'Crear cuenta' },
           ].map((l) => (
             <a key={l.href} href={l.href}
-              className="flex items-center justify-between rounded-2xl px-4 py-3 transition-colors hover:bg-[rgba(22,56,50,0.04)]"
-              style={{ color: '#051f20' }}>
+              className="flex items-center justify-between rounded-2xl px-4 py-3 transition-colors hover:bg-[rgba(15,23,42,0.04)]"
+              style={{ color: '#0F172A' }}>
               <span className="inline-flex items-center gap-2 text-sm font-bold">{l.icon}{l.label}</span>
-              <ChevronRight size={16} style={{ color: 'rgba(22,56,50,0.35)' }} />
+              <ChevronRight size={16} style={{ color: 'rgba(15,23,42,0.35)' }} />
             </a>
           ))}
         </div>
       )}
+
+      {/* Muro preview on desktop */}
+      <MuroPreview />
     </aside>
   )
 }
 
-// ─── Comercios Destacados ──────────────────────────────────────
-
-const CATEGORY_EMOJI: Record<string, string> = {
-  'Restaurante': '🍽️', 'Restaurante familiar': '🍽️',
-  'Restaurante de comida para llevar': '🥡', 'Restaurante de comida rápida': '🍔',
-  'Cafetería': '☕', 'Tienda de café': '☕',
-  'Panadería': '🥐', 'Pizzería': '🍕', 'Pizza para llevar': '🍕',
-  'Bar': '🍺', 'Pub': '🍺', 'Pub restaurante': '🍺', 'Cervecería artesanal': '🍻',
-  'Club nocturno': '🎵', 'Supermercado': '🛒', 'Tienda de alimentación': '🛒',
-  'Tienda general': '🏪', 'Tienda de alimentos naturales': '🌿',
-  'Kiosco': '🗞️', 'Quiosco': '🗞️', 'Frutería': '🍎',
-  'Pollería': '🍗', 'Comida a domicilio': '🛵', 'Centro comercial': '🏬',
-}
-
-interface Comercio {
-  id: string; name: string; category: string; rating: number
-  phone: string; googleMapsUrl: string
-}
-
-function ComerciosDestacados() {
-  const [items, setItems] = useState<Comercio[]>([])
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    db.from('comercios').eq('isFeatured', true).limit(6).find()
-      .then((data: any) => setItems(data as any)).catch(() => {}).finally(() => setLoading(false))
-  }, [])
-
-  return (
-    <section>
-      <div className="flex items-center justify-between mb-5">
-        <div>
-          <p className="app-section-kicker mb-1">Para estudiantes</p>
-          <h2 className="app-section-title text-xl">Comercios destacados</h2>
-        </div>
-        <a href="/app/comercios"
-          className="flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider hover:opacity-60 transition-opacity"
-          style={{ color: '#163832' }}>
-          Ver todos <ChevronRight size={13} />
-        </a>
-      </div>
-
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-        {loading
-          ? Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} className="app-card overflow-hidden animate-pulse">
-                <div className="h-14" style={{ background: 'rgba(22,56,50,0.06)' }} />
-                <div className="p-4 space-y-2">
-                  <div className="h-2 w-1/3 rounded-full" style={{ background: 'rgba(22,56,50,0.06)' }} />
-                  <div className="h-3.5 w-2/3 rounded-full" style={{ background: 'rgba(22,56,50,0.06)' }} />
-                </div>
-              </div>
-            ))
-          : items.filter(Boolean).map(c => {
-              const emoji = CATEGORY_EMOJI[c.category] ?? '📍'
-              return (
-                <TiltCard
-                  key={c.id}
-                  as="a"
-                  href="/app/comercios"
-                  strength={12}
-                  glareColor="rgba(22,56,50,0.08)"
-                  innerStyle={{ borderRadius: 24, background: '#fff', border: '1px solid rgba(22,56,50,0.08)' }}
-                  style={{ boxShadow: '0 4px 20px rgba(22,56,50,0.06)' }}
-                >
-                  <div className="flex items-center justify-center h-14" style={{ background: 'rgba(22,56,50,0.04)' }}>
-                    <span className="text-2xl select-none">{emoji}</span>
-                  </div>
-                  <div className="p-4">
-                    <p className="text-[9px] font-bold uppercase tracking-wider mb-1" style={{ color: 'rgba(22,56,50,0.45)' }}>
-                      {c.category}
-                    </p>
-                    <p className="font-extrabold text-sm leading-snug line-clamp-1" style={{ color: '#051f20' }}>
-                      {c.name}
-                    </p>
-                    {c.rating > 0 && (
-                      <p className="text-[10px] mt-1 font-semibold" style={{ color: 'rgba(22,56,50,0.45)' }}>
-                        ★ {c.rating.toFixed(1)}
-                      </p>
-                    )}
-                  </div>
-                </TiltCard>
-              )
-            })}
-      </div>
-    </section>
-  )
-}
-
-// ─── Remises ──────────────────────────────────────────────────
-
-interface Remis {
-  id: string; nombre: string; telefono: string
-  referencia?: string; destacado?: boolean
-}
-
-function RemisesSection() {
-  const [remises, setRemises] = useState<Remis[]>([])
-
-  useEffect(() => {
-    db.from('remises').limit(50).find().then((data: any) => setRemises(data as any)).catch(() => {})
-  }, [])
-
-  const principal = remises.find(r => r.destacado) ?? remises[0]
-  const otros = remises.filter(r => r.id !== principal?.id).slice(0, 3)
-  if (remises.length === 0) return null
-
-  return (
-    <section>
-      <div className="flex items-center justify-between mb-5">
-        <div>
-          <p className="app-section-kicker mb-1">Movilidad</p>
-          <h2 className="app-section-title text-xl">Remises cercanos</h2>
-        </div>
-        <a href="/app/transportes"
-          className="flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider hover:opacity-60 transition-opacity"
-          style={{ color: '#163832' }}>
-          Ver todos <ChevronRight size={13} />
-        </a>
-      </div>
-
-      <div className="grid lg:grid-cols-3 gap-3">
-        {/* Card principal con tilt */}
-        <TiltCard
-          strength={6}
-          glareColor="rgba(218,241,222,0.18)"
-          innerStyle={{ borderRadius: 20, background: '#163832', padding: '28px', minHeight: 200 }}
-          className="lg:col-span-2"
-          style={{ minHeight: 200 }}
-        >
-          <svg className="absolute right-0 top-0 h-full pointer-events-none" viewBox="0 0 200 200" aria-hidden>
-            <circle cx="200" cy="100" r="120" fill="none" stroke="#daf1de" strokeWidth="1" opacity="0.12" />
-            <circle cx="200" cy="100" r="80" fill="none" stroke="#daf1de" strokeWidth="1" opacity="0.08" />
-          </svg>
-          <div className="relative z-10 flex flex-col justify-between h-full" style={{ minHeight: 144 }}>
-            <div>
-              <span className="inline-block px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider mb-4"
-                style={{ background: '#daf1de', color: '#163832' }}>
-                Destacado
-              </span>
-              <h3 className="font-extrabold tracking-tight leading-snug mb-2"
-                style={{ fontSize: 'clamp(1.4rem, 3vw, 2rem)', color: '#daf1de' }}>
-                {principal.nombre}
-              </h3>
-              {principal.referencia && (
-                <p className="text-sm leading-relaxed" style={{ color: '#b8e4bf' }}>
-                  {principal.referencia}
-                </p>
-              )}
-            </div>
-            <a href={`tel:${principal.telefono.replace(/\D/g, '')}`}
-              className="mt-5 inline-flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-bold transition-all hover:scale-[1.02] active:scale-[0.98] self-start"
-              style={{ background: '#daf1de', color: '#163832' }}>
-              <Phone size={14} /> {principal.telefono}
-            </a>
-          </div>
-        </TiltCard>
-
-        {/* Otros */}
-        <div className="flex flex-col gap-3">
-          {otros.map(r => (
-            <div key={r.id} className="app-card px-5 py-4 flex items-center justify-between">
-              <div>
-                <p className="font-bold text-sm" style={{ color: '#051f20' }}>{r.nombre}</p>
-                <p className="text-xs mt-0.5 font-medium" style={{ color: 'rgba(22,56,50,0.5)' }}>{r.telefono}</p>
-              </div>
-              <a href={`tel:${r.telefono.replace(/\D/g, '')}`}
-                className="w-9 h-9 rounded-xl flex items-center justify-center transition-all hover:scale-110 hover:opacity-80"
-                style={{ background: 'rgba(22,56,50,0.06)', color: '#163832' }}>
-                <Phone size={14} />
-              </a>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
-// ─── Eventos ──────────────────────────────────────────────────
-
-interface Evento {
-  id: string; title: string; description: string; date: string
-  time?: string; location?: string; imageUrl?: string; link?: string; isFeatured?: boolean
-}
-
-function EventoModal({ evento, onClose }: { evento: Evento; onClose: () => void }) {
-  useEffect(() => {
-    const h = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose() }
-    window.addEventListener('keydown', h)
-    return () => window.removeEventListener('keydown', h)
-  }, [onClose])
-
-  return (
-    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4"
-      style={{ background: 'rgba(5,31,32,0.65)', backdropFilter: 'blur(6px)' }}
-      onClick={onClose}>
-      <div className="w-full sm:max-w-lg rounded-t-3xl sm:rounded-3xl overflow-hidden"
-        style={{ background: '#fff', maxHeight: '92dvh' }}
-        onClick={e => e.stopPropagation()}>
-        {evento.imageUrl
-          ? <div className="relative w-full" style={{ height: 200 }}>
-              <img src={evento.imageUrl} alt={evento.title} className="w-full h-full object-cover" />
-              <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(5,31,32,0.5), transparent 60%)' }} />
-            </div>
-          : <div className="w-full flex items-center justify-center" style={{ height: 100, background: '#daf1de' }}>
-              <span className="text-4xl">🎭</span>
-            </div>}
-        <div className="p-6 overflow-y-auto" style={{ maxHeight: 'calc(92dvh - 200px)' }}>
-          <div className="sm:hidden w-10 h-1 rounded-full mx-auto mb-4" style={{ background: 'rgba(22,56,50,0.15)' }} />
-          <h2 className="text-xl font-extrabold tracking-tight mb-3" style={{ color: '#051f20' }}>{evento.title}</h2>
-          <div className="flex flex-wrap gap-2 mb-4">
-            {evento.date && (
-              <span className="flex items-center gap-1.5 text-[11px] font-semibold px-3 py-1.5 rounded-full" style={{ background: '#daf1de', color: '#163832' }}>
-                📅 {evento.date}{evento.time ? ` · ${evento.time}` : ''}
-              </span>
-            )}
-            {evento.location && (
-              <span className="flex items-center gap-1.5 text-[11px] font-semibold px-3 py-1.5 rounded-full" style={{ background: 'rgba(22,56,50,0.06)', color: '#163832' }}>
-                📍 {evento.location}
-              </span>
-            )}
-          </div>
-          {evento.description && <p className="text-sm leading-relaxed mb-5" style={{ color: 'rgba(5,31,32,0.7)' }}>{evento.description}</p>}
-          <div className="flex gap-3">
-            {evento.link && (
-              <a href={evento.link} target="_blank" rel="noopener noreferrer"
-                className="flex-1 py-3 rounded-xl text-sm font-bold text-center hover:opacity-80 transition-opacity"
-                style={{ background: '#163832', color: '#daf1de' }}>
-                Ver más info
-              </a>
-            )}
-            <button onClick={onClose}
-              className="px-5 py-3 rounded-xl text-sm font-bold hover:opacity-70 transition-opacity"
-              style={{ background: 'rgba(22,56,50,0.07)', color: '#163832' }}>
-              Cerrar
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-function EventosSection() {
-  const [eventos, setEventos] = useState<Evento[]>([])
-  const [selected, setSelected] = useState<Evento | null>(null)
-
-  useEffect(() => {
-    const today = new Date().toLocaleDateString('en-CA')
-    db.from('eventos').gte('dateSortable', today).order('dateSortable', { ascending: true }).limit(50).get()
-      .then((res: any) => res.data && setEventos(res.data as any)).catch(() => {})
-  }, [])
-
-  if (eventos.length === 0) return null
-
-  return (
-    <section>
-      <div className="mb-4 flex items-center justify-between">
-        <div>
-          <p className="app-section-kicker mb-1">Agenda</p>
-          <h2 className="app-section-title text-xl">Eventos en Pergamino</h2>
-        </div>
-        <span className="flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider"
-          style={{ background: 'rgba(22,56,50,0.06)', color: 'rgba(22,56,50,0.5)', border: '1px solid rgba(22,56,50,0.08)' }}>
-          ← Deslizá
-        </span>
-      </div>
-
-      <div style={{ marginLeft: -16, marginRight: -16, paddingLeft: 16, overflowX: 'auto', WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none' }}>
-        <div style={{ display: 'inline-flex', gap: 12, paddingRight: 16 }}>
-          {eventos.map(ev => (
-            <button key={ev.id} onClick={() => setSelected(ev)}
-              className="text-left rounded-2xl overflow-hidden hover:scale-[1.02] active:scale-[0.98] transition-transform"
-              style={{ width: 200, minWidth: 200, flexShrink: 0, background: '#fff', border: '1px solid rgba(22,56,50,0.08)', boxShadow: '0 4px 16px rgba(22,56,50,0.06)' }}>
-              {ev.imageUrl
-                ? <div style={{ height: 110 }}><img src={ev.imageUrl} alt={ev.title} className="w-full h-full object-cover" /></div>
-                : <div className="w-full flex items-center justify-center" style={{ height: 80, background: '#daf1de' }}><span className="text-2xl">🎭</span></div>}
-              <div className="p-3.5">
-                <p className="text-[10px] font-bold uppercase tracking-wider mb-1" style={{ color: 'rgba(22,56,50,0.45)' }}>
-                  {ev.date}{ev.time ? ` · ${ev.time}` : ''}
-                </p>
-                <p className="font-extrabold text-sm leading-snug" style={{ color: '#051f20' }}>{ev.title}</p>
-                {ev.location && <p className="text-[11px] truncate mt-0.5" style={{ color: 'rgba(22,56,50,0.45)' }}>📍 {ev.location}</p>}
-              </div>
-            </button>
-          ))}
-        </div>
-      </div>
-      {selected && <EventoModal evento={selected} onClose={() => setSelected(null)} />}
-    </section>
-  )
-}
-
-// ─── PWA Cards ─────────────────────────────────────────────────
-
-function PwaInstallCard() {
-  const [prompt, setPrompt] = useState<any>(null)
-  const [dismissed, setDismissed] = useState(false)
-  const [standalone, setStandalone] = useState(false)
-
-  useEffect(() => {
-    setStandalone(window.matchMedia('(display-mode: standalone)').matches)
-    setDismissed(localStorage.getItem('pwa-card-dismissed') === 'true')
-    const h = (e: Event) => { e.preventDefault(); setPrompt(e) }
-    window.addEventListener('beforeinstallprompt', h)
-    return () => window.removeEventListener('beforeinstallprompt', h)
-  }, [])
-
-  if (standalone || dismissed || !prompt) return null
-
-  return (
-    <div className="app-card lg:hidden px-5 py-5 flex flex-col gap-4">
-      <div className="flex items-start gap-3">
-        <img src="/icons/icon-96.png" className="w-10 h-10 rounded-xl shrink-0" alt="" />
-        <div>
-          <p className="font-extrabold text-sm" style={{ color: '#051f20' }}>Instalá Recienllegue</p>
-          <p className="text-xs leading-relaxed mt-0.5" style={{ color: 'rgba(22,56,50,0.55)' }}>
-            Más rápido, sin abrir el browser. Funciona offline.
-          </p>
-        </div>
-      </div>
-      <div className="flex items-center gap-3">
-        <button onClick={async () => { prompt.prompt(); await prompt.userChoice; setPrompt(null) }}
-          className="px-4 py-2 rounded-xl text-xs font-bold"
-          style={{ background: '#163832', color: '#daf1de' }}>
-          Instalar
-        </button>
-        <button onClick={() => { localStorage.setItem('pwa-card-dismissed', 'true'); setDismissed(true) }}
-          className="text-xs font-medium" style={{ color: 'rgba(22,56,50,0.45)' }}>
-          Ahora no
-        </button>
-      </div>
-    </div>
-  )
-}
+// ─── PWA Install Popup ─────────────────────────────────────────
 
 function PwaInstallPopup() {
   const [show, setShow] = useState(false)
@@ -922,28 +855,28 @@ function PwaInstallPopup() {
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-6"
-      style={{ background: 'rgba(5,31,32,0.82)', backdropFilter: 'blur(10px)' }}>
+      style={{ background: 'rgba(15,23,42,0.82)', backdropFilter: 'blur(10px)' }}>
       <div className="w-full max-w-sm rounded-[32px] p-8 text-center relative overflow-hidden"
-        style={{ background: '#fff', boxShadow: '0 18px 50px rgba(22,56,50,0.22)' }}>
+        style={{ background: '#fff', boxShadow: '0 18px 50px rgba(15,23,42,0.22)' }}>
         <svg className="absolute top-0 right-0 h-32 opacity-10 pointer-events-none" viewBox="0 0 100 100">
-          <circle cx="100" cy="0" r="80" fill="none" stroke="#163832" strokeWidth="1" />
-          <circle cx="100" cy="0" r="60" fill="none" stroke="#163832" strokeWidth="1" />
+          <circle cx="100" cy="0" r="80" fill="none" stroke="#0F172A" strokeWidth="1" />
+          <circle cx="100" cy="0" r="60" fill="none" stroke="#0F172A" strokeWidth="1" />
         </svg>
         <div className="w-20 h-20 rounded-3xl mx-auto mb-6 flex items-center justify-center text-4xl shadow-lg relative z-10"
-          style={{ background: '#163832' }}>🧉</div>
-        <h2 className="text-2xl font-black mb-3 tracking-tight" style={{ color: '#051f20' }}>Instalá la App</h2>
-        <p className="text-sm leading-relaxed mb-8" style={{ color: 'rgba(5,31,32,0.58)' }}>
+          style={{ background: '#0F172A' }}>🧉</div>
+        <h2 className="text-2xl font-black mb-3 tracking-tight" style={{ color: '#0F172A' }}>Instalá la App</h2>
+        <p className="text-sm leading-relaxed mb-8" style={{ color: 'rgba(15,23,42,0.58)' }}>
           Agregá <span className="font-bold">Recienllegue</span> a tu pantalla de inicio para acceder más rápido.
         </p>
         <div className="space-y-3">
           <button onClick={async () => { prompt?.prompt(); await prompt?.userChoice; setShow(false) }}
             className="w-full py-4 rounded-2xl font-black text-sm tracking-wide transition-all active:scale-[0.98]"
-            style={{ background: '#163832', color: '#daf1de' }}>
+            style={{ background: '#0F172A', color: '#F59E0B' }}>
             INSTALAR AHORA
           </button>
           <button onClick={() => { localStorage.setItem('pwa-popup-dismissed', 'true'); setShow(false) }}
             className="w-full py-2 text-xs font-bold uppercase tracking-widest transition-opacity opacity-40 hover:opacity-100"
-            style={{ color: '#163832' }}>
+            style={{ color: '#0F172A' }}>
             Tal vez más tarde
           </button>
         </div>
@@ -952,45 +885,19 @@ function PwaInstallPopup() {
   )
 }
 
-// ─── Otros cards ───────────────────────────────────────────────
-
-function RedisenoCard() {
-  return (
-    <div className="rounded-2xl px-7 py-6 relative overflow-hidden flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5"
-      style={{ background: 'linear-gradient(135deg, #051f20 0%, #163832 60%, #1e4d44 100%)', border: '1px solid rgba(218,241,222,0.08)' }}>
-      <svg className="absolute right-0 top-0 h-full opacity-10 pointer-events-none" viewBox="0 0 300 160" aria-hidden>
-        <circle cx="260" cy="30" r="90" fill="none" stroke="#daf1de" strokeWidth="1" />
-        <circle cx="260" cy="30" r="60" fill="none" stroke="#daf1de" strokeWidth="1" />
-        <circle cx="260" cy="30" r="35" fill="none" stroke="#daf1de" strokeWidth="1" />
-      </svg>
-      <div className="relative z-10 flex items-start gap-4">
-        <span className="text-3xl select-none mt-0.5">🎨</span>
-        <div>
-          <p className="text-[10px] font-bold uppercase tracking-widest mb-1.5" style={{ color: '#a8ddb5' }}>En construcción</p>
-          <h3 className="font-extrabold text-base leading-snug mb-1.5" style={{ color: '#daf1de' }}>
-            Nos estamos rediseñando.<br />
-            <span style={{ color: '#a8ddb5' }}>Porque te lo merecés.</span>
-          </h3>
-          <p className="text-xs leading-relaxed max-w-sm" style={{ color: '#daf1de', opacity: 0.6 }}>
-            Nueva versión con más funciones, mejor diseño y todo lo que nos fuiste pidiendo.
-          </p>
-        </div>
-      </div>
-    </div>
-  )
-}
+// ─── Contact Card ──────────────────────────────────────────────
 
 function ContactCard() {
   const WA = 'https://wa.me/5491124025239?text=Hola%2C%20quiero%20sumar%20mi%20comercio%20a%20Recien%20Llegue'
   return (
     <div className="app-card px-5 py-5 sm:px-7 sm:py-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-      <p className="text-sm leading-relaxed" style={{ color: '#235347' }}>
+      <p className="text-sm leading-relaxed" style={{ color: '#1E3A5F' }}>
         ¿Tenés un comercio y querés sumarte, o encontraste un bug?{' '}
-        <span style={{ color: '#051f20', fontWeight: 700 }}>Escribinos.</span>
+        <span style={{ color: '#0F172A', fontWeight: 700 }}>Escribinos.</span>
       </p>
       <a href={WA} target="_blank" rel="noopener noreferrer"
         className="shrink-0 flex items-center gap-2 px-5 py-2.5 rounded-xl text-[11px] font-bold uppercase tracking-wider transition-all hover:scale-[1.02] active:scale-[0.98]"
-        style={{ background: '#163832', color: '#daf1de' }}>
+        style={{ background: '#0F172A', color: '#F59E0B' }}>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
           <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
         </svg>
@@ -1005,12 +912,12 @@ function ContactCard() {
 export default function InicioPage() {
   const { user, isLoggedIn } = useUser()
   const isAdmin = user?.role === 'admin'
-  const { status: geoStatus, hasAsked, requestPermission } = useGeolocation()
+  const { hasAsked, requestPermission } = useGeolocation()
   const [showGeoPopup, setShowGeoPopup] = useState(false)
   const [geoLoading, setGeoLoading] = useState(false)
   const [missingProfileFields, setMissingProfileFields] = useState<string[]>([])
 
-  // Mostrar popup de geo 3s después del mount, solo si no se vio antes
+  // Mostrar popup de geo 3s después del mount
   useEffect(() => {
     if (!isLoggedIn) return
     const timer = setTimeout(() => {
@@ -1051,7 +958,7 @@ export default function InicioPage() {
   }
 
   return (
-    <div className="pb-24 lg:pb-12 lg:px-8 max-w-6xl mx-auto">
+    <div className="pb-24 lg:pb-12 max-w-6xl mx-auto lg:px-0">
       <PwaInstallPopup />
       {showGeoPopup && (
         <GeoPermissionPopup
@@ -1061,34 +968,110 @@ export default function InicioPage() {
         />
       )}
 
-      {/* Top nav desktop */}
-      <div className="px-4 sm:px-5 lg:px-0 pt-5 lg:pt-8">
-        <AppSectionNav />
-      </div>
-
-      {/* Hero + aside */}
-      <div className="lg:mt-6 lg:grid lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-4 lg:items-start">
-        <div
-          className="lg:rounded-[32px] lg:overflow-hidden lg:shadow-2xl lg:shadow-[rgba(22,56,50,0.15)]"
-          style={{ background: '#163832' }}
-        >
-          <HeroCarousel username={user?.name || null} />
+      {/* Mobile: greeting + quick actions en la misma sección */}
+      <div className="lg:hidden px-4 sm:px-5 pt-5 pb-0">
+        {/* Fila saludo + avatar */}
+        <div className="flex items-center justify-between mb-5">
+          <div>
+            <p className="text-xs font-medium" style={{ color: 'rgba(15,23,42,0.45)' }}>Buen día</p>
+            <h1 className="font-black tracking-tight leading-none mt-0.5" style={{ fontFamily: 'var(--font-head)', fontSize: 'clamp(1.5rem, 6vw, 1.75rem)', color: '#0F172A' }}>
+              {user?.name?.split(' ')[0] ?? 'Bienvenido'} 👋
+            </h1>
+            <div className="flex items-center gap-1.5 mt-1.5">
+              <MapPin size={11} style={{ color: 'rgba(15,23,42,0.4)' }} />
+              <span className="text-[11px] font-medium" style={{ color: 'rgba(15,23,42,0.4)' }}>Pergamino, Buenos Aires</span>
+            </div>
+          </div>
+          <div style={{
+            width: 42, height: 42, borderRadius: '50%', flexShrink: 0,
+            background: user?.name
+              ? `hsl(${[...(user.name)].reduce((a,c)=>a+c.charCodeAt(0),0) % 360},42%,56%)`
+              : '#E2E8F0',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            fontSize: 15, fontWeight: 700, color: '#fff', fontFamily: 'var(--font-head)',
+          }}>
+            {user?.name?.split(' ').map((w:string)=>w[0]).join('').slice(0,2).toUpperCase() ?? '?'}
+          </div>
         </div>
-        <HomeDesktopAside username={user?.name || null} isAdmin={isAdmin} />
+
+        {/* Quick actions — alineados al ancho del saludo */}
+        <div style={{ display: 'flex', gap: 10, overflowX: 'auto', paddingBottom: 2, scrollbarWidth: 'none' }}>
+          {QUICK_ACTIONS.map((item) => (
+            <a
+              key={item.href}
+              href={item.href}
+              style={{
+                display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 7,
+                padding: '14px 16px', borderRadius: 16,
+                border: '1px solid rgba(15,23,42,0.09)',
+                background: '#fff', minWidth: 76, flexShrink: 0,
+                textDecoration: 'none', transition: 'transform 0.15s',
+              }}
+              onMouseEnter={e => (e.currentTarget.style.transform = 'scale(1.06)')}
+              onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')}
+            >
+              <div style={{ width: 40, height: 40, borderRadius: 12, background: item.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', color: item.color }}>
+                <item.Icon size={19} />
+              </div>
+              <span style={{ fontFamily: 'var(--font-head)', fontSize: 10.5, fontWeight: 700, color: '#0F172A', textAlign: 'center', lineHeight: 1.2 }}>{item.label}</span>
+            </a>
+          ))}
+        </div>
       </div>
 
-      {/* Content */}
-      <div className="px-4 sm:px-5 mt-8 sm:mt-10 space-y-10 sm:space-y-12">
-        <PwaInstallCard />
-        {isLoggedIn && missingProfileFields.length > 0 && (
+      {/* Desktop header row: greeting + quick actions */}
+      <div className="hidden lg:flex items-end justify-between px-8 pt-8 mb-6">
+        <div>
+          <p className="text-sm font-medium" style={{ color: 'rgba(15,23,42,0.45)' }}>Buen día</p>
+          <h1 className="text-3xl font-black tracking-tight" style={{ fontFamily: 'var(--font-head)', color: '#0F172A' }}>
+            {user?.name?.split(' ')[0] ?? 'Bienvenido'} 👋
+          </h1>
+        </div>
+        <div style={{ display: 'flex', gap: 10 }}>
+          {QUICK_ACTIONS.map((item) => (
+            <a
+              key={item.href}
+              href={item.href}
+              style={{
+                display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 7,
+                padding: '14px 18px', borderRadius: 16,
+                border: '1px solid rgba(15,23,42,0.09)',
+                background: '#fff', minWidth: 80,
+                textDecoration: 'none', transition: 'transform 0.15s, box-shadow 0.15s',
+              }}
+              onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.05)'; e.currentTarget.style.boxShadow = '0 4px 16px rgba(15,23,42,0.1)' }}
+              onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; e.currentTarget.style.boxShadow = 'none' }}
+            >
+              <div style={{ width: 42, height: 42, borderRadius: 13, background: item.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', color: item.color }}>
+                <item.Icon size={20} />
+              </div>
+              <span style={{ fontFamily: 'var(--font-head)', fontSize: 11, fontWeight: 700, color: '#0F172A', textAlign: 'center', lineHeight: 1.2 }}>{item.label}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      {/* Profile complete card */}
+      {isLoggedIn && missingProfileFields.length > 0 && (
+        <div className="px-4 sm:px-5 lg:px-8 mt-4">
           <ProfileCompleteCard missingFields={missingProfileFields} />
-        )}
-        <OnboardingSection />
-        <EventosSection />
-        <ComerciosDestacados />
-        <RemisesSection />
-        <RedisenoCard />
-        <ContactCard />
+        </div>
+      )}
+
+      {/* Main content */}
+      <div className="lg:grid lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:gap-6 lg:items-start mt-6 px-4 sm:px-5 lg:px-8">
+        {/* Left col */}
+        <div className="space-y-8">
+          <HospedajesSection />
+          {/* Muro preview on mobile */}
+          <div className="lg:hidden">
+            <MuroPreview />
+          </div>
+          <ContactCard />
+        </div>
+
+        {/* Right col desktop: aside with muro */}
+        <HomeDesktopAside username={user?.name || null} isAdmin={isAdmin} />
       </div>
     </div>
   )

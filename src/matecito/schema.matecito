@@ -16,6 +16,51 @@ collection usuarios (auth) {
   }
 }
 
+collection hospedajes (base) {
+  name           text @required
+  type           text
+  address        text
+  price          text
+  priceMax       text
+  capacity       text
+  phone          text
+  description    text
+  isVerified     boolean
+  amenities      json
+  images         json
+  latitude       number
+  longitude      number
+
+  @rules {
+    list   : public
+    view   : public
+    create : auth
+    update : auth
+    delete : auth
+  }
+}
+
+collection hero_messages (base) {
+  kicker     text
+  title      text @required
+  body       text
+  ctaLabel   text
+  ctaHref    text
+  badgeLabel text
+  badgeColor text
+  svgTheme   text
+  active     boolean
+  sortOrder  number
+
+  @rules {
+    list   : public
+    view   : public
+    create : auth
+    update : auth
+    delete : auth
+  }
+}
+
 collection comercios (base) {
   name           text @required
   category       text
@@ -31,7 +76,7 @@ collection comercios (base) {
   distanceMeters number
   walkTime       text
   isFeatured     bool
-  isVerified     bool
+  isVerified     boolean
 
   @rules {
     list   : public

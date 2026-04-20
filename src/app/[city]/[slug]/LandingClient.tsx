@@ -11,17 +11,18 @@ import {
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import PageTracker from '@/components/PageTracker';
+import HeroParticles from '@/components/HeroParticles';
 import type { ServiceCategory, CityData, ServiceBase } from '@/data/seo-data';
 import type { FeaturedBusiness } from '@/lib/featured';
 
 // --- Palette (white premium) ---
 const C = {
-   bg: '#f8faf8',
+   bg: '#F1F5F9',
    surface: '#ffffff',
-   text: '#051f20',
-   primary: '#163832',
-   secondary: '#235347',
-   mint: '#daf1de',
+   text: '#0F172A',
+   primary: '#0F172A',
+   secondary: '#1E3A5F',
+   mint: '#E2E8F0',
    muted: 'rgba(5, 31, 32, 0.4)',
    border: 'rgba(22, 56, 50, 0.08)',
 };
@@ -37,7 +38,7 @@ const CATEGORY_CTA: Record<ServiceCategory, { label: string; verb: string; icon:
    comercio: { label: 'Ver opciones', verb: 'Ver', icon: <ShoppingBag size={16} /> },
 };
 
-const DEFAULT_CTA = { label: 'Abrir Recien Llegue', verb: 'Abrir', icon: <ExternalLink size={16} /> };
+const DEFAULT_CTA = { label: 'Abrir Recién Llegué', verb: 'Abrir', icon: <ExternalLink size={16} /> };
 
 const APP_HREF = '/registro';
 const REGISTER_HREF = '/registro';
@@ -101,7 +102,7 @@ function CtaButton({
       <a
          href={APP_HREF}
          className={`group inline-flex items-center gap-2 rounded-xl font-bold transition-all hover:scale-[1.02] hover:shadow-lg ${pad} ${full ? 'w-full justify-center' : ''}`}
-         style={{ background: C.primary, color: '#fff' }}
+         style={{ background: '#F59E0B', color: C.primary }}
       >
          {meta.icon}
          {meta.label}
@@ -144,7 +145,7 @@ function StickyCta({
                   {serviceTitle.split(' en ')[0]} &middot; {cityName}
                </p>
                <p className="text-xs font-bold" style={{ color: C.text }}>
-                  Encontra todo en Recien Llegue
+                  Encontrá todo en Recién Llegué
                </p>
             </div>
             <CtaButton category={category} citySlug={citySlug} serviceSlug={serviceSlug} size="sm" />
@@ -162,7 +163,7 @@ function RelatedCard({ slug, service, citySlug }: { slug: string; service: any; 
          style={{ background: C.surface, border: `1px solid ${C.border}` }}
       >
          <div>
-            <p className="text-sm font-bold tracking-tight group-hover:text-[#235347] transition-colors" style={{ color: C.text }}>
+            <p className="text-sm font-bold tracking-tight group-hover:text-[#1E3A5F] transition-colors" style={{ color: C.text }}>
                {(service.title || '').split(' en ')[0]}
             </p>
             {service.priceRange && (
@@ -289,12 +290,12 @@ export default function LandingClient({
                         <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-[10px] font-semibold uppercase tracking-wider"
                            style={{ background: C.mint, color: C.primary }}>
                            <Zap size={9} className="fill-current" />
-                           Guia Local &middot; {city.institution} &middot; {city.name}
+                           Guía Local &middot; {city.institution} &middot; {city.name}
                         </span>
                         {service.urgency === 'alta' && (
                            <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-[10px] font-semibold uppercase tracking-wider"
                               style={{ background: 'rgba(35,83,71,0.08)', color: C.secondary }}>
-                              Mas buscado
+                              Más buscado
                            </span>
                         )}
                      </div>
@@ -322,7 +323,7 @@ export default function LandingClient({
                      className="text-base md:text-lg leading-relaxed max-w-2xl mb-10"
                      style={{ color: C.muted }}
                   >
-                     {service.intro} Encontra opciones verificadas en {city.name} con precios actualizados 2026.
+                     {service.intro} Encontrá opciones verificadas en {city.name} con precios actualizados 2026.
                   </motion.p>
 
                   {/* CTA hero */}
@@ -376,7 +377,7 @@ export default function LandingClient({
                            Datos clave &middot; {city.name}
                         </p>
                         <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight" style={{ color: C.text }}>
-                           Lo que necesitas saber
+                           Lo que necesitás saber
                         </h2>
                      </div>
 
@@ -385,7 +386,7 @@ export default function LandingClient({
                            { label: 'Barrio principal', value: city.details.barrios[0] },
                            { label: 'Precio promedio', value: city.details.precioPromedio },
                            { label: 'Universidad', value: city.institution },
-                           { label: 'Zona mas buscada', value: city.details.zonasClave?.[0] || city.details.barrios[1] },
+                           { label: 'Zona más buscada', value: city.details.zonasClave?.[0] || city.details.barrios[1] },
                         ].map((row, i) => (
                            <div key={i} className="flex justify-between items-center py-4 gap-4"
                               style={{ borderBottom: `1px solid ${C.border}` }}>
@@ -453,10 +454,10 @@ export default function LandingClient({
                   <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
                      <div>
                         <p className="text-[10px] font-semibold uppercase tracking-wider mb-3" style={{ color: C.muted }}>
-                           Recien Llegue &middot; Tu app
+                           Recién Llegué · Tu app
                         </p>
                         <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight" style={{ color: C.text }}>
-                           Como te
+                           Cómo te
                            <br />
                            <span style={{ color: C.secondary }}>ayudamos</span>
                         </h2>
@@ -466,10 +467,10 @@ export default function LandingClient({
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                      {[
-                        { step: '01', title: 'Buscas', desc: `Ingresás que necesitas -- en este caso, ${(service.title || '').split(' en ')[0].toLowerCase()}.` },
-                        { step: '02', title: 'Filtras', desc: `Elegis zona, presupuesto y preferencias. Solo ves lo que aplica a vos.` },
-                        { step: '03', title: 'Contactas', desc: 'Te conectamos directo con el proveedor. Sin intermediarios.' },
-                        { step: '04', title: 'Llegas', desc: `Te instalas en ${city.name} con todo resuelto desde el dia uno.` },
+                        { step: '01', title: 'Buscás', desc: `Ingresás qué necesitás — en este caso, ${(service.title || '').split(' en ')[0].toLowerCase()}.` },
+                        { step: '02', title: 'Filtrás', desc: `Elegís zona, presupuesto y preferencias. Solo ves lo que aplica a vos.` },
+                        { step: '03', title: 'Contactás', desc: 'Te conectamos directo con el proveedor. Sin intermediarios.' },
+                        { step: '04', title: 'Llegás', desc: `Te instalás en ${city.name} con todo resuelto desde el día uno.` },
                      ].map(({ step, title, desc }, i) => (
                         <motion.div
                            key={step}
@@ -520,7 +521,7 @@ export default function LandingClient({
                   <div className="max-w-3xl mx-auto">
                      <div
                         className="rounded-2xl p-7 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6"
-                        style={{ background: C.mint, border: `1px solid rgba(22,56,50,0.12)` }}
+                        style={{ background: C.mint, border: `1px solid rgba(15,23,42,0.12)` }}
                      >
                         <div className="space-y-2">
                            <span className="text-[9px] font-bold uppercase tracking-widest" style={{ color: C.secondary }}>
@@ -552,7 +553,7 @@ export default function LandingClient({
                            <a
                               href={APP_HREF}
                               className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-bold text-xs transition-all"
-                              style={{ background: 'white', color: C.primary, border: `1px solid rgba(22,56,50,0.15)` }}
+                              style={{ background: 'white', color: C.primary, border: `1px solid rgba(15,23,42,0.15)` }}
                            >
                               Ver más en la app
                            </a>
@@ -573,7 +574,7 @@ export default function LandingClient({
                         <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight" style={{ color: C.text }}>
                            Todo lo que
                            <br />
-                           <span style={{ color: C.secondary }}>queres saber</span>
+                           <span style={{ color: C.secondary }}>querés saber</span>
                         </h2>
                      </div>
                      <span className="text-[10px] font-medium uppercase tracking-wider" style={{ color: C.muted }}>
@@ -594,10 +595,10 @@ export default function LandingClient({
                   >
                      <div>
                         <p className="text-base font-bold tracking-tight" style={{ color: C.text }}>
-                           Todavia tenes dudas?
+                           ¿Todavía tenés dudas?
                         </p>
                         <p className="text-xs font-medium mt-1" style={{ color: C.muted }}>
-                           En la app podes chatear con otros estudiantes de {city.name}.
+                           En la app podés chatear con otros estudiantes de {city.name}.
                         </p>
                      </div>
                      <CtaButton category={category} citySlug={citySlug} serviceSlug={serviceSlug} size="sm" />
@@ -611,7 +612,7 @@ export default function LandingClient({
                   <div className="max-w-7xl mx-auto">
                      <div className="flex items-end justify-between gap-4 mb-10">
                         <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight" style={{ color: C.text }}>
-                           Mas en <span style={{ color: C.secondary }}>{city.name}</span>
+                           Más en <span style={{ color: C.secondary }}>{city.name}</span>
                         </h2>
                         <a href={`/${citySlug}`}
                            className="text-xs font-semibold hover:opacity-70 transition-opacity flex items-center gap-1"
@@ -636,47 +637,45 @@ export default function LandingClient({
                      initial={{ opacity: 0, y: 30 }}
                      whileInView={{ opacity: 1, y: 0 }}
                      viewport={{ once: true }}
-                     className="rounded-3xl p-10 md:p-14 flex flex-col md:flex-row items-center justify-between gap-10 relative overflow-hidden"
+                     className="rounded-3xl overflow-hidden relative"
                      style={{ background: C.primary }}
                   >
-                     <div className="space-y-3 max-w-md" style={{ color: '#fff' }}>
-                        <span className="inline-block text-[10px] font-semibold uppercase tracking-wider px-3 py-1 rounded-full"
-                           style={{ background: 'rgba(255,255,255,0.08)' }}>
-                           Recien Llegue &middot; {city.name} 2026
-                        </span>
-                        <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight leading-snug">
-                           Deja de googlear.
-                           <br />
-                           <span style={{ color: C.mint }}>Encontra {(service.title || '').split(' en ')[0].toLowerCase()}</span>
-                           <br />
-                           en un solo lugar.
-                        </h2>
-                        <p className="text-xs" style={{ opacity: 0.5 }}>
-                           Gratis para estudiantes de {city.institution}.
-                        </p>
-                     </div>
+                     <HeroParticles />
+                     <div className="relative z-10 p-10 md:p-14 flex flex-col md:flex-row items-center justify-between gap-10">
+                        <div className="space-y-3 max-w-md">
+                           <span className="inline-block text-[10px] font-semibold uppercase tracking-wider px-3 py-1.5 rounded-full"
+                              style={{ background: 'rgba(226,232,240,0.12)', color: C.mint, border: '1px solid rgba(226,232,240,0.18)' }}>
+                              Recién Llegué · {city.name} 2026
+                           </span>
+                           <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight leading-snug" style={{ color: C.mint }}>
+                              Dejá de googlear.
+                              <br />
+                              <span style={{ color: '#fff' }}>Encontrá {(service.title || '').split(' en ')[0].toLowerCase()}</span>
+                              <br />
+                              en un solo lugar.
+                           </h2>
+                           <p className="text-sm" style={{ color: 'rgba(226,232,240,0.5)' }}>
+                              Gratis para estudiantes de {city.institution}.
+                           </p>
+                        </div>
 
-                     <div className="flex flex-col gap-3 shrink-0 w-full md:w-auto">
-                        <a
-                           href={APP_HREF}
-                           className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-bold text-sm transition-all hover:scale-[1.02]"
-                           style={{ background: C.mint, color: C.primary }}
-                        >
-                           Registrate gratis <ArrowRight size={16} />
-                        </a>
-                        <a
-                           href="/login"
-                           className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-bold text-xs transition-all"
-                           style={{ color: '#fff', border: '1px solid rgba(255,255,255,0.15)' }}
-                           onMouseEnter={(e: React.MouseEvent<HTMLAnchorElement>) => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)')}
-                           onMouseLeave={(e: React.MouseEvent<HTMLAnchorElement>) => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.15)')}
-                        >
-                           Ya tengo cuenta
-                        </a>
+                        <div className="flex flex-col gap-3 shrink-0 w-full md:w-auto">
+                           <a
+                              href={APP_HREF}
+                              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-bold text-sm transition-all hover:scale-[1.02]"
+                              style={{ background: '#F59E0B', color: C.primary }}
+                           >
+                              Registrate gratis <ArrowRight size={16} />
+                           </a>
+                           <a
+                              href="/login"
+                              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-bold text-xs transition-all"
+                              style={{ color: C.mint, border: '1px solid rgba(226,232,240,0.22)' }}
+                           >
+                              Ya tengo cuenta
+                           </a>
+                        </div>
                      </div>
-
-                     <div className="absolute -bottom-16 -right-16 w-72 h-72 rounded-full pointer-events-none"
-                        style={{ background: `radial-gradient(circle, ${C.secondary} 0%, transparent 70%)`, opacity: 0.2, filter: 'blur(40px)' }} />
                   </motion.div>
                </div>
             </section>

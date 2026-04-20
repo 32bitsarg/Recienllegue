@@ -14,7 +14,6 @@ import {
   X,
 } from 'lucide-react'
 import { publicDb as db } from '@/lib/db'
-import AppSectionNav from '@/components/AppSectionNav'
 import HeroParticles from '@/components/HeroParticles'
 import GeoPermissionBanner from '@/components/GeoPermissionBanner'
 import { useGeolocation } from '@/hooks/useGeolocation'
@@ -95,7 +94,7 @@ function Stars({ rating }: { rating: number }) {
           key={i}
           size={10}
           fill={i <= full ? 'var(--accent)' : 'none'}
-          stroke={i <= full ? 'var(--accent)' : 'rgba(22,56,50,0.25)'}
+          stroke={i <= full ? 'var(--accent)' : 'rgba(15,23,42,0.25)'}
           strokeWidth={1.5}
         />
       ))}
@@ -106,12 +105,12 @@ function Stars({ rating }: { rating: number }) {
 function SkeletonCard() {
   return (
     <div className="app-card overflow-hidden animate-pulse">
-      <div className="h-20 w-full" style={{ background: '#eef6f0' }} />
+      <div className="h-20 w-full" style={{ background: '#E2E8F0' }} />
       <div className="p-4 space-y-3">
-        <div className="h-3 w-1/3 rounded-full" style={{ background: 'rgba(22,56,50,0.06)' }} />
-        <div className="h-4 w-3/4 rounded-full" style={{ background: 'rgba(22,56,50,0.06)' }} />
-        <div className="h-3 w-1/2 rounded-full" style={{ background: 'rgba(22,56,50,0.06)' }} />
-        <div className="h-10 w-full rounded-2xl" style={{ background: '#eef6f0' }} />
+        <div className="h-3 w-1/3 rounded-full" style={{ background: 'rgba(15,23,42,0.06)' }} />
+        <div className="h-4 w-3/4 rounded-full" style={{ background: 'rgba(15,23,42,0.06)' }} />
+        <div className="h-3 w-1/2 rounded-full" style={{ background: 'rgba(15,23,42,0.06)' }} />
+        <div className="h-10 w-full rounded-2xl" style={{ background: '#E2E8F0' }} />
       </div>
     </div>
   )
@@ -138,14 +137,14 @@ function ComercioCard({ comercio, getDistanceKm }: { comercio: Comercio; getDist
     <article className="app-card overflow-hidden flex flex-col h-full">
       <div
         className="relative flex items-center justify-center h-20 shrink-0"
-        style={{ background: 'linear-gradient(135deg, rgba(22,56,50,0.08), rgba(22,56,50,0.02))' }}
+        style={{ background: 'linear-gradient(135deg, rgba(15,23,42,0.08), rgba(15,23,42,0.02))' }}
       >
         <span className="text-4xl select-none">{emoji}</span>
 
         {comercio.isFeatured && (
           <span
             className="absolute top-3 right-3 text-[9px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full"
-            style={{ background: 'var(--accent-contrast)', color: 'var(--accent)' }}
+            style={{ background: '#F59E0B', color: '#0F172A' }}
           >
             Destacado
           </span>
@@ -205,7 +204,7 @@ function ComercioCard({ comercio, getDistanceKm }: { comercio: Comercio; getDist
             <a
               href={`tel:${comercio.phone.replace(/\s/g, '')}`}
               className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl text-[11px] font-bold transition-all hover:opacity-90"
-              style={{ background: 'var(--accent)', color: 'var(--accent-contrast)' }}
+              style={{ background: 'rgba(15,23,42,0.06)', color: '#1E3A5F' }}
             >
               <Phone size={12} /> Llamar
             </a>
@@ -258,7 +257,7 @@ function Paginator({ pagination, onChange }: { pagination: Pagination; onChange:
       className="w-10 h-10 rounded-2xl flex items-center justify-center text-xs font-bold transition-all"
       style={{
         background: active ? 'var(--accent)' : 'transparent',
-        color: active ? 'var(--accent-contrast)' : disabled ? 'rgba(22,56,50,0.2)' : 'var(--accent)',
+        color: active ? 'var(--accent-contrast)' : disabled ? 'rgba(15,23,42,0.2)' : 'var(--accent)',
         border: `1px solid ${active ? 'transparent' : 'var(--border-subtle)'}`,
         cursor: disabled ? 'not-allowed' : 'pointer',
       }}
@@ -407,7 +406,6 @@ function ComerciosContent() {
 
   return (
     <div ref={topRef} className="max-w-6xl mx-auto px-4 lg:px-8 py-6 sm:py-8 space-y-6 sm:space-y-7">
-      <AppSectionNav />
       {showGeoBanner && (
         <GeoPermissionBanner
           onAllow={handleGeoAllow}
@@ -419,17 +417,17 @@ function ComerciosContent() {
       <section className="space-y-4">
         <div
           className="rounded-[28px] p-5 sm:p-7 overflow-hidden relative"
-          style={{ background: '#163832' }}
+          style={{ background: '#0F172A' }}
         >
           <HeroParticles />
           <div className="relative z-10 max-w-2xl">
-            <p className="text-[10px] font-bold uppercase tracking-[0.18em] mb-2" style={{ color: '#a8ddb5' }}>
+            <p className="text-[10px] font-bold uppercase tracking-[0.18em] mb-2" style={{ color: '#CBD5E1' }}>
               Moverse por Pergamino
             </p>
-            <h1 className="text-3xl sm:text-4xl font-black tracking-tight mb-2" style={{ color: '#daf1de' }}>
+            <h1 className="text-3xl sm:text-4xl font-black tracking-tight mb-2" style={{ color: '#E2E8F0' }}>
               Comercios para resolver el día a día
             </h1>
-            <p className="text-sm sm:text-base leading-relaxed" style={{ color: '#b8e4bf' }}>
+            <p className="text-sm sm:text-base leading-relaxed" style={{ color: '#94A3B8' }}>
               Restaurantes, cafés, kioscos y servicios útiles cerca de la zona universitaria y del centro.
             </p>
             <div className="flex flex-wrap gap-2 mt-5">
@@ -437,7 +435,7 @@ function ComerciosContent() {
                 <span
                   key={label}
                   className="px-3 py-1.5 rounded-full text-[11px] font-bold"
-                  style={{ background: 'rgba(218,241,222,0.12)', color: '#daf1de', border: '1px solid rgba(218,241,222,0.18)' }}
+                  style={{ background: 'rgba(226,232,240,0.12)', color: '#E2E8F0', border: '1px solid rgba(226,232,240,0.18)' }}
                 >
                   {label}
                 </span>
@@ -447,15 +445,15 @@ function ComerciosContent() {
         </div>
 
         <div className="app-card p-4 sm:p-5 grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
-          <div className="rounded-2xl p-3" style={{ background: '#eef6f0' }}>
+          <div className="rounded-2xl p-3" style={{ background: '#E2E8F0' }}>
             <p className="text-xl font-black leading-none" style={{ color: 'var(--accent)' }}>{allComercios.length}</p>
             <p className="text-[10px] mt-1" style={{ color: 'var(--text-muted)' }}>lugares relevados</p>
           </div>
-          <div className="rounded-2xl p-3" style={{ background: '#eef6f0' }}>
+          <div className="rounded-2xl p-3" style={{ background: '#E2E8F0' }}>
             <p className="text-xl font-black leading-none" style={{ color: 'var(--accent)' }}>{featuredCount}</p>
             <p className="text-[10px] mt-1" style={{ color: 'var(--text-muted)' }}>destacados</p>
           </div>
-          <div className="rounded-2xl p-3" style={{ background: '#eef6f0' }}>
+          <div className="rounded-2xl p-3" style={{ background: '#E2E8F0' }}>
             <p className="text-xl font-black leading-none" style={{ color: 'var(--accent)' }}>{ratedCount}</p>
             <p className="text-[10px] mt-1" style={{ color: 'var(--text-muted)' }}>con calificación</p>
           </div>
@@ -537,9 +535,10 @@ function ComerciosContent() {
                 onClick={() => setCategory(item.value)}
                 className="shrink-0 px-4 py-2 rounded-full text-[11px] font-bold uppercase tracking-wider transition-all"
                 style={{
-                  background: active ? 'var(--accent)' : 'var(--surface)',
-                  color: active ? 'var(--accent-contrast)' : 'var(--accent)',
-                  border: `1px solid ${active ? 'transparent' : 'var(--border-subtle)'}`,
+                  background: active ? '#0F172A' : '#fff',
+                  color: active ? '#E2E8F0' : 'rgba(15,23,42,0.45)',
+                  outline: `1px solid ${active ? '#0F172A' : 'rgba(15,23,42,0.09)'}`,
+                  border: 'none',
                 }}
               >
                 {item.label}

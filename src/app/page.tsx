@@ -18,14 +18,14 @@ const LOGIN = '/login'
 const APP = '/app/inicio'
 
 const C = {
-  bg: '#f8faf8',
+  bg: '#F1F5F9',
   surface: '#ffffff',
-  text: '#051f20',
-  primary: '#163832',
-  secondary: '#235347',
-  mint: '#daf1de',
-  muted: 'rgba(5,31,32,0.42)',
-  border: 'rgba(22,56,50,0.10)',
+  text: '#0F172A',
+  primary: '#0F172A',
+  secondary: '#1E3A5F',
+  mint: '#E2E8F0',
+  muted: 'rgba(15,23,42,0.42)',
+  border: 'rgba(15,23,42,0.10)',
 }
 
 // ── CountUp ──────────────────────────────────────────────────
@@ -57,7 +57,7 @@ function FeatureCard({ icon, title, desc, delay = 0 }: {
       viewport={{ once: true }}
       transition={{ delay, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       className="rounded-2xl p-7 flex flex-col gap-4"
-      style={{ background: C.surface, border: `1px solid ${C.border}`, boxShadow: '0 2px 16px rgba(22,56,50,0.06)' }}
+      style={{ background: C.surface, border: `1px solid ${C.border}`, boxShadow: '0 2px 16px rgba(15,23,42,0.06)' }}
     >
       <div className="w-11 h-11 rounded-2xl flex items-center justify-center shrink-0"
         style={{ background: C.mint, color: C.primary }}>
@@ -105,7 +105,7 @@ function Testimonial({ quote, name, career, delay = 0 }: {
       viewport={{ once: true }}
       transition={{ delay, duration: 0.5 }}
       className="rounded-2xl p-7 flex flex-col gap-5"
-      style={{ background: C.surface, border: `1px solid ${C.border}`, boxShadow: '0 2px 16px rgba(22,56,50,0.06)' }}
+      style={{ background: C.surface, border: `1px solid ${C.border}`, boxShadow: '0 2px 16px rgba(15,23,42,0.06)' }}
     >
       <div className="flex gap-0.5">
         {[...Array(5)].map((_, i) => (
@@ -172,13 +172,13 @@ function NewsletterSection() {
           <HeroParticles />
           <div className="relative z-10">
             <div className="w-12 h-12 rounded-2xl flex items-center justify-center mx-auto mb-6"
-              style={{ background: 'rgba(218,241,222,0.15)', color: C.mint }}>
+              style={{ background: 'rgba(226,232,240,0.15)', color: C.mint }}>
               <Mail size={20} />
             </div>
             <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight mb-3" style={{ color: C.mint }}>
               Próximamente en tu ciudad
             </h2>
-            <p className="text-sm leading-relaxed mb-8 max-w-md mx-auto" style={{ color: '#b8e4bf' }}>
+            <p className="text-sm leading-relaxed mb-8 max-w-md mx-auto" style={{ color: '#94A3B8' }}>
               Estamos llegando a Junín, Zárate, Chivilcoy y más ciudades. Dejanos tu email y te avisamos cuando Recién Llegué esté disponible donde estudiás.
             </p>
             {submitted ? (
@@ -204,7 +204,7 @@ function NewsletterSection() {
                   placeholder="tu@email.com"
                   required
                   className="flex-1 px-5 py-3 rounded-xl text-sm font-medium outline-none"
-                  style={{ background: 'rgba(255,255,255,0.1)', color: C.mint, border: '1px solid rgba(218,241,222,0.2)' }}
+                  style={{ background: 'rgba(255,255,255,0.1)', color: C.mint, border: '1px solid rgba(226,232,240,0.2)' }}
                 />
                 <button
                   type="submit"
@@ -215,7 +215,7 @@ function NewsletterSection() {
                 </button>
               </form>
             )}
-            <p className="text-[11px] mt-6" style={{ color: 'rgba(218,241,222,0.4)' }}>
+            <p className="text-[11px] mt-6" style={{ color: 'rgba(226,232,240,0.4)' }}>
               Sin spam — solo te escribimos cuando estemos en tu ciudad.
             </p>
           </div>
@@ -249,67 +249,140 @@ export default function GlobalHomePage() {
           {/* ══ HERO ══════════════════════════════════════ */}
           <section className="relative pt-0" style={{ background: C.primary, overflow: 'hidden' }}>
             <HeroParticles />
-            <div className="relative z-10 max-w-5xl mx-auto px-6 pt-40 pb-24 text-center space-y-7">
-              <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.4 }}>
-                <img src="/logo.svg" alt="Recién Llegué" className="h-14 w-auto mx-auto mb-4" style={{ filter: 'invert(1)' }} />
-              </motion.div>
 
+            {/* Mobile hero — centered */}
+            <div className="relative z-10 lg:hidden max-w-xl mx-auto px-6 pt-36 pb-20 text-center space-y-6">
               <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.05 }}>
                 <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider"
-                  style={{ background: 'rgba(218,241,222,0.14)', color: C.mint, border: '1px solid rgba(218,241,222,0.22)' }}>
+                  style={{ background: 'rgba(226,232,240,0.14)', color: C.mint, border: '1px solid rgba(226,232,240,0.22)' }}>
                   <Zap size={10} className="fill-current" /> Disponible en Pergamino
                 </span>
               </motion.div>
-
               <motion.h1
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
                 className="font-black tracking-tight leading-[1.06]"
-                style={{ fontSize: 'clamp(2.8rem, 8vw, 5.2rem)', color: C.mint }}
+                style={{ fontSize: 'clamp(2.6rem, 11vw, 3.4rem)', color: C.mint }}
               >
-                Tu guía para<br />
-                <span style={{ color: '#fff' }}>llegar</span> y <span style={{ color: '#fff' }}>quedarte</span>
-                <span style={{ color: 'rgba(218,241,222,0.4)' }}>.</span>
+                Tu guía para llegar<br />
+                <span style={{ color: '#fff' }}>y quedarte</span>
+                <span style={{ color: 'rgba(226,232,240,0.4)' }}>.</span>
               </motion.h1>
-
               <motion.p
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="text-base md:text-lg leading-relaxed max-w-2xl mx-auto"
-                style={{ color: '#b8e4bf' }}
+                className="text-sm leading-relaxed"
+                style={{ color: '#94A3B8' }}
               >
-                Recién Llegué reúne todo lo que necesitás para instalarte como estudiante universitario: alojamiento verificado, transporte, servicios y comunidad.
+                Alojamiento, transporte, servicios y comunidad — todo verificado, en un solo lugar, gratis.
               </motion.p>
-
               <motion.div
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
-                className="flex flex-wrap gap-3 justify-center pt-1"
+                className="flex flex-col gap-3"
               >
                 <a href={SIGNUP}
-                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl font-bold text-sm transition-all hover:scale-[1.03] hover:shadow-lg"
+                  className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl font-bold text-sm transition-all hover:scale-[1.02]"
                   style={{ background: C.mint, color: C.primary }}>
                   Crear cuenta gratis <ArrowRight size={15} />
                 </a>
-                <a href="/pergamino"
-                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl font-bold text-sm transition-all hover:opacity-80"
-                  style={{ color: C.mint, border: '1px solid rgba(218,241,222,0.25)', background: 'rgba(218,241,222,0.08)' }}>
-                  Explorar Pergamino
+                <a href="/login"
+                  className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl font-bold text-sm transition-all hover:opacity-80"
+                  style={{ color: C.mint, border: '1px solid rgba(226,232,240,0.25)', background: 'rgba(226,232,240,0.08)' }}>
+                  Ingresar
                 </a>
               </motion.div>
-
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.55 }}
+              <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.55 }}
                 className="text-[11px] font-medium uppercase tracking-widest"
-                style={{ color: 'rgba(218,241,222,0.3)' }}
-              >
+                style={{ color: 'rgba(226,232,240,0.3)' }}>
                 Sin tarjeta · Sin costo · Para estudiantes
               </motion.p>
+            </div>
+
+            {/* Desktop hero — 2-col */}
+            <div className="relative z-10 hidden lg:grid max-w-7xl mx-auto px-8 pt-36 pb-20"
+              style={{ gridTemplateColumns: '1fr 1fr', gap: '4rem', alignItems: 'center' }}>
+              {/* Left: text */}
+              <div className="space-y-7">
+                <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+                  <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider"
+                    style={{ background: 'rgba(226,232,240,0.14)', color: C.mint, border: '1px solid rgba(226,232,240,0.22)' }}>
+                    <Zap size={10} className="fill-current" /> Disponible en Pergamino
+                  </span>
+                </motion.div>
+                <motion.h1
+                  initial={{ opacity: 0, y: 24 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
+                  className="font-black tracking-tight leading-[1.04]"
+                  style={{ fontSize: 'clamp(3rem, 5vw, 4rem)', color: C.mint }}
+                >
+                  Tu guía para<br />
+                  <span style={{ color: '#fff' }}>llegar</span> y{' '}
+                  <span style={{ color: '#fff' }}>quedarte</span>
+                  <span style={{ color: 'rgba(226,232,240,0.4)' }}>.</span>
+                </motion.h1>
+                <motion.p
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.18 }}
+                  className="text-base leading-relaxed max-w-md"
+                  style={{ color: '#94A3B8' }}
+                >
+                  Recién Llegué reúne todo lo que necesitás para instalarte como estudiante universitario en una ciudad nueva.
+                </motion.p>
+                <motion.div
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.28 }}
+                  className="flex gap-3"
+                >
+                  <a href={SIGNUP}
+                    className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm transition-all hover:scale-[1.02]"
+                    style={{ background: C.mint, color: C.primary }}>
+                    Crear cuenta gratis <ArrowRight size={14} />
+                  </a>
+                  <a href={LOGIN}
+                    className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm transition-all hover:opacity-80"
+                    style={{ color: C.mint, border: '1px solid rgba(226,232,240,0.22)', background: 'rgba(226,232,240,0.08)' }}>
+                    Ingresar
+                  </a>
+                </motion.div>
+                <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}
+                  className="text-[10px] font-medium uppercase tracking-widest"
+                  style={{ color: 'rgba(226,232,240,0.28)' }}>
+                  Sin tarjeta · Sin costo · Para estudiantes
+                </motion.p>
+              </div>
+
+              {/* Right: feature cards grid */}
+              <div className="grid grid-cols-2 gap-3">
+                {[
+                  { icon: <Home size={15} />, title: 'Alojamiento', desc: 'Pensiones, departamentos y habitaciones verificadas con precios actualizados.' },
+                  { icon: <Bus size={15} />, title: 'Transporte', desc: 'Colectivos y remises con llamada directa. Movete desde el primer día.' },
+                  { icon: <UtensilsCrossed size={15} />, title: 'Vida diaria', desc: 'Dónde comer, comprar y resolver lo cotidiano cerca de la universidad.' },
+                  { icon: <Users size={15} />, title: 'Comunidad', desc: 'El muro conecta estudiantes para vender, buscar y ofrecer servicios.' },
+                ].map(({ icon, title, desc }, i) => (
+                  <motion.div
+                    key={title}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.15 + i * 0.07, duration: 0.5 }}
+                    className="rounded-2xl p-5 flex flex-col gap-3"
+                    style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(226,232,240,0.10)' }}
+                  >
+                    <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
+                      style={{ background: 'rgba(226,232,240,0.12)', color: C.mint }}>
+                      {icon}
+                    </div>
+                    <p className="text-sm font-extrabold tracking-tight" style={{ color: '#E2E8F0' }}>{title}</p>
+                    <p className="text-xs leading-relaxed" style={{ color: 'rgba(226,232,240,0.5)' }}>{desc}</p>
+                  </motion.div>
+                ))}
+              </div>
             </div>
 
             {/* Wave separator */}
@@ -322,7 +395,7 @@ export default function GlobalHomePage() {
 
           {/* ══ STATS BAR ══════════════════════════════════ */}
           <section className="py-10 px-6">
-            <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
               {[
                 { n: 1, suf: '', label: 'Ciudad disponible' },
                 { n: 5, suf: '+', label: 'Secciones útiles' },
@@ -335,7 +408,7 @@ export default function GlobalHomePage() {
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.07 }}
                   className="rounded-2xl p-5 text-center"
-                  style={{ background: C.surface, border: `1px solid ${C.border}`, boxShadow: '0 2px 16px rgba(22,56,50,0.06)' }}>
+                  style={{ background: C.surface, border: `1px solid ${C.border}`, boxShadow: '0 2px 16px rgba(15,23,42,0.06)' }}>
                   <p className="text-2xl font-black tracking-tight" style={{ color: C.text }}>
                     {suf === '$' ? '$' : ''}<CountUp to={n} suffix={suf === '$' ? '' : suf} />
                   </p>
@@ -345,39 +418,19 @@ export default function GlobalHomePage() {
             </div>
           </section>
 
-          {/* ══ QUÉ ES ══════════════════════════════════════ */}
-          <section className="py-20 px-6">
-            <div className="max-w-7xl mx-auto">
-              <div className="flex flex-col lg:flex-row gap-16 items-center">
-                <div className="flex-1 space-y-6">
-                  <div>
-                    <p className="text-[10px] font-bold uppercase tracking-wider mb-3" style={{ color: C.muted }}>
-                      Qué es Recién Llegué
-                    </p>
-                    <h2 className="font-black tracking-tight leading-[1.08]"
-                      style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', color: C.text }}>
-                      Todo lo que<br />necesitás,<br /><span style={{ color: C.secondary }}>en un lugar</span>.
-                    </h2>
-                  </div>
-                  <p className="text-sm md:text-base leading-relaxed max-w-md" style={{ color: C.muted }}>
-                    Llegar a estudiar a otra ciudad es estresante. Recién Llegué hace que el proceso sea simple: encontrás alojamiento verificado, sabés cómo moverte y conectás con estudiantes que ya vivieron lo mismo.
-                  </p>
-                  <a href={SIGNUP}
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm transition-all hover:scale-[1.02]"
-                    style={{ background: C.primary, color: C.mint }}>
-                    Empezar ahora <ArrowRight size={14} />
-                  </a>
-                </div>
-                <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <FeatureCard icon={<Home size={16} />} title="Alojamiento"
-                    desc="Pensiones, departamentos y habitaciones verificadas con precios actualizados y contacto directo." delay={0} />
-                  <FeatureCard icon={<Bus size={16} />} title="Transporte"
-                    desc="Colectivos con mapa de recorridos y remises con llamada directa. Todo para moverte desde el primer día." delay={0.07} />
-                  <FeatureCard icon={<UtensilsCrossed size={16} />} title="Vida diaria"
-                    desc="Dónde comer, kioscos, farmacias, supermercados y todo lo cotidiano cerca de la zona universitaria." delay={0.14} />
-                  <FeatureCard icon={<Users size={16} />} title="Comunidad"
-                    desc="El muro de avisos conecta estudiantes para vender, buscar, ofrecer y más — sin salir de la app." delay={0.21} />
-                </div>
+          {/* ══ FEATURES (mobile-only — desktop sees them in hero) ══ */}
+          <section className="lg:hidden py-6 px-6">
+            <div className="space-y-4">
+              <p className="text-[10px] font-bold uppercase tracking-wider" style={{ color: C.muted }}>Todo en un lugar</p>
+              <div className="grid grid-cols-2 gap-3">
+                <FeatureCard icon={<Home size={15} />} title="Alojamiento"
+                  desc="Pensiones, departamentos y habitaciones verificadas con precios actualizados y contacto directo." delay={0} />
+                <FeatureCard icon={<Bus size={15} />} title="Transporte"
+                  desc="Colectivos con mapa de recorridos y remises con llamada directa. Todo para moverte desde el primer día." delay={0.07} />
+                <FeatureCard icon={<UtensilsCrossed size={15} />} title="Vida diaria"
+                  desc="Dónde comer, kioscos, farmacias y supermercados cerca de la zona universitaria." delay={0.14} />
+                <FeatureCard icon={<Users size={15} />} title="Comunidad"
+                  desc="El muro de avisos conecta estudiantes para vender, buscar, ofrecer y más." delay={0.21} />
               </div>
             </div>
           </section>
@@ -395,14 +448,14 @@ export default function GlobalHomePage() {
                 <HeroParticles />
                 <div className="relative z-10 p-10 md:p-12 flex flex-col justify-between h-full" style={{ minHeight: 300 }}>
                   <div>
-                    <p className="text-[10px] font-bold uppercase tracking-wider mb-4" style={{ color: 'rgba(218,241,222,0.5)' }}>
+                    <p className="text-[10px] font-bold uppercase tracking-wider mb-4" style={{ color: 'rgba(226,232,240,0.5)' }}>
                       Ciudad disponible
                     </p>
                     <h3 className="font-black tracking-tight leading-[1.08]"
                       style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', color: '#fff' }}>
                       Pergamino<br /><span style={{ color: C.mint }}>Sede UNNOBA</span>
                     </h3>
-                    <p className="text-sm mt-4 max-w-md leading-relaxed" style={{ color: 'rgba(218,241,222,0.55)' }}>
+                    <p className="text-sm mt-4 max-w-md leading-relaxed" style={{ color: 'rgba(226,232,240,0.55)' }}>
                       La primera ciudad en nuestra red. Alojamiento, transporte, comercios y comunidad para estudiantes de la UNNOBA.
                     </p>
                   </div>
@@ -427,7 +480,7 @@ export default function GlobalHomePage() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 }}
                 className="md:col-span-4 rounded-2xl p-7 flex flex-col gap-5"
-                style={{ background: C.surface, border: `1px solid ${C.border}`, boxShadow: '0 2px 16px rgba(22,56,50,0.06)' }}
+                style={{ background: C.surface, border: `1px solid ${C.border}`, boxShadow: '0 2px 16px rgba(15,23,42,0.06)' }}
               >
                 <div>
                   <p className="text-[10px] font-bold uppercase tracking-wider mb-1.5" style={{ color: C.muted }}>Próximamente</p>
@@ -533,7 +586,7 @@ export default function GlobalHomePage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
                 className="rounded-2xl p-8 space-y-7 sticky top-24"
-                style={{ background: C.surface, border: `1px solid ${C.border}`, boxShadow: '0 2px 16px rgba(22,56,50,0.06)' }}
+                style={{ background: C.surface, border: `1px solid ${C.border}`, boxShadow: '0 2px 16px rgba(15,23,42,0.06)' }}
               >
                 <div>
                   <p className="text-[10px] font-bold uppercase tracking-wider mb-3" style={{ color: C.muted }}>
@@ -632,7 +685,7 @@ export default function GlobalHomePage() {
                 <HeroParticles />
                 <div className="relative z-10 p-10 md:p-16 text-center space-y-6 max-w-2xl mx-auto">
                   <span className="inline-block text-[10px] font-bold uppercase tracking-wider px-4 py-1.5 rounded-full"
-                    style={{ background: 'rgba(218,241,222,0.12)', color: C.mint, border: '1px solid rgba(218,241,222,0.18)' }}>
+                    style={{ background: 'rgba(226,232,240,0.12)', color: C.mint, border: '1px solid rgba(226,232,240,0.18)' }}>
                     Recién llegaste?
                   </span>
                   <h2 className="font-black tracking-tight leading-[1.06]"
@@ -640,7 +693,7 @@ export default function GlobalHomePage() {
                     Dejá de buscar<br />
                     <span style={{ color: '#fff' }}>en diez lugares.</span>
                   </h2>
-                  <p className="text-sm leading-relaxed" style={{ color: 'rgba(218,241,222,0.55)' }}>
+                  <p className="text-sm leading-relaxed" style={{ color: 'rgba(226,232,240,0.55)' }}>
                     Alojamiento, transporte y servicios — todo verificado, en un solo lugar, gratis.
                   </p>
                   <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">

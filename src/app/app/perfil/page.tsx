@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation'
 import { Camera, ChevronRight, Mail, Phone, Save, UserRound } from 'lucide-react'
 import { useUser } from '@/hooks/useUser'
 import { getUserDb, publicDb as db } from '@/lib/db'
-import AppSectionNav from '@/components/AppSectionNav'
 
 interface Profile {
   id: string
@@ -197,27 +196,26 @@ export default function PerfilPage() {
   return (
     <div className="min-h-screen py-6 px-4 lg:px-8">
       <div className="max-w-6xl mx-auto space-y-6">
-        <AppSectionNav />
-
+  
         <section className="grid lg:grid-cols-[minmax(0,1fr)_300px] gap-4">
           <div
             className="rounded-[28px] p-5 sm:p-7 overflow-hidden relative"
-            style={{ background: 'linear-gradient(135deg, var(--accent) 0%, var(--accent-strong) 100%)' }}
+            style={{ background: 'linear-gradient(135deg, #0F172A 0%, #1E3A5F 100%)' }}
           >
             <div className="absolute inset-y-0 right-0 w-44 opacity-10">
               <svg className="h-full w-full" viewBox="0 0 220 200" aria-hidden>
-                <circle cx="108" cy="72" r="58" fill="none" stroke="var(--accent-contrast)" strokeWidth="1" />
-                <circle cx="164" cy="128" r="28" fill="none" stroke="var(--accent-contrast)" strokeWidth="1" />
+                <circle cx="108" cy="72" r="58" fill="none" stroke="#F59E0B" strokeWidth="1" />
+                <circle cx="164" cy="128" r="28" fill="none" stroke="#F59E0B" strokeWidth="1" />
               </svg>
             </div>
             <div className="relative z-10 max-w-2xl">
-              <p className="text-[10px] font-bold uppercase tracking-[0.18em] mb-2" style={{ color: 'var(--accent-highlight)' }}>
+              <p className="text-[10px] font-bold uppercase tracking-[0.18em] mb-2" style={{ color: '#F59E0B' }}>
                 Tu cuenta
               </p>
-              <h1 className="text-3xl sm:text-4xl font-black tracking-tight mb-2" style={{ color: 'var(--accent-contrast)' }}>
+              <h1 className="text-3xl sm:text-4xl font-black tracking-tight mb-2" style={{ color: '#ffffff' }}>
                 Perfil y datos personales
               </h1>
-              <p className="text-sm sm:text-base leading-relaxed" style={{ color: 'var(--accent-contrast)', opacity: 0.66 }}>
+              <p className="text-sm sm:text-base leading-relaxed" style={{ color: 'rgba(255,255,255,0.6)' }}>
                 Completá tu perfil para que el resto de la app tenga mejor contexto, contacto y presencia dentro de la comunidad.
               </p>
             </div>
@@ -257,7 +255,7 @@ export default function PerfilPage() {
                 <div className="flex flex-col items-center gap-3 animate-pulse">
                   <div className="w-24 h-24 rounded-full" style={{ background: 'var(--surface-soft)' }} />
                   <div className="h-4 w-32 rounded-full" style={{ background: 'var(--surface-soft)' }} />
-                  <div className="h-3 w-20 rounded-full" style={{ background: 'rgba(22,56,50,0.06)' }} />
+                  <div className="h-3 w-20 rounded-full" style={{ background: 'rgba(15,23,42,0.06)' }} />
                 </div>
               ) : (
                 <div className="flex flex-col items-center gap-4 text-center">

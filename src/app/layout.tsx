@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { DM_Sans } from "next/font/google";
+import { Space_Grotesk, Inter } from "next/font/google";
 import Script from "next/script";
 import CookieBanner from "@/components/CookieBanner";
 import "./globals.css";
@@ -7,16 +7,39 @@ import "./globals.css";
 const GA_ID  = "G-VCTWHCEV8H";
 const AW_ID  = "AW-18014513807";
 
-const dmSans = DM_Sans({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800", "900"],
-  variable: "--font-sans",
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-head",
 });
 
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-body",
+});
+
+const BASE_URL = 'https://recienlleguee.com.ar'
+
 export const metadata: Metadata = {
-  title: "Recien Llegue | Tu guia para llegar y quedarte",
+  title: "Recién Llegué | Tu guía para instalarte en Pergamino",
   description:
-    "Portal de recursos para estudiantes universitarios en Argentina. Alojamiento, transporte y servicios locales verificados.",
+    "Guía completa para estudiantes universitarios en Pergamino. Alojamiento verificado, transporte, comercios y comunidad estudiantil. Registrate gratis.",
+  metadataBase: new URL(BASE_URL),
+  alternates: { canonical: BASE_URL },
+  openGraph: {
+    title: "Recién Llegué | Tu guía para instalarte en Pergamino",
+    description: "Guía completa para estudiantes universitarios en Pergamino. Alojamiento verificado, transporte, comercios y comunidad estudiantil.",
+    url: BASE_URL,
+    siteName: 'Recién Llegué',
+    locale: 'es_AR',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "Recién Llegué | Tu guía para instalarte en Pergamino",
+    description: "Guía completa para estudiantes universitarios en Pergamino.",
+  },
   icons: {
     icon: [
       { url: '/icons/favicon-32.png', sizes: '32x32', type: 'image/png' },
@@ -35,11 +58,8 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body
-        className={`${dmSans.variable} ${dmSans.className} min-h-screen antialiased`}
-        style={{
-          background: "#f8faf8",
-          color: "#051f20",
-        }}
+        className={`${spaceGrotesk.variable} ${inter.variable} min-h-screen antialiased`}
+        style={{ background: "#F1F5F9", color: "#0F172A" }}
       >
         {children}
         <CookieBanner />

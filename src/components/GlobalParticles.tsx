@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react'
 
 // Figuras geométricas flotando en el fondo de toda la app.
 // position: fixed — cubre todo el viewport detrás del contenido.
-// Colores sutiles oscuro-verde sobre el fondo claro #f8faf8.
+// Colores sutiles oscuro-verde sobre el fondo claro #F1F5F9.
 
 export default function GlobalParticles() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -57,8 +57,8 @@ export default function GlobalParticles() {
       ctx.rotate(p.rotation)
       ctx.globalAlpha = p.opacity
       // Verde oscuro sobre fondo claro
-      ctx.strokeStyle = '#163832'
-      ctx.fillStyle = '#163832'
+      ctx.strokeStyle = '#0F172A'
+      ctx.fillStyle = '#0F172A'
       ctx.lineWidth = 1.1
 
       switch (p.shape) {

@@ -7,12 +7,12 @@ import { useUser } from '@/hooks/useUser'
 import { logout } from '@/app/actions/auth'
 
 const links = [
-  { label: 'Inicio', href: '/app/inicio', icon: Home },
-  { label: 'Hospedajes', href: '/app/hospedajes', icon: BedDouble },
-  { label: 'Comercios', href: '/app/comercios', icon: ShoppingBag },
+  { label: 'Inicio',      href: '/app/inicio',      icon: Home },
+  { label: 'Hospedajes',  href: '/app/hospedajes',  icon: BedDouble },
+  { label: 'Comercios',   href: '/app/comercios',   icon: ShoppingBag },
   { label: 'Transportes', href: '/app/transportes', icon: Bus },
-  { label: 'Muro', href: '/app/muro', icon: Megaphone },
-  { label: 'Perfil', href: '/app/perfil', icon: User },
+  { label: 'Muro',        href: '/app/muro',        icon: Megaphone },
+  { label: 'Perfil',      href: '/app/perfil',      icon: User },
 ]
 
 export default function AppSectionNav() {
@@ -49,9 +49,8 @@ export default function AppSectionNav() {
                 href={href}
                 className="flex items-center gap-2 px-3.5 py-2.5 rounded-2xl text-sm font-bold transition-all"
                 style={{
-                  background: active ? 'var(--accent)' : 'transparent',
-                  color: active ? 'var(--accent-contrast)' : 'var(--text-primary)',
-                  border: `1px solid ${active ? 'transparent' : 'transparent'}`,
+                  background: active ? '#0F172A' : 'transparent',
+                  color: active ? '#F59E0B' : 'var(--text-primary)',
                 }}
               >
                 <Icon size={15} />
@@ -66,8 +65,8 @@ export default function AppSectionNav() {
                 href="/app/adm/dashboard"
                 className="flex items-center gap-2 px-3.5 py-2.5 rounded-2xl text-sm font-bold transition-all"
                 style={{
-                  background: pathname.startsWith('/app/adm') ? 'var(--accent)' : 'var(--surface-soft)',
-                  color: pathname.startsWith('/app/adm') ? 'var(--accent-contrast)' : 'var(--accent)',
+                  background: pathname.startsWith('/app/adm') ? '#0F172A' : 'rgba(15,23,42,0.06)',
+                  color: pathname.startsWith('/app/adm') ? '#F59E0B' : '#1E3A5F',
                 }}
               >
                 <LayoutDashboard size={15} />
@@ -79,7 +78,7 @@ export default function AppSectionNav() {
                 <button
                   type="submit"
                   className="flex items-center gap-2 px-3.5 py-2.5 rounded-2xl text-sm font-bold transition-all hover:opacity-70"
-                  style={{ background: 'var(--surface-soft)', color: 'var(--text-muted)' }}
+                  style={{ background: 'rgba(15,23,42,0.06)', color: 'var(--text-muted)' }}
                 >
                   <LogOut size={15} />
                   <span>Salir</span>

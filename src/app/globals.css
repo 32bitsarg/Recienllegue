@@ -1,23 +1,24 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "DM Sans", system-ui, sans-serif;
+  --font-head: "Space Grotesk", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-sans: "Inter", system-ui, sans-serif;
 
-  /* PALETA BASE */
-  --color-brand-bg: #f8faf8;
+  /* PALETA NAVY + AMBER */
+  --color-brand-bg: #F1F5F9;
   --color-brand-surface: #ffffff;
-  --color-brand-text: #051f20;
-  --color-brand-primary: #163832;
-  --color-brand-secondary: #235347;
-  --color-brand-mint: #daf1de;
-  --color-brand-mint-strong: #a8ddb5;
-  --color-brand-primary-soft: #1e4d44;
-  --color-brand-border: rgba(22, 56, 50, 0.11);
-  --color-brand-border-strong: rgba(22, 56, 50, 0.14);
-  --color-brand-muted: rgba(22, 56, 50, 0.5);
-  --color-brand-muted-soft: rgba(22, 56, 50, 0.4);
-  --color-brand-muted-faint: rgba(22, 56, 50, 0.06);
-  --color-brand-overlay: rgba(5, 31, 32, 0.6);
+  --color-brand-text: #0F172A;
+  --color-brand-primary: #0F172A;
+  --color-brand-primary-mid: #1E3A5F;
+  --color-brand-accent: #F59E0B;
+  --color-brand-accent-light: #FEF3C7;
+  --color-brand-muted: rgba(15, 23, 42, 0.45);
+  --color-brand-muted-soft: rgba(15, 23, 42, 0.35);
+  --color-brand-muted-faint: rgba(15, 23, 42, 0.07);
+  --color-brand-border: rgba(15, 23, 42, 0.09);
+  --color-brand-border-strong: rgba(15, 23, 42, 0.14);
+  --color-brand-overlay: rgba(15, 23, 42, 0.6);
 
   /* Mapeo de sistema */
   --color-background: var(--color-brand-bg);
@@ -31,26 +32,32 @@
   --surface-strong: var(--color-brand-primary);
   --surface-soft: var(--color-brand-muted-faint);
   --text-primary: var(--color-brand-text);
-  --text-secondary: var(--color-brand-secondary);
+  --text-secondary: var(--color-brand-primary-mid);
   --text-muted: var(--color-brand-muted);
   --text-muted-soft: var(--color-brand-muted-soft);
-  --accent: var(--color-brand-primary);
-  --accent-strong: var(--color-brand-primary-soft);
-  --accent-contrast: var(--color-brand-mint);
-  --accent-highlight: var(--color-brand-mint-strong);
+  --accent: var(--color-brand-accent);
+  --accent-light: var(--color-brand-accent-light);
+  --accent-strong: var(--color-brand-primary-mid);
+  --accent-contrast: var(--color-brand-primary);
+  --accent-on-dark: #E2E8F0;
+  --accent-highlight: var(--color-brand-accent-light);
   --border-subtle: var(--color-brand-border);
   --border-strong: var(--color-brand-border-strong);
   --overlay: var(--color-brand-overlay);
-  --shadow-soft: 0 18px 50px rgba(22, 56, 50, 0.12);
+  --shadow-soft: 0 18px 50px rgba(15, 23, 42, 0.10);
   --radius-card: 1.5rem;
 }
 
 body {
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
   background-color: var(--color-background);
   color: var(--color-foreground);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-head);
 }
 
 .no-scrollbar::-webkit-scrollbar { display: none; }
@@ -70,11 +77,12 @@ html {
   background: var(--surface);
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-card);
-  box-shadow: 0 2px 16px rgba(22,56,50,0.07);
+  box-shadow: 0 2px 16px rgba(15, 23, 42, 0.07);
 }
 
 .app-section-title {
   color: var(--text-primary);
+  font-family: var(--font-head);
   font-weight: 800;
   letter-spacing: -0.03em;
 }

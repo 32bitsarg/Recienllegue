@@ -31,7 +31,7 @@ function Spinner() {
     <div className="flex items-center justify-center min-h-[60vh]">
       <div
         className="w-8 h-8 rounded-full border-2 animate-spin"
-        style={{ borderColor: 'rgba(22,56,50,0.15)', borderTopColor: '#163832' }}
+        style={{ borderColor: 'rgba(15,23,42,0.15)', borderTopColor: '#0F172A' }}
       />
     </div>
   )
@@ -49,17 +49,17 @@ function AccessDenied() {
         <Flag size={24} style={{ color: '#dc2626' }} />
       </div>
       <div>
-        <h2 className="text-xl font-extrabold mb-1" style={{ color: '#051f20' }}>
+        <h2 className="text-xl font-extrabold mb-1" style={{ color: '#0F172A' }}>
           Acceso denegado
         </h2>
-        <p className="text-sm" style={{ color: 'rgba(22,56,50,0.5)' }}>
+        <p className="text-sm" style={{ color: 'rgba(15,23,42,0.5)' }}>
           No tenes permisos para acceder a esta seccion.
         </p>
       </div>
       <Link
         href="/app/inicio"
         className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold"
-        style={{ background: '#163832', color: '#daf1de' }}
+        style={{ background: '#0F172A', color: '#F59E0B' }}
       >
         <ArrowLeft size={14} />
         Volver al inicio
@@ -82,8 +82,8 @@ function NavLink({ href, label, Icon, mobile }: {
         href={href}
         className="shrink-0 flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[11px] font-bold uppercase tracking-wider transition-all"
         style={{
-          background: active ? '#163832' : 'transparent',
-          color:      active ? '#daf1de' : 'rgba(22,56,50,0.5)',
+          background: active ? '#0F172A' : 'transparent',
+          color:      active ? '#E2E8F0' : 'rgba(15,23,42,0.5)',
         }}
       >
         <Icon size={13} />
@@ -97,8 +97,8 @@ function NavLink({ href, label, Icon, mobile }: {
       href={href}
       className="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition-all"
       style={{
-        background: active ? '#163832' : 'transparent',
-        color:      active ? '#daf1de' : 'rgba(22,56,50,0.6)',
+        background: active ? '#0F172A' : 'transparent',
+        color:      active ? '#E2E8F0' : 'rgba(15,23,42,0.6)',
       }}
     >
       <Icon size={15} />
@@ -122,10 +122,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       {/* Sidebar — desktop only */}
       <aside
         className="hidden lg:flex flex-col w-52 shrink-0 px-3 py-4"
-        style={{ borderRight: '1px solid rgba(22,56,50,0.08)', background: '#fff' }}
+        style={{ borderRight: '1px solid rgba(15,23,42,0.08)', background: '#fff' }}
       >
         <p className="text-[9px] font-bold uppercase tracking-widest px-3.5 mb-3"
-          style={{ color: 'rgba(22,56,50,0.35)' }}>
+          style={{ color: 'rgba(15,23,42,0.35)' }}>
           Administracion
         </p>
         <nav className="flex flex-col gap-0.5">
@@ -140,7 +140,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <div
           className="lg:hidden flex gap-1 px-3 py-2 overflow-x-auto"
           style={{
-            borderBottom: '1px solid rgba(22,56,50,0.08)',
+            borderBottom: '1px solid rgba(15,23,42,0.08)',
             background: '#fff',
             scrollbarWidth: 'none',
           }}

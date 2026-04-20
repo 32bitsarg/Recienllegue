@@ -41,7 +41,7 @@ function StatCardBlock({ stat }: { stat: StatCard }) {
   return (
     <div
       className="rounded-2xl p-6 flex flex-col gap-3"
-      style={{ background: '#fff', border: '1px solid rgba(22,56,50,0.08)' }}
+      style={{ background: '#fff', border: '1px solid rgba(15,23,42,0.08)' }}
     >
       <div
         className="w-10 h-10 rounded-xl flex items-center justify-center"
@@ -50,15 +50,15 @@ function StatCardBlock({ stat }: { stat: StatCard }) {
         <stat.Icon size={18} style={{ color: stat.color }} />
       </div>
       <div>
-        <p className="text-3xl font-black" style={{ color: '#051f20' }}>
+        <p className="text-3xl font-black" style={{ color: '#0F172A' }}>
           {stat.value === null ? (
             <span className="inline-block w-12 h-7 rounded-lg animate-pulse"
-              style={{ background: 'rgba(22,56,50,0.08)' }} />
+              style={{ background: 'rgba(15,23,42,0.08)' }} />
           ) : (
             stat.value.toLocaleString('es-AR')
           )}
         </p>
-        <p className="text-xs mt-0.5 font-medium" style={{ color: 'rgba(22,56,50,0.5)' }}>
+        <p className="text-xs mt-0.5 font-medium" style={{ color: 'rgba(15,23,42,0.5)' }}>
           {stat.label}
         </p>
       </div>
@@ -86,18 +86,18 @@ function ReportRow({ report, onRemove }: { report: Report; onRemove: (id: string
   return (
     <div
       className="rounded-2xl px-5 py-4 flex flex-col sm:flex-row sm:items-center gap-4"
-      style={{ background: '#fff', border: '1px solid rgba(22,56,50,0.08)' }}
+      style={{ background: '#fff', border: '1px solid rgba(15,23,42,0.08)' }}
     >
       {/* Info */}
       <div className="flex-1 min-w-0">
-        <p className="text-sm font-bold mb-1" style={{ color: '#051f20' }}>
+        <p className="text-sm font-bold mb-1" style={{ color: '#0F172A' }}>
           {report.reason}
         </p>
         <div className="flex items-center gap-3 flex-wrap">
-          <p className="text-[11px] font-mono" style={{ color: 'rgba(22,56,50,0.4)' }}>
+          <p className="text-[11px] font-mono" style={{ color: 'rgba(15,23,42,0.4)' }}>
             Post: {report.postId?.slice(0, 12)}...
           </p>
-          <p className="text-[11px]" style={{ color: 'rgba(22,56,50,0.35)' }}>
+          <p className="text-[11px]" style={{ color: 'rgba(15,23,42,0.35)' }}>
             {relTime(report.created_at)}
           </p>
         </div>
@@ -110,7 +110,7 @@ function ReportRow({ report, onRemove }: { report: Report; onRemove: (id: string
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-[11px] font-bold transition-all hover:opacity-80"
-          style={{ background: 'rgba(22,56,50,0.06)', color: '#163832' }}
+          style={{ background: 'rgba(15,23,42,0.06)', color: '#0F172A' }}
         >
           <LinkIcon size={11} />
           Ver post
@@ -120,7 +120,7 @@ function ReportRow({ report, onRemove }: { report: Report; onRemove: (id: string
           disabled={!!loading}
           onClick={() => handle(() => deleteReport(report.id), 'ignore')}
           className="px-3 py-2 rounded-xl text-[11px] font-bold transition-all hover:opacity-80 disabled:opacity-40"
-          style={{ background: 'rgba(22,56,50,0.06)', color: '#163832' }}
+          style={{ background: 'rgba(15,23,42,0.06)', color: '#0F172A' }}
         >
           {loading === 'ignore' ? 'Ignorando...' : 'Ignorar'}
         </button>
@@ -154,7 +154,7 @@ export default function AdminDashboardPage() {
     { label: 'Usuarios registrados', value: null, Icon: Users,       color: '#3b82f6' },
     { label: 'Posts en el muro',     value: null, Icon: MessageSquare, color: '#8b5cf6' },
     { label: 'Reportes pendientes',  value: null, Icon: Flag,        color: '#ef4444' },
-    { label: 'Hospedajes cargados',  value: null, Icon: BedDouble,   color: '#10b981' },
+    { label: 'Hospedajes cargados',  value: null, Icon: BedDouble,   color: '#0EA5E9' },
   ])
   const [reports, setReports] = useState<Report[]>([])
   const [reportsLoading, setReportsLoading] = useState(true)
@@ -170,7 +170,7 @@ export default function AdminDashboardPage() {
         { label: 'Usuarios registrados', value: users, Icon: Users,        color: '#3b82f6' },
         { label: 'Posts en el muro',     value: posts, Icon: MessageSquare, color: '#8b5cf6' },
         { label: 'Reportes pendientes',  value: rpts,  Icon: Flag,         color: '#ef4444' },
-        { label: 'Hospedajes cargados',  value: hosp,  Icon: BedDouble,    color: '#10b981' },
+        { label: 'Hospedajes cargados',  value: hosp,  Icon: BedDouble,    color: '#0EA5E9' },
       ])
     })
 
@@ -186,10 +186,10 @@ export default function AdminDashboardPage() {
 
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-2xl font-black tracking-tight mb-1" style={{ color: '#051f20' }}>
+        <h1 className="text-2xl font-black tracking-tight mb-1" style={{ color: '#0F172A' }}>
           Dashboard
         </h1>
-        <p className="text-sm" style={{ color: 'rgba(22,56,50,0.45)' }}>
+        <p className="text-sm" style={{ color: 'rgba(15,23,42,0.45)' }}>
           Vision general de la plataforma.
         </p>
       </div>
@@ -199,9 +199,28 @@ export default function AdminDashboardPage() {
         {stats.map(s => <StatCardBlock key={s.label} stat={s} />)}
       </div>
 
+      {/* Quick links */}
+      <div className="flex flex-wrap gap-3 mb-8">
+        {[
+          { label: 'Hospedajes', href: '/app/adm/hospedajes' },
+          { label: 'Comercios',  href: '/app/adm/comercios' },
+          { label: 'Transportes', href: '/app/adm/transportes' },
+          { label: 'Mensajes del carrusel', href: '/app/adm/hero_messages' },
+        ].map(l => (
+          <a
+            key={l.href}
+            href={l.href}
+            className="px-4 py-2 rounded-xl text-xs font-bold transition-all hover:opacity-80"
+            style={{ background: 'var(--surface-soft)', color: 'var(--text-primary)', border: '1px solid rgba(15,23,42,0.08)' }}
+          >
+            {l.label} →
+          </a>
+        ))}
+      </div>
+
       {/* Reports */}
       <div>
-        <h2 className="text-base font-extrabold mb-4" style={{ color: '#051f20' }}>
+        <h2 className="text-base font-extrabold mb-4" style={{ color: '#0F172A' }}>
           Reportes recientes
         </h2>
 
@@ -209,15 +228,15 @@ export default function AdminDashboardPage() {
           <div className="space-y-3">
             {[1, 2, 3].map(i => (
               <div key={i} className="rounded-2xl h-20 animate-pulse"
-                style={{ background: 'rgba(22,56,50,0.05)' }} />
+                style={{ background: 'rgba(15,23,42,0.05)' }} />
             ))}
           </div>
         ) : reports.length === 0 ? (
           <div
             className="rounded-2xl p-10 text-center"
-            style={{ background: '#fff', border: '1px solid rgba(22,56,50,0.08)' }}
+            style={{ background: '#fff', border: '1px solid rgba(15,23,42,0.08)' }}
           >
-            <p className="text-sm font-medium" style={{ color: 'rgba(22,56,50,0.4)' }}>
+            <p className="text-sm font-medium" style={{ color: 'rgba(15,23,42,0.4)' }}>
               No hay reportes pendientes.
             </p>
           </div>

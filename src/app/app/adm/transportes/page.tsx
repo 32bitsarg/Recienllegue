@@ -30,16 +30,16 @@ const EMPTY_FORM = {
 // ─── Input helpers ────────────────────────────────────────────
 
 const inputStyle = {
-  background: 'rgba(22,56,50,0.04)',
-  border: '1px solid rgba(22,56,50,0.1)',
-  color: '#051f20',
+  background: 'rgba(15,23,42,0.04)',
+  border: '1px solid rgba(15,23,42,0.1)',
+  color: '#0F172A',
 }
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
       <p className="text-[10px] font-bold uppercase tracking-wider mb-1.5"
-        style={{ color: 'rgba(22,56,50,0.5)' }}>
+        style={{ color: 'rgba(15,23,42,0.5)' }}>
         {label}
       </p>
       {children}
@@ -66,7 +66,7 @@ function RemisForm({
   return (
     <div
       className="rounded-2xl p-6 mb-6"
-      style={{ background: '#fff', border: '1px solid rgba(22,56,50,0.1)' }}
+      style={{ background: '#fff', border: '1px solid rgba(15,23,42,0.1)' }}
     >
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
         <Field label="Nombre">
@@ -103,9 +103,9 @@ function RemisForm({
           type="checkbox"
           checked={form.destacado}
           onChange={e => set('destacado', e.target.checked)}
-          className="w-4 h-4 accent-[#163832]"
+          className="w-4 h-4 accent-[#0F172A]"
         />
-        <span className="text-sm font-medium" style={{ color: '#051f20' }}>
+        <span className="text-sm font-medium" style={{ color: '#0F172A' }}>
           Destacado (recomendado para estudiantes)
         </span>
       </label>
@@ -115,7 +115,7 @@ function RemisForm({
           onClick={() => onSubmit(form)}
           disabled={submitting || !form.nombre.trim()}
           className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all hover:opacity-90 disabled:opacity-40"
-          style={{ background: '#163832', color: '#daf1de' }}
+          style={{ background: '#0F172A', color: '#F59E0B' }}
         >
           <Check size={14} />
           {submitting ? 'Guardando...' : 'Guardar'}
@@ -123,7 +123,7 @@ function RemisForm({
         <button
           onClick={onCancel}
           className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all hover:opacity-80"
-          style={{ background: 'rgba(22,56,50,0.06)', color: '#163832' }}
+          style={{ background: 'rgba(15,23,42,0.06)', color: '#0F172A' }}
         >
           <X size={14} />
           Cancelar
@@ -214,10 +214,10 @@ export default function AdminTransportesPage() {
       {/* Header */}
       <div className="flex items-center justify-between mb-7">
         <div>
-          <h1 className="text-2xl font-black tracking-tight mb-1" style={{ color: '#051f20' }}>
+          <h1 className="text-2xl font-black tracking-tight mb-1" style={{ color: '#0F172A' }}>
             Remises
           </h1>
-          <p className="text-sm" style={{ color: 'rgba(22,56,50,0.45)' }}>
+          <p className="text-sm" style={{ color: 'rgba(15,23,42,0.45)' }}>
             {records.length} registros
           </p>
         </div>
@@ -225,7 +225,7 @@ export default function AdminTransportesPage() {
           <button
             onClick={() => { setShowAdd(true); setEditId(null) }}
             className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition-all hover:opacity-90"
-            style={{ background: '#163832', color: '#daf1de' }}
+            style={{ background: '#0F172A', color: '#F59E0B' }}
           >
             <Plus size={14} />
             Agregar
@@ -248,15 +248,15 @@ export default function AdminTransportesPage() {
         <div className="space-y-3">
           {[1,2,3].map(i => (
             <div key={i} className="rounded-2xl h-20 animate-pulse"
-              style={{ background: 'rgba(22,56,50,0.05)' }} />
+              style={{ background: 'rgba(15,23,42,0.05)' }} />
           ))}
         </div>
       ) : records.length === 0 ? (
         <div
           className="rounded-2xl p-12 text-center"
-          style={{ background: '#fff', border: '1px solid rgba(22,56,50,0.08)' }}
+          style={{ background: '#fff', border: '1px solid rgba(15,23,42,0.08)' }}
         >
-          <p className="text-sm font-medium" style={{ color: 'rgba(22,56,50,0.4)' }}>
+          <p className="text-sm font-medium" style={{ color: 'rgba(15,23,42,0.4)' }}>
             No hay remises cargados todavia.
           </p>
         </div>
@@ -280,27 +280,27 @@ export default function AdminTransportesPage() {
                 <div
                   className="rounded-2xl px-5 py-4 flex items-center gap-4"
                   style={{
-                    background: r.destacado ? '#163832' : '#fff',
-                    border: r.destacado ? 'none' : '1px solid rgba(22,56,50,0.08)',
+                    background: r.destacado ? '#0F172A' : '#fff',
+                    border: r.destacado ? 'none' : '1px solid rgba(15,23,42,0.08)',
                   }}
                 >
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-0.5">
                       <p className="font-extrabold text-sm"
-                        style={{ color: r.destacado ? '#daf1de' : '#051f20' }}>
+                        style={{ color: r.destacado ? '#E2E8F0' : '#0F172A' }}>
                         {r.nombre}
                       </p>
                       {r.destacado && (
                         <span
                           className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full"
-                          style={{ background: '#daf1de', color: '#163832' }}
+                          style={{ background: '#E2E8F0', color: '#0F172A' }}
                         >
                           Destacado
                         </span>
                       )}
                     </div>
                     <p className="text-[11px]"
-                      style={{ color: r.destacado ? 'rgba(218,241,222,0.6)' : 'rgba(22,56,50,0.45)' }}>
+                      style={{ color: r.destacado ? 'rgba(226,232,240,0.6)' : 'rgba(15,23,42,0.45)' }}>
                       {r.telefono}
                       {r.referencia ? ` · ${r.referencia}` : ''}
                     </p>
@@ -311,7 +311,7 @@ export default function AdminTransportesPage() {
                         onClick={() => handleSetDestacado(r.id)}
                         title="Marcar como destacado"
                         className="w-9 h-9 rounded-xl flex items-center justify-center transition-all hover:opacity-70"
-                        style={{ background: 'rgba(22,56,50,0.06)', color: '#163832' }}
+                        style={{ background: 'rgba(15,23,42,0.06)', color: '#0F172A' }}
                       >
                         <Star size={13} />
                       </button>
@@ -320,8 +320,8 @@ export default function AdminTransportesPage() {
                       onClick={() => { setEditId(r.id); setShowAdd(false) }}
                       className="w-9 h-9 rounded-xl flex items-center justify-center transition-all hover:opacity-70"
                       style={{
-                        background: r.destacado ? 'rgba(218,241,222,0.15)' : 'rgba(22,56,50,0.06)',
-                        color: r.destacado ? '#daf1de' : '#163832',
+                        background: r.destacado ? 'rgba(226,232,240,0.15)' : 'rgba(15,23,42,0.06)',
+                        color: r.destacado ? '#E2E8F0' : '#0F172A',
                       }}
                     >
                       <Pencil size={13} />

@@ -1,0 +1,11 @@
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Crear cuenta | Recién Llegué',
+  description: 'Unite a la comunidad de Recién Llegué. Registrate gratis.',
+  robots: { index: false, follow: false },
+}
+
+export default function RegistroLayout({ children }: { children: React.ReactNode }) {
+  return <>{children}</>
+}

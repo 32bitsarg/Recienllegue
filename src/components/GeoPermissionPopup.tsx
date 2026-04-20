@@ -18,7 +18,7 @@ export default function GeoPermissionPopup({ onAllow, onDismiss, loading }: Prop
         exit={{ opacity: 0 }}
         transition={{ duration: 0.2 }}
         className="fixed inset-0 z-[90] flex items-end sm:items-center justify-center px-4 pb-6 sm:pb-0"
-        style={{ background: 'rgba(5,31,32,0.82)', backdropFilter: 'blur(10px)' }}
+        style={{ background: 'rgba(15,23,42,0.82)', backdropFilter: 'blur(10px)' }}
         onClick={onDismiss}
       >
         <motion.div
@@ -33,17 +33,17 @@ export default function GeoPermissionPopup({ onAllow, onDismiss, loading }: Prop
           {/* Ícono */}
           <div
             className="w-14 h-14 rounded-2xl flex items-center justify-center"
-            style={{ background: '#163832' }}
+            style={{ background: '#0F172A' }}
           >
-            <MapPin size={24} color="#daf1de" />
+            <MapPin size={24} color="#E2E8F0" />
           </div>
 
           {/* Texto */}
           <div className="space-y-2">
-            <h2 className="text-2xl font-black tracking-tight" style={{ color: '#051f20' }}>
+            <h2 className="text-2xl font-black tracking-tight" style={{ color: '#0F172A' }}>
               ¿Estás en Pergamino?
             </h2>
-            <p className="text-sm leading-relaxed" style={{ color: 'rgba(5,31,32,0.55)' }}>
+            <p className="text-sm leading-relaxed" style={{ color: 'rgba(15,23,42,0.55)' }}>
               Usamos tu ubicación para mostrarte hospedajes y comercios ordenados por cercanía. No la compartimos con nadie.
             </p>
           </div>
@@ -54,14 +54,14 @@ export default function GeoPermissionPopup({ onAllow, onDismiss, loading }: Prop
               onClick={onAllow}
               disabled={loading}
               className="w-full py-3.5 rounded-xl text-sm font-bold transition-all hover:opacity-90 disabled:opacity-50"
-              style={{ background: '#163832', color: '#daf1de' }}
+              style={{ background: '#0F172A', color: '#F59E0B' }}
             >
               {loading ? 'Obteniendo ubicación...' : 'Activar ubicación'}
             </button>
             <button
               onClick={onDismiss}
               className="w-full py-3 text-sm font-semibold transition-opacity hover:opacity-60"
-              style={{ color: '#163832', opacity: 0.45 }}
+              style={{ color: '#0F172A', opacity: 0.45 }}
             >
               Ahora no
             </button>

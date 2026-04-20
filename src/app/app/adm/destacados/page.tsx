@@ -32,8 +32,8 @@ function Toast({ message, type, onClose }: { message: string; type: 'success' | 
     <div
       className="fixed bottom-6 right-6 z-50 flex items-center gap-3 px-5 py-3.5 rounded-2xl shadow-xl text-sm font-bold"
       style={{
-        background: type === 'success' ? '#163832' : '#991b1b',
-        color: type === 'success' ? '#daf1de' : '#fee2e2',
+        background: type === 'success' ? '#0F172A' : '#991b1b',
+        color: type === 'success' ? '#E2E8F0' : '#fee2e2',
         minWidth: 240,
       }}
     >
@@ -64,28 +64,28 @@ function FeaturedRow({
   return (
     <div
       className="rounded-2xl px-5 py-4 flex flex-col sm:flex-row sm:items-center gap-4"
-      style={{ background: '#fff', border: '1px solid rgba(22,56,50,0.08)' }}
+      style={{ background: '#fff', border: '1px solid rgba(15,23,42,0.08)' }}
     >
       {/* Info */}
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 mb-1 flex-wrap">
-          <p className="text-sm font-bold" style={{ color: '#051f20' }}>
+          <p className="text-sm font-bold" style={{ color: '#0F172A' }}>
             {item.name}
           </p>
           <span
             className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider"
             style={{
-              background: isActive ? 'rgba(16,185,129,0.1)' : 'rgba(22,56,50,0.06)',
-              color: isActive ? '#065f46' : 'rgba(22,56,50,0.4)',
+              background: isActive ? 'rgba(16,185,129,0.1)' : 'rgba(15,23,42,0.06)',
+              color: isActive ? '#065f46' : 'rgba(15,23,42,0.4)',
             }}
           >
             {isActive ? 'activo' : 'inactivo'}
           </span>
         </div>
-        <p className="text-xs mb-1.5" style={{ color: 'rgba(22,56,50,0.5)' }}>
+        <p className="text-xs mb-1.5" style={{ color: 'rgba(15,23,42,0.5)' }}>
           {item.tagline}
         </p>
-        <div className="flex flex-wrap gap-3 text-[11px] font-mono" style={{ color: 'rgba(22,56,50,0.4)' }}>
+        <div className="flex flex-wrap gap-3 text-[11px] font-mono" style={{ color: 'rgba(15,23,42,0.4)' }}>
           <span>{item.city_slug} / {item.service_slug}</span>
           {item.address && <span>📍 {item.address}</span>}
           {item.phone && <span>📞 {item.phone}</span>}
@@ -113,8 +113,8 @@ function FeaturedRow({
           }}
           className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-[11px] font-bold transition-all hover:opacity-80 disabled:opacity-40"
           style={{
-            background: isActive ? 'rgba(22,56,50,0.06)' : 'rgba(16,185,129,0.08)',
-            color: isActive ? '#163832' : '#065f46',
+            background: isActive ? 'rgba(15,23,42,0.06)' : 'rgba(16,185,129,0.08)',
+            color: isActive ? '#0F172A' : '#065f46',
           }}
         >
           {isActive ? <ToggleRight size={13} /> : <ToggleLeft size={13} />}
@@ -234,8 +234,8 @@ export default function DestacadosPage() {
 
   const inputStyle = {
     background: '#fff',
-    border: '1px solid rgba(22,56,50,0.12)',
-    color: '#051f20',
+    border: '1px solid rgba(15,23,42,0.12)',
+    color: '#0F172A',
     borderRadius: 12,
     padding: '10px 14px',
     fontSize: 13,
@@ -249,7 +249,7 @@ export default function DestacadosPage() {
     fontWeight: 700,
     textTransform: 'uppercase' as const,
     letterSpacing: '0.08em',
-    color: 'rgba(22,56,50,0.45)',
+    color: 'rgba(15,23,42,0.45)',
     display: 'block',
     marginBottom: 5,
   }
@@ -265,15 +265,15 @@ export default function DestacadosPage() {
         <div className="flex items-center gap-3 mb-1">
           <div
             className="w-9 h-9 rounded-xl flex items-center justify-center"
-            style={{ background: 'rgba(22,56,50,0.08)' }}
+            style={{ background: 'rgba(15,23,42,0.08)' }}
           >
-            <Star size={16} style={{ color: '#163832' }} />
+            <Star size={16} style={{ color: '#0F172A' }} />
           </div>
-          <h1 className="text-2xl font-black tracking-tight" style={{ color: '#051f20' }}>
+          <h1 className="text-2xl font-black tracking-tight" style={{ color: '#0F172A' }}>
             Destacados
           </h1>
         </div>
-        <p className="text-sm" style={{ color: 'rgba(22,56,50,0.45)' }}>
+        <p className="text-sm" style={{ color: 'rgba(15,23,42,0.45)' }}>
           Comercios que aparecen destacados en las landing pages de servicios.
         </p>
       </div>
@@ -281,10 +281,10 @@ export default function DestacadosPage() {
       {/* Form */}
       <div
         className="rounded-2xl p-6 mb-10"
-        style={{ background: '#fff', border: '1px solid rgba(22,56,50,0.08)' }}
+        style={{ background: '#fff', border: '1px solid rgba(15,23,42,0.08)' }}
       >
-        <h2 className="text-base font-extrabold mb-5 flex items-center gap-2" style={{ color: '#051f20' }}>
-          <Plus size={15} style={{ color: '#163832' }} />
+        <h2 className="text-base font-extrabold mb-5 flex items-center gap-2" style={{ color: '#0F172A' }}>
+          <Plus size={15} style={{ color: '#0F172A' }} />
           Nuevo destacado
         </h2>
 
@@ -379,7 +379,7 @@ export default function DestacadosPage() {
             type="submit"
             disabled={submitting}
             className="flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-bold transition-all hover:opacity-90 disabled:opacity-40"
-            style={{ background: '#163832', color: '#daf1de' }}
+            style={{ background: '#0F172A', color: '#F59E0B' }}
           >
             <Plus size={14} />
             {submitting ? 'Guardando...' : 'Crear destacado'}
@@ -389,7 +389,7 @@ export default function DestacadosPage() {
 
       {/* List */}
       <div>
-        <h2 className="text-base font-extrabold mb-4" style={{ color: '#051f20' }}>
+        <h2 className="text-base font-extrabold mb-4" style={{ color: '#0F172A' }}>
           Destacados actuales
         </h2>
 
@@ -397,15 +397,15 @@ export default function DestacadosPage() {
           <div className="space-y-3">
             {[1, 2, 3].map(i => (
               <div key={i} className="rounded-2xl h-20 animate-pulse"
-                style={{ background: 'rgba(22,56,50,0.05)' }} />
+                style={{ background: 'rgba(15,23,42,0.05)' }} />
             ))}
           </div>
         ) : items.length === 0 ? (
           <div
             className="rounded-2xl p-10 text-center"
-            style={{ background: '#fff', border: '1px solid rgba(22,56,50,0.08)' }}
+            style={{ background: '#fff', border: '1px solid rgba(15,23,42,0.08)' }}
           >
-            <p className="text-sm font-medium" style={{ color: 'rgba(22,56,50,0.4)' }}>
+            <p className="text-sm font-medium" style={{ color: 'rgba(15,23,42,0.4)' }}>
               No hay destacados cargados todavía.
             </p>
           </div>

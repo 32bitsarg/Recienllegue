@@ -54,8 +54,8 @@ export default function HeroParticles() {
       ctx.translate(p.x, p.y)
       ctx.rotate(p.rotation)
       ctx.globalAlpha = p.opacity
-      ctx.strokeStyle = '#daf1de'
-      ctx.fillStyle = '#daf1de'
+      ctx.strokeStyle = '#E2E8F0'
+      ctx.fillStyle = '#E2E8F0'
       ctx.lineWidth = 0.9
 
       switch (p.shape) {

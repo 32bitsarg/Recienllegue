@@ -41,13 +41,13 @@ export default function CookieBanner() {
   return (
     <div
       className="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:max-w-sm z-[200] rounded-2xl p-5 shadow-xl flex flex-col gap-3"
-      style={{ background: '#fff', border: '1px solid rgba(22,56,50,0.1)' }}
+      style={{ background: '#fff', border: '1px solid rgba(15,23,42,0.1)' }}
     >
       <div>
-        <p className="text-sm font-bold mb-1" style={{ color: '#051f20' }}>
+        <p className="text-sm font-bold mb-1" style={{ color: '#0F172A' }}>
           Usamos cookies 🍪
         </p>
-        <p className="text-xs leading-relaxed" style={{ color: 'rgba(5,31,32,0.55)' }}>
+        <p className="text-xs leading-relaxed" style={{ color: 'rgba(15,23,42,0.55)' }}>
           Usamos Google Analytics para entender cómo se usa la app y mejorarla. No compartimos tus datos con terceros.
         </p>
       </div>
@@ -56,14 +56,14 @@ export default function CookieBanner() {
         <button
           onClick={() => accept('all')}
           className="flex-1 py-2.5 rounded-xl text-xs font-bold transition-all hover:opacity-90"
-          style={{ background: '#163832', color: '#daf1de' }}
+          style={{ background: '#0F172A', color: '#F59E0B' }}
         >
           Aceptar todo
         </button>
         <button
           onClick={() => accept('essential')}
           className="flex-1 py-2.5 rounded-xl text-xs font-semibold transition-all hover:opacity-70"
-          style={{ background: 'rgba(22,56,50,0.07)', color: '#163832' }}
+          style={{ background: 'rgba(15,23,42,0.07)', color: '#0F172A' }}
         >
           Solo esenciales
         </button>

@@ -5,32 +5,13 @@ import Link from 'next/link'
 import PageTracker from '@/components/PageTracker'
 import { publicDb } from '@/lib/db'
 import { generateId } from '@/lib/uuid'
-
-function GraduationCapIcon() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
-      <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5" />
-    </svg>
-  )
-}
-
-function StoreIcon() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M3 9l1-5h16l1 5" />
-      <path d="M3 9a2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0 2 2 2 2 0 0 0 2-2" />
-      <path d="M5 21V11" />
-      <path d="M19 21V11" />
-      <rect x="9" y="14" width="6" height="7" />
-    </svg>
-  )
-}
+import { ArrowLeft, GraduationCap, Store } from 'lucide-react'
 
 export default function RegisterPage() {
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const [role, setRole] = useState<'estudiante' | 'comercio'>('estudiante')
+  const [step, setStep] = useState<1 | 2>(1)
 
   async function handleSubmit(formData: FormData) {
     setLoading(true)
@@ -40,7 +21,6 @@ export default function RegisterPage() {
       setError(result.error)
       setLoading(false)
     } else {
-      // Trackear conversión de registro exitoso
       const sessionId = localStorage.getItem('rl_session') ?? generateId()
       publicDb.from('user_events').insert({
         sessionId,
@@ -54,124 +34,207 @@ export default function RegisterPage() {
     }
   }
 
-  const cardBase = 'flex-1 flex flex-col items-center gap-2 py-4 px-3 rounded-xl cursor-pointer transition-all text-center select-none'
-  const cardSelected = { border: '1.5px solid #163832', background: 'rgba(22,56,50,0.04)' }
-  const cardUnselected = { border: '1.5px solid rgba(22,56,50,0.12)', background: '#fff' }
+  const inputClass = "w-full rounded-xl px-4 py-3 text-sm text-[#0F172A] outline-none transition-shadow"
+  const inputStyle = { border: '1px solid rgba(15,23,42,0.15)', background: '#F8FAFC' }
 
   return (
     <div className="w-full max-w-sm">
       <PageTracker page="/registro" />
-      <div
-        className="bg-white rounded-2xl shadow-sm px-8 py-10"
-        style={{ border: '1px solid rgba(22,56,50,0.08)' }}
-      >
-        <h1 className="text-2xl font-extrabold text-[#051f20] mb-1">Crear cuenta</h1>
-        <p className="text-sm mb-8" style={{ color: 'rgba(22,56,50,0.5)' }}>
-          Unite a la comunidad de Pergamino
-        </p>
 
-        <form action={handleSubmit} className="space-y-4">
-          {/* Role selector */}
-          <div>
-            <label className="block text-sm font-medium text-[#051f20] mb-2">Soy</label>
-            <div className="flex gap-3">
-              <button
-                type="button"
-                className={cardBase}
-                style={role === 'estudiante' ? cardSelected : cardUnselected}
-                onClick={() => setRole('estudiante')}
-              >
-                <span style={{ color: role === 'estudiante' ? '#163832' : 'rgba(22,56,50,0.4)' }}>
-                  <GraduationCapIcon />
-                </span>
-                <span className="text-xs font-semibold text-[#051f20]">Estudiante</span>
-                <span className="text-xs leading-tight" style={{ color: 'rgba(22,56,50,0.5)' }}>
-                  Soy estudiante en Pergamino
-                </span>
-              </button>
-
-              <button
-                type="button"
-                className={cardBase}
-                style={role === 'comercio' ? cardSelected : cardUnselected}
-                onClick={() => setRole('comercio')}
-              >
-                <span style={{ color: role === 'comercio' ? '#163832' : 'rgba(22,56,50,0.4)' }}>
-                  <StoreIcon />
-                </span>
-                <span className="text-xs font-semibold text-[#051f20]">Comercio</span>
-                <span className="text-xs leading-tight" style={{ color: 'rgba(22,56,50,0.5)' }}>
-                  Tengo un negocio en Pergamino
-                </span>
-              </button>
-            </div>
-            <input type="hidden" name="role" value={role} />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-[#051f20] mb-1">Nombre completo</label>
-            <input
-              name="name"
-              type="text"
-              required
-              placeholder="Juan Pérez"
-              className="w-full rounded-lg px-3 py-2.5 text-sm text-[#051f20] outline-none transition-shadow"
-              style={{ border: '1px solid rgba(22,56,50,0.2)', background: '#fff' }}
-              onFocus={e => (e.currentTarget.style.boxShadow = '0 0 0 3px rgba(22,56,50,0.15)')}
-              onBlur={e => (e.currentTarget.style.boxShadow = 'none')}
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-[#051f20] mb-1">Email</label>
-            <input
-              name="email"
-              type="email"
-              required
-              placeholder="tu@email.com"
-              className="w-full rounded-lg px-3 py-2.5 text-sm text-[#051f20] outline-none transition-shadow"
-              style={{ border: '1px solid rgba(22,56,50,0.2)', background: '#fff' }}
-              onFocus={e => (e.currentTarget.style.boxShadow = '0 0 0 3px rgba(22,56,50,0.15)')}
-              onBlur={e => (e.currentTarget.style.boxShadow = 'none')}
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-[#051f20] mb-1">Contraseña</label>
-            <input
-              name="password"
-              type="password"
-              required
-              placeholder="••••••••"
-              className="w-full rounded-lg px-3 py-2.5 text-sm text-[#051f20] outline-none transition-shadow"
-              style={{ border: '1px solid rgba(22,56,50,0.2)', background: '#fff' }}
-              onFocus={e => (e.currentTarget.style.boxShadow = '0 0 0 3px rgba(22,56,50,0.15)')}
-              onBlur={e => (e.currentTarget.style.boxShadow = 'none')}
-            />
-          </div>
-
-          {error && (
-            <div className="p-3 bg-red-50 text-red-600 text-sm rounded-lg border border-red-100">
-              {error}
-            </div>
-          )}
-
+      {/* Progress header */}
+      <div className="mb-6">
+        {step === 2 && (
           <button
-            type="submit"
-            disabled={loading}
-            className="w-full font-semibold py-2.5 rounded-lg text-sm transition-opacity disabled:opacity-50"
-            style={{ background: '#163832', color: '#daf1de' }}
+            onClick={() => setStep(1)}
+            className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider mb-4 transition-opacity hover:opacity-70"
+            style={{ color: 'rgba(15,23,42,0.45)' }}
           >
-            {loading ? 'Creando cuenta...' : 'Crear cuenta'}
+            <ArrowLeft size={13} /> Volver
           </button>
-        </form>
+        )}
+        <div className="flex items-center justify-between mb-2">
+          <p className="text-[11px] font-bold uppercase tracking-wider" style={{ color: 'rgba(15,23,42,0.4)' }}>
+            Paso {step} de 2
+          </p>
+          <p className="text-[11px] font-semibold" style={{ color: 'rgba(15,23,42,0.35)' }}>
+            {step === 1 ? 'Seleccioná tu rol' : 'Tus datos'}
+          </p>
+        </div>
+        <div className="flex gap-1.5">
+          {[1, 2].map(n => (
+            <div
+              key={n}
+              className="h-1 flex-1 rounded-full transition-all duration-300"
+              style={{ background: n <= step ? '#F59E0B' : 'rgba(15,23,42,0.1)' }}
+            />
+          ))}
+        </div>
+      </div>
 
-        <p className="mt-8 text-sm text-center" style={{ color: 'rgba(22,56,50,0.5)' }}>
-          ¿Ya tenés cuenta?{' '}
-          <Link href="/login" className="font-semibold text-[#163832] hover:underline">
-            Iniciá sesión
-          </Link>
-        </p>
+      <div
+        className="bg-white rounded-2xl shadow-sm overflow-hidden"
+        style={{ border: '1px solid rgba(15,23,42,0.08)' }}
+      >
+        {step === 1 ? (
+          /* ── Step 1: Role picker ── */
+          <div className="px-7 py-8">
+            <h1 className="text-2xl font-extrabold text-[#0F172A] mb-1">Crear cuenta</h1>
+            <p className="text-sm mb-7" style={{ color: 'rgba(15,23,42,0.5)' }}>
+              ¿Cómo vas a usar Recién Llegué?
+            </p>
+
+            <div className="space-y-3">
+              {([
+                {
+                  value: 'estudiante' as const,
+                  label: 'Estudiante',
+                  desc: 'Buscás hospedaje, transporte y servicios para instalarte',
+                  icon: <GraduationCap size={22} />,
+                },
+                {
+                  value: 'comercio' as const,
+                  label: 'Comercio',
+                  desc: 'Tenés un negocio y querés aparecer en la plataforma',
+                  icon: <Store size={22} />,
+                },
+              ] as const).map(({ value, label, desc, icon }) => (
+                <button
+                  key={value}
+                  type="button"
+                  onClick={() => setRole(value)}
+                  className="w-full flex items-start gap-4 p-4 rounded-2xl transition-all text-left"
+                  style={{
+                    border: role === value ? '2px solid #0F172A' : '2px solid rgba(15,23,42,0.1)',
+                    background: role === value ? 'rgba(15,23,42,0.03)' : '#fff',
+                  }}
+                >
+                  <div
+                    className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 mt-0.5"
+                    style={{
+                      background: role === value ? '#0F172A' : 'rgba(15,23,42,0.07)',
+                      color: role === value ? '#F59E0B' : 'rgba(15,23,42,0.4)',
+                    }}
+                  >
+                    {icon}
+                  </div>
+                  <div>
+                    <p className="text-sm font-bold text-[#0F172A]">{label}</p>
+                    <p className="text-xs mt-0.5 leading-snug" style={{ color: 'rgba(15,23,42,0.5)' }}>{desc}</p>
+                  </div>
+                  <div
+                    className="ml-auto w-4 h-4 rounded-full border-2 mt-1 shrink-0 flex items-center justify-center"
+                    style={{
+                      borderColor: role === value ? '#0F172A' : 'rgba(15,23,42,0.2)',
+                      background: role === value ? '#0F172A' : 'transparent',
+                    }}
+                  >
+                    {role === value && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
+                  </div>
+                </button>
+              ))}
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setStep(2)}
+              className="w-full mt-6 font-bold py-3 rounded-xl text-sm transition-opacity hover:opacity-90"
+              style={{ background: '#0F172A', color: '#F59E0B' }}
+            >
+              Continuar →
+            </button>
+
+            <p className="mt-5 text-sm text-center" style={{ color: 'rgba(15,23,42,0.5)' }}>
+              ¿Ya tenés cuenta?{' '}
+              <Link href="/login" className="font-semibold text-[#0F172A] hover:underline">
+                Iniciá sesión
+              </Link>
+            </p>
+          </div>
+        ) : (
+          /* ── Step 2: Form fields ── */
+          <div className="px-7 py-8">
+            <h1 className="text-2xl font-extrabold text-[#0F172A] mb-1">
+              {role === 'estudiante' ? 'Datos de estudiante' : 'Datos del comercio'}
+            </h1>
+            <p className="text-sm mb-7" style={{ color: 'rgba(15,23,42,0.5)' }}>
+              Unite a la comunidad de Pergamino
+            </p>
+
+            <form action={handleSubmit} className="space-y-4">
+              <input type="hidden" name="role" value={role} />
+
+              <div>
+                <label className="block text-[10px] font-bold uppercase tracking-wider mb-1.5" style={{ color: 'rgba(15,23,42,0.45)' }}>
+                  {role === 'comercio' ? 'Nombre del comercio' : 'Nombre completo'}
+                </label>
+                <input
+                  name="name"
+                  type="text"
+                  required
+                  placeholder={role === 'comercio' ? 'Ej: Pizzería Don José' : 'Juan Pérez'}
+                  className={inputClass}
+                  style={inputStyle}
+                  onFocus={e => (e.currentTarget.style.boxShadow = '0 0 0 3px rgba(15,23,42,0.12)')}
+                  onBlur={e => (e.currentTarget.style.boxShadow = 'none')}
+                />
+              </div>
+
+              <div>
+                <label className="block text-[10px] font-bold uppercase tracking-wider mb-1.5" style={{ color: 'rgba(15,23,42,0.45)' }}>
+                  Email
+                </label>
+                <input
+                  name="email"
+                  type="email"
+                  required
+                  placeholder="tu@email.com"
+                  className={inputClass}
+                  style={inputStyle}
+                  onFocus={e => (e.currentTarget.style.boxShadow = '0 0 0 3px rgba(15,23,42,0.12)')}
+                  onBlur={e => (e.currentTarget.style.boxShadow = 'none')}
+                />
+              </div>
+
+              <div>
+                <label className="block text-[10px] font-bold uppercase tracking-wider mb-1.5" style={{ color: 'rgba(15,23,42,0.45)' }}>
+                  Contraseña
+                </label>
+                <input
+                  name="password"
+                  type="password"
+                  required
+                  placeholder="••••••••"
+                  className={inputClass}
+                  style={inputStyle}
+                  onFocus={e => (e.currentTarget.style.boxShadow = '0 0 0 3px rgba(15,23,42,0.12)')}
+                  onBlur={e => (e.currentTarget.style.boxShadow = 'none')}
+                />
+              </div>
+
+              {error && (
+                <div className="p-3 bg-red-50 text-red-600 text-sm rounded-xl border border-red-100">
+                  {error}
+                </div>
+              )}
+
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full font-bold py-3 rounded-xl text-sm transition-opacity disabled:opacity-50 hover:opacity-90 mt-2"
+                style={{ background: '#0F172A', color: '#F59E0B' }}
+              >
+                {loading ? 'Creando cuenta...' : 'Crear cuenta'}
+              </button>
+            </form>
+
+            <p className="mt-5 text-sm text-center" style={{ color: 'rgba(15,23,42,0.5)' }}>
+              ¿Ya tenés cuenta?{' '}
+              <Link href="/login" className="font-semibold text-[#0F172A] hover:underline">
+                Iniciá sesión
+              </Link>
+            </p>
+          </div>
+        )}
       </div>
     </div>
   )

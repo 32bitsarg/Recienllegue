@@ -15,7 +15,21 @@
       "Read(//c/Programacion/sdktest/app/**)",
       "Read(//c/Programacion/sdktest/components/**)",
       "Read(//c/Programacion/sdktest/lib/**)",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "Bash(wc:*)",
+      "Bash(grep -n \"Suspense\\\\|import\" C:/Programacion/ro.js/examples/landing/src/*.js)",
+      "Bash(grep:*)",
+      "Bash(npm test:*)",
+      "Bash(xargs sed:*)",
+      "Bash(python3:*)",
+      "Bash(git checkout:*)",
+      "Bash(powershell:*)",
+      "Bash(where inkscape:*)",
+      "Bash(where magick:*)",
+      "Bash(where convert:*)",
+      "Bash(npx tsx:*)",
+      "Bash(find C:/Programacion/recienllegue/src/app/api -name \"route.ts\" -exec cat {} \\\\;)",
+      "Bash(npx matecitodb:*)"
     ]
   }
 }

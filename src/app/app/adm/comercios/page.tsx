@@ -43,16 +43,16 @@ const EMPTY_FORM = {
 // ─── Input helpers ────────────────────────────────────────────
 
 const inputStyle = {
-  background: 'rgba(22,56,50,0.04)',
-  border: '1px solid rgba(22,56,50,0.1)',
-  color: '#051f20',
+  background: 'rgba(15,23,42,0.04)',
+  border: '1px solid rgba(15,23,42,0.1)',
+  color: '#0F172A',
 }
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
       <p className="text-[10px] font-bold uppercase tracking-wider mb-1.5"
-        style={{ color: 'rgba(22,56,50,0.5)' }}>
+        style={{ color: 'rgba(15,23,42,0.5)' }}>
         {label}
       </p>
       {children}
@@ -79,7 +79,7 @@ function ComercioForm({
   return (
     <div
       className="rounded-2xl p-6 mb-6"
-      style={{ background: '#fff', border: '1px solid rgba(22,56,50,0.1)' }}
+      style={{ background: '#fff', border: '1px solid rgba(15,23,42,0.1)' }}
     >
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
         <Field label="Nombre">
@@ -163,18 +163,18 @@ function ComercioForm({
             type="checkbox"
             checked={form.isFeatured}
             onChange={e => set('isFeatured', e.target.checked)}
-            className="w-4 h-4 accent-[#163832]"
+            className="w-4 h-4 accent-[#0F172A]"
           />
-          <span className="text-sm font-medium" style={{ color: '#051f20' }}>Destacado</span>
+          <span className="text-sm font-medium" style={{ color: '#0F172A' }}>Destacado</span>
         </label>
         <label className="flex items-center gap-2 cursor-pointer">
           <input
             type="checkbox"
             checked={form.isVerified}
             onChange={e => set('isVerified', e.target.checked)}
-            className="w-4 h-4 accent-[#163832]"
+            className="w-4 h-4 accent-[#0F172A]"
           />
-          <span className="text-sm font-medium" style={{ color: '#051f20' }}>Verificado</span>
+          <span className="text-sm font-medium" style={{ color: '#0F172A' }}>Verificado</span>
         </label>
       </div>
 
@@ -183,7 +183,7 @@ function ComercioForm({
           onClick={() => onSubmit(form)}
           disabled={submitting || !form.name.trim()}
           className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all hover:opacity-90 disabled:opacity-40"
-          style={{ background: '#163832', color: '#daf1de' }}
+          style={{ background: '#0F172A', color: '#F59E0B' }}
         >
           <Check size={14} />
           {submitting ? 'Guardando...' : 'Guardar'}
@@ -191,7 +191,7 @@ function ComercioForm({
         <button
           onClick={onCancel}
           className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all hover:opacity-80"
-          style={{ background: 'rgba(22,56,50,0.06)', color: '#163832' }}
+          style={{ background: 'rgba(15,23,42,0.06)', color: '#0F172A' }}
         >
           <X size={14} />
           Cancelar
@@ -260,10 +260,10 @@ export default function AdminComerciosPage() {
       {/* Header */}
       <div className="flex items-center justify-between mb-7">
         <div>
-          <h1 className="text-2xl font-black tracking-tight mb-1" style={{ color: '#051f20' }}>
+          <h1 className="text-2xl font-black tracking-tight mb-1" style={{ color: '#0F172A' }}>
             Comercios
           </h1>
-          <p className="text-sm" style={{ color: 'rgba(22,56,50,0.45)' }}>
+          <p className="text-sm" style={{ color: 'rgba(15,23,42,0.45)' }}>
             {records.length} registros
           </p>
         </div>
@@ -271,7 +271,7 @@ export default function AdminComerciosPage() {
           <button
             onClick={() => { setShowAdd(true); setEditId(null) }}
             className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition-all hover:opacity-90"
-            style={{ background: '#163832', color: '#daf1de' }}
+            style={{ background: '#0F172A', color: '#F59E0B' }}
           >
             <Plus size={14} />
             Agregar
@@ -294,15 +294,15 @@ export default function AdminComerciosPage() {
         <div className="space-y-3">
           {[1,2,3].map(i => (
             <div key={i} className="rounded-2xl h-20 animate-pulse"
-              style={{ background: 'rgba(22,56,50,0.05)' }} />
+              style={{ background: 'rgba(15,23,42,0.05)' }} />
           ))}
         </div>
       ) : records.length === 0 ? (
         <div
           className="rounded-2xl p-12 text-center"
-          style={{ background: '#fff', border: '1px solid rgba(22,56,50,0.08)' }}
+          style={{ background: '#fff', border: '1px solid rgba(15,23,42,0.08)' }}
         >
-          <p className="text-sm font-medium" style={{ color: 'rgba(22,56,50,0.4)' }}>
+          <p className="text-sm font-medium" style={{ color: 'rgba(15,23,42,0.4)' }}>
             No hay comercios cargados todavia.
           </p>
         </div>
@@ -331,30 +331,30 @@ export default function AdminComerciosPage() {
               ) : (
                 <div
                   className="rounded-2xl px-5 py-4 flex items-center gap-4"
-                  style={{ background: '#fff', border: '1px solid rgba(22,56,50,0.08)' }}
+                  style={{ background: '#fff', border: '1px solid rgba(15,23,42,0.08)' }}
                 >
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-0.5 flex-wrap">
-                      <p className="font-extrabold text-sm" style={{ color: '#051f20' }}>
+                      <p className="font-extrabold text-sm" style={{ color: '#0F172A' }}>
                         {r.name}
                       </p>
                       {r.isFeatured && (
                         <span
                           className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full"
-                          style={{ background: '#daf1de', color: '#163832' }}
+                          style={{ background: '#E2E8F0', color: '#0F172A' }}
                         >
                           Destacado
                         </span>
                       )}
                     </div>
                     <div className="flex items-center gap-3">
-                      <p className="text-[11px]" style={{ color: 'rgba(22,56,50,0.45)' }}>
+                      <p className="text-[11px]" style={{ color: 'rgba(15,23,42,0.45)' }}>
                         {r.category}
                       </p>
                       {r.rating > 0 && (
                         <div className="flex items-center gap-1">
-                          <Star size={10} fill="#163832" stroke="none" />
-                          <span className="text-[11px] font-bold" style={{ color: '#051f20' }}>
+                          <Star size={10} fill="#0F172A" stroke="none" />
+                          <span className="text-[11px] font-bold" style={{ color: '#0F172A' }}>
                             {r.rating.toFixed(1)}
                           </span>
                         </div>
@@ -365,7 +365,7 @@ export default function AdminComerciosPage() {
                     <button
                       onClick={() => { setEditId(r.id); setShowAdd(false) }}
                       className="w-9 h-9 rounded-xl flex items-center justify-center transition-all hover:opacity-70"
-                      style={{ background: 'rgba(22,56,50,0.06)', color: '#163832' }}
+                      style={{ background: 'rgba(15,23,42,0.06)', color: '#0F172A' }}
                     >
                       <Pencil size={13} />
                     </button>

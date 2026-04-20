@@ -3,7 +3,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useUser } from '@/hooks/useUser'
 import { publicDb as db, getUserDb } from '@/lib/db'
-import AppSectionNav from '@/components/AppSectionNav'
 import HeroParticles from '@/components/HeroParticles'
 import {
   ChevronDown,
@@ -41,7 +40,7 @@ interface Comment {
 }
 
 const CATEGORIES = [
-  { value: 'vendo', label: 'Vendo', color: '#10b981' },
+  { value: 'vendo', label: 'Vendo', color: '#0EA5E9' },
   { value: 'busco', label: 'Busco', color: '#3b82f6' },
   { value: 'ofrezco', label: 'Ofrezco', color: '#8b5cf6' },
   { value: 'perdido', label: 'Se perdió', color: '#f59e0b' },
@@ -147,7 +146,7 @@ function InlinePostForm({ token, userName, userId, userRole, onCreated }: {
           className="flex-1 text-left text-sm px-4 py-2.5 rounded-2xl transition-all"
           style={{
             background: expanded ? '#fff' : 'var(--surface-soft)',
-            border: `1px solid ${expanded ? 'rgba(22,56,50,0.15)' : 'var(--border-subtle)'}`,
+            border: `1px solid ${expanded ? 'rgba(15,23,42,0.15)' : 'var(--border-subtle)'}`,
             color: expanded ? 'var(--text-primary)' : 'var(--text-muted)',
             fontWeight: expanded ? 600 : 400,
           }}
@@ -242,7 +241,7 @@ function InlinePostForm({ token, userName, userId, userRole, onCreated }: {
             onClick={submit}
             disabled={sending}
             className="w-full py-3 rounded-2xl text-sm font-bold transition-all hover:opacity-90 disabled:opacity-50"
-            style={{ background: 'var(--accent)', color: 'var(--accent-contrast)' }}
+            style={{ background: '#0F172A', color: '#F59E0B' }}
           >
             {sending ? 'Publicando...' : 'Publicar aviso'}
           </button>
@@ -292,7 +291,7 @@ function CommentsSection({ post, token, currentUserId, userName, onComment }: {
   if (loading) {
     return (
       <div className="px-4 pb-4 pt-2">
-        <div className="h-3 w-24 rounded-full animate-pulse" style={{ background: 'rgba(22,56,50,0.06)' }} />
+        <div className="h-3 w-24 rounded-full animate-pulse" style={{ background: 'rgba(15,23,42,0.06)' }} />
       </div>
     )
   }
@@ -305,7 +304,7 @@ function CommentsSection({ post, token, currentUserId, userName, onComment }: {
         <div key={comment.id} className="flex gap-2.5">
           <Avatar name={comment.userName} size={24} />
           <div className="flex-1">
-            <div className="rounded-xl rounded-tl-none px-3 py-2" style={{ background: '#eef6f0' }}>
+            <div className="rounded-xl rounded-tl-none px-3 py-2" style={{ background: '#E2E8F0' }}>
               <p className="text-[11px] font-bold mb-0.5" style={{ color: 'var(--text-primary)' }}>{comment.userName}</p>
               <p className="text-xs leading-relaxed" style={{ color: 'var(--text-muted)' }}>{comment.body}</p>
             </div>
@@ -335,7 +334,7 @@ function CommentsSection({ post, token, currentUserId, userName, onComment }: {
             onClick={submit}
             disabled={!body.trim() || sending}
             className="w-9 h-9 rounded-xl flex items-center justify-center transition-all disabled:opacity-30 mt-auto"
-            style={{ background: 'var(--accent)', color: 'var(--accent-contrast)' }}
+            style={{ background: '#0F172A', color: '#F59E0B' }}
           >
             <Send size={13} />
           </button>
@@ -421,7 +420,7 @@ function PostCard({ post, token, currentUserId, userName, onDelete, onLike }: {
               <div className="flex items-center gap-1.5 flex-wrap">
                 <p className="text-xs font-bold leading-none" style={{ color: 'var(--text-primary)' }}>{post.userName}</p>
                 {post.userRole === 'comercio' && (
-                  <span className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full" style={{ background: 'var(--accent)', color: 'var(--accent-contrast)' }}>
+                  <span className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full" style={{ background: '#0F172A', color: '#F59E0B' }}>
                     Comercio
                   </span>
                 )}
@@ -462,7 +461,7 @@ function PostCard({ post, token, currentUserId, userName, onDelete, onLike }: {
           {isLong && !expanded ? `${post.body.slice(0, 180)}...` : post.body}
         </p>
         {isLong && (
-          <button onClick={() => setExpanded((value) => !value)} className="flex items-center gap-1 text-[10px] font-bold mt-2 transition-opacity hover:opacity-60" style={{ color: 'var(--accent)' }}>
+          <button onClick={() => setExpanded((value) => !value)} className="flex items-center gap-1 text-[10px] font-bold mt-2 transition-opacity hover:opacity-60" style={{ color: '#F59E0B' }}>
             {expanded ? <><ChevronUp size={11} /> Ver menos</> : <><ChevronDown size={11} /> Ver más</>}
           </button>
         )}
@@ -549,7 +548,7 @@ export default function MuroPage() {
         <p className="text-sm font-semibold" style={{ color: 'var(--text-muted)' }}>
           Necesitás iniciar sesión para ver el muro.
         </p>
-        <a href="/login" className="px-6 py-3 rounded-xl text-sm font-bold" style={{ background: 'var(--accent)', color: 'var(--accent-contrast)' }}>
+        <a href="/login" className="px-6 py-3 rounded-xl text-sm font-bold" style={{ background: '#0F172A', color: '#F59E0B' }}>
           Iniciar sesión
         </a>
       </div>
@@ -560,22 +559,21 @@ export default function MuroPage() {
 
   return (
     <div className="px-4 lg:px-8 py-6 max-w-6xl mx-auto space-y-6">
-      <AppSectionNav />
 
       <section className="grid lg:grid-cols-[minmax(0,1fr)_300px] gap-4">
         <div
           className="rounded-[28px] p-5 sm:p-7 overflow-hidden relative"
-          style={{ background: '#163832' }}
+          style={{ background: '#0F172A' }}
         >
           <HeroParticles />
           <div className="relative z-10 max-w-2xl">
-            <p className="text-[10px] font-bold uppercase tracking-[0.18em] mb-2" style={{ color: '#a8ddb5' }}>
+            <p className="text-[10px] font-bold uppercase tracking-[0.18em] mb-2" style={{ color: '#CBD5E1' }}>
               Comunidad
             </p>
-            <h1 className="text-3xl sm:text-4xl font-black tracking-tight mb-2" style={{ color: '#daf1de' }}>
+            <h1 className="text-3xl sm:text-4xl font-black tracking-tight mb-2" style={{ color: '#E2E8F0' }}>
               Muro para publicar, buscar y conectar
             </h1>
-            <p className="text-sm sm:text-base leading-relaxed" style={{ color: '#b8e4bf' }}>
+            <p className="text-sm sm:text-base leading-relaxed" style={{ color: '#94A3B8' }}>
               Un espacio simple para mover avisos entre estudiantes, compartir oportunidades y resolver necesidades cotidianas.
             </p>
           </div>
@@ -587,18 +585,18 @@ export default function MuroPage() {
             <h2 className="app-section-title text-lg">Actividad del muro</h2>
           </div>
           <div className="grid grid-cols-2 gap-3">
-            <div className="rounded-2xl p-3" style={{ background: '#eef6f0' }}>
-              <p className="text-xl font-black leading-none" style={{ color: 'var(--accent)' }}>{posts.length}</p>
+            <div className="rounded-2xl p-3" style={{ background: '#E2E8F0' }}>
+              <p className="text-xl font-black leading-none" style={{ color: '#F59E0B' }}>{posts.length}</p>
               <p className="text-[10px] mt-1" style={{ color: 'var(--text-muted)' }}>avisos visibles</p>
             </div>
-            <div className="rounded-2xl p-3" style={{ background: '#eef6f0' }}>
-              <p className="text-xl font-black leading-none" style={{ color: 'var(--accent)' }}>{filterCat ? 1 : CATEGORIES.length}</p>
+            <div className="rounded-2xl p-3" style={{ background: '#E2E8F0' }}>
+              <p className="text-xl font-black leading-none" style={{ color: '#F59E0B' }}>{filterCat ? 1 : CATEGORIES.length}</p>
               <p className="text-[10px] mt-1" style={{ color: 'var(--text-muted)' }}>{filterCat ? 'filtro activo' : 'categorías'}</p>
             </div>
           </div>
-          <div className="rounded-2xl p-4" style={{ background: '#eef6f0' }}>
+          <div className="rounded-2xl p-4" style={{ background: '#E2E8F0' }}>
             <div className="flex items-center gap-2 mb-2">
-              <div className="w-9 h-9 rounded-2xl flex items-center justify-center" style={{ background: 'var(--surface)', color: 'var(--accent)' }}>
+              <div className="w-9 h-9 rounded-2xl flex items-center justify-center" style={{ background: 'var(--surface)', color: '#F59E0B' }}>
                 <Users size={16} />
               </div>
               <div>
@@ -630,9 +628,10 @@ export default function MuroPage() {
                 onClick={() => setFilterCat('')}
                 className="shrink-0 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-wider transition-all"
                 style={{
-                  background: filterCat === '' ? 'var(--accent)' : 'var(--surface)',
-                  color: filterCat === '' ? 'var(--accent-contrast)' : 'var(--accent)',
-                  border: `1px solid ${filterCat === '' ? 'transparent' : 'var(--border-subtle)'}`,
+                  background: filterCat === '' ? '#0F172A' : '#fff',
+                  color: filterCat === '' ? '#E2E8F0' : 'rgba(15,23,42,0.45)',
+                  outline: `1px solid ${filterCat === '' ? '#0F172A' : 'rgba(15,23,42,0.09)'}`,
+                  border: 'none',
                 }}
               >
                 Todo
@@ -658,18 +657,18 @@ export default function MuroPage() {
             <div className="space-y-3">
               {Array.from({ length: 4 }).map((_, index) => (
                 <div key={index} className="app-card overflow-hidden animate-pulse">
-                  <div className="h-1 w-full" style={{ background: 'rgba(22,56,50,0.08)' }} />
+                  <div className="h-1 w-full" style={{ background: 'rgba(15,23,42,0.08)' }} />
                   <div className="p-4 space-y-3">
                     <div className="flex gap-2.5">
-                      <div className="w-7 h-7 rounded-full" style={{ background: 'rgba(22,56,50,0.08)' }} />
+                      <div className="w-7 h-7 rounded-full" style={{ background: 'rgba(15,23,42,0.08)' }} />
                       <div className="space-y-1.5">
-                        <div className="h-2.5 w-24 rounded-full" style={{ background: 'rgba(22,56,50,0.08)' }} />
-                        <div className="h-2 w-14 rounded-full" style={{ background: 'rgba(22,56,50,0.06)' }} />
+                        <div className="h-2.5 w-24 rounded-full" style={{ background: 'rgba(15,23,42,0.08)' }} />
+                        <div className="h-2 w-14 rounded-full" style={{ background: 'rgba(15,23,42,0.06)' }} />
                       </div>
                     </div>
-                    <div className="h-4 w-3/4 rounded-full" style={{ background: 'rgba(22,56,50,0.06)' }} />
-                    <div className="h-3 w-full rounded-full" style={{ background: 'rgba(22,56,50,0.05)' }} />
-                    <div className="h-3 w-2/3 rounded-full" style={{ background: 'rgba(22,56,50,0.05)' }} />
+                    <div className="h-4 w-3/4 rounded-full" style={{ background: 'rgba(15,23,42,0.06)' }} />
+                    <div className="h-3 w-full rounded-full" style={{ background: 'rgba(15,23,42,0.05)' }} />
+                    <div className="h-3 w-2/3 rounded-full" style={{ background: 'rgba(15,23,42,0.05)' }} />
                   </div>
                 </div>
               ))}
@@ -706,7 +705,7 @@ export default function MuroPage() {
                   }}
                   disabled={loadingMore}
                   className="w-full py-3 rounded-2xl text-xs font-bold transition-all hover:opacity-80 disabled:opacity-40"
-                  style={{ background: 'var(--surface)', border: '1px solid var(--border-subtle)', color: 'var(--accent)' }}
+                  style={{ background: 'var(--surface)', border: '1px solid var(--border-subtle)', color: '#F59E0B' }}
                 >
                   {loadingMore ? 'Cargando...' : 'Ver más avisos'}
                 </button>
