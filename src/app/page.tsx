@@ -233,7 +233,7 @@ export default function GlobalHomePage() {
           '@context': 'https://schema.org',
           '@type': 'Organization',
           name: 'Recién Llegué',
-          url: 'https://recienlleguee.com.ar',
+          url: 'https://recienllegue.com',
           description: 'Portal de recursos para estudiantes universitarios en Argentina.',
           areaServed: 'Argentina',
         })
@@ -274,7 +274,7 @@ export default function GlobalHomePage() {
                 className="text-sm leading-relaxed"
                 style={{ color: '#94A3B8' }}
               >
-                Alojamiento, transporte, servicios y comunidad — todo verificado, en un solo lugar, gratis.
+                Alojamiento, transporte, servicios y comunidad — referencias útiles en un solo lugar, gratis.
               </motion.p>
               <motion.div
                 initial={{ opacity: 0, y: 16 }}
@@ -359,7 +359,7 @@ export default function GlobalHomePage() {
               {/* Right: feature cards grid */}
               <div className="grid grid-cols-2 gap-3">
                 {[
-                  { icon: <Home size={15} />, title: 'Alojamiento', desc: 'Pensiones, departamentos y habitaciones verificadas con precios actualizados.' },
+                  { icon: <Home size={15} />, title: 'Alojamiento', desc: 'Pensiones, departamentos y habitaciones con datos útiles para comparar antes de decidir.' },
                   { icon: <Bus size={15} />, title: 'Transporte', desc: 'Colectivos y remises con llamada directa. Movete desde el primer día.' },
                   { icon: <UtensilsCrossed size={15} />, title: 'Vida diaria', desc: 'Dónde comer, comprar y resolver lo cotidiano cerca de la universidad.' },
                   { icon: <Users size={15} />, title: 'Comunidad', desc: 'El muro conecta estudiantes para vender, buscar y ofrecer servicios.' },
@@ -422,7 +422,7 @@ export default function GlobalHomePage() {
               <p className="text-[10px] font-bold uppercase tracking-wider" style={{ color: C.muted }}>Todo en un lugar</p>
               <div className="grid grid-cols-2 gap-3">
                 <FeatureCard icon={<Home size={15} />} title="Alojamiento"
-                  desc="Pensiones, departamentos y habitaciones verificadas con precios actualizados y contacto directo." delay={0} />
+                  desc="Pensiones, departamentos y habitaciones con referencias, ubicación y contacto para comparar antes de decidir." delay={0} />
                 <FeatureCard icon={<Bus size={15} />} title="Transporte"
                   desc="Colectivos con mapa de recorridos y remises con llamada directa. Todo para moverte desde el primer día." delay={0.07} />
                 <FeatureCard icon={<UtensilsCrossed size={15} />} title="Vida diaria"
@@ -596,8 +596,8 @@ export default function GlobalHomePage() {
                 </div>
                 <ul className="space-y-3.5">
                   {[
-                    'Todos los alojamientos son verificados.',
-                    'Los precios se actualizan periódicamente.',
+                    'Revisá ubicación, servicios incluidos y condiciones antes de señar.',
+                    'Compará referencias y consultá valores vigentes.',
                     'El servicio es gratuito para estudiantes.',
                     'Sin publicidad ni contenido patrocinado.',
                     'Datos reales de estudiantes que ya vivieron esto.',
@@ -692,7 +692,7 @@ export default function GlobalHomePage() {
                     <span style={{ color: '#fff' }}>en diez lugares.</span>
                   </h2>
                   <p className="text-sm leading-relaxed" style={{ color: 'rgba(226,232,240,0.55)' }}>
-                    Alojamiento, transporte y servicios — todo verificado, en un solo lugar, gratis.
+                    Alojamiento, transporte y servicios — referencias útiles en un solo lugar, gratis.
                   </p>
                   <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
                     <a href="/app/hospedajes"

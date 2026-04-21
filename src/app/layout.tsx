@@ -19,7 +19,7 @@ const inter = Inter({
   variable: "--font-body",
 });
 
-const BASE_URL = 'https://recienlleguee.com.ar'
+const BASE_URL = 'https://recienllegue.com'
 
 export const metadata: Metadata = {
   title: "Recién Llegué | Tu guía para instalarte en Pergamino",

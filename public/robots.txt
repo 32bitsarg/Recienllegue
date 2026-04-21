@@ -9,4 +9,4 @@ Disallow: /app/
 Disallow: /api/
 
 # Sitemap
-Sitemap: https://recienlleguee.com.ar/sitemap.xml
+Sitemap: https://recienllegue.com/sitemap.xml

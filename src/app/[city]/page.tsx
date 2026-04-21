@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import { cities } from '@/data/seo-data'
 import CityClient from './CityClient'
 
-const SITE_URL = 'https://recienlleguee.com.ar'
+const SITE_URL = 'https://recienllegue.com'
 
 export async function generateStaticParams() {
   return Object.keys(cities).map(city => ({ city }))

@@ -4,7 +4,7 @@ import { cities } from '@/data/seo-data'
 import { getFeaturedBusiness } from '@/lib/featured'
 import LandingClient from './LandingClient'
 
-const SITE_URL = 'https://recienlleguee.com.ar'
+const SITE_URL = 'https://recienllegue.com'
 
 export async function generateStaticParams() {
   return Object.entries(cities).flatMap(([citySlug, city]) =>
@@ -23,7 +23,10 @@ export async function generateMetadata({
   if (!city || !service) return { title: 'No encontrado' }
 
   const canonical = `${SITE_URL}/${citySlug}/${serviceSlug}`
-  const description = `${service.metaDescription} → Registrate gratis en Recién Llegué.`
+  const hasCta = /registrate|unite|sumate|recién llegué|recien llegué/i.test(service.metaDescription)
+  const description = hasCta
+    ? service.metaDescription
+    : `${service.metaDescription} → Recién Llegué.`
 
   return {
     title: service.metaTitle,

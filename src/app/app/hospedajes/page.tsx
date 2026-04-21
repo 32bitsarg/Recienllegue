@@ -359,7 +359,7 @@ export default function HospedajesPage() {
         >
           <p className="text-sm font-medium" style={{ color: 'var(--text-muted-soft)' }}>
             {hospedajes.length === 0
-              ? 'Estamos relevando los hospedajes disponibles. Pronto vas a encontrar opciones verificadas acá.'
+              ? 'Estamos relevando los hospedajes disponibles. Pronto vas a encontrar opciones con datos útiles para comparar.'
               : 'No hay hospedajes para ese filtro todavía.'}
           </p>
         </div>

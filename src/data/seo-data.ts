@@ -181,7 +181,7 @@ export const MODIFIERS: Modifier[] = [
     extraFaqs: [
       {
         q: "¿Qué necesita saber un ingresante antes de mudarse a Pergamino?",
-        a: "Conviene llegar al menos 2 semanas antes del inicio de clases para asegurar alojamiento. Usá la app Recién Llegué para encontrar opciones verificadas.",
+        a: "Conviene llegar con tiempo antes del inicio de clases para comparar alojamiento, transporte y servicios. Usá Recién Llegué como guía y verificá cada opción antes de señar.",
       },
       {
         q: "¿Hay acompañamiento para ingresantes en Pergamino?",
@@ -214,7 +214,7 @@ export const MODIFIERS: Modifier[] = [
   {
     slug: "2026",
     label: "Precios 2026",
-    extraKeywords: ["2026 pergamino", "precios actualizados 2026", "tarifas 2026"],
+    extraKeywords: ["2026 pergamino", "referencias 2026", "tarifas vigentes"],
     extraFaqs: [
       {
         q: "¿Cuánto cuesta alquilar en Pergamino en 2026?",
@@ -446,7 +446,7 @@ export const SERVICES: ServiceBase[] = [
     metaTitle: "Lavanderías en Pergamino para Estudiantes | Precios 2026",
     metaDescription: "Lavanderías cerca de la UNNOBA en Pergamino: lavado, secado por kilo y entrega en el día según disponibilidad. → Encontrá la más cercana.",
     h1: "Lavanderías para Estudiantes en Pergamino",
-    intro: "Si tu alojamiento no tiene lavarropas, las lavanderías de Pergamino ofrecen servicio por kilo con entrega en el mismo día o al siguiente. Conocé las más convenientes para estudiantes y los precios actualizados para 2026.",
+    intro: "Si tu alojamiento no tiene lavarropas, las lavanderías de Pergamino ofrecen servicio por kilo con entrega en el mismo día o al siguiente según disponibilidad. Conocé opciones convenientes para estudiantes y consultá valores vigentes antes de llevar la ropa.",
     keywords: ["lavanderia pergamino", "lavado ropa por kilo pergamino", "lavanderia cerca unnoba pergamino", "laverap pergamino estudiante"],
     priceRange: "Consultar precio por kilo",
     urgency: "baja",

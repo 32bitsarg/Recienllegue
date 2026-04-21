@@ -40,16 +40,52 @@ const CATEGORY_CTA: Record<ServiceCategory, { label: string; verb: string; icon:
 
 const DEFAULT_CTA = { label: 'Abrir Recién Llegué', verb: 'Abrir', icon: <ExternalLink size={16} /> };
 
-const APP_HREF = '/registro';
 const REGISTER_HREF = '/registro';
+
+const CATEGORY_APP_HREF: Partial<Record<ServiceCategory, string>> = {
+   alojamiento: '/app/hospedajes',
+   transporte: '/app/transportes',
+   gastronomia: '/app/comercios',
+   comercio: '/app/comercios',
+   salud: '/app/comercios',
+   servicios: '/app/comercios',
+   educacion: '/pergamino',
+};
 
 // --- Trust stats ---
 const TRUST_STATS = [
-   { icon: <Users size={18} />, value: '+2.400', label: 'Estudiantes activos' },
-   { icon: <CheckCircle2 size={18} />, value: '98%', label: 'Satisfaccion' },
-   { icon: <Clock size={18} />, value: '<24hs', label: 'Tiempo de respuesta' },
+   { icon: <Users size={18} />, value: 'UNNOBA', label: 'Pensado para Pergamino' },
+   { icon: <CheckCircle2 size={18} />, value: '25', label: 'Guías por necesidad' },
+   { icon: <Clock size={18} />, value: '2026', label: 'Referencias revisadas' },
    { icon: <ShieldCheck size={18} />, value: 'Gratis', label: 'Sin costo para vos' },
 ];
+
+const RELATED_BY_SLUG: Record<string, string[]> = {
+   'alojamiento-estudiantes': ['alquiler-estudiantes', 'pensiones-estudiantiles', 'habitaciones-compartidas', 'seguro-inquilino'],
+   'alquiler-estudiantes': ['alojamiento-estudiantes', 'departamentos-monoambiente', 'seguro-inquilino', 'mudanza-flete'],
+   'pensiones-estudiantiles': ['alojamiento-estudiantes', 'habitaciones-compartidas', 'comida-universitaria', 'lavanderia'],
+   'departamentos-monoambiente': ['alquiler-estudiantes', 'seguro-inquilino', 'internet-wifi', 'mudanza-flete'],
+   'habitaciones-compartidas': ['alojamiento-estudiantes', 'pensiones-estudiantiles', 'muro', 'lavanderia'],
+   'residencias-universitarias': ['alojamiento-estudiantes', 'pensiones-estudiantiles', 'internet-wifi', 'comida-universitaria'],
+   'hospedaje-urgente': ['alojamiento-estudiantes', 'remis-24hs', 'comida-universitaria', 'farmacia'],
+   'remis-24hs': ['colectivos-urbanos', 'tarifas-transporte', 'bicicletas-alquiler', 'hospedaje-urgente'],
+   'colectivos-urbanos': ['tarifas-transporte', 'remis-24hs', 'bicicletas-alquiler', 'comida-universitaria'],
+   'tarifas-transporte': ['colectivos-urbanos', 'remis-24hs', 'bicicletas-alquiler', 'alojamiento-estudiantes'],
+   'bicicletas-alquiler': ['colectivos-urbanos', 'tarifas-transporte', 'gym-deporte', 'fotocopiadora-libreria'],
+   'comida-universitaria': ['supermercado-economico', 'delivery-pergamino', 'colectivos-urbanos', 'psicologia-bienestar'],
+   'delivery-pergamino': ['comida-universitaria', 'supermercado-economico', 'internet-wifi', 'farmacia'],
+   'supermercado-economico': ['comida-universitaria', 'delivery-pergamino', 'banco-cajero', 'alojamiento-estudiantes'],
+   'psicologia-bienestar': ['comida-universitaria', 'gym-deporte', 'farmacia', 'alojamiento-estudiantes'],
+   'farmacia': ['psicologia-bienestar', 'veterinaria', 'remis-24hs', 'comida-universitaria'],
+   'gym-deporte': ['psicologia-bienestar', 'bicicletas-alquiler', 'comida-universitaria', 'farmacia'],
+   'fotocopiadora-libreria': ['fotocopia-carnet', 'internet-wifi', 'banco-cajero', 'colectivos-urbanos'],
+   'fotocopia-carnet': ['fotocopiadora-libreria', 'banco-cajero', 'internet-wifi', 'colectivos-urbanos'],
+   'internet-wifi': ['fotocopiadora-libreria', 'departamentos-monoambiente', 'delivery-pergamino', 'banco-cajero'],
+   'banco-cajero': ['fotocopia-carnet', 'supermercado-economico', 'seguro-inquilino', 'fotocopiadora-libreria'],
+   'seguro-inquilino': ['alquiler-estudiantes', 'departamentos-monoambiente', 'banco-cajero', 'mudanza-flete'],
+   'mudanza-flete': ['alquiler-estudiantes', 'departamentos-monoambiente', 'hospedaje-urgente', 'seguro-inquilino'],
+   'veterinaria': ['farmacia', 'remis-24hs', 'alojamiento-estudiantes', 'supermercado-economico'],
+};
 
 // --- FAQ Accordion ---
 function FaqItem({ q, a, index }: { q: string; a: string; index: number }) {
@@ -97,10 +133,11 @@ function CtaButton({
 }) {
    const meta = category ? CATEGORY_CTA[category] : DEFAULT_CTA;
    const pad = size === 'lg' ? 'px-8 py-4 text-sm' : size === 'sm' ? 'px-5 py-3 text-[11px]' : 'px-6 py-3.5 text-xs';
+   const href = category ? CATEGORY_APP_HREF[category] ?? REGISTER_HREF : REGISTER_HREF;
 
    return (
       <a
-         href={APP_HREF}
+         href={href}
          className={`group inline-flex items-center gap-2 rounded-xl font-bold transition-all hover:scale-[1.02] hover:shadow-lg ${pad} ${full ? 'w-full justify-center' : ''}`}
          style={{ background: '#F59E0B', color: C.primary }}
       >
@@ -177,15 +214,12 @@ function RelatedCard({ slug, service, citySlug }: { slug: string; service: any; 
    );
 }
 
-const SCHEMA_TYPES: Record<ServiceCategory, string> = {
-   alojamiento:  'Accommodation',
-   transporte:   'Service',
-   gastronomia:  'FoodEstablishment',
-   salud:        'MedicalBusiness',
-   servicios:    'LocalBusiness',
-   educacion:    'EducationalOrganization',
-   comercio:     'Store',
-}
+const SEO_REVIEW_DATE = '2026-04-21';
+const SEO_SOURCE_LINKS = [
+   { label: 'UNNOBA - estudiantes, becas y orientación', href: 'https://unnoba.edu.ar/ensenanza-estudiantes/' },
+   { label: 'UNNOBA - sede y contacto Pergamino', href: 'https://www.unnoba.edu.ar/ensenanza-contacto/' },
+   { label: 'Municipalidad/Pergamino Ciudad - transporte urbano', href: 'https://www.pergaminociudad.com.ar/Ya-funcionan-los-nuevos-recorridos-de-las-lineas-urbanas-del-transporte-publico-199169' },
+];
 
 // --- PAGE ---
 export default function LandingClient({
@@ -203,26 +237,39 @@ export default function LandingClient({
 }) {
    const category: ServiceCategory | undefined = service.category;
 
-   const relatedServices = Object.entries(city.services)
-      .filter(([slug]) => slug !== serviceSlug)
-      .sort(([, a]: any, [, b]: any) => {
-         if (a.category === category && b.category !== category) return -1;
-         if (b.category === category && a.category !== category) return 1;
-         return 0;
-      })
+   const relatedSeed = RELATED_BY_SLUG[serviceSlug] ?? [];
+   const relatedServices = relatedSeed
+      .filter((slug) => slug !== serviceSlug && city.services[slug])
+      .map((slug) => [slug, city.services[slug]] as [string, ServiceBase])
+      .concat(
+         Object.entries(city.services)
+            .filter(([slug, s]: [string, any]) =>
+               slug !== serviceSlug &&
+               !relatedSeed.includes(slug) &&
+               s.category === category
+            )
+            .slice(0, 4)
+      )
       .slice(0, 4);
 
    const serviceSchema = {
       '@context': 'https://schema.org',
-      '@type': service.schemaType ?? (category ? SCHEMA_TYPES[category] : 'Service'),
+      '@type': 'Article',
+      headline: service.h1,
       name: service.h1,
       description: service.intro,
-      areaServed: {
-         '@type': 'City',
-         name: city.name,
-         containedInPlace: { '@type': 'State', name: 'Buenos Aires, Argentina' },
+      dateModified: SEO_REVIEW_DATE,
+      author: { '@type': 'Organization', name: 'Recién Llegué' },
+      publisher: { '@type': 'Organization', name: 'Recién Llegué', url: 'https://recienllegue.com' },
+      about: {
+         '@type': 'Thing',
+         name: service.title,
       },
-      ...(service.priceRange ? { priceRange: service.priceRange } : {}),
+      spatialCoverage: {
+        '@type': 'City',
+        name: city.name,
+        containedInPlace: { '@type': 'State', name: 'Buenos Aires, Argentina' },
+      },
    }
 
    const jsonLd = [
@@ -240,9 +287,9 @@ export default function LandingClient({
          '@context': 'https://schema.org',
          '@type': 'BreadcrumbList',
          itemListElement: [
-            { '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://recienlleguee.com.ar' },
-            { '@type': 'ListItem', position: 2, name: city.name, item: `https://recienlleguee.com.ar/${citySlug}` },
-            { '@type': 'ListItem', position: 3, name: service.title, item: `https://recienlleguee.com.ar/${citySlug}/${serviceSlug}` },
+            { '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://recienllegue.com' },
+            { '@type': 'ListItem', position: 2, name: city.name, item: `https://recienllegue.com/${citySlug}` },
+            { '@type': 'ListItem', position: 3, name: service.title, item: `https://recienllegue.com/${citySlug}/${serviceSlug}` },
          ],
       },
    ];
@@ -359,6 +406,35 @@ export default function LandingClient({
                         </span>
                      </motion.div>
                   )}
+
+                  <motion.div
+                     initial={{ opacity: 0 }}
+                     animate={{ opacity: 1 }}
+                     transition={{ delay: 0.48 }}
+                     className="mt-5 rounded-2xl p-5 max-w-2xl"
+                     style={{ background: C.surface, border: `1px solid ${C.border}` }}
+                  >
+                     <p className="text-[10px] font-bold uppercase tracking-wider mb-2" style={{ color: C.muted }}>
+                        Última revisión: abril 2026
+                     </p>
+                     <p className="text-xs leading-relaxed mb-3" style={{ color: C.muted }}>
+                        Esta guía combina referencias públicas, datos locales y criterios prácticos para estudiantes. Los precios y servicios pueden cambiar; verificá siempre la información vigente antes de reservar, contratar o trasladarte.
+                     </p>
+                     <div className="flex flex-wrap gap-2">
+                        {SEO_SOURCE_LINKS.map((source) => (
+                           <a
+                              key={source.href}
+                              href={source.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-[10px] font-bold px-3 py-1.5 rounded-full transition-opacity hover:opacity-70"
+                              style={{ background: '#E2E8F0', color: C.primary }}
+                           >
+                              {source.label}
+                           </a>
+                        ))}
+                     </div>
+                  </motion.div>
                </div>
             </section>
 
@@ -551,7 +627,7 @@ export default function LandingClient({
                               </a>
                            ) : null}
                            <a
-                              href={APP_HREF}
+                              href={category ? CATEGORY_APP_HREF[category] ?? REGISTER_HREF : REGISTER_HREF}
                               className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-bold text-xs transition-all"
                               style={{ background: 'white', color: C.primary, border: `1px solid rgba(15,23,42,0.15)` }}
                            >
@@ -661,7 +737,7 @@ export default function LandingClient({
 
                         <div className="flex flex-col gap-3 shrink-0 w-full md:w-auto">
                            <a
-                              href={APP_HREF}
+                              href={category ? CATEGORY_APP_HREF[category] ?? REGISTER_HREF : REGISTER_HREF}
                               className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-bold text-sm transition-all hover:scale-[1.02]"
                               style={{ background: '#F59E0B', color: C.primary }}
                            >

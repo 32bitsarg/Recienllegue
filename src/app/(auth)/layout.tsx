@@ -54,7 +54,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
             <span style={{ color: '#fff' }}>en un solo lugar.</span>
           </h2>
           <p className="text-sm leading-relaxed max-w-xs" style={{ color: '#94A3B8' }}>
-            Alojamiento verificado, transporte, comercios y comunidad para instalarte en Pergamino desde el primer día.
+            Alojamiento, transporte, comercios y comunidad para comparar opciones antes de instalarte en Pergamino.
           </p>
         </div>
 

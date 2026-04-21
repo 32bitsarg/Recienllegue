@@ -175,7 +175,7 @@ export default function CityClient({ citySlug, city }: { citySlug: string; city:
 
    const totalServices = allServices.length;
 
-   const BASE = 'https://recienlleguee.com.ar';
+   const BASE = 'https://recienllegue.com';
 
    const jsonLd = [
       {
