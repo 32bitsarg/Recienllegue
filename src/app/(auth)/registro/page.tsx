@@ -14,6 +14,12 @@ export default function RegisterPage() {
   const [step, setStep] = useState<1 | 2>(1)
 
   async function handleSubmit(formData: FormData) {
+    const pwd     = formData.get('password') as string
+    const confirm = formData.get('confirmPassword') as string
+    if (pwd !== confirm) {
+      setError('Las contraseñas no coinciden')
+      return
+    }
     setLoading(true)
     setError(null)
     const result = await register(formData)
@@ -157,7 +163,7 @@ export default function RegisterPage() {
               {role === 'estudiante' ? 'Datos de estudiante' : 'Datos del comercio'}
             </h1>
             <p className="text-sm mb-7" style={{ color: 'rgba(15,23,42,0.5)' }}>
-              Unite a la comunidad de Pergamino
+              {role === 'comercio' ? 'Sé parte de Recién Llegué' : 'Unite a la comunidad de Pergamino'}
             </p>
 
             <form action={handleSubmit} className="space-y-4">
@@ -195,12 +201,45 @@ export default function RegisterPage() {
                 />
               </div>
 
+              {role === 'comercio' && (
+                <div>
+                  <label className="block text-[10px] font-bold uppercase tracking-wider mb-1.5" style={{ color: 'rgba(15,23,42,0.45)' }}>
+                    Teléfono de contacto <span style={{ color: 'rgba(15,23,42,0.3)', fontWeight: 500 }}>(opcional)</span>
+                  </label>
+                  <input
+                    name="phone"
+                    type="tel"
+                    placeholder="Ej: 2477-123456"
+                    className={inputClass}
+                    style={inputStyle}
+                    onFocus={e => (e.currentTarget.style.boxShadow = '0 0 0 3px rgba(15,23,42,0.12)')}
+                    onBlur={e => (e.currentTarget.style.boxShadow = 'none')}
+                  />
+                </div>
+              )}
+
               <div>
                 <label className="block text-[10px] font-bold uppercase tracking-wider mb-1.5" style={{ color: 'rgba(15,23,42,0.45)' }}>
                   Contraseña
                 </label>
                 <input
                   name="password"
+                  type="password"
+                  required
+                  placeholder="••••••••"
+                  className={inputClass}
+                  style={inputStyle}
+                  onFocus={e => (e.currentTarget.style.boxShadow = '0 0 0 3px rgba(15,23,42,0.12)')}
+                  onBlur={e => (e.currentTarget.style.boxShadow = 'none')}
+                />
+              </div>
+
+              <div>
+                <label className="block text-[10px] font-bold uppercase tracking-wider mb-1.5" style={{ color: 'rgba(15,23,42,0.45)' }}>
+                  Repetir contraseña
+                </label>
+                <input
+                  name="confirmPassword"
                   type="password"
                   required
                   placeholder="••••••••"

@@ -20,7 +20,7 @@ export async function generateMetadata({
 
   const canonical = `${SITE_URL}/${citySlug}`
   const title = `Vivir en ${city.name} como Estudiante | Guía UNNOBA 2026 | Recién Llegué`
-  const description = `Guía completa para estudiantes de la ${city.institution} en ${city.name}. Alojamiento, transporte, gastronomía y servicios verificados. Precios actualizados 2026 → Registrate gratis.`
+  const description = `Guía para estudiantes de la ${city.institution} en ${city.name}. Alojamiento, transporte, gastronomía y servicios útiles con referencias actualizadas para comparar antes de llegar.`
 
   return {
     title,

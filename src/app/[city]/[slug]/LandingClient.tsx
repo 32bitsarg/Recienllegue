@@ -323,7 +323,7 @@ export default function LandingClient({
                      className="text-base md:text-lg leading-relaxed max-w-2xl mb-10"
                      style={{ color: C.muted }}
                   >
-                     {service.intro} Encontrá opciones verificadas en {city.name} con precios actualizados 2026.
+                     {service.intro} Usá esta guía para comparar referencias, zonas y datos útiles antes de decidir.
                   </motion.p>
 
                   {/* CTA hero */}
@@ -351,7 +351,7 @@ export default function LandingClient({
                         style={{ background: C.surface, border: `1px solid ${C.border}` }}
                      >
                         <span className="text-[10px] font-medium uppercase tracking-wider" style={{ color: C.muted }}>
-                           Rango de precios 2026
+                           Referencia
                         </span>
                         <span className="w-px h-4" style={{ background: C.border }} />
                         <span className="text-sm font-bold" style={{ color: C.secondary }}>

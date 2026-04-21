@@ -5,7 +5,7 @@ import type { NextRequest } from 'next/server'
  * CONFIGURACIÓN DE RUTAS
  * Edita estas listas según la estructura de tu aplicación.
  */
-const PROTECTED_ROUTES = ['/app/muro', '/app/perfil', '/dashboard', '/crear']
+const PROTECTED_ROUTES = ['/app/muro', '/app/perfil', '/app/adm', '/dashboard', '/crear']
 const AUTH_ROUTES = ['/login', '/registro']
 
 const API_URL = process.env.NEXT_PUBLIC_MATECITODB_URL || 'http://localhost:3001'
@@ -34,7 +34,7 @@ export default function proxy(request: NextRequest) {
   }
 
   if (isAuthRoute && token && user) {
-    return NextResponse.redirect(new URL('/', request.url))
+    return NextResponse.redirect(new URL('/app/inicio', request.url))
   }
 
   const response = NextResponse.next()
@@ -47,5 +47,5 @@ export default function proxy(request: NextRequest) {
 
 export const config = {
   // Ajusta este matcher según las rutas que definas arriba
-  matcher: ['/app/muro/:path*', '/app/muro', '/app/perfil/:path*', '/app/perfil', '/dashboard/:path*', '/crear/:path*', '/login', '/registro']
+  matcher: ['/app/muro/:path*', '/app/muro', '/app/perfil/:path*', '/app/perfil', '/app/adm/:path*', '/app/adm', '/dashboard/:path*', '/crear/:path*', '/login', '/registro']
 }

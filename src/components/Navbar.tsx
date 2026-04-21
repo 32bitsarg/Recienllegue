@@ -91,7 +91,7 @@ export default function Navbar() {
               type="text"
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
-              placeholder="Buscar comercios, hospedajes…"
+              placeholder="Buscar comercios…"
               className="bg-transparent outline-none text-[11px] font-medium w-full"
               style={{ color: '#0F172A' }}
             />
@@ -103,7 +103,7 @@ export default function Navbar() {
               <>
                 {isLoggedIn ? (
                   <div className="hidden sm:flex items-center gap-4">
-                    <a href="/perfil" className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider" style={{ color: '#0F172A', fontFamily: 'var(--font-head)' }}>
+                    <a href="/app/perfil" className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider" style={{ color: '#0F172A', fontFamily: 'var(--font-head)' }}>
                       <User size={14} />
                       {user?.name || 'Mi Perfil'}
                     </a>
@@ -179,7 +179,7 @@ export default function Navbar() {
                   type="text"
                   value={mobileSearchQuery}
                   onChange={e => setMobileSearchQuery(e.target.value)}
-                  placeholder="Buscar comercios, hospedajes…"
+                  placeholder="Buscar comercios…"
                   className="bg-transparent outline-none text-[12px] font-medium w-full"
                   style={{ color: '#0F172A' }}
                 />
@@ -200,7 +200,7 @@ export default function Navbar() {
                 {isLoggedIn ? (
                   <>
                     <a
-                      href="/perfil"
+                      href="/app/perfil"
                       className="text-center px-5 py-3 rounded-full text-[11px] font-bold uppercase tracking-wider"
                       style={{ background: '#0F172A', color: '#F59E0B', fontFamily: 'var(--font-head)' }}
                       onClick={() => setMobileOpen(false)}

@@ -8,9 +8,7 @@ import {
 } from 'lucide-react'
 import { publicDb as db } from '@/lib/db'
 import { logout } from '@/app/actions/auth'
-import GeoPermissionPopup from '@/components/GeoPermissionPopup'
 import ProfileCompleteCard from '@/components/ProfileCompleteCard'
-import { useGeolocation } from '@/hooks/useGeolocation'
 
 // ─── Quick Actions ─────────────────────────────────────────────
 
@@ -844,8 +842,14 @@ function PwaInstallPopup() {
   useEffect(() => {
     const h = (e: Event) => {
       e.preventDefault(); setPrompt(e)
-      if (!window.matchMedia('(display-mode: standalone)').matches &&
-          localStorage.getItem('pwa-popup-dismissed') !== 'true') setShow(true)
+      if (window.matchMedia('(display-mode: standalone)').matches ||
+          localStorage.getItem('pwa-popup-dismissed') === 'true') return
+
+      const visits = Number(localStorage.getItem('rl_app_visits') ?? '0') + 1
+      localStorage.setItem('rl_app_visits', String(visits))
+      if (visits < 2) return
+
+      window.setTimeout(() => setShow(true), 8000)
     }
     window.addEventListener('beforeinstallprompt', h)
     return () => window.removeEventListener('beforeinstallprompt', h)
@@ -907,26 +911,58 @@ function ContactCard() {
   )
 }
 
+function DuenoOnboardingCard({ missingFields }: { missingFields: string[] }) {
+  const ready = missingFields.length === 0
+
+  return (
+    <div
+      className="app-card px-5 py-5 sm:px-7 sm:py-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+      style={{ borderLeft: '3px solid #F59E0B' }}
+    >
+      <div className="space-y-1.5">
+        <p className="text-[10px] font-bold uppercase tracking-wider" style={{ color: 'rgba(15,23,42,0.45)' }}>
+          Cuenta comercio
+        </p>
+        <p className="text-base font-extrabold" style={{ color: '#0F172A' }}>
+          {ready ? 'Ya tenés tu contacto cargado' : 'Terminá de preparar tu perfil comercial'}
+        </p>
+        <p className="text-sm leading-relaxed" style={{ color: 'rgba(15,23,42,0.55)' }}>
+          {ready
+            ? 'Podés escribirnos para sumar tu comercio u hospedaje al relevamiento.'
+            : 'Agregá un teléfono de contacto para que podamos validar y publicar tu comercio más rápido.'}
+        </p>
+      </div>
+      <div className="flex flex-col sm:flex-row gap-2 shrink-0">
+        {!ready && (
+          <a
+            href="/app/perfil"
+            className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-xs font-bold transition-all hover:opacity-85"
+            style={{ background: '#0F172A', color: '#F59E0B' }}
+          >
+            Completar perfil <ChevronRight size={13} />
+          </a>
+        )}
+        <a
+          href="https://wa.me/5491124025239?text=Hola%2C%20quiero%20sumar%20mi%20comercio%20a%20Recien%20Llegue"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-xs font-bold transition-all hover:opacity-85"
+          style={{ background: ready ? '#0F172A' : '#E2E8F0', color: ready ? '#F59E0B' : '#0F172A' }}
+        >
+          <Phone size={13} /> Escribir por WhatsApp
+        </a>
+      </div>
+    </div>
+  )
+}
+
 // ─── Page ──────────────────────────────────────────────────────
 
 export default function InicioPage() {
   const { user, isLoggedIn } = useUser()
   const isAdmin = user?.role === 'admin'
-  const { hasAsked, requestPermission } = useGeolocation()
-  const [showGeoPopup, setShowGeoPopup] = useState(false)
-  const [geoLoading, setGeoLoading] = useState(false)
+  const isDueno = user?.role === 'dueno'
   const [missingProfileFields, setMissingProfileFields] = useState<string[]>([])
-
-  // Mostrar popup de geo 3s después del mount
-  useEffect(() => {
-    if (!isLoggedIn) return
-    const timer = setTimeout(() => {
-      if (typeof localStorage !== 'undefined' && !localStorage.getItem('geo_popup_seen')) {
-        setShowGeoPopup(true)
-      }
-    }, 3000)
-    return () => clearTimeout(timer)
-  }, [isLoggedIn])
 
   // Cargar perfil para detectar campos faltantes
   useEffect(() => {
@@ -936,37 +972,22 @@ export default function InicioPage() {
         const profile = res[0]
         if (!profile) return
         const missing: string[] = []
-        if (!profile.career) missing.push('career')
-        if (!profile.city_origin) missing.push('city_origin')
-        if (!profile.year_of_study) missing.push('year_of_study')
+        const role = profile.role ?? user.role
+        if (role === 'dueno') {
+          if (!profile.contact) missing.push('contact')
+        } else {
+          if (!profile.career)        missing.push('career')
+          if (!profile.city_origin)   missing.push('city_origin')
+          if (!profile.year_of_study) missing.push('year_of_study')
+        }
         setMissingProfileFields(missing)
       })
       .catch(() => {})
   }, [user])
 
-  const handleGeoAllow = async () => {
-    setGeoLoading(true)
-    await requestPermission('onboarding_popup')
-    setGeoLoading(false)
-    localStorage.setItem('geo_popup_seen', 'true')
-    setShowGeoPopup(false)
-  }
-
-  const handleGeoDismiss = () => {
-    localStorage.setItem('geo_popup_seen', 'true')
-    setShowGeoPopup(false)
-  }
-
   return (
     <div className="pb-24 lg:pb-12 max-w-6xl mx-auto lg:px-0">
       <PwaInstallPopup />
-      {showGeoPopup && (
-        <GeoPermissionPopup
-          onAllow={handleGeoAllow}
-          onDismiss={handleGeoDismiss}
-          loading={geoLoading}
-        />
-      )}
 
       {/* Mobile: greeting + quick actions en la misma sección */}
       <div className="lg:hidden px-4 sm:px-5 pt-5 pb-0">
@@ -1054,7 +1075,16 @@ export default function InicioPage() {
       {/* Profile complete card */}
       {isLoggedIn && missingProfileFields.length > 0 && (
         <div className="px-4 sm:px-5 lg:px-8 mt-4">
-          <ProfileCompleteCard missingFields={missingProfileFields} />
+          <ProfileCompleteCard
+            missingFields={missingProfileFields}
+            variant={isDueno ? 'dueno' : undefined}
+          />
+        </div>
+      )}
+
+      {isLoggedIn && isDueno && (
+        <div className="px-4 sm:px-5 lg:px-8 mt-4">
+          <DuenoOnboardingCard missingFields={missingProfileFields} />
         </div>
       )}
 

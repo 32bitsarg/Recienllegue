@@ -57,7 +57,7 @@ export default async function OgImage({
         </div>
 
         <div style={{ fontSize: 22, color: 'rgba(226,232,240,0.55)', maxWidth: 580, lineHeight: 1.5 }}>
-          Guía completa para estudiantes de la {institution}. Alojamiento, transporte y servicios verificados.
+          Guía para estudiantes de la {institution}. Alojamiento, transporte y servicios útiles.
         </div>
 
         <div style={{ display: 'flex', gap: 12, marginTop: 48 }}>

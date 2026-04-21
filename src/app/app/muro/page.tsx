@@ -419,7 +419,7 @@ function PostCard({ post, token, currentUserId, userName, onDelete, onLike }: {
             <div>
               <div className="flex items-center gap-1.5 flex-wrap">
                 <p className="text-xs font-bold leading-none" style={{ color: 'var(--text-primary)' }}>{post.userName}</p>
-                {post.userRole === 'comercio' && (
+                {(post.userRole === 'dueno' || post.userRole === 'comercio') && (
                   <span className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full" style={{ background: '#0F172A', color: '#F59E0B' }}>
                     Comercio
                   </span>

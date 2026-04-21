@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { Camera, ChevronRight, Mail, Phone, Save, UserRound } from 'lucide-react'
 import { useUser } from '@/hooks/useUser'
 import { getUserDb, publicDb as db } from '@/lib/db'
+import { logout } from '@/app/actions/auth'
 
 interface Profile {
   id: string
@@ -45,7 +46,7 @@ function ProfileAvatar({
   }
 
   if (profile?.avatarSeed) {
-    const style = profile.role === 'comercio' ? 'shapes' : 'adventurer'
+    const style = profile.role === 'dueno' || profile.role === 'comercio' ? 'shapes' : 'adventurer'
     const src = `https://api.dicebear.com/9.x/${style}/svg?seed=${profile.avatarSeed}`
     return <img src={src} alt={userName} width={96} height={96} className="rounded-full bg-white" style={{ width: 96, height: 96 }} />
   }
@@ -62,7 +63,7 @@ function ProfileAvatar({
 
 function RoleBadge({ role }: { role?: string }) {
   if (!role) return null
-  const isComercio = role === 'comercio'
+  const isComercio = role === 'dueno' || role === 'comercio'
 
   return (
     <span
@@ -177,12 +178,7 @@ export default function PerfilPage() {
   }
 
   const handleLogout = async () => {
-    await fetch('/api/auth/logout', { method: 'POST' }).catch(() => {})
-    document.cookie = 'mb_token=; Max-Age=0; path=/'
-    document.cookie = 'mb_token_pub=; Max-Age=0; path=/'
-    document.cookie = 'mb_refresh=; Max-Age=0; path=/'
-    document.cookie = 'mb_user=; Max-Age=0; path=/'
-    router.push('/login')
+    await logout()
   }
 
   if (authLoading || (!user && !authLoading)) {

@@ -155,11 +155,11 @@ export const MODIFIERS: Modifier[] = [
     extraFaqs: [
       {
         q: "¿Cuál es la opción más barata para estudiantes en Pergamino?",
-        a: "Las habitaciones en pensión compartida fuera del centro suelen arrancar en $60.000/mes en 2026.",
+        a: "La opción más económica suele ser compartir casa, departamento o habitación. Los valores cambian rápido, por eso conviene comparar publicaciones actualizadas antes de señar.",
       },
       {
         q: "¿Se puede conseguir algo barato cerca de la UNNOBA?",
-        a: "Sí, en barrios como Acevedo y Trocha hay opciones económicas a 10-15 minutos de la facultad.",
+        a: "Sí, aunque cerca de la sede suele haber más demanda. Si el presupuesto es ajustado, conviene mirar zonas con buena conexión en colectivo o bici.",
       },
     ],
   },
@@ -185,7 +185,7 @@ export const MODIFIERS: Modifier[] = [
       },
       {
         q: "¿Hay acompañamiento para ingresantes en Pergamino?",
-        a: "La UNNOBA tiene un área de Bienestar Estudiantil que organiza reuniones de recepción para ingresantes.",
+        a: "La UNNOBA informa programas de becas, tutorías y orientación y acompañamiento para estudiantes. Conviene consultar los canales oficiales al momento de inscribirse.",
       },
     ],
   },
@@ -196,7 +196,7 @@ export const MODIFIERS: Modifier[] = [
     extraFaqs: [
       {
         q: "¿Se puede alquilar sin garantía en Pergamino?",
-        a: "Sí, muchos propietarios aceptan depósito en efectivo o seguro de caución como reemplazo del garante.",
+        a: "Depende de cada propietario o inmobiliaria. Algunas operaciones aceptan seguro de caución u otras garantías, pero hay que confirmarlo antes de avanzar.",
       },
     ],
   },
@@ -207,7 +207,7 @@ export const MODIFIERS: Modifier[] = [
     extraFaqs: [
       {
         q: "¿Es más barato alquilar directamente con el dueño?",
-        a: "Generalmente sí, porque no se pagan comisiones de inmobiliaria, que suelen ser 1 mes de alquiler.",
+        a: "Puede reducir costos de intermediación, pero lo importante es revisar contrato, depósito, actualización, servicios incluidos y estado real del inmueble.",
       },
     ],
   },
@@ -218,7 +218,7 @@ export const MODIFIERS: Modifier[] = [
     extraFaqs: [
       {
         q: "¿Cuánto cuesta alquilar en Pergamino en 2026?",
-        a: "Los monoambientes para estudiantes rondan $150.000 a $220.000 pesos mensuales en 2026.",
+        a: "Como referencia de publicaciones locales recientes, un monoambiente céntrico puede ubicarse alrededor de $250.000 y departamentos más amplios superar ese valor. Verificá siempre publicaciones vigentes.",
       },
     ],
   },
@@ -233,17 +233,17 @@ export const SERVICES: ServiceBase[] = [
     category: "alojamiento",
     title: "Alojamiento para Estudiantes",
     metaTitle: "Alojamiento para Estudiantes en Pergamino 2026 | Recién Llegué",
-    metaDescription: "¿Dónde vivir estudiando en la UNNOBA? Compará pensiones, departamentos y habitaciones verificadas en Pergamino con precios 2026. → Unite a Recién Llegué gratis.",
+    metaDescription: "¿Dónde vivir estudiando en la UNNOBA? Compará pensiones, departamentos y habitaciones en Pergamino con referencias actualizadas. → Unite a Recién Llegué gratis.",
     h1: "Alojamiento para Estudiantes en Pergamino",
     intro: "Si vas a estudiar en la UNNOBA, encontrar alojamiento es el primer paso. En Pergamino hay opciones para todos los presupuestos: pensiones con todo incluido, departamentos para compartir y habitaciones amuebladas cerca de la facultad. Esta guía te ayuda a comparar cada opción antes de decidir.",
     keywords: ["alojamiento estudiantes pergamino", "donde vivir pergamino unnoba", "donde dormir pergamino estudiante", "vivir en pergamino unnoba 2026"],
-    priceRange: "$60k - $220k/mes",
+    priceRange: "Consultar valores actualizados",
     urgency: "alta",
     schemaType: "LodgingBusiness",
     faqs: [
-      { q: "¿Cuánto cuesta alojamiento para estudiantes en Pergamino?", a: "Los precios van desde $60.000 (habitación en pensión) hasta $220.000 (depto amueblado solo). Para 2026 el promedio es $140.000/mes." },
+      { q: "¿Cuánto cuesta alojamiento para estudiantes en Pergamino?", a: "Depende del tipo de alojamiento, ubicación y servicios incluidos. Para alquiler individual, las publicaciones locales recientes muestran monoambientes desde alrededor de $250.000, mientras que compartir suele bajar el costo por persona." },
       { q: "¿Cuándo tengo que buscar alojamiento para la UNNOBA?", a: "Lo ideal es empezar la búsqueda en noviembre-diciembre para asegurar lugar antes del inicio de clases en marzo." },
-      { q: "¿La UNNOBA tiene residencia universitaria?", a: "No cuenta con residencia propia, pero Bienestar Estudiantil tiene un listado de alojamientos verificados." },
+      { q: "¿La UNNOBA orienta sobre alojamiento?", a: "La UNNOBA ha trabajado con áreas de bienestar y registros de alojamiento para orientar a estudiantes. Conviene consultar los canales oficiales y contrastar con opciones actualizadas en la ciudad." },
     ],
   },
   {
@@ -255,13 +255,13 @@ export const SERVICES: ServiceBase[] = [
     h1: "Alquiler para Estudiantes en Pergamino",
     intro: "El mercado de alquiler para estudiantes en Pergamino tiene opciones desde monoambientes hasta casas para compartir entre 3 o 4 estudiantes, lo que reduce mucho el costo individual. Entender los requisitos y el contrato de antemano te ahorra sorpresas.",
     keywords: ["alquiler estudiantes pergamino", "departamentos alquiler pergamino", "alquilar en pergamino sin garantia", "contrato alquiler estudiante pergamino"],
-    priceRange: "$120k - $250k/mes",
+    priceRange: "$250k+ alquiler individual; menos compartiendo",
     urgency: "alta",
     schemaType: "Accommodation",
     faqs: [
-      { q: "¿Qué requisitos piden para alquilar en Pergamino?", a: "DNI, certificado de alumno regular y garantía (propietario en Capital o GBA, o seguro de caución)." },
-      { q: "¿Cuántos meses de depósito piden?", a: "Generalmente 1 mes de depósito más el primer mes adelantado." },
-      { q: "¿Hay alquileres temporarios para el año lectivo?", a: "Sí, muchos propietarios ofrecen contratos de 10 meses (marzo a diciembre) ideales para estudiantes." },
+      { q: "¿Qué requisitos piden para alquilar en Pergamino?", a: "Suelen pedir DNI, ingresos o garantía y, en algunos casos, certificado de alumno regular. Los requisitos cambian según dueño o inmobiliaria." },
+      { q: "¿Cuántos meses de depósito piden?", a: "Lo habitual es negociar depósito y primer mes por adelantado, pero hay que revisar cada contrato antes de señar." },
+      { q: "¿Hay alquileres temporarios para el año lectivo?", a: "Existen opciones temporarias o acuerdos por ciclo lectivo, especialmente para estudiantes. Confirmá duración, actualización y servicios incluidos." },
     ],
   },
   {
@@ -269,17 +269,17 @@ export const SERVICES: ServiceBase[] = [
     category: "alojamiento",
     title: "Pensiones Estudiantiles",
     metaTitle: "Pensiones Estudiantiles en Pergamino 2026 | Todo Incluido",
-    metaDescription: "Pensiones con comida, WiFi y limpieza para ingresantes de la UNNOBA en Pergamino. Todo incluido desde $100k/mes. → Encontrá la tuya en Recién Llegué.",
+    metaDescription: "Pensiones con servicios incluidos para ingresantes de la UNNOBA en Pergamino. Compará ubicación, convivencia y condiciones. → Encontrá opciones en Recién Llegué.",
     h1: "Pensiones Estudiantiles en Pergamino",
     intro: "Las pensiones estudiantiles son la opción preferida para el primer año: comidas, WiFi y limpieza incluidos en una sola cuota mensual. Son ideales si llegás por primera vez a Pergamino y querés concentrarte en arrancar la facultad sin preocuparte por cocinar o limpiar.",
     keywords: ["pensiones pergamino", "pension con comida pergamino", "pension todo incluido unnoba", "pension ingresante pergamino unnoba"],
-    priceRange: "$100k - $180k/mes todo incluido",
+    priceRange: "Consultar según servicios incluidos",
     urgency: "alta",
     schemaType: "LodgingBusiness",
     faqs: [
-      { q: "¿Qué incluye una pensión estudiantil en Pergamino?", a: "Generalmente WiFi, limpieza semanal, almuerzo y cena. Algunos incluyen desayuno." },
-      { q: "¿Es mejor una pensión que un departamento?", a: "Para el primer año sí: menos burocracia, comida asegurada y compañía." },
-      { q: "¿Las pensiones tienen contrato?", a: "La mayoría acepta acuerdos mensuales sin contrato formal, lo que da más flexibilidad." },
+      { q: "¿Qué incluye una pensión estudiantil en Pergamino?", a: "Depende de cada lugar. Algunas incluyen WiFi, limpieza o comidas; otras solo habitación y espacios comunes." },
+      { q: "¿Es mejor una pensión que un departamento?", a: "Para ingresantes puede ser más simple por convivencia y servicios resueltos, pero conviene comparar reglas, ubicación y costo total." },
+      { q: "¿Las pensiones tienen contrato?", a: "Las condiciones varían. Antes de entrar, pedí por escrito precio, depósito, servicios incluidos, reglas de convivencia y plazo mínimo." },
     ],
   },
   {
@@ -287,16 +287,16 @@ export const SERVICES: ServiceBase[] = [
     category: "alojamiento",
     title: "Departamentos Monoambiente",
     metaTitle: "Departamentos Monoambiente en Pergamino para Estudiantes 2026",
-    metaDescription: "Monoambientes amueblados en alquiler en Pergamino desde $150k/mes. Máxima independencia para estudiantes de la UNNOBA. → Sumate a Recién Llegué.",
+    metaDescription: "Monoambientes amueblados en alquiler en Pergamino para estudiantes de la UNNOBA. Referencias 2026 y zonas clave. → Sumate a Recién Llegué.",
     h1: "Departamentos Monoambiente para Estudiantes en Pergamino",
     intro: "Un monoambiente es la opción de mayor independencia para el estudiante universitario: tu propio espacio, tus tiempos y sin convivencia forzada. En Pergamino encontrás opciones amuebladas listas para mudarse en distintas zonas de la ciudad.",
     keywords: ["monoambiente pergamino", "departamento monoambiente amueblado pergamino", "alquiler monoambiente pergamino 2026", "vivir solo pergamino unnoba"],
-    priceRange: "$150k - $250k/mes",
+    priceRange: "$250k - $400k+/mes como referencia publicada",
     urgency: "media",
     schemaType: "Accommodation",
     faqs: [
-      { q: "¿Cuánto cuesta un monoambiente en Pergamino en 2026?", a: "Entre $150.000 y $250.000 pesos mensuales dependiendo de la zona y si está amueblado." },
-      { q: "¿Los monoambientes incluyen servicios?", a: "Generalmente no. Luz, gas y agua van por separado y pueden sumar $30.000-$60.000 por mes." },
+      { q: "¿Cuánto cuesta un monoambiente en Pergamino en 2026?", a: "Publicaciones locales recientes muestran monoambientes céntricos alrededor de $250.000 y departamentos de mayor tamaño por encima de ese valor. Tomalo como referencia y verificá disponibilidad actual." },
+      { q: "¿Los monoambientes incluyen servicios?", a: "No siempre. Revisá si el precio incluye expensas, tasas, agua, gas, luz, internet y condiciones de actualización." },
     ],
   },
   {
@@ -304,16 +304,16 @@ export const SERVICES: ServiceBase[] = [
     category: "alojamiento",
     title: "Habitaciones Compartidas",
     metaTitle: "Habitaciones Compartidas en Pergamino 2026 | Para Estudiantes",
-    metaDescription: "Compartí casa o depto con otros estudiantes de la UNNOBA en Pergamino desde $50k/mes. La opción más económica. → Encontrá compañeros en Recién Llegué.",
+    metaDescription: "Compartí casa o depto con otros estudiantes de la UNNOBA en Pergamino. La opción más económica suele ser dividir gastos. → Encontrá compañeros en Recién Llegué.",
     h1: "Habitaciones Compartidas para Estudiantes en Pergamino",
     intro: "Compartir casa o departamento con otros estudiantes reduce el gasto a menos de la mitad respecto a un monoambiente individual. Es la opción más popular entre quienes priorizan el bolsillo sin sacrificar ubicación cerca de la UNNOBA.",
     keywords: ["habitaciones compartidas pergamino", "compañero de cuarto unnoba pergamino", "compartir departamento pergamino estudiantes", "busco roommate pergamino"],
-    priceRange: "$50k - $100k/mes por persona",
+    priceRange: "Menor costo por persona al compartir",
     urgency: "alta",
     schemaType: "Accommodation",
     faqs: [
       { q: "¿Cómo encuentro compañeros para compartir en Pergamino?", a: "Podés usar grupos de Facebook de la UNNOBA, el mural de Bienestar Estudiantil, o la app Recién Llegué." },
-      { q: "¿Cuánto ahorro al compartir?", a: "Compartir una casa entre 3 estudiantes puede reducir el costo individual de $220k a $80k por mes." },
+      { q: "¿Cuánto ahorro al compartir?", a: "El ahorro depende del alquiler total y los servicios. Dividir entre dos, tres o cuatro personas suele bajar mucho el costo frente a vivir solo." },
     ],
   },
   {
@@ -325,7 +325,7 @@ export const SERVICES: ServiceBase[] = [
     h1: "Residencias Universitarias en Pergamino",
     intro: "Las residencias universitarias privadas en Pergamino están diseñadas para estudiantes que quieren más que un cuarto: internet de alta velocidad, espacios de estudio comunes, lavandería y una comunidad de compañeros en la misma situación.",
     keywords: ["residencia universitaria pergamino", "residencia estudiantil privada pergamino", "residencia con sala de estudio pergamino", "residencia unnoba 2026"],
-    priceRange: "$130k - $200k/mes",
+    priceRange: "Consultar disponibilidad y servicios",
     urgency: "media",
     schemaType: "LodgingBusiness",
     faqs: [
@@ -337,16 +337,16 @@ export const SERVICES: ServiceBase[] = [
     category: "alojamiento",
     title: "Hospedaje Urgente para Estudiantes",
     metaTitle: "Hospedaje Urgente en Pergamino | Para Estudiantes UNNOBA",
-    metaDescription: "¿Llegaste a Pergamino sin alojamiento? Hospedaje por noche o semana mientras resolvés tu situación. Desde $4.000/noche. → Recién Llegué te orienta.",
+    metaDescription: "¿Llegaste a Pergamino sin alojamiento? Hospedaje por noche o semana mientras resolvés tu situación. → Recién Llegué te orienta.",
     h1: "Hospedaje Urgente en Pergamino para Estudiantes",
     intro: "Si llegaste a Pergamino y todavía no tenés alojamiento fijo, hay opciones por noche, por semana o por mes para instalarte mientras resolvés tu situación. Es la solución ideal para las primeras semanas de clases.",
     keywords: ["hospedaje urgente pergamino", "alojamiento por día pergamino estudiante", "donde quedarme hoy pergamino", "hostel pergamino unnoba"],
-    priceRange: "$4.000 - $8.000/noche",
+    priceRange: "Consultar tarifa diaria o semanal",
     urgency: "alta",
     schemaType: "LodgingBusiness",
     faqs: [
       { q: "¿Hay hostels en Pergamino?", a: "Hay algunos hospedajes económicos que aceptan estadías cortas. Desde Recién Llegué te podemos orientar." },
-      { q: "¿Por cuánto tiempo puedo quedarme en un hospedaje urgente?", a: "La mayoría acepta desde 1 noche hasta 30 días. Es ideal para las primeras semanas." },
+      { q: "¿Por cuánto tiempo puedo quedarme en un hospedaje urgente?", a: "Depende de cada alojamiento. Preguntá por tarifa diaria, semanal o mensual y por la disponibilidad en época de inicio de clases." },
     ],
   },
 
@@ -355,53 +355,53 @@ export const SERVICES: ServiceBase[] = [
     slug: "remis-24hs",
     category: "transporte",
     title: "Remises 24hs",
-    metaTitle: "Remises en Pergamino 24 Horas | Números y Precios 2026",
-    metaDescription: "Agencias de remis en Pergamino con servicio 24hs. Números, precios por zona y traslados a Junín 2026. → Accedé al directorio en Recién Llegué.",
+    metaTitle: "Remises en Pergamino 24 Horas | Números y Contactos",
+    metaDescription: "Agencias de remis en Pergamino con servicio 24hs. Contactos por zona, traslados y consejos para moverte al llegar. → Accedé al directorio en Recién Llegué.",
     h1: "Remises en Pergamino 24 Horas",
     intro: "En Pergamino funcionan varias agencias de remises con servicio las 24 horas, ideales para traslados nocturnos, llegadas a la terminal o viajes a la sede universitaria en Junín. Tener los números a mano te salva en más de una ocasión.",
     keywords: ["remises pergamino", "remis 24hs pergamino", "agencias remis pergamino 2026", "remis pergamino junin"],
-    priceRange: "$1.800 - $4.500 por viaje interno",
+    priceRange: "Consultar tarifa vigente",
     urgency: "alta",
     schemaType: "TaxiService",
     faqs: [
-      { q: "¿Cuánto cuesta un remis interno en Pergamino?", a: "Un viaje interno cuesta entre $1.800 y $3.500 pesos. De noche puede aplicar una tarifa adicional del 20%." },
-      { q: "¿Hay remises a Junín desde Pergamino?", a: "Sí, varias agencias hacen el traslado inter-sedes. El costo ronda los $8.000-$12.000 por persona." },
-      { q: "¿Es seguro el remis nocturno en Pergamino?", a: "Sí, las agencias habilitadas tienen radio seguimiento y los conductores están registrados." },
+      { q: "¿Cuánto cuesta un remis interno en Pergamino?", a: "La tarifa cambia por distancia, horario y agencia. Pedí precio estimado antes de confirmar el viaje." },
+      { q: "¿Hay remises a Junín desde Pergamino?", a: "Algunas agencias realizan traslados interurbanos o viajes programados. Conviene consultar disponibilidad y costo con anticipación." },
+      { q: "¿Es seguro el remis nocturno en Pergamino?", a: "Usá agencias identificadas, compartí el viaje con alguien de confianza y confirmá datos del móvil antes de subir." },
     ],
   },
   {
     slug: "colectivos-urbanos",
     category: "transporte",
     title: "Colectivos Urbanos",
-    metaTitle: "Colectivos Urbanos en Pergamino | Líneas, Paradas y SUBE 2026",
-    metaDescription: "Líneas de colectivo en Pergamino: recorridos, paradas y boleto universitario SUBE 2026. Moverse es fácil y económico. → Descubrí más en Recién Llegué.",
+    metaTitle: "Colectivos Urbanos en Pergamino | Ramales, Paradas y App",
+    metaDescription: "Colectivos urbanos en Pergamino: ramales A, B, C, D, E, Parque Industrial, recorridos IDE y app ¿Cuándo llega? → Descubrí más en Recién Llegué.",
     h1: "Colectivos Urbanos en Pergamino — Guía Completa",
-    intro: "El transporte urbano de Pergamino cuenta con 4 líneas principales que conectan todos los barrios con el centro y la sede de la UNNOBA. Solo se usa la tarjeta SUBE — te explicamos cómo cargarla y tramitar el boleto universitario con descuento.",
-    keywords: ["colectivos pergamino", "lineas colectivo pergamino 2026", "SUBE pergamino recarga", "boleto universitario pergamino unnoba"],
-    priceRange: "$180 con boleto universitario",
+    intro: "El transporte urbano de Pergamino funciona con ramales que conectan barrios, centro, terminal y zonas clave. Las fuentes municipales informan ramales A, B, C, D, E y servicios como Parque Industrial; los recorridos pueden consultarse en IDE Pergamino y con la app local ¿Cuándo llega?.",
+    keywords: ["colectivos pergamino", "ramales A B C D E pergamino", "cuando llega pergamino", "la nueva perla pergamino", "IDE pergamino colectivos", "boleto universitario pergamino unnoba"],
+    priceRange: "Consultar boleto vigente",
     urgency: "media",
     schemaType: "BusStop",
     faqs: [
-      { q: "¿Qué colectivo va a la UNNOBA?", a: "La Línea A pasa por la puerta de la Sede Monteagudo. También podés tomar la Línea C desde el centro." },
-      { q: "¿Funciona la SUBE en Pergamino?", a: "Sí, es el único medio de pago aceptado. Podés cargar saldo en kioscos habilitados o en la Terminal." },
-      { q: "¿Hay descuento universitario?", a: "Sí, tramitando el boleto universitario en Bienestar Estudiantil pagás $180 en lugar del precio normal." },
+      { q: "¿Qué colectivo va a la UNNOBA?", a: "Depende desde qué zona salgas. Revisá el recorrido vigente en IDE Pergamino o en la app ¿Cuándo llega? antes de viajar." },
+      { q: "¿Dónde veo los recorridos actualizados?", a: "La Municipalidad publica capas de movilidad urbana en IDE Pergamino y la app ¿Cuándo llega? permite consultar paradas y tiempos de arribo." },
+      { q: "¿Hay descuento universitario?", a: "Puede haber beneficios o becas de transporte vinculadas a la vida universitaria. Confirmá requisitos vigentes en los canales oficiales de UNNOBA o municipio." },
     ],
   },
   {
     slug: "tarifas-transporte",
     category: "transporte",
     title: "Tarifas de Transporte",
-    metaTitle: "Tarifas de Transporte en Pergamino 2026 | Colectivos y Remises",
-    metaDescription: "Precios actualizados de colectivo, remis y traslados Pergamino-Junín 2026. Planificá tu presupuesto de transporte mensual. → Recién Llegué te ayuda.",
+    metaTitle: "Tarifas de Transporte en Pergamino | Colectivos y Remises",
+    metaDescription: "Cómo estimar gastos de colectivo, remis y traslados Pergamino-Junín. Planificá tu presupuesto mensual con datos vigentes. → Recién Llegué te ayuda.",
     h1: "Tarifas de Transporte en Pergamino 2026",
-    intro: "Conocé todos los precios de transporte en Pergamino actualizados para 2026: boleto de colectivo con y sin descuento universitario, tarifas de remis por zona y costos de traslado a Junín para estudiantes de la UNNOBA.",
+    intro: "Los costos de transporte cambian con frecuencia. Para planificar tu presupuesto mensual, conviene separar viajes en colectivo, remises ocasionales, traslados interurbanos y beneficios universitarios disponibles.",
     keywords: ["tarifas transporte pergamino 2026", "cuanto cuesta colectivo pergamino", "precio remis pergamino 2026", "cuanto sale ir pergamino junin"],
-    priceRange: "$180 - $15.000 según destino",
+    priceRange: "Consultar tarifas vigentes",
     urgency: "media",
     schemaType: "LocalBusiness",
     faqs: [
-      { q: "¿Cuánto cuesta el boleto de colectivo en Pergamino?", a: "El boleto normal cuesta $450. Con descuento universitario baja a $180." },
-      { q: "¿Cuánto sale ir de Pergamino a Junín?", a: "En remis compartido ronda $4.500-$6.000. En colectivo de larga distancia unos $3.200." },
+      { q: "¿Cuánto cuesta el boleto de colectivo en Pergamino?", a: "La tarifa puede actualizarse. Consultá el valor vigente en canales municipales, puntos SUBE o información de la empresa prestataria." },
+      { q: "¿Cuánto sale ir de Pergamino a Junín?", a: "Depende del medio, horario y si el viaje es compartido. Pedí precio actualizado antes de organizar traslados entre sedes." },
     ],
   },
   {
@@ -413,11 +413,11 @@ export const SERVICES: ServiceBase[] = [
     h1: "Alquiler de Bicicletas para Estudiantes en Pergamino",
     intro: "La bicicleta es una de las formas más eficientes y económicas de moverse en Pergamino. Varios locales y emprendimientos ofrecen alquiler mensual pensado para estudiantes, con tarifas mucho menores al remis o al colectivo.",
     keywords: ["alquiler bicicletas pergamino", "bicicleta mensual estudiante pergamino", "bici para ir a la unnoba", "ciclovias pergamino"],
-    priceRange: "$15k - $25k/mes",
+    priceRange: "Consultar alquiler o compra usada",
     urgency: "baja",
     schemaType: "LocalBusiness",
     faqs: [
-      { q: "¿Es seguro ir en bici a la UNNOBA?", a: "Sí, Pergamino tiene varias ciclovías y el tráfico es moderado. Se recomienda casco y candado." },
+      { q: "¿Es seguro ir en bici a la UNNOBA?", a: "Puede ser una buena opción si vivís relativamente cerca. Usá casco, luces, candado y elegí calles o ciclovías con circulación segura." },
     ],
   },
 
@@ -431,11 +431,11 @@ export const SERVICES: ServiceBase[] = [
     h1: "Fotocopiadoras y Librerías Cerca de la UNNOBA Pergamino",
     intro: "Imprimir apuntes, encuadernar trabajos prácticos y comprar útiles son parte de la vida universitaria. Acá te contamos dónde encontrar los mejores precios y los horarios extendidos cerca de la facultad, especialmente en época de parciales.",
     keywords: ["fotocopiadora unnoba pergamino", "imprimir apuntes pergamino", "libreria cerca unnoba pergamino", "encuadernado pergamino universitario"],
-    priceRange: "$20 - $50 por hoja impresa",
+    priceRange: "Consultar precio por hoja y encuadernado",
     urgency: "alta",
     schemaType: "Store",
     faqs: [
-      { q: "¿Hay fotocopiadoras abiertas a la noche en Pergamino?", a: "Algunas librerías cerca de la sede tienen horario extendido hasta las 22hs en época de parciales." },
+      { q: "¿Hay fotocopiadoras abiertas a la noche en Pergamino?", a: "Algunos locales pueden extender horarios en época de parciales, pero conviene confirmar antes de ir." },
       { q: "¿Se puede encargar apuntes en formato digital?", a: "Sí, varios locales ofrecen el servicio de imprimir a partir de archivos PDF enviados por WhatsApp." },
     ],
   },
@@ -444,15 +444,15 @@ export const SERVICES: ServiceBase[] = [
     category: "servicios",
     title: "Lavanderías",
     metaTitle: "Lavanderías en Pergamino para Estudiantes | Precios 2026",
-    metaDescription: "Lavanderías cerca de la UNNOBA en Pergamino: lavado y secado por kilo con entrega en el día, desde $1.500/kg en 2026. → Encontrá la más cercana.",
+    metaDescription: "Lavanderías cerca de la UNNOBA en Pergamino: lavado, secado por kilo y entrega en el día según disponibilidad. → Encontrá la más cercana.",
     h1: "Lavanderías para Estudiantes en Pergamino",
     intro: "Si tu alojamiento no tiene lavarropas, las lavanderías de Pergamino ofrecen servicio por kilo con entrega en el mismo día o al siguiente. Conocé las más convenientes para estudiantes y los precios actualizados para 2026.",
     keywords: ["lavanderia pergamino", "lavado ropa por kilo pergamino", "lavanderia cerca unnoba pergamino", "laverap pergamino estudiante"],
-    priceRange: "$1.500 - $2.500/kg",
+    priceRange: "Consultar precio por kilo",
     urgency: "baja",
     schemaType: "LocalBusiness",
     faqs: [
-      { q: "¿Cuánto sale el lavado en lavandería en Pergamino?", a: "El precio promedio es de $1.800 a $2.200 por kilo, con entrega en el día o al día siguiente." },
+      { q: "¿Cuánto sale el lavado en lavandería en Pergamino?", a: "El valor depende del servicio por kilo, secado, planchado y urgencia. Preguntá si hay mínimo de kilos y plazo de entrega." },
     ],
   },
   {
@@ -464,11 +464,11 @@ export const SERVICES: ServiceBase[] = [
     h1: "Internet para Estudiantes en Pergamino",
     intro: "Una buena conexión a internet es esencial para estudiar, hacer trabajos prácticos y videoconferencias. En Pergamino hay varias opciones de proveedores con buena cobertura cerca de la UNNOBA. Te ayudamos a comparar antes de contratar.",
     keywords: ["internet pergamino estudiantes", "proveedores internet pergamino 2026", "contratar fibra optica pergamino", "wifi para alquiler pergamino"],
-    priceRange: "$12k - $35k/mes según velocidad",
+    priceRange: "Consultar plan y cobertura",
     urgency: "alta",
     schemaType: "LocalBusiness",
     faqs: [
-      { q: "¿Qué proveedor de internet es mejor en Pergamino?", a: "Los más usados por estudiantes son Cablevisión/Fibertel y Telecentro, con fibra óptica disponible en varias zonas." },
+      { q: "¿Qué proveedor de internet es mejor en Pergamino?", a: "Depende de la cobertura por barrio. Antes de contratar, pedí disponibilidad exacta por dirección y velocidad real ofrecida." },
       { q: "¿El WiFi suele estar incluido en los alquileres?", a: "En pensiones y residencias sí. En alquileres de departamentos generalmente va aparte." },
     ],
   },
@@ -477,15 +477,15 @@ export const SERVICES: ServiceBase[] = [
     category: "comercio",
     title: "Supermercados Económicos",
     metaTitle: "Supermercados Baratos en Pergamino para Estudiantes 2026",
-    metaDescription: "Supermercados económicos y ferias en Pergamino para estudiantes: ubicaciones, horarios y descuentos 2026. Canasta básica ~$40k/semana. → Recién Llegué.",
+    metaDescription: "Supermercados económicos, almacenes y ferias en Pergamino para estudiantes: ubicaciones, horarios y formas de ahorrar. → Recién Llegué.",
     h1: "Supermercados Económicos para Estudiantes en Pergamino",
     intro: "Hacer una buena compra semanal es clave para mantener el presupuesto universitario. En Pergamino hay supermercados de bajo costo, almacenes de barrio y ferias que ayudan a estirar el dinero, especialmente cerca de la UNNOBA.",
     keywords: ["supermercado barato pergamino", "donde hacer las compras pergamino estudiante", "feria barrial pergamino", "almacen cerca unnoba pergamino"],
-    priceRange: "Canasta básica ~$40k/semana",
+    priceRange: "Variable según compra semanal",
     urgency: "media",
     schemaType: "GroceryStore",
     faqs: [
-      { q: "¿Hay descuentos para estudiantes en supermercados de Pergamino?", a: "Algunos supermercados aceptan la tarjeta SIDECREER con descuentos del 10-15% los días de semana." },
+      { q: "¿Hay descuentos para estudiantes en supermercados de Pergamino?", a: "Puede haber promociones bancarias, billeteras virtuales o descuentos por día. Revisá condiciones vigentes antes de comprar." },
     ],
   },
   {
@@ -493,16 +493,16 @@ export const SERVICES: ServiceBase[] = [
     category: "salud",
     title: "Gimnasios y Deporte",
     metaTitle: "Gimnasios en Pergamino para Estudiantes | Precios 2026",
-    metaDescription: "Gimnasios con cuota estudiantil en Pergamino cerca de la UNNOBA. Deportes gratuitos en la facultad y opciones privadas desde $15k/mes 2026. → Registrate.",
+    metaDescription: "Gimnasios y actividades deportivas en Pergamino cerca de la UNNOBA. Opciones privadas y propuestas universitarias según disponibilidad. → Registrate.",
     h1: "Gimnasios para Estudiantes en Pergamino",
     intro: "Hacer deporte ayuda a manejar el estrés universitario. Pergamino tiene varios gimnasios con cuota estudiantil especial, y la UNNOBA ofrece actividades físicas gratuitas para sus alumnos a través de Bienestar Estudiantil.",
     keywords: ["gimnasio pergamino estudiantes", "gym cuota estudiantil pergamino", "deporte gratis unnoba pergamino", "actividad fisica pergamino universitario"],
-    priceRange: "$15k - $40k/mes",
+    priceRange: "Consultar cuota vigente",
     urgency: "baja",
     schemaType: "SportsActivityLocation",
     faqs: [
-      { q: "¿La UNNOBA tiene instalaciones deportivas?", a: "Sí, ofrece actividades gratuitas para alumnos regulares. Consultar en Bienestar Estudiantil." },
-      { q: "¿Hay descuento estudiantil en gimnasios de Pergamino?", a: "Varios gimnasios ofrecen descuentos del 20-30% presentando el certificado de alumno regular." },
+      { q: "¿La UNNOBA tiene actividades deportivas?", a: "La UNNOBA publica propuestas de extensión, bienestar y actividades para estudiantes. Conviene revisar la oferta vigente por período." },
+      { q: "¿Hay descuento estudiantil en gimnasios de Pergamino?", a: "Algunos gimnasios pueden ofrecer promociones para estudiantes, pero depende de cada local y del momento del año." },
     ],
   },
   {
@@ -518,7 +518,7 @@ export const SERVICES: ServiceBase[] = [
     urgency: "alta",
     schemaType: "Pharmacy",
     faqs: [
-      { q: "¿Cómo sé qué farmacia está de turno en Pergamino?", a: "Podés consultar en el sitio del Colegio de Farmacéuticos de Buenos Aires o llamar al 0-800." },
+      { q: "¿Cómo sé qué farmacia está de turno en Pergamino?", a: "Consultá fuentes locales actualizadas, cartelería de farmacias o canales oficiales del colegio profesional correspondiente antes de trasladarte." },
     ],
   },
   {
@@ -542,16 +542,16 @@ export const SERVICES: ServiceBase[] = [
     category: "gastronomia",
     title: "Comida Cerca de la Facultad",
     metaTitle: "Dónde Comer Cerca de la UNNOBA Pergamino | Opciones 2026",
-    metaDescription: "Los mejores lugares para almorzar cerca de la UNNOBA en Pergamino. Menú del día desde $2.500, viandas y opciones baratas para estudiantes 2026. → Registrate.",
+    metaDescription: "Lugares para almorzar cerca de la UNNOBA en Pergamino: menú del día, viandas y opciones económicas para estudiantes. → Registrate.",
     h1: "Dónde Comer Cerca de la UNNOBA en Pergamino",
     intro: "Comer bien sin gastar de más es posible cerca de la facultad. Pergamino tiene varios restaurantes, rotiserías y cantinas con menú estudiantil a precios accesibles, ideales para el descanso del mediodía entre clases.",
     keywords: ["donde comer cerca unnoba pergamino", "menu del dia pergamino estudiante", "almuerzo barato unnoba pergamino", "rotiseria cerca facultad pergamino"],
-    priceRange: "$2.500 - $5.000 menú del día",
+    priceRange: "Consultar menú del día",
     urgency: "alta",
     schemaType: "FoodEstablishment",
     faqs: [
-      { q: "¿Hay comedor universitario en la UNNOBA?", a: "Hay un espacio de comedor, aunque limitado. La mayoría de los estudiantes come en locales cercanos a la sede." },
-      { q: "¿Qué es más barato, cocinar o comer afuera en Pergamino?", a: "Cocinar en casa sigue siendo más económico, pero el menú del día en locales locales es una alternativa razonable." },
+      { q: "¿Hay becas o ayuda para comedor en la UNNOBA?", a: "La UNNOBA informa un Programa Integral de Becas que contempla opciones como comedor, transporte, bibliografía y conectividad. Consultá requisitos vigentes." },
+      { q: "¿Qué es más barato, cocinar o comer afuera en Pergamino?", a: "Cocinar suele rendir más, pero los menús del día y viandas pueden resolver jornadas largas de cursada si comparás precios y porciones." },
     ],
   },
   {
@@ -563,11 +563,11 @@ export const SERVICES: ServiceBase[] = [
     h1: "Delivery en Pergamino para Estudiantes",
     intro: "En los días de estudio intenso, parciales o cuando simplemente no querés salir, el delivery es la solución. Pergamino tiene cobertura de PedidosYa y muchos locales con envío propio vía WhatsApp a precios razonables.",
     keywords: ["delivery pergamino", "pedidosya pergamino", "comida a domicilio pergamino", "delivery barato pergamino estudiante"],
-    priceRange: "$600 - $1.500 costo de envío",
+    priceRange: "Consultar costo de envío",
     urgency: "media",
     schemaType: "FoodEstablishment",
     faqs: [
-      { q: "¿Funcionan PedidosYa o Rappi en Pergamino?", a: "PedidosYa tiene cobertura en Pergamino. Rappi tiene cobertura limitada. Muchos locales tienen WhatsApp propio." },
+      { q: "¿Funcionan apps de delivery en Pergamino?", a: "La cobertura puede variar por zona y horario. Además de apps, muchos comercios trabajan con WhatsApp o envío propio." },
     ],
   },
   {
@@ -577,13 +577,13 @@ export const SERVICES: ServiceBase[] = [
     metaTitle: "Psicólogos y Bienestar Estudiantil en Pergamino | UNNOBA",
     metaDescription: "Salud mental para estudiantes de la UNNOBA en Pergamino: psicólogos gratuitos, talleres y contención emocional. Estudiar está bueno; estar bien, más. → Registrate.",
     h1: "Psicología y Bienestar Estudiantil en Pergamino",
-    intro: "El estrés universitario es real, especialmente el primer año lejos de casa. La UNNOBA cuenta con servicios de bienestar estudiantil gratuitos, y hay psicólogos accesibles en Pergamino para acompañar el proceso con consultas privadas a precios razonables.",
+    intro: "El estrés universitario es real, especialmente el primer año lejos de casa. La UNNOBA informa un Programa de Orientación y Acompañamiento a Estudiantes, con abordaje académico y personal, y Pergamino también cuenta con profesionales privados para acompañar el proceso.",
     keywords: ["psicologo pergamino estudiantes", "salud mental unnoba pergamino", "bienestar estudiantil unnoba", "psicologia gratis universidad pergamino"],
-    priceRange: "Gratuito (UNNOBA) / $4k-$15k consulta privada",
+    priceRange: "Orientación UNNOBA / consulta privada según profesional",
     urgency: "alta",
     schemaType: "MedicalBusiness",
     faqs: [
-      { q: "¿La UNNOBA tiene servicio de psicología gratuito?", a: "Sí, Bienestar Estudiantil ofrece orientación psicológica y talleres de manejo del estrés sin costo." },
+      { q: "¿La UNNOBA tiene orientación para estudiantes?", a: "Sí. La universidad informa un Programa de Orientación y Acompañamiento a Estudiantes con profesionales de psicología y psicopedagogía." },
     ],
   },
   {
@@ -595,12 +595,12 @@ export const SERVICES: ServiceBase[] = [
     h1: "Seguro de Caución para Alquilar en Pergamino",
     intro: "No tener garante ya no es un obstáculo para alquilar. El seguro de caución es el reemplazo legal aceptado por la mayoría de los propietarios en Pergamino y se tramita online en pocas horas.",
     keywords: ["seguro caucion pergamino", "alquilar sin garante pergamino estudiante", "seguro de caucion para alquiler pergamino", "garantia alternativa alquiler pergamino"],
-    priceRange: "$15k - $30k/mes de cobertura",
+    priceRange: "Cotización según alquiler y aseguradora",
     urgency: "alta",
     schemaType: "InsuranceAgency",
     faqs: [
-      { q: "¿Cuánto cuesta un seguro de caución en Pergamino?", a: "Generalmente el 5-8% del valor del alquiler mensual. Para un alquiler de $200k serían $10k-$16k/mes." },
-      { q: "¿Todos los propietarios aceptan seguro de caución?", a: "La mayoría sí, especialmente en publicaciones de inmobiliarias. Algunos dueños directos pueden ser más reacios." },
+      { q: "¿Cuánto cuesta un seguro de caución en Pergamino?", a: "Depende del valor del alquiler, perfil del solicitante, plazo y aseguradora. Pedí cotización formal antes de firmar." },
+      { q: "¿Todos los propietarios aceptan seguro de caución?", a: "No siempre. Confirmalo con el dueño o inmobiliaria antes de iniciar la operación." },
     ],
   },
   {
@@ -608,15 +608,15 @@ export const SERVICES: ServiceBase[] = [
     category: "servicios",
     title: "Fletes y Mudanzas",
     metaTitle: "Fletes y Mudanzas en Pergamino 2026 | Para Estudiantes",
-    metaDescription: "Fletes económicos para mudarte en Pergamino: traslado de muebles y cajas desde $15k 2026. Ideal para cambiar de alojamiento entre cuatrimestres. → Registrate.",
+    metaDescription: "Fletes económicos para mudarte en Pergamino: traslado de muebles y cajas. Ideal para cambiar de alojamiento entre cuatrimestres. → Registrate.",
     h1: "Fletes y Mudanzas para Estudiantes en Pergamino",
     intro: "Para llevar tus cosas al nuevo alojamiento o cambiarte de lugar en Pergamino, hay servicios de flete accesibles con buenos precios para estudiantes. Es común cambiar de alojamiento entre cuatrimestres, y tener un flete confiable hace la diferencia.",
     keywords: ["flete pergamino estudiante", "mudanza economica pergamino 2026", "transporte muebles pergamino", "flete para cambio alquiler pergamino"],
-    priceRange: "$15k - $45k por traslado local",
+    priceRange: "Presupuesto según distancia y volumen",
     urgency: "baja",
     schemaType: "MovingCompany",
     faqs: [
-      { q: "¿Cuánto cuesta un flete dentro de Pergamino?", a: "Un flete de pocos bultos dentro de la ciudad ronda los $15.000-$25.000. Con más muebles puede llegar a $50.000." },
+      { q: "¿Cuánto cuesta un flete dentro de Pergamino?", a: "Depende de distancia, cantidad de bultos, piso, ayudantes y horario. Pedí presupuesto detallado antes de confirmar." },
     ],
   },
   {
@@ -628,11 +628,11 @@ export const SERVICES: ServiceBase[] = [
     h1: "Veterinarias en Pergamino",
     intro: "Si estudiás en Pergamino y tenés una mascota, es fundamental saber dónde acudir ante una urgencia. Pergamino tiene varias clínicas veterinarias bien equipadas, incluyendo algunas con guardia nocturna.",
     keywords: ["veterinaria pergamino", "clinica veterinaria pergamino urgencia", "veterinaria guardia nocturna pergamino", "vet barato pergamino estudiante"],
-    priceRange: "$5k - $15k consulta",
+    priceRange: "Consultar consulta y guardia",
     urgency: "media",
     schemaType: "VeterinaryCare",
     faqs: [
-      { q: "¿Hay veterinarias de urgencias en Pergamino?", a: "Sí, hay al menos 2 clínicas con guardia nocturna en Pergamino." },
+      { q: "¿Hay veterinarias de urgencias en Pergamino?", a: "Algunas veterinarias pueden atender urgencias o derivar a guardias. Confirmá teléfono, horario y disponibilidad antes de salir." },
     ],
   },
   {
@@ -640,11 +640,11 @@ export const SERVICES: ServiceBase[] = [
     category: "servicios",
     title: "Foto Carnet y Trámites",
     metaTitle: "Foto Carnet y Trámites para Estudiantes en Pergamino 2026",
-    metaDescription: "¿Ingresás a la UNNOBA? Dónde sacarte foto carnet, tramitar CIDI y obtener certificados universitarios en Pergamino 2026. → Recién Llegué te ayuda.",
+    metaDescription: "¿Ingresás a la UNNOBA? Dónde sacarte foto carnet, imprimir documentación y resolver trámites universitarios en Pergamino. → Recién Llegué te ayuda.",
     h1: "Foto Carnet y Trámites Universitarios en Pergamino",
-    intro: "Al ingresar a la UNNOBA necesitarás foto carnet, certificados de alumno regular, CIDI y otros documentos. Te decimos dónde resolver todos los trámites en Pergamino sin perder tiempo.",
-    keywords: ["foto carnet pergamino unnoba", "tramites ingresante pergamino", "certificado alumno regular unnoba pergamino", "CIDI pergamino como tramitar"],
-    priceRange: "$1.500 - $3.000 foto carnet",
+    intro: "Al ingresar a la UNNOBA podés necesitar foto carnet, impresiones, certificados y documentación para trámites académicos. Te orientamos para resolverlos en Pergamino sin perder tiempo.",
+    keywords: ["foto carnet pergamino unnoba", "tramites ingresante pergamino", "certificado alumno regular unnoba pergamino", "documentacion unnoba pergamino"],
+    priceRange: "Consultar según trámite",
     urgency: "media",
     schemaType: "GovernmentOffice",
     faqs: [
@@ -778,9 +778,14 @@ export function generateAllLandings(): GeneratedLanding[] {
 
 // ─── UTILIDADES ───────────────────────────────────────────────
 
-/** Devuelve todas las URLs generadas (útil para sitemap.xml) */
+/** Devuelve todas las URLs generadas. No usar en sitemap hasta crear rutas catch-all para barrio/modificador. */
 export function generateSitemap(): string[] {
   return generateAllLandings().map((l) => l.url);
+}
+
+/** Devuelve solo URLs que hoy tienen ruta real en App Router: /[city]/[slug] */
+export function generateBaseSitemap(): string[] {
+  return SERVICES.map((service) => `/pergamino/${service.slug}`);
 }
 
 /** Busca una landing por URL exacta */
@@ -845,9 +850,9 @@ export function getLandingStats() {
     return { props: { landing } };
   }
 
-  // Sitemap: pages/sitemap.xml.tsx
-  import { generateSitemap } from "@/data/seo-data-pergamino";
-  const urls = generateSitemap(); // → 225+ URLs
+  // Sitemap: app/sitemap.ts
+  import { generateBaseSitemap } from "@/data/seo-data";
+  const urls = generateBaseSitemap(); // URLs reales: /pergamino/[slug]
   ─────────────────────────────────────────────────────────────
 
   STATS ESPERADAS:
@@ -870,7 +875,7 @@ export const cities: Record<string, CityData> = {
     },
     details: {
       barrios: BARRIOS.map(b => b.name),
-      precioPromedio: "$150k - $220k",
+      precioPromedio: "$250k - $400k+ alquiler individual; menos compartiendo",
       zonasClave: ["Cerca de Sede Monteagudo", "Zona Terminal", "Barrio Centro"]
     },
     services: Object.fromEntries(SERVICES.map(s => [s.slug, s]))

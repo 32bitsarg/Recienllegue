@@ -3,25 +3,33 @@
 import { ChevronRight } from 'lucide-react'
 
 const FIELD_LABELS: Record<string, string> = {
-  career: 'Carrera',
-  city_origin: 'Ciudad de origen',
+  career:        'Carrera',
+  city_origin:   'Ciudad de origen',
   year_of_study: 'Año de cursada',
+  contact:       'Teléfono de contacto',
 }
 
-export default function ProfileCompleteCard({ missingFields }: { missingFields: string[] }) {
+interface ProfileCompleteCardProps {
+  missingFields: string[]
+  variant?: 'dueno'
+}
+
+export default function ProfileCompleteCard({ missingFields, variant }: ProfileCompleteCardProps) {
   if (missingFields.length === 0) return null
+
+  const isDueno = variant === 'dueno'
 
   return (
     <div
       className="app-card px-5 py-4 flex items-center justify-between gap-4"
-      style={{ borderLeft: '3px solid #0F172A' }}
+      style={{ borderLeft: `3px solid ${isDueno ? '#F59E0B' : '#0F172A'}` }}
     >
       <div className="space-y-1.5 min-w-0">
         <p className="text-[10px] font-bold uppercase tracking-wider" style={{ color: 'rgba(15,23,42,0.45)' }}>
-          Perfil incompleto
+          {isDueno ? 'Comercio incompleto' : 'Perfil incompleto'}
         </p>
         <p className="text-sm font-bold" style={{ color: '#0F172A' }}>
-          Completá tu perfil para una mejor experiencia
+          {isDueno ? 'Completá los datos de tu negocio' : 'Completá tu perfil para una mejor experiencia'}
         </p>
         <div className="flex flex-wrap gap-1.5 pt-0.5">
           {missingFields.map(field => (

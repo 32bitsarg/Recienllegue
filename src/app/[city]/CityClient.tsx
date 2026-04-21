@@ -462,31 +462,27 @@ export default function CityClient({ citySlug, city }: { citySlug: string; city:
                         </h2>
                      </div>
                      <p className="text-xs font-medium max-w-xs" style={{ color: C.muted }}>
-                        Todas las zonas con oferta de alojamiento para estudiantes
+                        Zonas útiles para comparar cercanía, transporte y servicios
                      </p>
                   </div>
 
                   <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
-                     {city.details.barrios.map((barrio, i) => {
-                        const barrioSlug = barrio.toLowerCase().replace(/\s+/g, '-').normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-                        return (
-                           <motion.a
+                     {city.details.barrios.map((barrio, i) => (
+                           <motion.div
                               key={barrio}
-                              href={`/${citySlug}/alojamiento-estudiantes/${barrioSlug}`}
                               initial={{ opacity: 0, scale: 0.96 }}
                               whileInView={{ opacity: 1, scale: 1 }}
                               viewport={{ once: true }}
                               transition={{ delay: i * 0.04 }}
-                              className="group rounded-2xl p-4 flex flex-col gap-2 transition-all hover:-translate-y-0.5"
+                              className="rounded-2xl p-4 flex flex-col gap-2"
                               style={{ background: C.surface, border: `1px solid ${C.border}` }}
                            >
                               <MapPin size={13} style={{ color: C.secondary }} />
-                              <p className="font-bold text-sm group-hover:text-[#1E3A5F] transition-colors leading-tight"
+                              <p className="font-bold text-sm leading-tight"
                                  style={{ color: C.text }}>{barrio}</p>
                               <p className="text-[10px] font-medium" style={{ color: C.muted }}>{city.name}</p>
-                           </motion.a>
-                        )
-                     })}
+                           </motion.div>
+                     ))}
                   </div>
                </div>
             </section>

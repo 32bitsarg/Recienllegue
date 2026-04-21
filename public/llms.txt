@@ -3,7 +3,7 @@
 ## Qué es este sitio
 
 Recién Llegué es una app web y PWA para estudiantes que llegan a Pergamino (Buenos Aires, Argentina) a estudiar en la UNNOBA (Universidad Nacional del Noroeste de la Provincia de Buenos Aires).
-El sitio centraliza información sobre alojamiento, transporte, comercios y eventos locales.
+El sitio centraliza guías, referencias y herramientas sobre alojamiento, transporte, comercios, servicios y comunidad local.
 
 ## Público objetivo
 
@@ -50,9 +50,9 @@ Estudiantes universitarios ingresantes y avanzados de la UNNOBA Pergamino. Jóve
 - veterinaria pergamino
 - fotocopia carnet pergamino
 
-## Barrios cubiertos
+## Zonas referenciadas
 
-- Barrio Monteagudo (2 cuadras de la Sede UNNOBA Monteagudo)
+- Barrio Monteagudo
 - Barrio Centro (zona céntrica de Pergamino)
 - Barrio Acevedo
 - Barrio Trocha
@@ -61,6 +61,8 @@ Estudiantes universitarios ingresantes y avanzados de la UNNOBA Pergamino. Jóve
 - Barrio Norte
 - Barrio Mariano Moreno
 
+Estas zonas se usan como referencia dentro de la guía de Pergamino. Actualmente no todas tienen una landing propia indexable.
+
 ## Modificadores y long-tails
 
 - barato / economico para estudiantes
@@ -68,7 +70,7 @@ Estudiantes universitarios ingresantes y avanzados de la UNNOBA Pergamino. Jóve
 - para ingresantes 2026
 - sin garantia / sin garante
 - dueño directo / sin inmobiliaria
-- precios 2026 / tarifas actualizadas
+- referencias 2026 / consultar valores vigentes
 
 ## Long-tails principales
 
@@ -111,13 +113,17 @@ Estudiantes universitarios ingresantes y avanzados de la UNNOBA Pergamino. Jóve
 - /pergamino/mudanza-flete
 - /pergamino/veterinaria
 - /pergamino/fotocopia-carnet
+## URLs de app
+
 - /app/inicio (app — dashboard principal)
-- /app/hospedajes (listado de hospedajes verificados)
+- /app/hospedajes (listado de hospedajes y opciones relevadas)
 - /app/comercios (comercios amigables para estudiantes)
 - /app/transportes (remises y transporte)
 - /app/muro (comunidad estudiantil)
 
+Las rutas /app están pensadas para uso dentro de la aplicación y pueden no estar indexadas en buscadores.
+
 ## Institución referenciada
 
 UNNOBA — Universidad Nacional del Noroeste de la Provincia de Buenos Aires
-Sede Monteagudo, Pergamino, Buenos Aires, Argentina
+Pergamino, Buenos Aires, Argentina

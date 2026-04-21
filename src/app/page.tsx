@@ -14,8 +14,6 @@ import GlobalParticles from '@/components/GlobalParticles'
 import PageTracker from '@/components/PageTracker'
 
 const SIGNUP = '/registro'
-const LOGIN = '/login'
-const APP = '/app/inicio'
 
 const C = {
   bg: '#F1F5F9',
@@ -284,15 +282,15 @@ export default function GlobalHomePage() {
                 transition={{ duration: 0.5, delay: 0.3 }}
                 className="flex flex-col gap-3"
               >
-                <a href={SIGNUP}
+                <a href="/pergamino"
                   className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl font-bold text-sm transition-all hover:scale-[1.02]"
                   style={{ background: C.mint, color: C.primary }}>
-                  Crear cuenta gratis <ArrowRight size={15} />
+                  Explorar Pergamino <ArrowRight size={15} />
                 </a>
-                <a href="/login"
+                <a href={SIGNUP}
                   className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl font-bold text-sm transition-all hover:opacity-80"
                   style={{ color: C.mint, border: '1px solid rgba(226,232,240,0.25)', background: 'rgba(226,232,240,0.08)' }}>
-                  Ingresar
+                  Crear cuenta gratis
                 </a>
               </motion.div>
               <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.55 }}
@@ -340,15 +338,15 @@ export default function GlobalHomePage() {
                   transition={{ duration: 0.5, delay: 0.28 }}
                   className="flex gap-3"
                 >
-                  <a href={SIGNUP}
+                  <a href="/pergamino"
                     className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm transition-all hover:scale-[1.02]"
                     style={{ background: C.mint, color: C.primary }}>
-                    Crear cuenta gratis <ArrowRight size={14} />
+                    Explorar Pergamino <ArrowRight size={14} />
                   </a>
-                  <a href={LOGIN}
+                  <a href={SIGNUP}
                     className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm transition-all hover:opacity-80"
                     style={{ color: C.mint, border: '1px solid rgba(226,232,240,0.22)', background: 'rgba(226,232,240,0.08)' }}>
-                    Ingresar
+                    Crear cuenta gratis
                   </a>
                 </motion.div>
                 <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}
@@ -611,10 +609,10 @@ export default function GlobalHomePage() {
                   ))}
                 </ul>
                 <div style={{ borderTop: `1px solid ${C.border}` }} className="pt-5">
-                  <a href={SIGNUP}
+                  <a href="/app/hospedajes"
                     className="w-full flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm transition-all hover:scale-[1.02]"
                     style={{ background: C.primary, color: C.mint }}>
-                    Crear cuenta gratis <ArrowRight size={14} />
+                    Buscar hospedaje <ArrowRight size={14} />
                   </a>
                 </div>
               </motion.div>
@@ -697,10 +695,10 @@ export default function GlobalHomePage() {
                     Alojamiento, transporte y servicios — todo verificado, en un solo lugar, gratis.
                   </p>
                   <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
-                    <a href={SIGNUP}
+                    <a href="/app/hospedajes"
                       className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-bold text-sm transition-all hover:scale-[1.02]"
                       style={{ background: C.mint, color: C.primary }}>
-                      Crear cuenta gratis <ArrowRight size={15} />
+                      Buscar hospedaje <ArrowRight size={15} />
                     </a>
                     <a href="/pergamino"
                       className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-bold text-sm transition-all hover:opacity-80"

@@ -77,6 +77,17 @@ export default function LoginPage() {
           >
             {loading ? 'Ingresando...' : 'Ingresar'}
           </button>
+
+          <p style={{ textAlign: 'center', marginTop: 12 }}>
+            <a
+              href="https://wa.me/5491124025239?text=Hola%2C%20no%20puedo%20acceder%20a%20mi%20cuenta"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ fontSize: 12, color: 'rgba(15,23,42,0.4)', textDecoration: 'underline' }}
+            >
+              Olvidé mi contraseña
+            </a>
+          </p>
         </form>
 
         <p className="mt-8 text-sm text-center" style={{ color: 'rgba(15,23,42,0.5)' }}>

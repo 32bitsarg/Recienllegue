@@ -24,12 +24,12 @@ const BASE_URL = 'https://recienlleguee.com.ar'
 export const metadata: Metadata = {
   title: "Recién Llegué | Tu guía para instalarte en Pergamino",
   description:
-    "Guía completa para estudiantes universitarios en Pergamino. Alojamiento verificado, transporte, comercios y comunidad estudiantil. Registrate gratis.",
+    "Guía para estudiantes universitarios en Pergamino. Alojamiento, transporte, comercios y comunidad estudiantil para comparar antes de llegar.",
   metadataBase: new URL(BASE_URL),
   alternates: { canonical: BASE_URL },
   openGraph: {
     title: "Recién Llegué | Tu guía para instalarte en Pergamino",
-    description: "Guía completa para estudiantes universitarios en Pergamino. Alojamiento verificado, transporte, comercios y comunidad estudiantil.",
+    description: "Guía para estudiantes universitarios en Pergamino. Alojamiento, transporte, comercios y comunidad estudiantil.",
     url: BASE_URL,
     siteName: 'Recién Llegué',
     locale: 'es_AR',

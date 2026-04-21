@@ -42,7 +42,9 @@ export async function register(formData: FormData) {
   const email    = formData.get('email')    as string
   const password = formData.get('password') as string
   const name     = formData.get('name')     as string | undefined
-  const role     = (formData.get('role') as string) || 'estudiante'
+  const rawRole  = (formData.get('role') as string) || 'estudiante'
+  const role     = rawRole === 'comercio' ? 'dueno' : rawRole
+  const phone    = (formData.get('phone') as string) || ''
 
   const avatarSeed = Math.random().toString(36).slice(2, 10) + Date.now().toString(36)
 
@@ -58,11 +60,11 @@ export async function register(formData: FormData) {
     career: '',
     bio: '',
     age: null,
-    contact: '',
+    contact: phone,
   }).catch(() => {})
 
   await saveSession(data)
-  redirect('/app/inicio')
+  redirect(role === 'dueno' ? '/app/perfil' : '/app/inicio')
 }
 
 export async function login(formData: FormData) {
