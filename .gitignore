@@ -45,13 +45,6 @@ yarn-error.log*
 .cache/
 dist/
 
-# next-video
-videos/*
-!videos/*.json
-!videos/*.js
-!videos/*.ts
-public/_next-video
-
 /src/generated/prisma
 
 # ide
@@ -66,6 +59,7 @@ tmp/
 ASSISTANT_NOTES.md
 .claude/
 _agent/
+docs/
 
 # local env
 .env

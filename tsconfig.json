@@ -37,12 +37,10 @@
   ],
   "exclude": [
     "node_modules",
-    "scripts",
     "tmp",
     "prisma",
     "prisma.config.ts",
     "debug_from.ts",
-    "debug_methods.ts",
-    "src/matecito/seed.ts"
+    "debug_methods.ts"
   ]
 }
