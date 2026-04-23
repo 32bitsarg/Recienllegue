@@ -124,7 +124,6 @@ public/
   firebase-messaging-sw.js
 ```
 
-<<<<<<< HEAD
 ## Current Functional Areas
 
 - `/app/inicio`
@@ -190,4 +189,3 @@ El detalle de versiones y evolución del producto está en [CHANGELOG.md](CHANGE
 ## Estado
 
 Ver [CHANGELOG.md](CHANGELOG.md).
->>>>>>> 9e7e605fbc276f187cab4cf930ef877e6f25a128
