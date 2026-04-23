@@ -4,7 +4,7 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import PublicShareButton from '@/components/PublicShareButton'
 import HeroParticles from '@/components/HeroParticles'
-import type { GrowthPage } from '@/data/public-growth-pages'
+import { getRelatedGrowthPages, type GrowthPage } from '@/data/public-growth-pages'
 
 const C = {
   bg: '#F1F5F9',
@@ -18,8 +18,29 @@ const C = {
 }
 
 export default function GrowthPageLayout({ page, canonicalPath }: { page: GrowthPage; canonicalPath: string }) {
+  const relatedPages = getRelatedGrowthPages(page.slug)
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: page.faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.q,
+      acceptedAnswer: { '@type': 'Answer', text: faq.a },
+    })),
+  }
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Recién Llegué', item: 'https://recienllegue.com' },
+      { '@type': 'ListItem', position: 2, name: 'Pergamino', item: 'https://recienllegue.com/pergamino' },
+      { '@type': 'ListItem', position: 3, name: page.h1, item: `https://recienllegue.com${canonicalPath}` },
+    ],
+  }
   return (
     <main style={{ background: C.bg, color: C.text }}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <Navbar />
 
       <section className="px-4 pt-28 sm:pt-32 pb-12">
@@ -128,6 +149,31 @@ export default function GrowthPageLayout({ page, canonicalPath }: { page: Growth
               <p className="text-base leading-relaxed" style={{ color: C.muted }}>{block.body}</p>
             </article>
           ))}
+        </div>
+      </section>
+
+      <section className="px-4 py-12">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-7">
+            <div>
+              <p className="text-[10px] font-bold uppercase tracking-[0.18em] mb-2" style={{ color: C.muted }}>Seguí explorando</p>
+              <h2 className="text-3xl font-black tracking-tight">Guías relacionadas</h2>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <Link href="/app/mapa" className="inline-flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-bold" style={{ background: '#fff', color: C.primary, border: `1px solid ${C.border}` }}>Mapa</Link>
+              <Link href="/app/comercios" className="inline-flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-bold" style={{ background: '#fff', color: C.primary, border: `1px solid ${C.border}` }}>Comercios</Link>
+              <Link href="/app/hospedajes" className="inline-flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-bold" style={{ background: '#fff', color: C.primary, border: `1px solid ${C.border}` }}>Hospedajes</Link>
+            </div>
+          </div>
+          <div className="grid md:grid-cols-3 gap-4">
+            {relatedPages.map((related) => (
+              <Link key={related.slug} href={`/pergamino/${related.slug}`} className="rounded-2xl p-6 block" style={{ background: C.surface, border: `1px solid ${C.border}`, textDecoration: 'none' }}>
+                <p className="text-[10px] font-bold uppercase tracking-[0.16em]" style={{ color: C.muted }}>Pergamino</p>
+                <h3 className="font-black text-xl mt-2 mb-2" style={{ color: C.text }}>{related.h1}</h3>
+                <p className="text-sm leading-relaxed" style={{ color: C.muted }}>{related.description}</p>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 

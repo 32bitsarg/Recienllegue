@@ -63,6 +63,7 @@ debug_*.ts
 tmp-*.ts
 tsconfig.tsbuildinfo
 tmp/
+ASSISTANT_NOTES.md
 
 # local env
 .env

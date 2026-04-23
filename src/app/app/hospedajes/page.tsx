@@ -48,6 +48,19 @@ interface Hospedaje {
   availableFrom?: string
   availableSlots?: number | null
   lastAvailabilityUpdate?: string
+  updatedAt?: string
+  createdAt?: string
+}
+
+function relativeUpdated(value?: string) {
+  if (!value) return null
+  const date = new Date(value)
+  if (Number.isNaN(date.getTime())) return null
+  const days = Math.floor((Date.now() - date.getTime()) / 86400000)
+  if (days <= 0) return 'Actualizado hoy'
+  if (days === 1) return 'Actualizado hace 1 día'
+  if (days < 30) return `Actualizado hace ${days} días`
+  return `Actualizado hace ${Math.floor(days / 30)} meses`
 }
 
 const TYPE_COLORS: Record<string, string> = {
@@ -191,6 +204,9 @@ function HospedajeCard({
               {h.availableSlots != null ? `${h.availableFrom ? ' · ' : ''}${h.availableSlots} cupo${h.availableSlots === 1 ? '' : 's'}` : ''}
               {h.lastAvailabilityUpdate ? ` · Actualizado ${new Date(h.lastAvailabilityUpdate).toLocaleDateString('es-AR')}` : ''}
             </p>
+          )}
+          {!h.lastAvailabilityUpdate && relativeUpdated(h.updatedAt || h.createdAt) && (
+            <p className="text-[11px]" style={{ color: 'var(--text-muted-soft)' }}>{relativeUpdated(h.updatedAt || h.createdAt)}</p>
           )}
         </div>
 

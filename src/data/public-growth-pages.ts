@@ -12,6 +12,25 @@ export type GrowthPage = {
   faqs: { q: string; a: string }[]
 }
 
+export function getRelatedGrowthPages(currentSlug: string, limit = 3) {
+  const current = growthPages.find((page) => page.slug === currentSlug)
+  if (!current) return growthPages.slice(0, limit)
+  const tokens = new Set(`${current.slug} ${current.title} ${current.description}`.toLowerCase().split(/[^a-z0-9áéíóúñ]+/).filter((token) => token.length > 3))
+  return growthPages
+    .filter((page) => page.slug !== currentSlug)
+    .map((page) => {
+      const haystack = `${page.slug} ${page.title} ${page.description}`.toLowerCase()
+      let score = 0
+      tokens.forEach((token) => {
+        if (haystack.includes(token)) score += 1
+      })
+      return { page, score }
+    })
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit)
+    .map((item) => item.page)
+}
+
 export const growthPages: GrowthPage[] = [
   {
     slug: 'hospedajes-estudiantes',

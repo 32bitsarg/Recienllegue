@@ -1,120 +1,180 @@
 <p align="center">
-  <img src="public/logo.svg" width="120" height="120" alt="Recién Llegué logo" />
+  <img src="public/logo.svg" width="128" height="128" alt="Recién Llegué" />
 </p>
 
 <h1 align="center">Recién Llegué</h1>
 
 <p align="center">
-  Guía práctica para estudiantes y recién llegados a Pergamino.
+  Plataforma web y PWA para ayudar a estudiantes y recién llegados a instalarse en Pergamino.
 </p>
 
-## Qué es
+<p align="center">
+  <img src="https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js" alt="Next.js 16" />
+  <img src="https://img.shields.io/badge/React-19-149ECA?style=for-the-badge&logo=react" alt="React 19" />
+  <img src="https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript" alt="TypeScript 5" />
+  <img src="https://img.shields.io/badge/PWA-ready-0F172A?style=for-the-badge" alt="PWA ready" />
+  <img src="https://img.shields.io/badge/Firebase-FCM-FFCA28?style=for-the-badge&logo=firebase&logoColor=black" alt="Firebase FCM" />
+  <img src="https://img.shields.io/badge/Leaflet-Maps-199900?style=for-the-badge&logo=leaflet&logoColor=white" alt="Leaflet" />
+</p>
 
-Recién Llegué concentra alojamiento, comercios, mapa, transporte, farmacias, muro, favoritos, alertas y panel para propietarios en una sola app web/PWA.
+## Overview
 
-Está enfocada en la llegada a Pergamino, con contexto útil para estudiantes de UNNOBA y para dueños de comercios u hospedajes que quieran publicar o reclamar su ficha.
+**Recién Llegué** centraliza la información que más impacto tiene durante la llegada a Pergamino:
 
-## Stack actual
+- hospedajes
+- comercios
+- mapa combinado
+- transporte
+- farmacias
+- muro comunitario
+- favoritos y alertas
+- panel para propietarios
+- landings SEO orientadas a búsquedas locales y a perfiles de estudiantes de UNNOBA
 
-- Next.js 16
-- React 19
-- TypeScript
-- MatecitoDB SDK v4
-- Firebase Cloud Messaging
-- Leaflet + React Leaflet
-- `@ducanh2912/next-pwa`
+El objetivo no es ser un directorio genérico. El producto está diseñado para reducir fricción en la primera etapa de instalación en la ciudad y mejorar la calidad de decisión con contexto local real.
 
-## Funcionalidades principales
+## Product Scope
 
-- Hospedajes con disponibilidad, favoritos, comparador y contacto.
-- Comercios con fichas, mapa, guardar y reclamo por propietarios.
-- Mapa combinado con hospedajes, comercios, UNNOBA, colectivos y farmacias.
-- Farmacias de turno con fallback a fuente externa.
-- Muro segmentado para comunidad.
-- Notificaciones push e inbox local.
-- Panel propietario con altas, reclamos, cambios pendientes y métricas.
-- Landings SEO programáticas para Pergamino y perfiles UNNOBA.
+### Experiencia para estudiantes
 
-## Estructura del proyecto
+- búsqueda y comparación de hospedajes
+- favoritos y notas personales
+- alertas por disponibilidad
+- comercios útiles para la vida diaria
+- fichas con mapa, contacto y estado del dato
+- mapa de referencia con capas
+- acceso rápido desde PWA
+
+### Experiencia para propietarios
+
+- carga y reclamo de comercios u hospedajes
+- actualización de datos, imágenes y disponibilidad
+- panel de seguimiento
+- flujo de revisión por admin
+
+### Experiencia para administración
+
+- gestión de hospedajes y comercios
+- revisión de reportes
+- flujos de aprobación para propietarios
+- notificaciones y mensajes destacados
+
+## Key Features
+
+### Hospedajes
+
+- disponibilidad real
+- estados visibles
+- precio, capacidad, contacto y fotos
+- comparador de opciones
+- vista interna dentro de `/app`
+
+### Comercios
+
+- fichas detalladas con ubicación y contacto
+- guardado en favoritos
+- reclamo por dueños
+- integración con mapa y páginas SEO
+
+### Calidad de datos
+
+- estado público del dato
+- timestamps visibles de actualización
+- reportes públicos en fichas
+- ownership más claro para mejorar fichas vacías o incompletas
+
+### SEO programático
+
+- landings por necesidad local
+- landings por áreas y carreras UNNOBA
+- interlinking entre landings, fichas, mapa y app
+- datos estructurados para snippets
+
+## Tech Stack
+
+| Area | Technology |
+| :--- | :--- |
+| Framework | Next.js 16 |
+| UI | React 19 |
+| Language | TypeScript |
+| Data | MatecitoDB SDK v4 |
+| Maps | Leaflet + React Leaflet |
+| Push | Firebase Cloud Messaging |
+| PWA | `@ducanh2912/next-pwa` |
+| Icons | Lucide React |
+
+## Architecture
 
 ```text
 src/
   app/
-    app/                  # App autenticada
     actions/              # Server actions
-    api/                  # Endpoints
-    [city]/[slug]/        # Landings SEO generadas
-    comercios/[id]/       # Ficha pública
-    hospedajes/[id]/      # Ficha pública
-  components/             # UI compartida
-  data/                   # SEO data y growth pages
-  hooks/                  # Hooks cliente
+    api/                  # Route handlers
+    app/                  # App autenticada
+    comercios/[id]/       # Fichas públicas
+    hospedajes/[id]/      # Fichas públicas
+    pergamino/[growthSlug]# Landings SEO
+  components/             # Componentes reutilizables
+  data/                   # Datos de SEO y growth pages
+  hooks/                  # Hooks de cliente
   lib/                    # DB, Firebase, helpers
 public/
   logo.svg
   manifest.json
   firebase-messaging-sw.js
-scripts/
-  create-owner-panel-collections.cjs
-  owner-panel.sql
-  ...scripts de seed, migración y scraping todavía útiles
 ```
 
-## Desarrollo local
+## Current Functional Areas
 
-1. Instalar dependencias:
+- `/app/inicio`
+- `/app/hospedajes`
+- `/app/comercios`
+- `/app/mapa`
+- `/app/farmacias`
+- `/app/muro`
+- `/app/favoritos`
+- `/app/alertas`
+- `/app/propietario`
+- `/app/adm/*`
 
-```bash
-npm install
-```
+## Data and Trust Layer
 
-2. Configurar variables en `.env.local`.
+Uno de los focos del proyecto es hacer visible la calidad del dato:
 
-3. Levantar desarrollo:
+- dato confirmado
+- dato publicado
+- pendiente de revisión
+- reportes públicos
+- timestamps de actualización
 
-```bash
-npm run dev
-```
+Eso permite que el usuario entienda mejor qué tan confiable es una ficha y que el propietario tenga incentivos concretos para mantenerla al día.
 
-4. Verificar antes de subir:
+## SEO and Discovery
 
-```bash
-npx tsc --noEmit
-npm run build
-```
+El crecimiento orgánico se apoya en tres grupos de páginas:
 
-## Variables sensibles
+1. landings locales por necesidad
+2. landings por barrios
+3. landings por perfiles académicos y áreas de UNNOBA
 
-No se debe subir a GitHub:
+Ejemplos:
 
-- `.env`, `.env.local` y variantes
-- service keys de MatecitoDB
-- tokens/cookies de sesión
-- credenciales privadas de Firebase Admin o cualquier private key
+- hospedajes para estudiantes
+- comercios cerca de UNNOBA
+- kioscos cerca de UNNOBA
+- panaderías en Pergamino
+- carreras UNNOBA en Pergamino
+- informática / ingeniería / diseño / salud / económicas / jurídicas
 
-Notas:
+## Product Direction
 
-- La config web pública de Firebase puede existir en cliente y en el service worker.
-- Si alguna service key quedó expuesta en scripts viejos, hay que rotarla aunque el archivo se elimine del repo actual.
+Los próximos pasos del producto están orientados a:
 
-## Scripts
+- mejorar calidad y frescura del dato
+- profundizar personalización para estudiantes
+- sumar más contexto académico útil para UNNOBA
+- cerrar mejor el loop entre búsqueda, decisión, contacto y retención
 
-Se dejaron en `scripts/` solo utilidades que todavía pueden servir para:
+## Status
 
-- crear colecciones/campos
-- seeds
-- migraciones
-- scrapers
-
-Se eliminaron scripts viejos/inseguros con claves hardcodeadas y un `package.json` aislado de `scripts/` que ya no era necesario.
-
-## Roadmap pendiente
-
-- Perfil académico UNNOBA por usuario
-- Materias, horarios y alarmas
-- Próxima clase en inicio
-- Planes de estudio conectados a experiencia diaria
-
-## Estado
-
-Ver [CHANGELOG.md](CHANGELOG.md).
+El detalle de versiones y evolución del producto está en [CHANGELOG.md](CHANGELOG.md).

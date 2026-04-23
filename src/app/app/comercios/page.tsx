@@ -39,6 +39,19 @@ interface Comercio {
   isVerified: boolean
   lat: number | null
   lng: number | null
+  updatedAt?: string
+  createdAt?: string
+}
+
+function relativeUpdated(value?: string) {
+  if (!value) return null
+  const date = new Date(value)
+  if (Number.isNaN(date.getTime())) return null
+  const days = Math.floor((Date.now() - date.getTime()) / 86400000)
+  if (days <= 0) return 'Actualizado hoy'
+  if (days === 1) return 'Actualizado hace 1 día'
+  if (days < 30) return `Actualizado hace ${days} días`
+  return `Actualizado hace ${Math.floor(days / 30)} meses`
 }
 
 interface Pagination {
@@ -216,6 +229,11 @@ function ComercioCard({
           {comercio.address && (
             <p className="text-[10px] leading-snug line-clamp-2" style={{ color: 'var(--text-muted)' }}>
               {comercio.address}
+            </p>
+          )}
+          {relativeUpdated(comercio.updatedAt || comercio.createdAt) && (
+            <p className="text-[10px]" style={{ color: 'var(--text-muted-soft)' }}>
+              {relativeUpdated(comercio.updatedAt || comercio.createdAt)}
             </p>
           )}
         </div>
