@@ -1,140 +1,120 @@
 <p align="center">
-  <img src="public/assets/icons/Iconrmbg.png" width="120" height="120" alt="Recién Llegué Logo" />
+  <img src="public/logo.svg" width="120" height="120" alt="Recién Llegué logo" />
 </p>
 
 <h1 align="center">Recién Llegué</h1>
 
 <p align="center">
-  <strong>La guía de supervivencia definitiva para el estudiante en Pergamino.</strong>
+  Guía práctica para estudiantes y recién llegados a Pergamino.
 </p>
 
-<p align="center">
-  <a href="#-tech-stack">Stack Tecnológico</a> •
-  <a href="#-características">Características</a> •
-  <a href="#-comenzando">Comenzando</a> •
-  <a href="#-arquitectura">Arquitectura</a> •
-  <a href="#-despliegue">Despliegue</a>
-</p>
+## Qué es
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js" alt="Next.js" />
-  <img src="https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react" alt="React" />
-  <img src="https://img.shields.io/badge/Prisma-7-2D3748?style=for-the-badge&logo=prisma" alt="Prisma" />
-  <img src="https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript" alt="TypeScript" />
-</p>
+Recién Llegué concentra alojamiento, comercios, mapa, transporte, farmacias, muro, favoritos, alertas y panel para propietarios en una sola app web/PWA.
 
----
+Está enfocada en la llegada a Pergamino, con contexto útil para estudiantes de UNNOBA y para dueños de comercios u hospedajes que quieran publicar o reclamar su ficha.
 
-## 🌟 Descripción
+## Stack actual
 
-**Recién Llegué** no es solo una app, es el compañero indispensable para cualquiera que llegue a Pergamino, especialmente estudiantes de la **UNNOBA**. Centraliza todo lo que necesitas saber para moverte, comer, cuidarte y vivir en la ciudad sin morir en el intento.
+- Next.js 16
+- React 19
+- TypeScript
+- MatecitoDB SDK v4
+- Firebase Cloud Messaging
+- Leaflet + React Leaflet
+- `@ducanh2912/next-pwa`
 
----
+## Funcionalidades principales
 
-## 🚀 Características
+- Hospedajes con disponibilidad, favoritos, comparador y contacto.
+- Comercios con fichas, mapa, guardar y reclamo por propietarios.
+- Mapa combinado con hospedajes, comercios, UNNOBA, colectivos y farmacias.
+- Farmacias de turno con fallback a fuente externa.
+- Muro segmentado para comunidad.
+- Notificaciones push e inbox local.
+- Panel propietario con altas, reclamos, cambios pendientes y métricas.
+- Landings SEO programáticas para Pergamino y perfiles UNNOBA.
 
-### 🚍 Movilidad Urbana
-*   **Líneas de Colectivo (A, B, C, D, E)**: Visualización de recorridos completos sobre el mapa.
-*   **KML Integration**: Rutas precisas cargadas desde archivos geográficos.
-
-### 🏥 Salud y Bienestar
-*   **Farmacias de Turno**: Información actualizada para emergencias.
-*   **Centros de Salud**: Mapa con hospitales y clínicas cercanas.
-
-### 🍕 Guía Gastronómica
-*   **Locales de Comida**: Listado curado con cálculo de distancia real (en metros y tiempo de caminata) desde las sedes de la UNNOBA.
-*   **Categorización**: Filtros por tipo de comida y valoraciones.
-
-### 🏠 Vivienda y Comunidad
-*   **Hospedajes**: Buscador de pensiones y departamentos.
-*   **Avisos Clasificados**: Espacio para compra/venta y servicios comunitarios.
-*   **Agenda Cultural**: Eventos de la ciudad sincronizados.
-
----
-
-## 🛠️ Tech Stack
-
-| Componente | Tecnología |
-| :--- | :--- |
-| **Framework** | [Next.js 15](https://nextjs.org/) (App Router) |
-| **Frontend** | React 19, Framer Motion, CSS Modules |
-| **Base de Datos** | PostgreSQL (Prisma ORM) |
-| **Mapas** | Leaflet & React Leaflet |
-| **Autenticación** | NextAuth.js |
-| **Almacenamiento** | Appwrite Storage (Imágenes) |
-| **UI Icons** | Lucide React |
-
----
-
-## 📁 Arquitectura del Proyecto
+## Estructura del proyecto
 
 ```text
-├── src/
-│   ├── app/                # Rutas y Server Actions (Lógica de servidor)
-│   │   ├── actions/        # Server Actions divididos por dominio (data, auth)
-│   │   ├── admin/          # Panel de administración
-│   │   ├── api/            # Endpoints de API (Upload, etc.)
-│   │   └── (routes)/       # Páginas públicas (mapa, transporte, avisos...)
-│   ├── components/         # Componentes de UI
-│   │   ├── desktop/        # Vistas optimizadas para Escritorio
-│   │   ├── mobile/         # Vistas optimizadas para Móvil (PWA focus)
-│   │   ├── layout/         # Navegación, Sidebars, Transiciones
-│   │   └── common/         # Componentes compartidos (Logo, Loading, etc.)
-│   ├── lib/                # Configuración de Prisma y Auth
-│   └── hooks/              # Custom hooks (scroll, drag, etc.)
-├── public/
-│   ├── assets/             # KMLs, Iconos y JSONs de datos estáticos
-│   └── manifest.json       # Configuración PWA
-├── prisma/                 # Esquema de DB y Seeds
-└── scripts/                # Herramientas de mantenimiento y scrapers
+src/
+  app/
+    app/                  # App autenticada
+    actions/              # Server actions
+    api/                  # Endpoints
+    [city]/[slug]/        # Landings SEO generadas
+    comercios/[id]/       # Ficha pública
+    hospedajes/[id]/      # Ficha pública
+  components/             # UI compartida
+  data/                   # SEO data y growth pages
+  hooks/                  # Hooks cliente
+  lib/                    # DB, Firebase, helpers
+public/
+  logo.svg
+  manifest.json
+  firebase-messaging-sw.js
+scripts/
+  create-owner-panel-collections.cjs
+  owner-panel.sql
+  ...scripts de seed, migración y scraping todavía útiles
 ```
 
----
+## Desarrollo local
 
-## ⚙️ Comenzando
+1. Instalar dependencias:
 
-### Requisitos previos
-*   **Node.js** v20 o superior.
-*   **PostgreSQL** (o una base de datos compatible con Prisma).
+```bash
+npm install
+```
 
-### Instalación Local
+2. Configurar variables en `.env.local`.
 
-1.  **Clonar y entrar**:
-    ```bash
-    git clone https://github.com/tu-usuario/recien-llegue.git
-    cd recien-llegue
-    ```
+3. Levantar desarrollo:
 
-2.  **Instalar dependencias**:
-    ```bash
-    npm install
-    ```
+```bash
+npm run dev
+```
 
-3.  **Configurar Entorno**:
-    Crea un `.env` con:
-    ```env
-    DATABASE_URL="postgresql://..."
-    NEXTAUTH_SECRET="tu_secreto"
-    APPWRITE_API_KEY="..."
-    ```
+4. Verificar antes de subir:
 
-4.  **Base de Datos**:
-    ```bash
-    npx prisma db push
-    ```
+```bash
+npx tsc --noEmit
+npm run build
+```
 
-5.  **Ejecutar**:
-    ```bash
-    npm run dev
-    ```
+## Variables sensibles
 
----
+No se debe subir a GitHub:
 
-## � PWA Ready
-Este proyecto usa `@ducanh2912/next-pwa` para ofrecer una experiencia offline y de instalación nativa. Ideal para consultar el mapa o las líneas de colectivo mientras caminas por la ciudad.
+- `.env`, `.env.local` y variantes
+- service keys de MatecitoDB
+- tokens/cookies de sesión
+- credenciales privadas de Firebase Admin o cualquier private key
 
----
+Notas:
 
-<p align="center">
-  Hecho con 💪 para los estudiantes de Pergamino.
-</p>
+- La config web pública de Firebase puede existir en cliente y en el service worker.
+- Si alguna service key quedó expuesta en scripts viejos, hay que rotarla aunque el archivo se elimine del repo actual.
+
+## Scripts
+
+Se dejaron en `scripts/` solo utilidades que todavía pueden servir para:
+
+- crear colecciones/campos
+- seeds
+- migraciones
+- scrapers
+
+Se eliminaron scripts viejos/inseguros con claves hardcodeadas y un `package.json` aislado de `scripts/` que ya no era necesario.
+
+## Roadmap pendiente
+
+- Perfil académico UNNOBA por usuario
+- Materias, horarios y alarmas
+- Próxima clase en inicio
+- Planes de estudio conectados a experiencia diaria
+
+## Estado
+
+Ver [CHANGELOG.md](CHANGELOG.md).

@@ -59,6 +59,10 @@ public/_next-video
 .idea/
 *.swp
 *.swo
+debug_*.ts
+tmp-*.ts
+tsconfig.tsbuildinfo
+tmp/
 
 # local env
 .env
